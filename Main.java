@@ -6,4 +6,3 @@ public class Main {
 		game.play();
 	}
 }
-//test test
