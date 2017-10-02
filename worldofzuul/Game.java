@@ -7,38 +7,85 @@ package worldofzuul;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
+    private Planet currentPlanet;
         
     public Game() 
     {
-        createRooms();
+        createPlanets();
         parser = new Parser();
     }
 
-    private void createRooms()
+    private void createPlanets()
     {
-        Room outside, theatre, pub, lab, office;
-      
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        Planet Center_Universe, Cleron_OR7, Scurn_01K, Hebrilles, Xehna, Gallifrey, Skaro, Orion, Deineax, Uskillon, J8_Ayrus_Z420, Amrif_Arret, New_Earth;
+        Center_Universe = new Planet("duh at the center of the universe");
+        Cleron_OR7 = new Planet("safely at Cleron_OR7");
+        Scurn_01K = new Planet("semidrunk but finally arrived at Scurn_01K");
+        Hebrilles = new Planet("safely at Hebrilles");
+        Xehna = new Planet("safely at Xehna");
+        Gallifrey = new Planet("safely at Gallifrey");
+        Skaro = new Planet("safely at Skaro");
+        Orion = new Planet("safely at Orion");
+        Deineax = new Planet("safely at Deineax");
+        Uskillon = new Planet("safely at Uskillon");
+        J8_Ayrus_Z420 = new Planet("safely at J8_Ayrus_z420");
+        Amrif_Arret = new Planet("safely at Amrif Arret");
+        New_Earth = new Planet("safely at New Earth");
 
-        theatre.setExit("west", outside);
 
-        pub.setExit("east", outside);
+        Center_Universe.setDestination("Cleron_OR7", Cleron_OR7);
+        Center_Universe.setDestination("Scurn_01K", Scurn_01K);
+        Center_Universe.setDestination("Hebrilles", Hebrilles);
+        Center_Universe.setDestination("Xehna", Xehna);
+        Center_Universe.setDestination("Gallifrey", Gallifrey);
+        Center_Universe.setDestination("Skaro", Skaro);
+        Center_Universe.setDestination("Orion", Orion);
+        Center_Universe.setDestination("Deineax", Deineax);
+        Center_Universe.setDestination("Uskillon", Uskillon);
+        Center_Universe.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
+        Center_Universe.setDestination("Amrif_Arret", Amrif_Arret);
+        Center_Universe.setDestination("New_Earth", New_Earth);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
 
-        office.setExit("west", lab);
+        Cleron_OR7.setDestination("Scurn_01K", Scurn_01K);
+        Cleron_OR7.setDestination("Hebrilles", Hebrilles);
+        Cleron_OR7.setDestination("Xehna", Xehna);
+        Cleron_OR7.setDestination("Gallifrey", Gallifrey);
+        Cleron_OR7.setDestination("Skaro", Skaro);
+        Cleron_OR7.setDestination("Orion", Orion);
+        Cleron_OR7.setDestination("Deineax", Deineax);
+        Cleron_OR7.setDestination("Uskillon", Uskillon);
+        Cleron_OR7.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
+        Cleron_OR7.setDestination("Amrif_Arret", Amrif_Arret);
+        Cleron_OR7.setDestination("New_Earth", New_Earth);
 
-        currentRoom = outside;
+        Scurn_01K.setDestination("Cleron_OR7", Cleron_OR7);
+        Scurn_01K.setDestination("Hebrilles", Hebrilles);
+        Scurn_01K.setDestination("Xehna", Xehna);
+        Scurn_01K.setDestination("Gallifrey", Gallifrey);
+        Scurn_01K.setDestination("Skaro", Skaro);
+        Scurn_01K.setDestination("Orion", Orion);
+        Scurn_01K.setDestination("Deineax", Deineax);
+        Scurn_01K.setDestination("Uskillon", Uskillon);
+        Scurn_01K.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
+        Scurn_01K.setDestination("Amrif_Arret", Amrif_Arret);
+        Scurn_01K.setDestination("New_Earth", New_Earth);
+
+        Hebrilles.setDestination("Cleron_OR7", Cleron_OR7);
+        Hebrilles.setDestination("Scurn_01K", Scurn_01K);
+        Hebrilles.setDestination("Xehna", Xehna);
+        Hebrilles.setDestination("Gallifrey", Gallifrey);
+        Hebrilles.setDestination("Skaro", Skaro);
+        Hebrilles.setDestination("Orion", Orion);
+        Hebrilles.setDestination("Deineax", Deineax);
+        Hebrilles.setDestination("Uskillon", Uskillon);
+        Hebrilles.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
+        Hebrilles.setDestination("Amrif_Arret", Amrif_Arret);
+        Hebrilles.setDestination("New_Earth", New_Earth);
+
+
+
+        currentPlanet = Center_Universe;
     }
 
     public void play() 
@@ -56,11 +103,11 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Welcome to the ridicoulous rick & morty spinoff!");
+        System.out.println("rick & morty spinoff is a new, incredibly addictive adventure game.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(currentPlanet.getLongDescription());
     }
 
     private boolean processCommand(Command command) 
@@ -78,7 +125,7 @@ public class Game
             printHelp();
         }
         else if (commandWord == CommandWord.GO) {
-            goRoom(command);
+            goPlanet(command);
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
@@ -95,7 +142,7 @@ public class Game
         parser.showCommands();
     }
 
-    private void goRoom(Command command) 
+    private void goPlanet(Command command)
     {
         if(!command.hasSecondWord()) {
             System.out.println("Go where?");
@@ -104,14 +151,14 @@ public class Game
 
         String direction = command.getSecondWord();
 
-        Room nextRoom = currentRoom.getExit(direction);
+        Planet nextPlanet = currentPlanet.getExit(direction);
 
-        if (nextRoom == null) {
+        if (nextPlanet == null) {
             System.out.println("There is no door!");
         }
         else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            currentPlanet = nextPlanet;
+            System.out.println(currentPlanet.getLongDescription());
         }
     }
 
