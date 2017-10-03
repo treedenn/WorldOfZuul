@@ -22,183 +22,180 @@ public class Game
 	/* function to create rooms */
     private void createPlanets()
     {
-        Planet Center_Universe, Cleron_OR7, Scurn_01K, Hebrilles, Xehna, Gallifrey, Skaro, Orion, Deineax, Uskillon, J8_Ayrus_Z420, Amrif_Arret, New_Earth;
-        Center_Universe = new Planet("duh at the center of the universe");
-        Cleron_OR7 = new Planet("arrived safely at Cleron_OR7");
-        Scurn_01K = new Planet("arrived safely at Scurn_01K");
-        Hebrilles = new Planet("arrived safely at Hebrilles");
-        Xehna = new Planet("arrived safely at Xehna");
-        Gallifrey = new Planet("arrived safely at Gallifrey");
-        Skaro = new Planet("arrived safely at Skaro");
-        Orion = new Planet("arrived safely at Orion");
-        Deineax = new Planet("arrived safely at Deineax");
-        Uskillon = new Planet("arrived safely at Uskillon");
-        J8_Ayrus_Z420 = new Planet("arrived safely at J8_Ayrus_z420");
-        Amrif_Arret = new Planet("arrived safely at Amrif Arret");
-        New_Earth = new Planet("arrived safely at New Earth");
+    	// TODO: maybe insert planet as a prefix to each variable?
+        Planet centerUniverse, cleronOR7, scurn01K, hebrilles, xehna, gallifrey, skaro, orion, deineax, uskillon, j8AyrusZ420, amrifArret, newEarth;
+        centerUniverse = new Planet("duh at the center of the universe"); // ~
+        cleronOR7 = new Planet("arrived safely at Cleron_OR7"); // 0
+        scurn01K = new Planet("arrived safely at Scurn_01K"); // 1
+        hebrilles = new Planet("arrived safely at Hebrilles"); // 2
+        xehna = new Planet("arrived safely at Xehna"); // 3
+        gallifrey = new Planet("arrived safely at Gallifrey"); // 4
+        skaro = new Planet("arrived safely at Skaro"); // 5
+        orion = new Planet("arrived safely at Orion"); // 6
+        deineax = new Planet("arrived safely at Deineax"); // 7
+        uskillon = new Planet("arrived safely at Uskillon"); // 8
+        j8AyrusZ420 = new Planet("arrived safely at J8_Ayrus_z420"); // 9
+        amrifArret = new Planet("arrived safely at Amrif Arret"); // 10
+        newEarth = new Planet("arrived safely at New Earth"); // 11
 
+        centerUniverse.setDestination("Cleron_OR7", cleronOR7);
+        centerUniverse.setDestination("Scurn_01K", scurn01K);
+        centerUniverse.setDestination("Hebrilles", hebrilles);
+        centerUniverse.setDestination("Xehna", xehna);
+        centerUniverse.setDestination("Gallifrey", gallifrey);
+        centerUniverse.setDestination("Skaro", skaro);
+        centerUniverse.setDestination("Orion", orion);
+        centerUniverse.setDestination("Deineax", deineax);
+        centerUniverse.setDestination("Uskillon", uskillon);
+        centerUniverse.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        centerUniverse.setDestination("Amrif_Arret", amrifArret);
+        centerUniverse.setDestination("New_Earth", newEarth);
 
-        Center_Universe.setDestination("Cleron_OR7", Cleron_OR7);
-        Center_Universe.setDestination("Scurn_01K", Scurn_01K);
-        Center_Universe.setDestination("Hebrilles", Hebrilles);
-        Center_Universe.setDestination("Xehna", Xehna);
-        Center_Universe.setDestination("Gallifrey", Gallifrey);
-        Center_Universe.setDestination("Skaro", Skaro);
-        Center_Universe.setDestination("Orion", Orion);
-        Center_Universe.setDestination("Deineax", Deineax);
-        Center_Universe.setDestination("Uskillon", Uskillon);
-        Center_Universe.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Center_Universe.setDestination("Amrif_Arret", Amrif_Arret);
-        Center_Universe.setDestination("New_Earth", New_Earth);
+        cleronOR7.setDestination("Scurn_01K", scurn01K);
+        cleronOR7.setDestination("Hebrilles", hebrilles);
+        cleronOR7.setDestination("Xehna", xehna);
+        cleronOR7.setDestination("Gallifrey", gallifrey);
+        cleronOR7.setDestination("Skaro", skaro);
+        cleronOR7.setDestination("Orion", orion);
+        cleronOR7.setDestination("Deineax", deineax);
+        cleronOR7.setDestination("Uskillon", uskillon);
+        cleronOR7.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        cleronOR7.setDestination("Amrif_Arret", amrifArret);
+        cleronOR7.setDestination("New_Earth", newEarth);
 
+        scurn01K.setDestination("Cleron_OR7", cleronOR7);
+        scurn01K.setDestination("Hebrilles", hebrilles);
+        scurn01K.setDestination("Xehna", xehna);
+        scurn01K.setDestination("Gallifrey", gallifrey);
+        scurn01K.setDestination("Skaro", skaro);
+        scurn01K.setDestination("Orion", orion);
+        scurn01K.setDestination("Deineax", deineax);
+        scurn01K.setDestination("Uskillon", uskillon);
+        scurn01K.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        scurn01K.setDestination("Amrif_Arret", amrifArret);
+        scurn01K.setDestination("New_Earth", newEarth);
 
-        Cleron_OR7.setDestination("Scurn_01K", Scurn_01K);
-        Cleron_OR7.setDestination("Hebrilles", Hebrilles);
-        Cleron_OR7.setDestination("Xehna", Xehna);
-        Cleron_OR7.setDestination("Gallifrey", Gallifrey);
-        Cleron_OR7.setDestination("Skaro", Skaro);
-        Cleron_OR7.setDestination("Orion", Orion);
-        Cleron_OR7.setDestination("Deineax", Deineax);
-        Cleron_OR7.setDestination("Uskillon", Uskillon);
-        Cleron_OR7.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Cleron_OR7.setDestination("Amrif_Arret", Amrif_Arret);
-        Cleron_OR7.setDestination("New_Earth", New_Earth);
+        hebrilles.setDestination("Cleron_OR7", cleronOR7);
+        hebrilles.setDestination("Scurn_01K", scurn01K);
+        hebrilles.setDestination("Xehna", xehna);
+        hebrilles.setDestination("Gallifrey", gallifrey);
+        hebrilles.setDestination("Skaro", skaro);
+        hebrilles.setDestination("Orion", orion);
+        hebrilles.setDestination("Deineax", deineax);
+        hebrilles.setDestination("Uskillon", uskillon);
+        hebrilles.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        hebrilles.setDestination("Amrif_Arret", amrifArret);
+        hebrilles.setDestination("New_Earth", newEarth);
 
-        Scurn_01K.setDestination("Cleron_OR7", Cleron_OR7);
-        Scurn_01K.setDestination("Hebrilles", Hebrilles);
-        Scurn_01K.setDestination("Xehna", Xehna);
-        Scurn_01K.setDestination("Gallifrey", Gallifrey);
-        Scurn_01K.setDestination("Skaro", Skaro);
-        Scurn_01K.setDestination("Orion", Orion);
-        Scurn_01K.setDestination("Deineax", Deineax);
-        Scurn_01K.setDestination("Uskillon", Uskillon);
-        Scurn_01K.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Scurn_01K.setDestination("Amrif_Arret", Amrif_Arret);
-        Scurn_01K.setDestination("New_Earth", New_Earth);
+        xehna.setDestination("Cleron_OR7", cleronOR7);
+        xehna.setDestination("Scurn_01K", scurn01K);
+        xehna.setDestination("Hebrilles", hebrilles);
+        xehna.setDestination("Gallifrey", gallifrey);
+        xehna.setDestination("Skaro", skaro);
+        xehna.setDestination("Orion", orion);
+        xehna.setDestination("Deineax", deineax);
+        xehna.setDestination("Uskillon", uskillon);
+        xehna.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        xehna.setDestination("Amrif_Arret", amrifArret);
+        xehna.setDestination("New_Earth", newEarth);
 
-        Hebrilles.setDestination("Cleron_OR7", Cleron_OR7);
-        Hebrilles.setDestination("Scurn_01K", Scurn_01K);
-        Hebrilles.setDestination("Xehna", Xehna);
-        Hebrilles.setDestination("Gallifrey", Gallifrey);
-        Hebrilles.setDestination("Skaro", Skaro);
-        Hebrilles.setDestination("Orion", Orion);
-        Hebrilles.setDestination("Deineax", Deineax);
-        Hebrilles.setDestination("Uskillon", Uskillon);
-        Hebrilles.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Hebrilles.setDestination("Amrif_Arret", Amrif_Arret);
-        Hebrilles.setDestination("New_Earth", New_Earth);
+        gallifrey.setDestination("Cleron_OR7", cleronOR7);
+        gallifrey.setDestination("Scurn_01K", scurn01K);
+        gallifrey.setDestination("Hebrilles", hebrilles);
+        gallifrey.setDestination("Xehna", xehna);
+        gallifrey.setDestination("Skaro", skaro);
+        gallifrey.setDestination("Orion", orion);
+        gallifrey.setDestination("Deineax", deineax);
+        gallifrey.setDestination("Uskillon", uskillon);
+        gallifrey.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        gallifrey.setDestination("Amrif_Arret", amrifArret);
+        gallifrey.setDestination("New_Earth", newEarth);
 
-        Xehna.setDestination("Cleron_OR7", Cleron_OR7);
-        Xehna.setDestination("Scurn_01K", Scurn_01K);
-        Xehna.setDestination("Hebrilles", Hebrilles);
-        Xehna.setDestination("Gallifrey", Gallifrey);
-        Xehna.setDestination("Skaro", Skaro);
-        Xehna.setDestination("Orion", Orion);
-        Xehna.setDestination("Deineax", Deineax);
-        Xehna.setDestination("Uskillon", Uskillon);
-        Xehna.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Xehna.setDestination("Amrif_Arret", Amrif_Arret);
-        Xehna.setDestination("New_Earth", New_Earth);
+        skaro.setDestination("Cleron_OR7", cleronOR7);
+        skaro.setDestination("Scurn_01K", scurn01K);
+        skaro.setDestination("Hebrilles", hebrilles);
+        skaro.setDestination("Xehna", xehna);
+        skaro.setDestination("Gallifrey", gallifrey);
+        skaro.setDestination("Orion", orion);
+        skaro.setDestination("Deineax", deineax);
+        skaro.setDestination("Uskillon", uskillon);
+        skaro.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        skaro.setDestination("Amrif_Arret", amrifArret);
+        skaro.setDestination("New_Earth", newEarth);
 
-        Gallifrey.setDestination("Cleron_OR7", Cleron_OR7);
-        Gallifrey.setDestination("Scurn_01K", Scurn_01K);
-        Gallifrey.setDestination("Hebrilles", Hebrilles);
-        Gallifrey.setDestination("Xehna", Xehna);
-        Gallifrey.setDestination("Skaro", Skaro);
-        Gallifrey.setDestination("Orion", Orion);
-        Gallifrey.setDestination("Deineax", Deineax);
-        Gallifrey.setDestination("Uskillon", Uskillon);
-        Gallifrey.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Gallifrey.setDestination("Amrif_Arret", Amrif_Arret);
-        Gallifrey.setDestination("New_Earth", New_Earth);
+        orion.setDestination("Cleron_OR7", cleronOR7);
+        orion.setDestination("Scurn_01K", scurn01K);
+        orion.setDestination("Hebrilles", hebrilles);
+        orion.setDestination("Xehna", xehna);
+        orion.setDestination("Gallifrey", gallifrey);
+        orion.setDestination("Skaro", skaro);
+        orion.setDestination("Deineax", deineax);
+        orion.setDestination("Uskillon", uskillon);
+        orion.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        orion.setDestination("Amrif_Arret", amrifArret);
+        orion.setDestination("New_Earth", newEarth);
 
-        Skaro.setDestination("Cleron_OR7", Cleron_OR7);
-        Skaro.setDestination("Scurn_01K", Scurn_01K);
-        Skaro.setDestination("Hebrilles", Hebrilles);
-        Skaro.setDestination("Xehna", Xehna);
-        Skaro.setDestination("Gallifrey", Gallifrey);
-        Skaro.setDestination("Orion", Orion);
-        Skaro.setDestination("Deineax", Deineax);
-        Skaro.setDestination("Uskillon", Uskillon);
-        Skaro.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Skaro.setDestination("Amrif_Arret", Amrif_Arret);
-        Skaro.setDestination("New_Earth", New_Earth);
+        deineax.setDestination("Cleron_OR7", cleronOR7);
+        deineax.setDestination("Scurn_01K", scurn01K);
+        deineax.setDestination("Hebrilles", hebrilles);
+        deineax.setDestination("Xehna", xehna);
+        deineax.setDestination("Gallifrey", gallifrey);
+        deineax.setDestination("Skaro", skaro);
+        deineax.setDestination("Orion", orion);
+        deineax.setDestination("Uskillon", uskillon);
+        deineax.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        deineax.setDestination("Amrif_Arret", amrifArret);
+        deineax.setDestination("New_Earth", newEarth);
 
-        Orion.setDestination("Cleron_OR7", Cleron_OR7);
-        Orion.setDestination("Scurn_01K", Scurn_01K);
-        Orion.setDestination("Hebrilles", Hebrilles);
-        Orion.setDestination("Xehna", Xehna);
-        Orion.setDestination("Gallifrey", Gallifrey);
-        Orion.setDestination("Skaro", Skaro);
-        Orion.setDestination("Deineax", Deineax);
-        Orion.setDestination("Uskillon", Uskillon);
-        Orion.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Orion.setDestination("Amrif_Arret", Amrif_Arret);
-        Orion.setDestination("New_Earth", New_Earth);
+        uskillon.setDestination("Cleron_OR7", cleronOR7);
+        uskillon.setDestination("Scurn_01K", scurn01K);
+        uskillon.setDestination("Hebrilles", hebrilles);
+        uskillon.setDestination("Xehna", xehna);
+        uskillon.setDestination("Gallifrey", gallifrey);
+        uskillon.setDestination("Skaro", skaro);
+        uskillon.setDestination("Orion", orion);
+        uskillon.setDestination("Deineax", deineax);
+        uskillon.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        uskillon.setDestination("Amrif_Arret", amrifArret);
+        uskillon.setDestination("New_Earth", newEarth);
 
-        Deineax.setDestination("Cleron_OR7", Cleron_OR7);
-        Deineax.setDestination("Scurn_01K", Scurn_01K);
-        Deineax.setDestination("Hebrilles", Hebrilles);
-        Deineax.setDestination("Xehna", Xehna);
-        Deineax.setDestination("Gallifrey", Gallifrey);
-        Deineax.setDestination("Skaro", Skaro);
-        Deineax.setDestination("Orion", Orion);
-        Deineax.setDestination("Uskillon", Uskillon);
-        Deineax.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Deineax.setDestination("Amrif_Arret", Amrif_Arret);
-        Deineax.setDestination("New_Earth", New_Earth);
+        j8AyrusZ420.setDestination("Cleron_OR7", cleronOR7);
+        j8AyrusZ420.setDestination("Scurn_01K", scurn01K);
+        j8AyrusZ420.setDestination("Hebrilles", hebrilles);
+        j8AyrusZ420.setDestination("Xehna", xehna);
+        j8AyrusZ420.setDestination("Gallifrey", gallifrey);
+        j8AyrusZ420.setDestination("Skaro", skaro);
+        j8AyrusZ420.setDestination("Orion", orion);
+        j8AyrusZ420.setDestination("Deineax", deineax);
+        j8AyrusZ420.setDestination("Uskillon", uskillon);
+        j8AyrusZ420.setDestination("Amrif_Arret", amrifArret);
+        j8AyrusZ420.setDestination("New_Earth", newEarth);
 
-        Uskillon.setDestination("Cleron_OR7", Cleron_OR7);
-        Uskillon.setDestination("Scurn_01K", Scurn_01K);
-        Uskillon.setDestination("Hebrilles", Hebrilles);
-        Uskillon.setDestination("Xehna", Xehna);
-        Uskillon.setDestination("Gallifrey", Gallifrey);
-        Uskillon.setDestination("Skaro", Skaro);
-        Uskillon.setDestination("Orion", Orion);
-        Uskillon.setDestination("Deineax", Deineax);
-        Uskillon.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Uskillon.setDestination("Amrif_Arret", Amrif_Arret);
-        Uskillon.setDestination("New_Earth", New_Earth);
+        amrifArret.setDestination("Cleron_OR7", cleronOR7);
+        amrifArret.setDestination("Scurn_01K", scurn01K);
+        amrifArret.setDestination("Hebrilles", hebrilles);
+        amrifArret.setDestination("Xehna", xehna);
+        amrifArret.setDestination("Gallifrey", gallifrey);
+        amrifArret.setDestination("Skaro", skaro);
+        amrifArret.setDestination("Orion", orion);
+        amrifArret.setDestination("Deineax", deineax);
+        amrifArret.setDestination("Uskillon", uskillon);
+        amrifArret.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        amrifArret.setDestination("New_Earth", newEarth);
 
-        J8_Ayrus_Z420.setDestination("Cleron_OR7", Cleron_OR7);
-        J8_Ayrus_Z420.setDestination("Scurn_01K", Scurn_01K);
-        J8_Ayrus_Z420.setDestination("Hebrilles", Hebrilles);
-        J8_Ayrus_Z420.setDestination("Xehna", Xehna);
-        J8_Ayrus_Z420.setDestination("Gallifrey", Gallifrey);
-        J8_Ayrus_Z420.setDestination("Skaro", Skaro);
-        J8_Ayrus_Z420.setDestination("Orion", Orion);
-        J8_Ayrus_Z420.setDestination("Deineax", Deineax);
-        J8_Ayrus_Z420.setDestination("Uskillon", Uskillon);
-        J8_Ayrus_Z420.setDestination("Amrif_Arret", Amrif_Arret);
-        J8_Ayrus_Z420.setDestination("New_Earth", New_Earth);
+        newEarth.setDestination("Cleron_OR7", cleronOR7);
+        newEarth.setDestination("Scurn_01K", scurn01K);
+        newEarth.setDestination("Hebrilles", hebrilles);
+        newEarth.setDestination("Xehna", xehna);
+        newEarth.setDestination("Gallifrey", gallifrey);
+        newEarth.setDestination("Skaro", skaro);
+        newEarth.setDestination("Orion", orion);
+        newEarth.setDestination("Deineax", deineax);
+        newEarth.setDestination("Uskillon", uskillon);
+        newEarth.setDestination("J8_Ayrus_Z420", j8AyrusZ420);
+        newEarth.setDestination("Amrif_Arret", amrifArret);
 
-        Amrif_Arret.setDestination("Cleron_OR7", Cleron_OR7);
-        Amrif_Arret.setDestination("Scurn_01K", Scurn_01K);
-        Amrif_Arret.setDestination("Hebrilles", Hebrilles);
-        Amrif_Arret.setDestination("Xehna", Xehna);
-        Amrif_Arret.setDestination("Gallifrey", Gallifrey);
-        Amrif_Arret.setDestination("Skaro", Skaro);
-        Amrif_Arret.setDestination("Orion", Orion);
-        Amrif_Arret.setDestination("Deineax", Deineax);
-        Amrif_Arret.setDestination("Uskillon", Uskillon);
-        Amrif_Arret.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        Amrif_Arret.setDestination("New_Earth", New_Earth);
-
-        New_Earth.setDestination("Cleron_OR7", Cleron_OR7);
-        New_Earth.setDestination("Scurn_01K", Scurn_01K);
-        New_Earth.setDestination("Hebrilles", Hebrilles);
-        New_Earth.setDestination("Xehna", Xehna);
-        New_Earth.setDestination("Gallifrey", Gallifrey);
-        New_Earth.setDestination("Skaro", Skaro);
-        New_Earth.setDestination("Orion", Orion);
-        New_Earth.setDestination("Deineax", Deineax);
-        New_Earth.setDestination("Uskillon", Uskillon);
-        New_Earth.setDestination("J8_Ayrus_Z420", J8_Ayrus_Z420);
-        New_Earth.setDestination("Amrif_Arret", Amrif_Arret);
-
-
-
-        currentPlanet = Center_Universe;
+        currentPlanet = centerUniverse;
     }
 
 	/* function to begin game */
