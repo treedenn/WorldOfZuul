@@ -7,10 +7,13 @@ import java.util.HashMap;
  * @version 2006.03.30
  */
 
+/* class to wrap all the commands together */
 public class CommandWords
 {
+    /* variable to hold all the commands */
     private HashMap<String, CommandWord> validCommands;
 
+    /* constructor, that inits every word into the variable */
     public CommandWords()
     {
         validCommands = new HashMap<String, CommandWord>();
@@ -21,6 +24,7 @@ public class CommandWords
         }
     }
 
+    /* function to obtain the CommandWord instance from command word */
     public CommandWord getCommandWord(String commandWord)
     {
         CommandWord command = validCommands.get(commandWord);
@@ -31,13 +35,15 @@ public class CommandWords
             return CommandWord.UNKNOWN;
         }
     }
-    
+
+    /* function to see if the input is a command */
     public boolean isCommand(String aString)
     {
         return validCommands.containsKey(aString);
     }
 
-    public void showAll() 
+    /* function to show all the possible commands */
+    public void showAll()
     {
         for(String command : validCommands.keySet()) {
             System.out.print(command + "  ");

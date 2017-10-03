@@ -4,17 +4,22 @@ package worldofzuul;
  * @author  Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
+
+/* constructor for game class */
 public class Game 
 {
-    private Parser parser;
+	/* constructor for game class */
+	private Parser parser;
     private Planet currentPlanet;
-        
+
+	/* constructor for game class */
     public Game() 
     {
         createPlanets();
         parser = new Parser();
     }
 
+	/* function to create rooms */
     private void createPlanets()
     {
         Planet Center_Universe, Cleron_OR7, Scurn_01K, Hebrilles, Xehna, Gallifrey, Skaro, Orion, Deineax, Uskillon, J8_Ayrus_Z420, Amrif_Arret, New_Earth;
@@ -196,6 +201,7 @@ public class Game
         currentPlanet = Center_Universe;
     }
 
+	/* function to begin game */
     public void play() 
     {            
         printWelcome();
@@ -208,6 +214,7 @@ public class Game
         System.out.println("Thank you for playing.  Good bye.");
     }
 
+	/* function to print a welcome message */
     private void printWelcome()
     {
         System.out.println();
@@ -218,7 +225,8 @@ public class Game
         System.out.println(currentPlanet.getLongDescription());
     }
 
-    private boolean processCommand(Command command) 
+	/* function containing the actions of a command */
+    private boolean processCommand(Command command)
     {
         boolean wantToQuit = false;
 
@@ -241,6 +249,7 @@ public class Game
         return wantToQuit;
     }
 
+	/* function to print the help section */
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
@@ -250,6 +259,7 @@ public class Game
         parser.showCommands();
     }
 
+	/* function to replace the current room by it exits */
     private void goPlanet(Command command)
     {
         if(!command.hasSecondWord()) {
@@ -270,6 +280,7 @@ public class Game
         }
     }
 
+    /* function to exit? */
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
