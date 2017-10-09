@@ -1,7 +1,9 @@
 package worldofzuul;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * @author  Michael Kolling and David J. Barnes
@@ -9,22 +11,25 @@ import java.util.HashMap;
  */
 
 /* class for a planet */
-public class Planet
-{
+public class Planet {
     /* variables for the room class */
+    private String name;
     private String description;
-    private HashMap<String, Planet> exits;
+    private Map<String, Planet> exits;
 
     /* constructor for the room class */
-    public Planet(String description)
-    {
+    public Planet(String name, String description) {
+        this.name = name;
         this.description = description;
-        exits = new HashMap<String, Planet>();
+        exits = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    }
+
+    public String getName() {
+        return name;
     }
 
     /* function to set/add an exit to the room */
-    public void setDestination(String direction, Planet neighbor)
-    {
+    public void setDestination(String direction, Planet neighbor) {
         exits.put(direction, neighbor);
     }
 
