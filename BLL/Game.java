@@ -1,4 +1,9 @@
-package worldofzuul;
+package BLL;
+import UI.commands.Command;
+import UI.commands.CommandWord;
+import UI.commands.Parser;
+import DAL.Planet;
+
 import java.util.Scanner;
 /**
  * @author  Michael Kolling and David J. Barnes

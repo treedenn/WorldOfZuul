@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldofzuul;
+package DAL.item;
 
 /**
- *
+ * It is used for seperating items that is pickupable.
  * @author farti
  */
-public class Item {
-    
+public interface Pickupable {
+
 }

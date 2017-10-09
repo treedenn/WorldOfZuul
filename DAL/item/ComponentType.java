@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldofzuul;
+package DAL.item;
 
 /**
- * It is used for seperating items that is pickupable.
+ * It categorizes the component to a type.
  * @author farti
  */
-public interface Pickupable {
+public enum ComponentType {
+LIQUID, CANISTER, CPU, GEARS;
 
 }

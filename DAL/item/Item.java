@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldofzuul;
+package DAL.item;
 
 /**
- * It categorizes the component to a type.
+ *
  * @author farti
  */
-public enum ComponentType {
-LIQUID, CANISTER, CPU, GEARS;
-
+public class Item {
+    
 }

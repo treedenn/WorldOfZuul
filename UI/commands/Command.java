@@ -1,4 +1,4 @@
-package worldofzuul;
+package UI.commands;
 
 /**
  * @author  Michael Kolling and David J. Barnes

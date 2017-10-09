@@ -1,4 +1,4 @@
-package worldofzuul;
+package UI.commands;
 
 import java.util.Scanner;
 
