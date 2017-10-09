@@ -1,8 +1,8 @@
 package DAL;
 
 import DAL.item.Component;
+import DAL.item.ItemRegister;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Recipe {
@@ -15,19 +15,8 @@ public class Recipe {
 
     }
 
-/*
-    public static ArrayList<Component> gearComponent = new ArrayList<>();
-    public static ArrayList<Component> canisterComponent = new ArrayList<>();
-    public static ArrayList<Component> cpuComponent = new ArrayList<>();
-    public static ArrayList<Component> liqiuidComponent = new ArrayList<>();
-
-    */
-
-
-
-
-    public String[] examineRecipe{
-
+    public Component[] pickRequiredComponent(ItemRegister r){
+        return clues;
     }
 
     /**
