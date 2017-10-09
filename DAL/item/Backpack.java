@@ -119,7 +119,7 @@ public class Backpack {
 
     /**
      * Sets the maxCapacity variable
-     * @param integer
+     * @param maxCapacity   datatype: int
      */
     public void setMaxCapacity(int maxCapacity) {
         this.maxCapacity = maxCapacity;
