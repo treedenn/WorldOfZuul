@@ -14,14 +14,26 @@ LIQUID, CANISTER, CPU, GEAR;
 
 	private String type;
 
+	/**
+	 * Constructor
+	 * @param type
+	 */
 	ComponentType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * Gets the ComponentType.
+	 * @return the ComponentType of instance.
+	 */
 	public ComponentType getComponentType() {
 		return this;
 	}
 
+	/**
+	 * Gets the 'correct' type/name as a String.
+	 * @return the text from the enum, with correct capitals.
+	 */
 	public String getType() {
 		return type;
 	}
