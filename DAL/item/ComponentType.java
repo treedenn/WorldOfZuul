@@ -10,7 +10,7 @@ package DAL.item;
  * @author farti
  */
 public enum ComponentType {
-LIQUID, CANISTER, CPU, GEAR;
+	LIQUID("Portal Liquid"), CANISTER("Liquid Canister"), CPU("CPU"), GEARS("Gears");
 
 	private String type;
 
