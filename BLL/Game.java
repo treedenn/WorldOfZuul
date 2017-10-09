@@ -104,28 +104,8 @@ public class Game
             printHelp();
         }
         else if (commandWord == CommandWord.GO) {
-            String answer=null;
-            String[] play=new String[5];
-            System.out.println("While flying you found the gas station");
-            System.out.println("Would you like to play a quiz for a chance to win som gas");
-            System.out.println("Enter Y/N");
-            Scanner input=new Scanner(System.in);
-            answer=input.nextLine();
-            if (answer.equalsIgnoreCase("y")){
-                play=new String[5];
-                play[0]="Which is not a operating System?";
-                String userSelect1=play[0];
-                if(userSelect1==play[0]){
-                    System.out.println(play[0]);
-                    System.out.println("A. Windows.");
-                    System.out.println("B. Linux");
-                    System.out.println("C. Java");
-                    System.out.println();
-                    System.out.println("Your answer:");
-                    String uSelect1=input.next();
-                    uSelect1.toUpperCase();
-                }
-                }
+            
+                
                     goPlanet(command);
             
         }
