@@ -5,4 +5,5 @@ package DAL.item;
  * * @author farti
  */
 public interface Examinable {
+    String[] examine();
 }
