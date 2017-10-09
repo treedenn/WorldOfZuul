@@ -10,6 +10,6 @@ package DAL.item;
  * @author farti
  */
 public enum ComponentType {
-LIQUID, CANISTER, CPU, GEARS;
+LIQUID, CANISTER, CPU, GEAR;
 
 }
