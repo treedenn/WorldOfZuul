@@ -6,22 +6,43 @@
 package worldofzuul;
 
 /**
- *
+ * This Class extends item to create a component for the game.
+ * It is used for the portal gun.
  * @author farti
  */
-public class Component extends Item {
+public class Component extends Item implements Pickupable {
     ComponentType componentType;
-    public Component(ComponentType componentType){
-        this.componentType=componentType;
-        
-    }
+  
+    /**
+     * Constructor for component.
+     * @param name name of component.
+     * @param description Description of component.
+     * @param quantity Quantity of component.
+     * @param componentType CompoentType of component
+     */
     public Component(String name, String description, int quantity, ComponentType componentType){
         super(name, description, quantity);
         this.componentType=componentType;
     }
+    
+     /**
+     * Constructor for component.
+     * @param name name of component.
+     * @param description Description of component.
+     * @param componentType CompoentType of component
+     */
     public Component(String name, String description, ComponentType componentType){
         this(name, description,1,componentType);
     }
+    
+      /**
+     * Constructor for component.
+     * @param name name of component.
+     * @param componentType CompoentType of component
+     */
     public Component(String name, ComponentType componentType){
         this(name,"",1,componentType);
+    }
+
+    
 }

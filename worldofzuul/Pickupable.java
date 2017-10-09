@@ -6,9 +6,9 @@
 package worldofzuul;
 
 /**
- *
+ * It is used for seperating items that is pickupable.
  * @author farti
  */
 public interface Pickupable {
-    
+
 }
