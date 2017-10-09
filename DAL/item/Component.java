@@ -10,7 +10,7 @@ package DAL.item;
  * It is used for the portal gun.
  * @author farti
  */
-public class Component extends Item implements Pickupable {
+public class Component extends Item implements Pickupable, Examinable {
     ComponentType componentType;
   
     /**
