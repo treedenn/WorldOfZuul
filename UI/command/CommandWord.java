@@ -1,4 +1,4 @@
-package UI.commands;
+package UI.command;
 
 /**
  * @author Michael Kolling and David J. Barnes
@@ -6,10 +6,9 @@ package UI.commands;
  */
 
 /* enum class for all the commands */
-public enum CommandWord
-{
+public enum CommandWord {
     /* command enums with their keyword */
-    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?");
+    SEARCH("search"), BACKPACK("backpack"), DROP("drop"), PICKUP("pickup"), GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?");
 
     /* stores the keyword */
     private String commandString;
