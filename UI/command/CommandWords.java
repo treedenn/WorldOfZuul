@@ -1,5 +1,6 @@
-package UI.commands;
+package UI.command;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -42,12 +43,13 @@ public class CommandWords
         return validCommands.containsKey(aString);
     }
 
-    /* function to show all the possible commands */
-    public void showAll()
+    /* function to get all the possible commands */
+    public String[] getAllCommands()
     {
-        for(String command : validCommands.keySet()) {
-            System.out.print(command + "  ");
-        }
-        System.out.println();
+        ArrayList<String> commands = new ArrayList<>(validCommands.size());
+
+        commands.addAll(validCommands.keySet());
+
+        return commands.toArray(new String[commands.size()]);
     }
 }

@@ -1,160 +1,307 @@
 package BLL;
-import UI.commands.Command;
-import UI.commands.CommandWord;
-import UI.commands.Parser;
-import DAL.Planet;
 
-import java.util.Scanner;
-/**
- * @author  Michael Kolling and David J. Barnes
- * @version 2006.03.30
- */
+import DAL.Model;
+import DAL.character.player.Backpack;
+import DAL.character.player.Player;
+import DAL.item.ItemStack;
+import DAL.world.Planet;
+import UI.command.Command;
+import UI.command.CommandWord;
+import UI.ConsoleView;
 
-/* constructor for game class */
-public class Game 
-{
-	/* constructor for game class */
-	private Parser parser;
-    private Planet currentPlanet;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
-	/* constructor for game class */
-    public Game() 
-    {
-        createPlanets();
-        parser = new Parser();
-    }
+public class Game {
+	private ConsoleView view;
+	private Model model;
 
-    /* function to create rooms */
-    private void createPlanets()
-    {
-        Planet centerUniverse, cleronOR7, scurn01K, hebrilles, xehna, gallifrey, skaro,
-                orion, deineax, uskillon, j8AyrusZ420, amrifArret, newEarth;
-
-        centerUniverse = new Planet("Center of the Universe","duh at the center of the universe"); // ~
-        cleronOR7 = new Planet("Cleron OR7","arrived safely at Cleron_OR7"); // 0
-        scurn01K = new Planet("Scurn 01K","arrived safely at Scurn_01K"); // 1
-        hebrilles = new Planet("Hebrilles","arrived safely at Hebrilles"); // 2
-        xehna = new Planet("Xehna","arrived safely at Xehna"); // 3
-        gallifrey = new Planet("Gallifrey","arrived safely at Gallifrey"); // 4
-        skaro = new Planet("Skaro","arrived safely at Skaro"); // 5
-        orion = new Planet("Orion","arrived safely at Orion"); // 6
-        deineax = new Planet("Deineax","arrived safely at Deineax"); // 7
-        uskillon = new Planet("Uskillon","arrived safely at Uskillon"); // 8
-        j8AyrusZ420 = new Planet("J8 Ayrus Z420","arrived safely at J8_Ayrus_z420"); // 9
-        amrifArret = new Planet("Amrif Arret","arrived safely at Amrif Arret"); // 10
-        newEarth = new Planet("New Earth","arrived safely at New Earth"); // 11
-
-        Planet[] planets = new Planet[] {
-                centerUniverse, cleronOR7, scurn01K, hebrilles, xehna, gallifrey, skaro,
-                orion, deineax, uskillon, j8AyrusZ420, amrifArret, newEarth
-        };
-
-        for(int i = 0; i < planets.length; i++) {
-            Planet planet = planets[i];
-
-            for(int j = 0; j < planets.length; j++) {
-                Planet otherPlanet = planets[j];
-
-                if(i != j && !otherPlanet.equals(centerUniverse)) {
-                    planet.setDestination(otherPlanet.getName().replace(" ", ""), otherPlanet);
-                }
-            }
-        }
-
-        currentPlanet = centerUniverse;
-    }
+	public Game() {
+		view = new ConsoleView();
+		model = new Model();
+	}
 
 	/* function to begin game */
-    public void play() 
-    {            
-        printWelcome();
+	public void start() {
+		view.println(welcomeMessage());
 
-        boolean finished = false;
-        while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        System.out.println("Thank you for playing.  Good bye.");
-    }
+		gameLoop();
+	}
 
-	/* function to print a welcome message */
-    private void printWelcome()
-    {
-        System.out.println();
-        System.out.println("Welcome to the ridicoulous rick & morty spinoff!");
-        System.out.println("rick & morty spinoff is a new, incredibly addictive adventure game.");
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        System.out.println();
-        System.out.println(currentPlanet.getLongDescription());
-    }
+	private void gameLoop() {
+		boolean finished = false;
+
+		while (!finished) {
+			Command command = view.getParser().getCommand();
+			finished = processCommand(command);
+			view.println("---------------------------------------");
+		}
+	}
 
 	/* function containing the actions of a command */
-    private boolean processCommand(Command command)
-    {
-        boolean wantToQuit = false;
+	private boolean processCommand(Command command) {
+		boolean wantToQuit = false;
 
-        CommandWord commandWord = command.getCommandWord();
+		CommandWord commandWord = command.getCommandWord();
 
-        if(commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
-            return false;
-        }
+		switch(commandWord) {
+			case UNKNOWN:
+				view.println("I don't know what you mean...");
+				return false;
+			case HELP:
+				view.println(helpMessage());
+				break;
+			case GO: // TODO: move function to player
+				goPlanet(command);
+				break;
+			case PICKUP:
+				pickupItem(command);
+				break;
+			case DROP:
+				dropItem(command);
+				break;
+			case BACKPACK:
+				showBackpackContent(command);
+				break;
+			case SEARCH:
+				searchPlanet(command);
+				break;
+			case QUIT:
+				wantToQuit = quit(command);
+				break;
+		}
 
-        if (commandWord == CommandWord.HELP) {
-            printHelp();
-        }
-        else if (commandWord == CommandWord.GO) {
-            
-                
-                    goPlanet(command);
-            
-        }
-        else if (commandWord == CommandWord.QUIT) {
-            wantToQuit = quit(command);
-        }
-        return wantToQuit;
-    }
+		return wantToQuit;
+	}
 
-	/* function to print the help section */
-    private void printHelp() 
-    {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
-        parser.showCommands();
-    }
+	private void searchPlanet(Command command) {
+		Player player = model.getPlayer();
+
+		if(command.hasArguments()) {
+			view.println("Search does not need any argument.");
+		} else {
+			Planet planet = player.getCurrentPlanet();
+
+			if(planet.hasSearched()) {
+				view.println("Planet has already been searched!");
+			} else {
+				view.println("Searching planet...");
+
+				/* loading phase... */
+
+				char[] loading = new char[10];
+				Arrays.fill(loading, ' ');
+
+				for(int i = 0; i < loading.length; i++) {
+					loading[i] = '=';
+
+					long sleep;
+					if(!planet.getPermSearched()) {
+						sleep = (long) (1000 * (-0.022 * i * i + 0.20 * i + 0.15));
+					} else {
+						sleep = (long) (1000 * (-0.004329 * i * i + 0.02165 * i + 0.15));
+					}
+
+					//System.out.println("Sleep: " + sleep);
+
+					try {
+						TimeUnit.MILLISECONDS.sleep(sleep);
+						view.println("["+ new String(loading) +"]");
+					} catch(InterruptedException ex) {
+						ex.printStackTrace();
+					}
+				}
+
+				view.println("Search complete!");
+				view.println(model.getBlacksmith().getVisitMessage(player.getCurrentPlanet().getName()));
+
+				planet.setPermanentSearch(true);
+				planet.setTemporarySearch(true);
+			}
+		}
+	}
+
+	private void pickupItem(Command command) {
+		Player player = model.getPlayer();
+
+		ItemStack[] itemsOnPlanet = player.getCurrentPlanet().getContent();
+
+		if(player.getCurrentPlanet().getPermSearched()) {
+			if(!command.hasArguments()) {
+				for(int i = 0; i < itemsOnPlanet.length; i++) {
+					 view.println(String.format("[%d] %s", (1 + i), itemsOnPlanet[i].toString()));
+				}
+			} else {
+				if(command.getArgumentLength() > 2) {
+					view.println(argumentMessage("pickup <item-index> [quantity]"));
+				} else {
+					int index = Integer.parseInt(command.getArgument(0)) - 1;
+
+					if(index >= 0 && index < itemsOnPlanet.length) {
+						ItemStack selected = itemsOnPlanet[index];
+
+						if(selected.getItem().isPickupable()) {
+							int quantity = command.containsIndex(1) ? Integer.parseInt(command.getArgument(1)) : selected.getQuantity();
+							quantity = Math.min(quantity, selected.getQuantity());
+
+							ItemStack is = new ItemStack(selected.getItem(), quantity);
+
+							if(player.getBackackpack().add(is)) {
+								player.getCurrentPlanet().removeItemStack(is);
+								view.println("You successfully picked " +is.toString()+ " from the planet!");
+							} else {
+								Backpack bp = player.getBackpack();
+
+								view.println(String.format("The backpack [%.2f/%.2f] does not have enough space for %dx %.2f.",
+										bp.getCurrentCapacity(), bp.getMaxCapacity(),
+										is.getQuantity(), is.getItem().getWeight()));
+							}
+						} else {
+							view.println(selected.getItem().getName() + " is not pickupable.");
+						}
+					} else {
+						view.println("The entered index does not match.");
+					}
+				}
+			}
+		} else {
+			view.println("You have not searched the planet!");
+		}
+	}
+
+	private void dropItem(Command command) {
+		Player player = model.getPlayer();
+
+		if(player.getCurrentPlanet().getPermSearched()) {
+			if(!command.hasArguments()) {
+				showBackpackContent(command);
+			} else {
+				if(command.getArgumentLength() > 2) {
+					view.println(argumentMessage("drop <item-index> [quantity]"));
+				} else {
+					Backpack backpack = player.getBackpack();
+					ItemStack[] content = backpack.getContent();
+
+					int index = Integer.parseInt(command.getArgument(0)) - 1;
+
+					if(index >= 0 && index < content.length) {
+						ItemStack selected = content[index];
+
+						if(selected.getItem().isDropable()) {
+							int quantity = command.containsIndex(1) ? Integer.parseInt(command.getArgument(1)) : selected.getQuantity();
+							quantity = Math.max(Math.min(quantity, selected.getQuantity()), 0);
+
+							ItemStack is = new ItemStack(selected.getItem(), quantity);
+
+							if(backpack.remove(is)) {
+								player.getCurrentPlanet().addItemStack(is);
+								view.println("You successfully dropped " +is.toString()+ " from the backpack!");
+							}
+						} else {
+							view.println(selected.getItem().getName() + " is not dropable!");
+						}
+					} else {
+						view.println("The entered index does not match.");
+					}
+				}
+			}
+		} else {
+			view.println("It is not a good idea to drop items, before you have searched the planet.");
+		}
+	}
+
+	private void showBackpackContent(Command command) {
+		Backpack bp = model.getPlayer().getBackpack();
+
+		ItemStack[] content = bp.getContent();
+
+		if(command.hasArguments()) {
+			if(command.getArgumentLength() > 1) {
+				view.println(argumentMessage("backpack [item-index]"));
+			} else {
+				int index = Integer.parseInt(command.getArgument(0)) - 1;
+
+				if(index >= 0 && index < content.length) {
+					ItemStack is = content[index];
+
+					view.println(is.getItem().getName());
+					view.println("\t" + is.getItem().getDescription());
+				} else {
+					view.println("The entered index does not match.");
+				}
+			}
+		} else {
+			for(int i = 0; i < content.length; i++) {
+				view.println(String.format("[%d] %s", (1 + i), content[i].toString()));
+			}
+		}
+	}
 
 	/* function to replace the current room by it exits */
-    private void goPlanet(Command command)
-    {
-        if(!command.hasSecondWord()) {
-            System.out.println("Go where?");
-            return;
-        }
+	private void goPlanet(Command command) {
+		Player player = model.getPlayer();
 
-        String direction = command.getSecondWord();
+		if(!command.hasArguments()) {
+			view.println("Go where?");
+		} else {
+			if(command.getArgumentLength() > 1) {
+				view.println(argumentMessage("go <planet-name>"));
+			} else {
+				String planetName = command.getArgument(0);
 
-        Planet nextPlanet = currentPlanet.getExit(direction);
+				if(player.samePlanet(planetName)) {
+					view.println("You cannot travel to the same planet!");
+				} else if(!player.goPlanet(planetName)) {
+					view.println("Not a valid destination!");
+					view.println("[ Options: " + player.getPlanetNames() + "]");
+				} else {
+					view.println(player.getCurrentPlanet().getArriveMessage());
+					player.getCurrentPlanet().setTemporarySearch(false);
+					model.getBlacksmith().move();
+				}
+			}
+		}
+	}
 
-        if (nextPlanet == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            currentPlanet = nextPlanet;
-            System.out.println(currentPlanet.getLongDescription());
-        }
-    }
+	/* function to exit? */
+	private boolean quit(Command command) {
+		if(command.getArgumentLength() > 0) {
+			view.println("Quit what?");
+			return false;
+		} else {
+			return true;
+		}
+	}
 
-    /* function to exit? */
-    private boolean quit(Command command) 
-    {
-        if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
+	/* function to print a welcome message */
+	private String[] welcomeMessage() {
+		return new String[] {
+				"",
+				"Welcome to the ridicoulous Rick & Morty spinoff!",
+				"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
+				"[Type '" + CommandWord.HELP + "' if you need help]",
+				"",
+				model.getPlayer().getCurrentPlanet().getDescription()
+		};
+	}
+
+	/* function to print the help section */
+	private String[] helpMessage() {
+		return new String[] {
+				"You are lost. You are alone.",
+				"You wander around in the universe.",
+				"",
+				"Your command words are:",
+				view.getParser().getAllCommands()
+		};
+
+		// TODO: add showAllCommands
+	}
+
+	private String[] argumentMessage(String usage) {
+		return new String[] {
+				"You have entered too many arguments!",
+				"Usage: " + usage
+		};
+	}
 }

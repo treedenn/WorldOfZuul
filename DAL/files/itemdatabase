@@ -1,0 +1,393 @@
+---
+0:
+  name: "Kerisa"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+1:
+  name: "Molt"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+2:
+  name: "Sedarus"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+3:
+  name: "Gouliiq"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+4:
+  name: "Cryptic"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+5:
+  name: "Amanzi"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+6:
+  name: "Zuur"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+7:
+  name: "Eaux"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+8:
+  name: "Hunajar"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+9:
+  name: "Mielepe"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+10:
+  name: "Fusilia Ferrox"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+11:
+  name: "Latex"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+12:
+  name: "Kalideca"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+13:
+  name: "Ambrusia"
+  description: "..."
+  itemType: 0
+  pickupable: true
+  dropable: true
+  weight: 1.0
+14:
+  name: "Karedu"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+15:
+  name: "Loqoo"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+16:
+  name: "Daupyra"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+17:
+  name: "Gonazi"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+18:
+  name: "Pikarq"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+19:
+  name: "Zajanj"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+20:
+  name: "Jukohra"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+21:
+  name: "Miplim"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+22:
+  name: "Rexirn"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+23:
+  name: "Tedox"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+24:
+  name: "Akelos"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+25:
+  name: "Doih"
+  description: "..."
+  itemType: 2
+  pickupable: true
+  dropable: true
+  weight: 1.0
+26:
+  name: "Rekar"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+27:
+  name: "Oltam"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+28:
+  name: "Edauss"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+29:
+  name: "Qiigol"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+30:
+  name: "Rypicas"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+31:
+  name: "Zinama"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+32:
+  name: "Ruukaz"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+33:
+  name: "Xaruja"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+34:
+  name: "Unjaroh"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+35:
+  name: "Lemipe"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+36:
+  name: "Feroxis"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+37:
+  name: "Texio"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+38:
+  name: "Doim"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+39:
+  name: "Aldakk"
+  description: "..."
+  itemType: 3
+  pickupable: true
+  dropable: true
+  weight: 1.0
+40:
+  name: "Tek XX"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+41:
+  name: "Tek XXVI"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+42:
+  name: "MOLT IV"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+43:
+  name: "MOLT -V(D)"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+44:
+  name: "CX Titanium 4"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+45:
+  name: "CX Titanium 8"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+46:
+  name: "FIX Ferocity 1"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+47:
+  name: "FIX Ferocity 3"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+48:
+  name: "i11 X2017"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+49:
+  name: "i13 II5290"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+50:
+  name: "i13 IV8525"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+51:
+  name: "i15 7750"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+52:
+  name: "CSP 6M2T"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+53:
+  name: "CSP 10MT"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+54:
+  name: "CSP MXV"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
+55:
+  name: "CSP M2X1V"
+  description: "..."
+  itemType: 4
+  pickupable: true
+  dropable: true
+  weight: 1.0
