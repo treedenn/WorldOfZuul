@@ -1,5 +1,7 @@
-package UI.commands;
+package UI.command;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -25,27 +27,36 @@ public class Parser
     public Command getCommand()
     {
         String inputLine;
-        String word1 = null;
-        String word2 = null;
+        String command = null;
+        List<String> arguments = new ArrayList<>();
 
         System.out.print("> ");
 
         inputLine = reader.nextLine();
 
         Scanner tokenizer = new Scanner(inputLine);
+
         if(tokenizer.hasNext()) {
-            word1 = tokenizer.next();
-            if(tokenizer.hasNext()) {
-                word2 = tokenizer.next();
-            }
+            command = tokenizer.next();
         }
 
-        return new Command(commands.getCommandWord(word1), word2);
+        while(tokenizer.hasNext()) {
+            arguments.add(tokenizer.next());
+        }
+
+        return new Command(commands.getCommandWord(command), arguments.toArray(new String[arguments.size()]));
     }
 
-    /* function to run show all commands */
-    public void showCommands()
+    /* function to get all commands */
+    public String getAllCommands()
     {
-        commands.showAll();
+        StringBuilder builder = new StringBuilder();
+
+        for(String command : this.commands.getAllCommands()) {
+            builder.append(command);
+            builder.append(" ");
+        }
+
+        return builder.toString();
     }
 }
