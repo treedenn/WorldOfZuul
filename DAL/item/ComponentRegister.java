@@ -18,7 +18,7 @@ public class ComponentRegister {
         Enum t = c.componentType;
         if (t == LIQUID){
             liquidComponents.add(c);
-        } else if (t == GEAR){
+        } else if (t == GEARS){
             gearComponents.add(c);
         } else if (t == CANISTER){
             canisterComponents.add(c);
