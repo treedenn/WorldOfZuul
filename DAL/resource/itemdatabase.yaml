@@ -2,98 +2,98 @@
 0:
   name: "Kerisa"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 1:
   name: "Molt"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 2:
   name: "Sedarus"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 3:
   name: "Gouliiq"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 4:
   name: "Cryptic"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 5:
   name: "Amanzi"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 6:
   name: "Zuur"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 7:
   name: "Eaux"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 8:
   name: "Hunajar"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 9:
   name: "Mielepe"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 10:
   name: "Fusilia Ferrox"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 11:
   name: "Latex"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 12:
   name: "Kalideca"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
 13:
   name: "Ambrusia"
   description: "..."
-  itemType: 0
+  itemType: 1
   pickupable: true
   dropable: true
   weight: 1.0
