@@ -71,7 +71,7 @@ public class Blacksmith extends Character {
 				break;
 			case 3: msg = "The time has passed and the trace of a blacksmith is almost gone!";
 				break;
-			default: msg = "The traces of the Blacksmith has disappeared!";
+			default: msg = "No traces of the Blacksmith here!";
 		}
 
 		return msg;
