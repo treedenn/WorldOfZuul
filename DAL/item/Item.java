@@ -1,7 +1,5 @@
 package DAL.item;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -83,12 +81,10 @@ public class Item {
 
 	// Database related
 
-	@NotNull
 	public static Item getItemById(int id) {
 		return new Item(database.get(id));
 	}
 
-	@NotNull
 	public static Item getItemById(Item.id itemId) {
 		return getItemById(itemId.ordinal());
 	}

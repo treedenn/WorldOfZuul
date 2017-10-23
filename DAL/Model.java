@@ -11,13 +11,24 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 
 public class Model {
+	private boolean finished;
 	private Player player;
 	private Blacksmith blacksmith;
 
 	public Model() {
+		finished = false;
 		player = new Player();
 		blacksmith = new Blacksmith();
+
 		createPlanets();
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean value) {
+		finished = value;
 	}
 
 	public Player getPlayer() {
@@ -30,7 +41,8 @@ public class Model {
 
 	/* function to create rooms */
 	private void createPlanets() {
-		Planet centerUniverse, cleron, scurn, hebrilles, xehna, gallifrey,
+		Planet centerUniverse,
+				cleron, scurn, hebrilles, xehna, gallifrey,
 				skaro, orion, deineax, uskillion, ayrus, amrit, earth;
 
 		/* initializing planets */
@@ -51,8 +63,10 @@ public class Model {
 
 		/* adding items to planets */
 
-		centerUniverse.addItemStack(new ItemStack(Item.getItemById(Item.id.CN_ALDAKK.ordinal()), 2));
-		centerUniverse.addItemStack(new ItemStack(Item.getItemById(Item.id.LQ_AMANZI.ordinal()), 2));
+		centerUniverse.addItemStack(new ItemStack(Item.getItemById(0), 2));
+		centerUniverse.addItemStack(new ItemStack(Item.getItemById(14), 2));
+		centerUniverse.addItemStack(new ItemStack(Item.getItemById(26), 2));
+		centerUniverse.addItemStack(new ItemStack(Item.getItemById(40), 2));
 
 		/* shuffle the planets and put it inside a HashMap */
 
@@ -66,7 +80,7 @@ public class Model {
 		LinkedHashMap<String, Planet> planetMap = new LinkedHashMap<>();
 		
 		for(Planet planet : planets) {
-			planetMap.put(planet.getName().replaceAll(" ", ""), planet);
+			planetMap.put(planet.getName().replaceAll(" ", "").toLowerCase(), planet);
 		}
 
 		/* assign planets to character objects */

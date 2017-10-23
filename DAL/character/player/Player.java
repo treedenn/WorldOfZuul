@@ -8,7 +8,7 @@ public class Player extends Character {
 
 	public Player() {
 		super(null, null);
-		this.backpack = new Backpack(3);
+		this.backpack = new Backpack(10);
 	}
 
 	public Backpack getBackpack() {

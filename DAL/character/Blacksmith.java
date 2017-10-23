@@ -1,15 +1,23 @@
 package DAL.character;
 
+import DAL.character.player.Player;
+import DAL.character.player.Recipe;
 import DAL.world.Planet;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 public class Blacksmith extends Character {
+	private Recipe recipe;
 	private String[] visitedPlanets;
 
 	public Blacksmith() {
+		recipe = new Recipe();
 		visitedPlanets = new String[3]; // used for traces
+	}
+
+	public Recipe getRecipe() {
+		return recipe;
 	}
 
 	public void move() {
