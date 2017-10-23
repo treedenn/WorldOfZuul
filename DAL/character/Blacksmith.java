@@ -40,7 +40,7 @@ public class Blacksmith extends Character {
 			}
 		}
 
-		System.out.println("Blacksmith: " + getCurrentPlanet().getName());
+		//System.out.println("Blacksmith: " + getCurrentPlanet().getName());
 	}
 
 	private void pushTraces() {
@@ -65,7 +65,7 @@ public class Blacksmith extends Character {
 		switch(traceIndex) {
 			case 0: msg = "The blacksmith is on the planet!";
 				break;
-			case 1: msg = "You just passed the blacksmith!";
+			case 1: msg = "The blacksmith just left this planet!";
 				break;
 			case 2: msg = "The blacksmith was here recently.";
 				break;
