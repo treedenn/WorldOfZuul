@@ -146,7 +146,7 @@ public class Game {
 
 							ItemStack is = new ItemStack(selected.getItem(), quantity);
 
-							if(player.getBackackpack().add(is)) {
+							if(player.getBackpack().add(is)) {
 								player.getCurrentPlanet().removeItemStack(is);
 								view.println("You successfully picked " +is.toString()+ " from the planet!");
 							} else {

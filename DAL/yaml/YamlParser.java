@@ -1,6 +1,6 @@
 package DAL.yaml;
 
-import org.yaml.snakeyaml.Yaml;
+//import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 
@@ -9,10 +9,10 @@ import java.io.File;
 
 public class YamlParser {
 	private File file;
-	private Yaml yaml;
+	//private Yaml yaml;
 
 	public YamlParser(File file) {
 		this.file = file;
-		yaml = new Yaml();
+		//yaml = new Yaml();
 	}
 }
