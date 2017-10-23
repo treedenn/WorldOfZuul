@@ -1,5 +1,6 @@
 package DAL.item;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,29 +15,33 @@ public class Item {
 	private String name;
 	private String description;
 	private ItemType itemType;
+	private Color color;
+	private State state;
 	private boolean pickupable;
 	private boolean dropable;
 	private double weight;
 
 	public Item(Item item) {
-		this(item.getName(), item.getDescription(), item.getItemType(), item.getWeight(), item.isPickupable(), item.isDropable());
+		this(item.getName(), item.getDescription(), item.getItemType(), item.getColor(), item.getState(), item.getWeight(), item.isPickupable(), item.isDropable());
 	}
 
-	public Item(String name, String description, ItemType itemType, double weight, boolean isPickupable, boolean isDropable) {
+	public Item(String name, String description, ItemType itemType, Color color, State state, double weight, boolean isPickupable, boolean isDropable) {
 		this.name = name;
 		this.description = description;
 		this.itemType = itemType;
+		this.color = color;
+		this.state = state;
 		this.pickupable = isPickupable;
 		this.dropable = isDropable;
 		this.weight = weight;
 	}
 
-	public Item(String name, String description, ItemType itemType, double weight) {
-		this(name, description, itemType, weight, true, true);
+	public Item(String name, String description, ItemType itemType, Color color, State state, double weight) {
+		this(name, description, itemType, color, state, weight, true, true);
 	}
 
-	public Item(String name, String description, ItemType itemType) {
-		this(name, description, itemType, 1, true, true);
+	public Item(String name, String description, ItemType itemType, Color color, State state) {
+		this(name, description, itemType, color, state,1, true, true);
 	}
 
 	public String getName() {
@@ -49,6 +54,14 @@ public class Item {
 
 	public ItemType getItemType() {
 		return itemType;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public State getState() {
+		return state;
 	}
 
 	public boolean isPickupable() {
@@ -124,19 +137,19 @@ public class Item {
 		database = new ArrayList<>(liquids.length + gears.length + canisters.length + cpus.length);
 
 		for(int i = 0; i < liquids.length; i++) {
-			liquids[i] = new Item(liquidNames[i], "", ItemType.LIQUID);
+			liquids[i] = new Item(liquidNames[i], "", ItemType.LIQUID, Color.BLACK, State.BURNING);
 		}
 
 		for(int i = 0; i < canisters.length; i++) {
-			canisters[i] = new Item(canisterNames[i], "", ItemType.CANISTER);
+			canisters[i] = new Item(canisterNames[i], "", ItemType.CANISTER, Color.BLACK, State.BURNING);
 		}
 
 		for(int i = 0; i < gears.length; i++) {
-			gears[i] = new Item(gearNames[i], "", ItemType.GEARS);
+			gears[i] = new Item(gearNames[i], "", ItemType.GEARS, Color.BLACK, State.BURNING);
 		}
 
 		for(int i = 0; i < cpus.length; i++) {
-			cpus[i] = new Item(cpuNames[i], "", ItemType.CPU);
+			cpus[i] = new Item(cpuNames[i], "", ItemType.CPU, Color.BLACK, State.BURNING);
 		}
 
 		database.addAll(Arrays.asList(liquids));
