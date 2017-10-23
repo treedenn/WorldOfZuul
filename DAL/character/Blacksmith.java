@@ -40,7 +40,7 @@ public class Blacksmith extends Character {
 			}
 		}
 
-		System.out.println("Blacksmith: " + getCurrentPlanet().getName());
+		//gSystem.out.println("Blacksmith: " + getCurrentPlanet().getName());
 	}
 
 	private void pushTraces() {
