@@ -32,6 +32,7 @@ public class Game {
 		view.println("Planets: " + model.getPlayer().getPlanetNames());
 
 		gameLoop();
+
 	}
 
 	private void gameLoop() {
@@ -325,6 +326,13 @@ public class Game {
 				"Welcome to the ridicoulous Rick & Morty spinoff!",
 				"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
 				"[Type '" + CommandWord.HELP + "' if you need help]",
+				"",
+				"GAME OBJECTIVE",
+				"--------------",
+				"You are Rick, the brilliant scientist. But you have mistakenly destroyed earth in your current dimension.",
+				"Normally, you would use your Portal Gun to teleport yourself to a new dimension... But it's broken!",
+				"Your mission is now to fix your Portal Gun and travel safely to a new dimension. Good luck!",
+				"--------------",
 				"",
 				model.getPlayer().getCurrentPlanet().getDescription()
 		};
