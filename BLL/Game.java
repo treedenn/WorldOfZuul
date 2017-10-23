@@ -32,7 +32,6 @@ public class Game {
 		view.println("Planets: " + model.getPlayer().getPlanetNames());
 
 		gameLoop();
-
 	}
 
 	private void gameLoop() {
