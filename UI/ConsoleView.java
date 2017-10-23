@@ -4,7 +4,6 @@ import UI.command.Parser;
 
 public class ConsoleView {
 	private Parser parser;
-
 	public ConsoleView() {
 		this.parser = new Parser();
 	}

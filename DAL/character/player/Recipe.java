@@ -1,6 +1,7 @@
 package DAL.character.player;
 
 import DAL.item.Item;
+import DAL.item.ItemStack;
 
 public class Recipe {
 	private Item[] requirements;
@@ -14,15 +15,44 @@ public class Recipe {
 		return requirements;
 	}
 
+	public boolean[] haveItems(ItemStack[] itemStacks) {
+		boolean[] containItems = new boolean[4];
+
+		for(int i = 0; i < requirements.length; i++) {
+			for(ItemStack itemStack : itemStacks) {
+				if(requirements[i].getName().equals(itemStack.getItem().getName())) {
+					containItems[i] = true; break;
+				}
+			}
+		}
+
+		return containItems;
+	}
+
+	public boolean hasItem(Item item) {
+		for(Item requirement : requirements) {
+			if(requirement.getName().equals(item.getName())) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private void generateRecipeRequirements() {
 		final int liquids = 14; // 0 -> 14
-		final int canisters = 14; // 14 -> 28
-		final int gears = 12; // 28 -> 40
+		final int canisters = 12; // 14 -> 26
+		final int gears = 14; // 26 -> 40
 		final int cpus = 16; // 40 -> 56
-
+		/*
 		requirements[0] = Item.getItemById((int) (Math.random() * liquids));
 		requirements[1] = Item.getItemById((int) (liquids + Math.random() * canisters));
 		requirements[2] = Item.getItemById((int) (liquids + canisters + Math.random() * gears));
 		requirements[3] = Item.getItemById((int) (liquids + canisters + gears + Math.random() * cpus));
+		*/
+		requirements[0] = Item.getItemById(0);
+		requirements[1] = Item.getItemById(liquids);
+		requirements[2] = Item.getItemById(liquids + canisters);
+		requirements[3] = Item.getItemById(liquids + canisters + gears);
 	}
 }

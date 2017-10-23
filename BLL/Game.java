@@ -1,15 +1,20 @@
 package BLL;
 
 import DAL.Model;
+import DAL.character.Blacksmith;
 import DAL.character.player.Backpack;
 import DAL.character.player.Player;
+import DAL.character.player.Recipe;
+import DAL.item.Item;
 import DAL.item.ItemStack;
+import DAL.item.PortalGun;
 import DAL.world.Planet;
 import UI.command.Command;
 import UI.command.CommandWord;
 import UI.ConsoleView;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class Game {
@@ -24,34 +29,31 @@ public class Game {
 	/* function to begin game */
 	public void start() {
 		view.println(welcomeMessage());
+		view.println("Planets: " + model.getPlayer().getPlanetNames());
 
 		gameLoop();
 	}
 
 	private void gameLoop() {
-		boolean finished = false;
-
-		while (!finished) {
+		while (!model.isFinished()) {
 			Command command = view.getParser().getCommand();
-			finished = processCommand(command);
-			view.println("---------------------------------------");
+			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+			processCommand(command);
+			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
 		}
 	}
 
 	/* function containing the actions of a command */
-	private boolean processCommand(Command command) {
-		boolean wantToQuit = false;
-
+	private void processCommand(Command command) {
 		CommandWord commandWord = command.getCommandWord();
 
 		switch(commandWord) {
 			case UNKNOWN:
 				view.println("I don't know what you mean...");
-				return false;
 			case HELP:
 				view.println(helpMessage());
 				break;
-			case GO: // TODO: move function to player
+			case GO:
 				goPlanet(command);
 				break;
 			case PICKUP:
@@ -64,17 +66,49 @@ public class Game {
 				showBackpackContent(command);
 				break;
 			case SEARCH:
-				searchPlanet(command);
+				searchOnPlanet(command);
+				break;
+			case INTERACT:
+				interact(command);
 				break;
 			case QUIT:
-				wantToQuit = quit(command);
-				break;
+				quit(command);
 		}
-
-		return wantToQuit;
 	}
 
-	private void searchPlanet(Command command) {
+	private void interact(Command command) {
+		Player player = model.getPlayer();
+		Blacksmith blacksmith = model.getBlacksmith();
+
+		if(command.hasArguments()) {
+			view.println("Interact does not need any arguments.");
+		} else {
+			if(!player.getCurrentPlanet().getTempSearched()) {
+				view.println("You have not searched the planet!");
+			} else {
+				if(!blacksmith.samePlanet(player.getCurrentPlanet())) {
+					view.println("The blacksmith is not here.");
+				} else {
+					Recipe recipe = blacksmith.getRecipe();
+					Item[] items = recipe.getRequirements();
+					boolean[] containItems = recipe.haveItems(player.getBackpack().getContent());
+
+					for(int i = 0; i < items.length; i++) {
+						view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getItemType().name());
+					}
+
+					if(allTrue(containItems)) {
+						// TODO: remove items from the players backpack
+						view.println("");
+						view.println("Portalgun has been repaired!");
+						player.getBackpack().getPortalGun().repair();
+					}
+				}
+			}
+		}
+	}
+
+	private void searchOnPlanet(Command command) {
 		Player player = model.getPlayer();
 
 		if(command.hasArguments()) {
@@ -226,6 +260,15 @@ public class Game {
 
 					view.println(is.getItem().getName());
 					view.println("\t" + is.getItem().getDescription());
+				} else if(index == content.length) {
+					PortalGun pg = bp.getPortalGun();
+
+					if(pg.isBroken()) {
+						view.println("The Portal Gun is broken. You'll have to fix it!");
+					} else {
+						view.println("Congratulation, you have created a portal to another dimension!");
+						view.println("You won the game!");
+					}
 				} else {
 					view.println("The entered index does not match.");
 				}
@@ -234,6 +277,8 @@ public class Game {
 			for(int i = 0; i < content.length; i++) {
 				view.println(String.format("[%d] %s", (1 + i), content[i].toString()));
 			}
+
+			view.println(String.format("[%d] %s", content.length + 1, bp.getPortalGun().toString()));
 		}
 	}
 
@@ -241,35 +286,35 @@ public class Game {
 	private void goPlanet(Command command) {
 		Player player = model.getPlayer();
 
-		if(!command.hasArguments()) {
-			view.println("Go where?");
+		if(!command.hasArguments() && command.getArgumentLength() > 1) {
+			view.println(argumentMessage("go <planet-name> (not case-sensitive)"));
 		} else {
-			if(command.getArgumentLength() > 1) {
-				view.println(argumentMessage("go <planet-name>"));
-			} else {
-				String planetName = command.getArgument(0);
+			String planetName = command.getArgument(0).toLowerCase();
+			Map<String, Planet> planets = player.getPlanets();
 
-				if(player.samePlanet(planetName)) {
-					view.println("You cannot travel to the same planet!");
-				} else if(!player.goPlanet(planetName)) {
-					view.println("Not a valid destination!");
-					view.println("[ Options: " + player.getPlanetNames() + "]");
-				} else {
-					view.println(player.getCurrentPlanet().getArriveMessage());
-					player.getCurrentPlanet().setTemporarySearch(false);
-					model.getBlacksmith().move();
-				}
+			if(!planets.containsKey(planetName)) {
+				view.println("Not a valid destination!");
+				view.println("Planets: " + player.getPlanetNames());
+			} else if(player.samePlanet(planets.get(planetName))) {
+				view.println("You cannot travel to the same planet!");
+			} else {
+				player.goPlanet(planetName);
+				player.getCurrentPlanet().setTemporarySearch(false);
+
+				model.getBlacksmith().move();
+
+				view.println(player.getCurrentPlanet().getDescription());
+				view.println(player.getCurrentPlanet().getArriveMessage());
 			}
 		}
 	}
 
 	/* function to exit? */
-	private boolean quit(Command command) {
+	private void quit(Command command) {
 		if(command.getArgumentLength() > 0) {
 			view.println("Quit what?");
-			return false;
 		} else {
-			return true;
+			model.setFinished(true);
 		}
 	}
 
@@ -294,14 +339,20 @@ public class Game {
 				"Your command words are:",
 				view.getParser().getAllCommands()
 		};
-
-		// TODO: add showAllCommands
 	}
 
 	private String[] argumentMessage(String usage) {
-		return new String[] {
+		return new String[]{
 				"You have entered too many arguments!",
 				"Usage: " + usage
 		};
+	}
+
+	private boolean allTrue(boolean[] booleans) {
+		for(boolean b : booleans) {
+			if(!b) { return false; }
+		}
+
+		return true;
 	}
 }

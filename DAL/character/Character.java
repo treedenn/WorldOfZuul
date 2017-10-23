@@ -33,24 +33,19 @@ public abstract class Character {
 		this.planets = planets;
 	}
 
-	public boolean samePlanet(String planetName) {
-		return currentPlanet.getName().equals(planetName);
+	public boolean samePlanet(Planet planet) {
+		return getCurrentPlanet() == planet;
 	}
 
-	public boolean goPlanet(String planetName) {
-		if(planets.containsKey(planetName)) {
-			currentPlanet = planets.get(planetName);
-			return true;
-		}
-
-		return false;
+	public void goPlanet(String planetName) {
+		currentPlanet = planets.get(planetName);
 	}
 
 	public String getPlanetNames() {
 		StringBuilder builder = new StringBuilder();
 
-		for(String planetName : planets.keySet()) {
-			builder.append(planetName.replaceAll(" ", "") + " ");
+		for(Planet planet : planets.values()) {
+			builder.append(planet.getName().replaceAll(" ", "") + " ");
 		}
 
 		return builder.toString();
