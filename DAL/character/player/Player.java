@@ -1,6 +1,7 @@
 package DAL.character.player;
 
 import DAL.character.Character;
+import DAL.character.Inventory;
 
 public class Player extends Character {
 	private Backpack backpack;
@@ -21,7 +22,6 @@ public class Player extends Character {
 
 	public void setFuel(double fuel) {
 		this.fuel = Math.max(fuel, 0);
-		Math.min(0, 0);
 	}
 
 	public void increaseFuel(double amount) {

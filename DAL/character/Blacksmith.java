@@ -13,7 +13,7 @@ public class Blacksmith extends Character {
 
 	public Blacksmith() {
 		recipe = new Recipe();
-		visitedPlanets = new String[3]; // used for traces
+		visitedPlanets = new String[4]; // used for traces
 	}
 
 	public Recipe getRecipe() {

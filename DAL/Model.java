@@ -55,9 +55,9 @@ public class Model {
 		gallifrey = new Planet("Gallifrey", "Home-planet of the almost extincted specie, Time Lords, except the last one, Doctor Who.");
 		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.");
 		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.");
-		deineax = new Planet("Deineax", "Noone knows exactly the name origin of this planet, yet myths say it comes from 'Dennis'.");
+		deineax = new Planet("Deineax", "No one knows exactly the name origin of this planet, yet myths say it comes from 'Dennis'.");
 		uskillion = new Planet("Uskillon", "An extremely hot planet, yet, it contains different types of liquids.");
-		ayrus = new Planet("J8 Ayrus Z420", "Noone knows what this planet contains. Secrets...");
+		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...");
 		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.");
 		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happen.");
 
