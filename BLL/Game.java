@@ -286,7 +286,7 @@ public class Game {
 	private void goPlanet(Command command) {
 		Player player = model.getPlayer();
 
-		if(!command.hasArguments() && command.getArgumentLength() > 1) {
+		if(!command.hasArguments() || command.getArgumentLength() > 1) {
 			view.println(argumentMessage("go <planet-name> (not case-sensitive)"));
 		} else {
 			String planetName = command.getArgument(0).toLowerCase();
