@@ -2,9 +2,7 @@ package BLL;
 
 import DAL.Model;
 import DAL.character.Blacksmith;
-import DAL.character.player.Backpack;
-import DAL.character.player.Player;
-import DAL.character.player.Recipe;
+import DAL.character.player.*;
 import DAL.item.Item;
 import DAL.item.ItemStack;
 import DAL.item.PortalGun;
@@ -12,6 +10,7 @@ import DAL.world.Planet;
 import UI.command.Command;
 import UI.command.CommandWord;
 import UI.ConsoleView;
+
 
 import java.util.Arrays;
 import java.util.Map;
@@ -286,6 +285,28 @@ public class Game {
 	/* function to replace the current room by it exits */
 	private void goPlanet(Command command) {
 		Player player = model.getPlayer();
+
+		//initiate the quiz
+
+        QuizManager manager = model.getManager();
+        view.println(manager.getUnoXMessage());
+
+        if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
+            manager.pickRandomQuiz();
+            view.println(manager.getCurrentQuizMessage());
+            view.println("Answer: ");
+
+            int answer = view.getParser().getQuizAnswer(manager.getOptionsSize());
+
+            if(manager.isAnswerCorrect(answer)) {
+                // ...
+            } else {
+                view.println("Wrong answer!");
+                view.println("Thanks for playing the UnoX Quiz!");
+            }
+
+            view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        }
 
 		if(!command.hasArguments() || command.getArgumentLength() > 1) {
 			view.println(argumentMessage("go <planet-name> (not case-sensitive)"));

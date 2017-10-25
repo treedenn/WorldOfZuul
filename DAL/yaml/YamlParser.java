@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public abstract class YamlParser {
+public class YamlParser {
 	private File file;
 	private Yaml yaml;
 

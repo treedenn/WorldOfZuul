@@ -2,6 +2,7 @@ package DAL;
 
 import DAL.character.Blacksmith;
 import DAL.character.player.Player;
+import DAL.character.player.QuizManager;
 import DAL.item.Item;
 import DAL.item.ItemStack;
 import DAL.world.Planet;
@@ -14,11 +15,13 @@ public class Model {
 	private boolean finished;
 	private Player player;
 	private Blacksmith blacksmith;
+	private QuizManager manager;
 
 	public Model() {
 		finished = false;
 		player = new Player();
 		blacksmith = new Blacksmith();
+		manager = new QuizManager();
 
 		createPlanets();
 	}
@@ -37,6 +40,10 @@ public class Model {
 
 	public Blacksmith getBlacksmith() {
 		return blacksmith;
+	}
+
+	public QuizManager getManager() {
+		return manager;
 	}
 
 	/* function to create rooms */
