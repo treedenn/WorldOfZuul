@@ -17,10 +17,13 @@ public class Parser
     private Scanner reader;
 
     /* constructor for the parser class */
-    public Parser()
-    {
+    public Parser() {
         commands = new CommandWords();
         reader = new Scanner(System.in);
+    }
+
+    public void resetReader() {
+        reader.nextLine();
     }
 
     public char getQuizOfferAnswer() {
@@ -45,8 +48,6 @@ public class Parser
                 reader.nextLine();
             }
         } while(answer < 1 || answer > max);
-
-        reader.nextLine();
 
         return answer;
     }

@@ -304,25 +304,27 @@ public class Game {
 			} else if(player.samePlanet(planets.get(planetName))) {
 				view.println("You cannot travel to the same planet!");
 			} else {
-                            QuizManager manager = model.getManager();
-                            view.println(manager.getUnoXMessage());
+                QuizManager manager = model.getManager();
+                view.println(manager.getUnoXMessage());
 
-                            if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
-                                manager.pickRandomQuiz();
-                                view.println(manager.getCurrentQuizMessage());
-                                view.println("Answer: ");
+                if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
+                    manager.pickRandomQuiz();
+                    view.println(manager.getCurrentQuizMessage());
+                    view.println("Answer: ");
 
-                                int answer = view.getParser().getQuizAnswer(manager.getOptionsSize());
+                    int answer = view.getParser().getQuizAnswer(manager.getOptionsSize());
 
-                                if(manager.isAnswerCorrect(answer)) {
-                                    // ...
-                                } else {
-                                    view.println("Wrong answer!");
-                                    view.println("Thanks for playing the UnoX Quiz!");
-                                }
+                    if(manager.isAnswerCorrect(answer)) {
+                        // ...
+                    } else {
+                        view.println("Wrong answer!");
+                        view.println("Thanks for playing the UnoX Quiz!");
+                    }
 
-                                view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-                            }
+                    view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+                }
+
+                view.getParser().resetReader();
                             
 				player.go(planetName);
 				player.getCurrentPlanet().setTemporarySearch(false);
