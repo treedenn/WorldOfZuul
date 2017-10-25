@@ -2,6 +2,7 @@ package DAL;
 
 import DAL.character.Blacksmith;
 import DAL.character.player.Player;
+import DAL.character.player.QuizManager;
 import DAL.item.Item;
 import DAL.item.ItemStack;
 import DAL.world.Planet;
@@ -14,11 +15,13 @@ public class Model {
 	private boolean finished;
 	private Player player;
 	private Blacksmith blacksmith;
+	private QuizManager manager;
 
 	public Model() {
 		finished = false;
 		player = new Player();
 		blacksmith = new Blacksmith();
+		manager = new QuizManager();
 
 		createPlanets();
 	}
@@ -39,6 +42,10 @@ public class Model {
 		return blacksmith;
 	}
 
+	public QuizManager getManager() {
+		return manager;
+	}
+
 	/* function to create rooms */
 	private void createPlanets() {
 		Planet centerUniverse,
@@ -55,9 +62,9 @@ public class Model {
 		gallifrey = new Planet("Gallifrey", "Home-planet of the almost extincted specie, Time Lords, except the last one, Doctor Who.");
 		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.");
 		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.");
-		deineax = new Planet("Deineax", "Noone knows exactly the name origin of this planet, yet myths say it comes from 'Dennis'.");
+		deineax = new Planet("Deineax", "No one knows exactly the name origin of this planet, yet myths say it comes from 'Dennis'.");
 		uskillion = new Planet("Uskillon", "An extremely hot planet, yet, it contains different types of liquids.");
-		ayrus = new Planet("J8 Ayrus Z420", "Noone knows what this planet contains. Secrets...");
+		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...");
 		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.");
 		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happen.");
 

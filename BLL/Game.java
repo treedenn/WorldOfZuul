@@ -2,9 +2,7 @@ package BLL;
 
 import DAL.Model;
 import DAL.character.Blacksmith;
-import DAL.character.player.Backpack;
-import DAL.character.player.Player;
-import DAL.character.player.Recipe;
+import DAL.character.player.*;
 import DAL.item.Item;
 import DAL.item.ItemStack;
 import DAL.item.PortalGun;
@@ -12,6 +10,7 @@ import DAL.world.Planet;
 import UI.command.Command;
 import UI.command.CommandWord;
 import UI.ConsoleView;
+
 
 import java.util.Arrays;
 import java.util.Map;
@@ -126,10 +125,11 @@ public class Game {
 				char[] loading = new char[10];
 				Arrays.fill(loading, ' ');
 
+				long sleep;
+
 				for(int i = 0; i < loading.length; i++) {
 					loading[i] = '=';
 
-					long sleep;
 					if(!planet.getPermSearched()) {
 						sleep = (long) (1000 * (-0.022 * i * i + 0.20 * i + 0.15));
 					} else {
@@ -140,10 +140,12 @@ public class Game {
 
 					try {
 						TimeUnit.MILLISECONDS.sleep(sleep);
-						view.println("["+ new String(loading) +"]");
+						view.print("\r["+ new String(loading) +"]");
 					} catch(InterruptedException ex) {
 						ex.printStackTrace();
 					}
+
+					if(i == loading.length - 1) { view.println(""); }
 				}
 
 				view.println("Search complete!");
@@ -286,6 +288,28 @@ public class Game {
 	private void goPlanet(Command command) {
 		Player player = model.getPlayer();
 
+		//initiate the quiz
+
+        QuizManager manager = model.getManager();
+        view.println(manager.getUnoXMessage());
+
+        if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
+            manager.pickRandomQuiz();
+            view.println(manager.getCurrentQuizMessage());
+            view.println("Answer: ");
+
+            int answer = view.getParser().getQuizAnswer(manager.getOptionsSize());
+
+            if(manager.isAnswerCorrect(answer)) {
+                // ...
+            } else {
+                view.println("Wrong answer!");
+                view.println("Thanks for playing the UnoX Quiz!");
+            }
+
+            view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        }
+
 		if(!command.hasArguments() || command.getArgumentLength() > 1) {
 			view.println(argumentMessage("go <planet-name> (not case-sensitive)"));
 		} else {
@@ -298,13 +322,14 @@ public class Game {
 			} else if(player.samePlanet(planets.get(planetName))) {
 				view.println("You cannot travel to the same planet!");
 			} else {
-				player.goPlanet(planetName);
+				player.go(planetName);
 				player.getCurrentPlanet().setTemporarySearch(false);
 
 				model.getBlacksmith().move();
 
 				view.println(player.getCurrentPlanet().getDescription());
 				view.println(player.getCurrentPlanet().getArriveMessage());
+				view.println("Planets: " + player.getPlanetNames());
 			}
 		}
 	}
@@ -325,6 +350,13 @@ public class Game {
 				"Welcome to the ridicoulous Rick & Morty spinoff!",
 				"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
 				"[Type '" + CommandWord.HELP + "' if you need help]",
+				"",
+				"GAME OBJECTIVE",
+				"--------------",
+				"You are Rick, the brilliant scientist. But you have mistakenly destroyed earth in your current dimension.",
+				"Normally, you would use your Portal Gun to teleport yourself to a new dimension... But it's broken!",
+				"Your mission is now to fix your Portal Gun and travel safely to a new dimension. Good luck!",
+				"--------------",
 				"",
 				model.getPlayer().getCurrentPlanet().getDescription()
 		};

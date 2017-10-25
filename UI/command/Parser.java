@@ -23,9 +23,36 @@ public class Parser
         reader = new Scanner(System.in);
     }
 
+    public char getQuizOfferAnswer() {
+        char answer = ' ';
+
+        do {
+            if(reader.hasNext()) {
+                answer = reader.next().charAt(0);
+            }
+        } while(answer != 'n' && answer != 'N' && answer != 'y' && answer != 'Y');
+
+        return answer;
+    }
+
+    public int getQuizAnswer(int max) {
+        int answer = -1;
+
+        do {
+            if(reader.hasNextInt()) {
+                answer = reader.nextInt();
+            } else {
+                reader.nextLine();
+            }
+        } while(answer < 1 || answer > max);
+
+        reader.nextLine();
+
+        return answer;
+    }
+
     /* function to wait for an input, then returns the commands */
-    public Command getCommand()
-    {
+    public Command getCommand() {
         String inputLine;
         String command = null;
         List<String> arguments = new ArrayList<>();

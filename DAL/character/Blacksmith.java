@@ -13,7 +13,7 @@ public class Blacksmith extends Character {
 
 	public Blacksmith() {
 		recipe = new Recipe();
-		visitedPlanets = new String[3]; // used for traces
+		visitedPlanets = new String[4]; // used for traces
 	}
 
 	public Recipe getRecipe() {
@@ -39,8 +39,6 @@ public class Blacksmith extends Character {
 				break;
 			}
 		}
-
-		System.out.println("Blacksmith: " + getCurrentPlanet().getName());
 	}
 
 	private void pushTraces() {
@@ -63,17 +61,16 @@ public class Blacksmith extends Character {
 		}
 
 		switch(traceIndex) {
-			case 0: msg = "The blacksmith is on the planet!";
+			case 0: msg = "The Blacksmith is on the planet!";
 				break;
-			case 1: msg = "You just passed the blacksmith!";
+			case 1: msg = "The Blacksmith just left this planet!";
 				break;
-			case 2: msg = "The blacksmith was here recently.";
+			case 2: msg = "The Blacksmith was here recently.";
 				break;
-			case 3: msg = "The time has passed and the trace of a blacksmith is almost gone!";
+			case 3: msg = "The time has passed and the trace of the Blacksmith is almost gone!";
 				break;
-			default: msg = "The traces of the Blacksmith has disappeared!";
+			default: msg = "No traces of the Blacksmith here!";
 		}
-
 		return msg;
 	}
 }
