@@ -4,6 +4,7 @@ import DAL.character.Blacksmith;
 import DAL.character.player.Player;
 import DAL.item.Item;
 import DAL.item.ItemStack;
+import DAL.scoring.PointSystem;
 import DAL.world.Planet;
 
 import java.util.Arrays;
@@ -12,13 +13,17 @@ import java.util.LinkedHashMap;
 
 public class Model {
 	private boolean finished;
+	private boolean gameWon;
 	private Player player;
 	private Blacksmith blacksmith;
+	private PointSystem pointSystem;
 
 	public Model() {
 		finished = false;
+		gameWon = false;
 		player = new Player();
 		blacksmith = new Blacksmith();
+		pointSystem = new PointSystem();
 
 		createPlanets();
 	}
@@ -37,6 +42,14 @@ public class Model {
 
 	public Blacksmith getBlacksmith() {
 		return blacksmith;
+	}
+
+	public PointSystem getPointSystem() {
+		return pointSystem;
+	}
+
+	public boolean isGameWon() {
+		return gameWon;
 	}
 
 	/* function to create rooms */

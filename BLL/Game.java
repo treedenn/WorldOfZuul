@@ -8,6 +8,7 @@ import DAL.character.player.Recipe;
 import DAL.item.Item;
 import DAL.item.ItemStack;
 import DAL.item.PortalGun;
+import DAL.scoring.PointSystem;
 import DAL.world.Planet;
 import UI.command.Command;
 import UI.command.CommandWord;
@@ -30,7 +31,6 @@ public class Game {
 	public void start() {
 		view.println(welcomeMessage());
 		view.println("Planets: " + model.getPlayer().getPlanetNames());
-
 		gameLoop();
 	}
 
@@ -41,6 +41,7 @@ public class Game {
 			processCommand(command);
 			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
 		}
+		gameIsFinished();
 	}
 
 	/* function containing the actions of a command */
@@ -71,9 +72,31 @@ public class Game {
 			case INTERACT:
 				interact(command);
 				break;
+			case FUEL:
+				showFuel(command);
+				break;
 			case QUIT:
 				quit(command);
 		}
+	}
+
+	private void showFuel(Command command){
+		Player player = model.getPlayer();
+		double fuel = player.getFuel();
+		StringBuilder sb = new StringBuilder();
+
+		char[] fuelBars = new char[10];
+		Arrays.fill(fuelBars, ' ');
+
+		for(int i = 0; i < fuel/10; i++){
+			fuelBars[i] = '=';
+		}
+
+		sb.append("Fuel: \n");
+		sb.append("[");
+		sb.append(fuelBars);
+		sb.append("]");
+		view.println(sb.toString());
 	}
 
 	private void interact(Command command) {
@@ -302,6 +325,8 @@ public class Game {
 				view.println("You cannot travel to the same planet!");
 			} else {
 				player.go(planetName);
+				player.decreaseFuel(10);
+
 				player.getCurrentPlanet().setTemporarySearch(false);
 
 				model.getBlacksmith().move();
@@ -365,5 +390,39 @@ public class Game {
 		}
 
 		return true;
+	}
+
+	public void gameIsFinished(){
+		StringBuilder sb = new StringBuilder();
+		PointSystem pointSystem = model.getPointSystem();
+		if(model.isGameWon()){
+			Player player = model.getPlayer();
+			pointSystem.setFinishTime();
+
+			double millisecondsElapsed = pointSystem.calculateTimeElapsed();
+			int seconds = (int) ((millisecondsElapsed / 1000) % 60);
+			int minutes = (int) ((millisecondsElapsed / 1000) / 60);
+
+			int stars = pointSystem.calculatePoints(player.getTotalFuelConsumption());
+			char[] earnedStars = new char[stars];
+			Arrays.fill(earnedStars, '\u26e4');
+			sb.append("--------------------------------------------------------\n");
+			sb.append("---------------------- GAME WON! -----------------------\n");
+			sb.append("Here are some stats for you to brag about...\n");
+			sb.append("You played for ").append(minutes).append(":").append(seconds).append(" minutes\n");
+			sb.append("Your total fuel consumption was ").append(player.getTotalFuelConsumption()).append(" liters\n");
+			sb.append("Out of 5 stars ").append("you earned: ").append(earnedStars).append("\n");
+			sb.append("--------------------------------------------------------");
+			view.println(sb.toString());
+		} else{
+			sb.append("--------------------------------------------------------\n");
+			sb.append("---------------------- GAME OVER! ----------------------\n");
+			sb.append("You ran out of fuel!\n");
+			sb.append("If you want to play again type \"restart\"\n");
+			sb.append("If you want to quit type \"quit\"\n");
+			sb.append("--------------------------------------------------------");
+			view.println(sb.toString());
+		}
+
 	}
 }
