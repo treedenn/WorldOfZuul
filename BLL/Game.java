@@ -31,7 +31,6 @@ public class Game {
 		view.println("Planets: " + model.getPlayer().getPlanetNames());
 
 		gameLoop();
-
 	}
 
 	private void gameLoop() {
@@ -126,10 +125,11 @@ public class Game {
 				char[] loading = new char[10];
 				Arrays.fill(loading, ' ');
 
+				long sleep;
+
 				for(int i = 0; i < loading.length; i++) {
 					loading[i] = '=';
 
-					long sleep;
 					if(!planet.getPermSearched()) {
 						sleep = (long) (1000 * (-0.022 * i * i + 0.20 * i + 0.15));
 					} else {
@@ -140,10 +140,12 @@ public class Game {
 
 					try {
 						TimeUnit.MILLISECONDS.sleep(sleep);
-						view.println("["+ new String(loading) +"]");
+						view.print("\r["+ new String(loading) +"]");
 					} catch(InterruptedException ex) {
 						ex.printStackTrace();
 					}
+
+					if(i == loading.length - 1) { view.println(""); }
 				}
 
 				view.println("Search complete!");
@@ -320,13 +322,14 @@ public class Game {
 			} else if(player.samePlanet(planets.get(planetName))) {
 				view.println("You cannot travel to the same planet!");
 			} else {
-				player.goPlanet(planetName);
+				player.go(planetName);
 				player.getCurrentPlanet().setTemporarySearch(false);
 
 				model.getBlacksmith().move();
 
 				view.println(player.getCurrentPlanet().getDescription());
 				view.println(player.getCurrentPlanet().getArriveMessage());
+				view.println("Planets: " + player.getPlanetNames());
 			}
 		}
 	}

@@ -37,7 +37,7 @@ public abstract class Character {
 		return getCurrentPlanet() == planet;
 	}
 
-	public void goPlanet(String planetName) {
+	public void go(String planetName) {
 		currentPlanet = planets.get(planetName);
 	}
 

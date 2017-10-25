@@ -71,7 +71,6 @@ public class Blacksmith extends Character {
 				break;
 			default: msg = "No traces of the Blacksmith here!";
 		}
-
 		return msg;
 	}
 }

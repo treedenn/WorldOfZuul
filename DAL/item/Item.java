@@ -1,8 +1,9 @@
 package DAL.item;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import DAL.yaml.ItemParser;
+
+import java.io.IOException;
+import java.util.*;
 
 public class Item {
 	private static List<Item> database;
@@ -14,29 +15,33 @@ public class Item {
 	private String name;
 	private String description;
 	private ItemType itemType;
+	private Color color;
+	private State state;
 	private boolean pickupable;
 	private boolean dropable;
 	private double weight;
 
 	public Item(Item item) {
-		this(item.getName(), item.getDescription(), item.getItemType(), item.getWeight(), item.isPickupable(), item.isDropable());
+		this(item.getName(), item.getDescription(), item.getItemType(), item.getColor(), item.getState(), item.getWeight(), item.isPickupable(), item.isDropable());
 	}
 
-	public Item(String name, String description, ItemType itemType, double weight, boolean isPickupable, boolean isDropable) {
+	public Item(String name, String description, ItemType itemType, Color color, State state, double weight, boolean isPickupable, boolean isDropable) {
 		this.name = name;
 		this.description = description;
 		this.itemType = itemType;
+		this.color = color;
+		this.state = state;
 		this.pickupable = isPickupable;
 		this.dropable = isDropable;
 		this.weight = weight;
 	}
 
-	public Item(String name, String description, ItemType itemType, double weight) {
-		this(name, description, itemType, weight, true, true);
+	public Item(String name, String description, ItemType itemType, Color color, State state, double weight) {
+		this(name, description, itemType, color, state, weight, true, true);
 	}
 
-	public Item(String name, String description, ItemType itemType) {
-		this(name, description, itemType, 1, true, true);
+	public Item(String name, String description, ItemType itemType, Color color, State state) {
+		this(name, description, itemType, color, state,1, true, true);
 	}
 
 	public String getName() {
@@ -49,6 +54,14 @@ public class Item {
 
 	public ItemType getItemType() {
 		return itemType;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public State getState() {
+		return state;
 	}
 
 	public boolean isPickupable() {
@@ -94,55 +107,39 @@ public class Item {
 	}
 
 	private static void initalizeDatabase() {
-		String[] liquidNames = new String[] {
-				"Kerisa", "Molt", "Sedarus", "Gouliiq", "Cryptic", "Amanzi", "Zuur",
-				"Eaux", "Hunajar", "Mielepe", "Fusilia Ferrox", "Latex", "Kalideca", "Ambrusia"
-		};
+		ItemParser parser = ItemParser.getInstance();
 
-		String[] canisterNames = new String[] {
-				"Karedu", "Loqoo", "Daupyra", "Gonazi", "Pikarq", "Zajanj",
-				"Jukohra", "Miplim", "Rexirn", "Tedox", "Akelos", "Doih"
-		};
+		try {
+			Map<Integer, Map<String, Object>> map = parser.getDatabase();
 
-		String[] gearNames = new String[] {
-				"Rekar", "Oltam", "Edauss", "Qiigol", "Rypicas", "Zinama", "Ruukaz",
-				"Xaruja", "Unjaroh", "Lemipe", "Feroxis", "Texio", "Doim", "Aldakk"
-		};
+			database = new ArrayList<>(map.size());
 
-		String[] cpuNames = new String[] {
-				"Tek XX", "Tek XXVI", "MOLT IV", "MOLT -V(D)",
-				"CX Titanium 4", "CX Titanium 8", "FIX Ferocity 1", "FIX Ferocity 3",
-				"i11 X2017", "i13 II5290", "i13 IV8525", "i15 7750",
-				"CSP 6M2T", "CSP 10MT", "CSP MXV", "CSP M2X1V"
-		};
+			String name;
+			String description;
+			ItemType type;
+			Color color;
+			State state;
+			boolean pickupable;
+			boolean dropable;
+			double weight;
 
-		Item[] liquids = new Item[liquidNames.length];
-		Item[] canisters = new Item[canisterNames.length];
-		Item[] gears = new Item[gearNames.length];
-		Item[] cpus = new Item[cpuNames.length];
+			Item item;
 
-		database = new ArrayList<>(liquids.length + gears.length + canisters.length + cpus.length);
+			for(Map<String, Object> o : map.values()) {
+				name = (String) o.get("name");
+				description = (String) o.get("description");
+				type = ItemType.valueOf((String) o.get("itemType"));
+				color = Color.valueOf((String) o.get("color"));
+				state = State.valueOf((String) o.get("state"));
+				pickupable = (boolean) o.get("pickupable");
+				dropable = (boolean) o.get("dropable");
+				weight = (double) o.get("weight");
 
-		for(int i = 0; i < liquids.length; i++) {
-			liquids[i] = new Item(liquidNames[i], "", ItemType.LIQUID);
+				database.add(new Item(name, description, type, color, state, weight, pickupable, dropable));
+			}
+		} catch(IOException ex) {
+			ex.printStackTrace();
 		}
-
-		for(int i = 0; i < canisters.length; i++) {
-			canisters[i] = new Item(canisterNames[i], "", ItemType.CANISTER);
-		}
-
-		for(int i = 0; i < gears.length; i++) {
-			gears[i] = new Item(gearNames[i], "", ItemType.GEARS);
-		}
-
-		for(int i = 0; i < cpus.length; i++) {
-			cpus[i] = new Item(cpuNames[i], "", ItemType.CPU);
-		}
-
-		database.addAll(Arrays.asList(liquids));
-		database.addAll(Arrays.asList(canisters));
-		database.addAll(Arrays.asList(gears));
-		database.addAll(Arrays.asList(cpus));
 	}
 
 	public enum id {

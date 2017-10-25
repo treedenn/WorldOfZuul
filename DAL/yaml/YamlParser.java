@@ -3,8 +3,6 @@ package DAL.yaml;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 public class YamlParser {
 	private File file;
