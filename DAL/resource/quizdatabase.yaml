@@ -1,0 +1,8 @@
+﻿---
+0:
+  question: "Which one of these is not a primitive data type?"
+  options:
+    - "Integer"
+    - "Char"
+    - "String"
+  answer: 2

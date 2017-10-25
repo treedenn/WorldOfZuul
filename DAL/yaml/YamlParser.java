@@ -4,7 +4,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 
-public abstract class YamlParser {
+public class YamlParser {
 	private File file;
 	private Yaml yaml;
 

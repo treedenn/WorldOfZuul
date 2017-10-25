@@ -2,9 +2,7 @@ package BLL;
 
 import DAL.Model;
 import DAL.character.Blacksmith;
-import DAL.character.player.Backpack;
-import DAL.character.player.Player;
-import DAL.character.player.Recipe;
+import DAL.character.player.*;
 import DAL.item.Item;
 import DAL.item.ItemStack;
 import DAL.item.PortalGun;
@@ -13,6 +11,7 @@ import DAL.world.Planet;
 import UI.command.Command;
 import UI.command.CommandWord;
 import UI.ConsoleView;
+
 
 import java.util.Arrays;
 import java.util.Map;
@@ -30,6 +29,8 @@ public class Game {
 	/* function to begin game */
 	public void start() {
 		view.println(welcomeMessage());
+                view.println(descriptionMessage());
+                view.println(hintMessage());
 		view.println("Planets: " + model.getPlayer().getPlanetNames());
 		gameLoop();
 	}
@@ -312,6 +313,8 @@ public class Game {
 	private void goPlanet(Command command) {
 		Player player = model.getPlayer();
 
+		//initiate the quiz
+
 		if(!command.hasArguments() || command.getArgumentLength() > 1) {
 			view.println(argumentMessage("go <planet-name> (not case-sensitive)"));
 		} else {
@@ -324,6 +327,28 @@ public class Game {
 			} else if(player.samePlanet(planets.get(planetName))) {
 				view.println("You cannot travel to the same planet!");
 			} else {
+                QuizManager manager = model.getManager();
+                view.println(manager.getUnoXMessage());
+
+                if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
+                    manager.pickRandomQuiz();
+                    view.println(manager.getCurrentQuizMessage());
+                    view.println("Answer: ");
+
+                    int answer = view.getParser().getQuizAnswer(manager.getOptionsSize());
+
+                    if(manager.isAnswerCorrect(answer)) {
+                        // ...
+                    } else {
+                        view.println("Wrong answer!");
+                        view.println("Thanks for playing the UnoX Quiz!");
+                    }
+
+                    view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+                }
+
+                view.getParser().resetReader();
+                            
 				player.go(planetName);
 				player.decreaseFuel(10);
 
@@ -355,16 +380,28 @@ public class Game {
 				"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
 				"[Type '" + CommandWord.HELP + "' if you need help]",
 				"",
-				"GAME OBJECTIVE",
+				model.getPlayer().getCurrentPlanet().getDescription()
+		};
+	}
+        
+        private String[] descriptionMessage() {
+            return new String[] {
+                                "GAME DESCRIPTION",
 				"--------------",
 				"You are Rick, the brilliant scientist. But you have mistakenly destroyed earth in your current dimension.",
 				"Normally, you would use your Portal Gun to teleport yourself to a new dimension... But it's broken!",
 				"Your mission is now to fix your Portal Gun and travel safely to a new dimension. Good luck!",
-				"--------------",
-				"",
-				model.getPlayer().getCurrentPlanet().getDescription()
-		};
-	}
+				"--------------",  
+                                "",
+            };
+        }
+        
+        private String[] hintMessage() {
+            return new String[] {
+                                "HINT: Find the blacksmith! Find all items! Find blacksmith to repair the Portal Gun!",
+                                "",
+            };
+        }
 
 	/* function to print the help section */
 	private String[] helpMessage() {

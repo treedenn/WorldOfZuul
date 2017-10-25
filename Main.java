@@ -1,34 +1,13 @@
 
 import BLL.Game;
 import DAL.item.Color;
-import DAL.item.Item;
 import DAL.item.ItemType;
 import DAL.item.State;
-import DAL.yaml.ItemParser;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class Main {
 	/* runs the game */
 	public static void main(String[] args) {
 		new Game().start();
-
-		/* Testing the item parser to obtain the item database from text
-		ItemParser parser = ItemParser.getInstance();
-
-		try {
-			Map<Integer, Map<String, Object>> map = parser.getDatabase();
-			System.out.println(map.get(0).get("name"));
-		} catch(IOException ex) {
-			ex.printStackTrace();
-		}
-		*/
-
-
-
-
 	}
 
 	private static void itemTemplate(int id, String name, ItemType type, Color color, State state) {
