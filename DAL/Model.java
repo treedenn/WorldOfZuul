@@ -17,23 +17,16 @@ public class Model {
 	private boolean gameWon;
 	private Player player;
 	private Blacksmith blacksmith;
-<<<<<<< HEAD
 	private PointSystem pointSystem;
-=======
 	private QuizManager manager;
->>>>>>> e25857268d3d91cf2a0c00c5fadd2bb8fb20968f
 
 	public Model() {
 		finished = false;
 		gameWon = false;
 		player = new Player();
 		blacksmith = new Blacksmith();
-<<<<<<< HEAD
 		pointSystem = new PointSystem();
-=======
 		manager = new QuizManager();
->>>>>>> e25857268d3d91cf2a0c00c5fadd2bb8fb20968f
-
 		createPlanets();
 	}
 
@@ -53,17 +46,16 @@ public class Model {
 		return blacksmith;
 	}
 
-<<<<<<< HEAD
 	public PointSystem getPointSystem() {
 		return pointSystem;
 	}
 
 	public boolean isGameWon() {
 		return gameWon;
-=======
+	}
+
 	public QuizManager getManager() {
 		return manager;
->>>>>>> e25857268d3d91cf2a0c00c5fadd2bb8fb20968f
 	}
 
 	/* function to create rooms */
