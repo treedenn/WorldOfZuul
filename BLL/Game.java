@@ -338,10 +338,11 @@ public class Game {
                     int answer = view.getParser().getQuizAnswer(manager.getOptionsSize());
 
                     if(manager.isAnswerCorrect(answer)) {
-                        // ...
+	                    view.println("Correct answer! Fuel increase by 10!");
+                        player.increaseFuel(10);
                     } else {
-                        view.println("Wrong answer!");
-                        view.println("Thanks for playing the UnoX Quiz!");
+                        view.println("Wrong answer! Fuel decreased by 10!");
+                        player.decreaseFuel(10);
                     }
 
                     view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
