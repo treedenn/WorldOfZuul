@@ -6,3 +6,137 @@
     - "Char"
     - "String"
   answer: 2
+1:
+  question: "Java source code is stored in files with what extension?"
+  options:
+    - ".class"
+    - ".java"
+    - ".jav"
+  answer: 1
+2:
+  question: "The best environment for developing Java applications is?"
+  options:
+    - "A UNIX server hosted by a corporate entity"
+    - "Eclipse IDE"
+    - "Whatever you are most comfortable in"
+  answer: 2
+3:
+  question: "Java can be used to write?"
+  options:
+    - "Web applications"
+    - "Desktop programs"
+    - "all of the above"
+  answer: 2
+4:
+  question: "which GUI toolkit comes included with Java?"
+  options:
+    - "Swing"
+    - "Gtk"
+    - "JavaFX"
+  answer: 0
+5:
+  question: "the current version of Java is?"
+  options:
+    - "8"
+    - "1.8"
+    - "This is a trick question (aka both)"
+  answer: 2
+6:
+  question: "Java is a?"
+  options:
+    - "Byte-code compiled language"
+    - "Interpreted language"
+    - "Compiled language"
+  answer: 0
+7:
+  question: "The file extension for MyApp.java after running javac MyApp.java"
+  options:
+    - ".exe"
+    - ".class"
+    - ".java"
+  answer: 1
+8:
+  question: "In Java console output i achieved by using?"
+  options:
+    - "sted::cout"
+    - "printf"
+    - "System.out.println"
+  answer: 2
+9:
+  question: "Java applications are executes in?"
+  options:
+    - "An interpreter"
+    - "A virtual machine"
+    - "On your computer"
+  answer: 1
+10:
+  question: "How many times will the following code print Welcome to Java\n int count=0;\n while (count < 10) {\n System.out.println(Welcome to Java)}"
+  options:
+    - "9"
+    - "10"
+    - "11"
+  answer: 1
+11:
+  question: "An object is an instance of a _______"
+  options:
+    - "Program"
+    - "Class"
+    - "Method"
+  answer: 1
+12:
+  Question: "Variables that are shared by every instances of a class are"
+  options:
+    - "public variables"
+    - "instance variables"
+    - "class variables"
+  answer: 2
+13:
+  question: "The less than or equal to comparison operator in Java is"
+  options:
+    - "<="
+    - "=<"
+    - "!="
+  answer: 0
+14:
+  question: "In Java the word true is"
+  options:
+    - "A Java keyword"
+    - "A Boolean literal"
+    - "Same as value 1"
+  answer: 1
+15:
+  question: "What is the representation of the third element in an array called a?"
+  options:
+    - "a[2]"
+    - "a(2)"
+    - "a[3]"
+  answer: 0
+16:
+  question: "Which of the following statements will convert a string s into a double value d?"
+  options:
+    - "d = Double.parseDouble(s);"
+    - "d = Double.valueOf(s).doubleValue();"
+    - "both of the above"
+  answer: 2
+17:
+  question: "How many elements are array matrix (int[][] matrix = new int[5][5])?"
+  options:
+    - "20"
+    - "25"
+    - "30"
+  answer: 1
+18:
+  question: "What is Math.round(3.6)?"
+  options:
+    - "4.0"
+    - "4"
+    - "3.0"
+  answer: 1
+19:
+  question: "A Java character is stored in _____."
+  options:
+    - "one byte"
+    - "two bytes"
+    - "four bytes"
+  answer: 1
+
