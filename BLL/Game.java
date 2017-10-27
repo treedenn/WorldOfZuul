@@ -316,8 +316,8 @@ public class Game {
 					if(pg.isBroken()) {
 						view.println("The Portal Gun is broken. You'll have to fix it!");
 					} else {
-						view.println("Congratulation, you have created a portal to another dimension!");
-						view.println("You won the game!");
+						finished = true;
+						gameWon = true;
 					}
 				} else {
 					view.println("The entered index does not match.");

@@ -17,7 +17,7 @@ public class CommandWords
     /* constructor, that inits every word into the variable */
     public CommandWords()
     {
-        validCommands = new HashMap<String, CommandWord>();
+        validCommands = new HashMap<>();
         for(CommandWord command : CommandWord.values()) {
             if(command != CommandWord.UNKNOWN) {
                 validCommands.put(command.toString(), command);
@@ -44,12 +44,14 @@ public class CommandWords
     }
 
     /* function to get all the possible commands */
-    public String[] getAllCommands()
-    {
-        ArrayList<String> commands = new ArrayList<>(validCommands.size());
+    public String[] getAllCommands() {
+        String[] commands = new String[validCommands.size()];
+        CommandWord[] commandWords = CommandWord.values();
 
-        commands.addAll(validCommands.keySet());
+        for(int i = 0; i < commands.length; i++) {
+            commands[i] = commandWords[i].toString();
+        }
 
-        return commands.toArray(new String[commands.size()]);
+        return commands;
     }
 }
