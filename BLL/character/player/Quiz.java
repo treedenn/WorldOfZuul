@@ -1,4 +1,4 @@
-package DAL.character.player;
+package BLL.character.player;
 
 public class Quiz {
     private String question;

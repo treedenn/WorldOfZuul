@@ -1,6 +1,6 @@
-package DAL.character;
+package BLL.character;
 
-import DAL.world.Planet;
+import BLL.world.Planet;
 
 import java.util.Map;
 

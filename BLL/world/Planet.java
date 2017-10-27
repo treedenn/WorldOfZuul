@@ -1,7 +1,6 @@
-package DAL.world;
+package BLL.world;
 
-import DAL.item.Item;
-import DAL.item.ItemStack;
+import BLL.item.ItemStack;
 
 import java.util.*;
 

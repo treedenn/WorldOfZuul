@@ -1,4 +1,4 @@
-package DAL.item;
+package BLL.item;
 
 public class PortalGun {
 	private boolean broken;

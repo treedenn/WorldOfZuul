@@ -1,7 +1,7 @@
-package DAL.character.player;
+package BLL.character.player;
 
-import DAL.item.Item;
-import DAL.item.ItemStack;
+import BLL.item.Item;
+import BLL.item.ItemStack;
 
 public class Recipe {
 	private Item[] requirements;

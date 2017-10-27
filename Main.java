@@ -1,8 +1,8 @@
 
 import BLL.Game;
-import DAL.item.Color;
-import DAL.item.ItemType;
-import DAL.item.State;
+import BLL.item.Color;
+import BLL.item.ItemType;
+import BLL.item.State;
 
 public class Main {
 	/* runs the game */

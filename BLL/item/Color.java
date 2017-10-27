@@ -1,4 +1,4 @@
-package DAL.item;
+package BLL.item;
 
 public enum Color {
 	CYAN(0, 188, 212), PINK(233, 30, 99), ORANGE(255, 152, 0), PURPLE(156, 39, 176);

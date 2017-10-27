@@ -1,19 +1,21 @@
 package BLL;
 
 import DAL.Model;
-import DAL.character.Blacksmith;
-import DAL.character.player.*;
-import DAL.item.Item;
-import DAL.item.ItemStack;
-import DAL.item.PortalGun;
+import BLL.character.Blacksmith;
+import BLL.character.player.*;
+import BLL.item.Item;
+import BLL.item.ItemStack;
+import BLL.item.PortalGun;
 import DAL.scoring.PointSystem;
-import DAL.world.Planet;
+import BLL.world.Planet;
 import UI.command.Command;
 import UI.command.CommandWord;
 import UI.ConsoleView;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -21,27 +23,58 @@ public class Game {
 	private ConsoleView view;
 	private Model model;
 
+	private boolean finished;
+	private boolean gameWon;
+	private Player player;
+	private Blacksmith blacksmith;
+	private QuizManager manager;
+
 	public Game() {
 		view = new ConsoleView();
 		model = new Model();
+
+		finished = false;
+		gameWon = false;
+		player = new Player();
+		blacksmith = new Blacksmith();
+		manager = new QuizManager();
 	}
 
 	/* function to begin game */
 	public void start() {
+		init();
+
 		view.println(welcomeMessage());
                 view.println(descriptionMessage());
                 view.println(hintMessage());
-		view.println("Planets: " + model.getPlayer().getPlanetNames());
+		view.println("Planets: " + player.getPlanetNames());
+
 		gameLoop();
 	}
 
+	private void init() {
+		Map<String, Planet> planetMap = model.createPlanets();
+		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
+
+		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.");
+
+		player.setCurrentPlanet(centerUniverse);
+		player.setPlanets(planetMap);
+
+		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
+		blacksmith.setPlanets(planetMap);
+
+		manager.setQuizes(model.getQuizes());
+	}
+
 	private void gameLoop() {
-		while (!model.isFinished()) {
+		while (!finished) {
 			Command command = view.getParser().getCommand();
 			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
 			processCommand(command);
 			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
 		}
+
 		gameIsFinished();
 	}
 
@@ -82,7 +115,6 @@ public class Game {
 	}
 
 	private void showFuel(Command command){
-		Player player = model.getPlayer();
 		double fuel = player.getFuel();
 		StringBuilder sb = new StringBuilder();
 
@@ -101,9 +133,6 @@ public class Game {
 	}
 
 	private void interact(Command command) {
-		Player player = model.getPlayer();
-		Blacksmith blacksmith = model.getBlacksmith();
-
 		if(command.hasArguments()) {
 			view.println("Interact does not need any arguments.");
 		} else {
@@ -133,8 +162,6 @@ public class Game {
 	}
 
 	private void searchOnPlanet(Command command) {
-		Player player = model.getPlayer();
-
 		if(command.hasArguments()) {
 			view.println("Search does not need any argument.");
 		} else {
@@ -174,7 +201,7 @@ public class Game {
 				}
 
 				view.println("Search complete!");
-				view.println(model.getBlacksmith().getVisitMessage(player.getCurrentPlanet().getName()));
+				view.println(blacksmith.getVisitMessage(player.getCurrentPlanet().getName()));
 
 				planet.setPermanentSearch(true);
 				planet.setTemporarySearch(true);
@@ -183,8 +210,6 @@ public class Game {
 	}
 
 	private void pickupItem(Command command) {
-		Player player = model.getPlayer();
-
 		ItemStack[] itemsOnPlanet = player.getCurrentPlanet().getContent();
 
 		if(player.getCurrentPlanet().getPermSearched()) {
@@ -231,8 +256,6 @@ public class Game {
 	}
 
 	private void dropItem(Command command) {
-		Player player = model.getPlayer();
-
 		if(player.getCurrentPlanet().getPermSearched()) {
 			if(!command.hasArguments()) {
 				showBackpackContent(command);
@@ -272,7 +295,7 @@ public class Game {
 	}
 
 	private void showBackpackContent(Command command) {
-		Backpack bp = model.getPlayer().getBackpack();
+		Backpack bp = player.getBackpack();
 
 		ItemStack[] content = bp.getContent();
 
@@ -311,9 +334,8 @@ public class Game {
 
 	/* function to replace the current room by it exits */
 	private void goPlanet(Command command) {
-		Player player = model.getPlayer();
 
-		//initiate the quiz
+		// run the quiz
 
 		if(!command.hasArguments() || command.getArgumentLength() > 1) {
 			view.println(argumentMessage("go <planet-name> (not case-sensitive)"));
@@ -327,7 +349,6 @@ public class Game {
 			} else if(player.samePlanet(planets.get(planetName))) {
 				view.println("You cannot travel to the same planet!");
 			} else {
-                QuizManager manager = model.getManager();
                 view.println(manager.getUnoXMessage());
 
                 if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
@@ -355,7 +376,7 @@ public class Game {
 
 				player.getCurrentPlanet().setTemporarySearch(false);
 
-				model.getBlacksmith().move();
+				blacksmith.move();
 
 				view.println(player.getCurrentPlanet().getDescription());
 				view.println(player.getCurrentPlanet().getArriveMessage());
@@ -369,7 +390,7 @@ public class Game {
 		if(command.getArgumentLength() > 0) {
 			view.println("Quit what?");
 		} else {
-			model.setFinished(true);
+			finished = true;
 		}
 	}
 
@@ -381,7 +402,7 @@ public class Game {
 				"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
 				"[Type '" + CommandWord.HELP + "' if you need help]",
 				"",
-				model.getPlayer().getCurrentPlanet().getDescription()
+				player.getCurrentPlanet().getDescription()
 		};
 	}
         
@@ -430,11 +451,11 @@ public class Game {
 		return true;
 	}
 
-	public void gameIsFinished(){
+	public void gameIsFinished() {
 		StringBuilder sb = new StringBuilder();
 		PointSystem pointSystem = model.getPointSystem();
-		if(model.isGameWon()){
-			Player player = model.getPlayer();
+
+		if(gameWon){
 			pointSystem.setFinishTime();
 
 			double millisecondsElapsed = pointSystem.calculateTimeElapsed();

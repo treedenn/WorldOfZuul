@@ -1,72 +1,47 @@
 package DAL;
 
-import DAL.character.Blacksmith;
-import DAL.character.player.Player;
-import DAL.character.player.QuizManager;
-import DAL.item.Item;
-import DAL.item.ItemStack;
+import BLL.character.Blacksmith;
+import BLL.character.player.Player;
+import BLL.character.player.Quiz;
+import BLL.character.player.QuizManager;
+import BLL.item.Item;
+import BLL.item.ItemStack;
 import DAL.scoring.PointSystem;
-import DAL.world.Planet;
+import BLL.world.Planet;
+import DAL.yaml.YamlParser;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashMap;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.*;
 
 public class Model {
-	private boolean finished;
-	private boolean gameWon;
-	private Player player;
-	private Blacksmith blacksmith;
 	private PointSystem pointSystem;
-	private QuizManager manager;
+	private List<Quiz> quizes;
 
 	public Model() {
-		finished = false;
-		gameWon = false;
-		player = new Player();
-		blacksmith = new Blacksmith();
 		pointSystem = new PointSystem();
-		manager = new QuizManager();
 		createPlanets();
-	}
-
-	public boolean isFinished() {
-		return finished;
-	}
-
-	public void setFinished(boolean value) {
-		finished = value;
-	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public Blacksmith getBlacksmith() {
-		return blacksmith;
+		initalizeQuizes();
 	}
 
 	public PointSystem getPointSystem() {
 		return pointSystem;
 	}
 
-	public boolean isGameWon() {
-		return gameWon;
+	public List<Quiz> getQuizes() {
+		return quizes;
 	}
 
-	public QuizManager getManager() {
-		return manager;
-	}
+
 
 	/* function to create rooms */
-	private void createPlanets() {
-		Planet centerUniverse,
-				cleron, scurn, hebrilles, xehna, gallifrey,
+	public Map<String, Planet> createPlanets() {
+		Planet cleron, scurn, hebrilles, xehna, gallifrey,
 				skaro, orion, deineax, uskillion, ayrus, amrit, earth;
 
 		/* initializing planets */
 
-		centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.");
 		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!");
 		scurn = new Planet("Scurn 01K", "Un-habitable planet, however, it is possible to be on the planet with a suit.");
 		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.");
@@ -82,10 +57,10 @@ public class Model {
 
 		/* adding items to planets */
 
-		centerUniverse.addItemStack(new ItemStack(Item.getItemById(0), 2));
-		centerUniverse.addItemStack(new ItemStack(Item.getItemById(14), 2));
-		centerUniverse.addItemStack(new ItemStack(Item.getItemById(26), 2));
-		centerUniverse.addItemStack(new ItemStack(Item.getItemById(40), 2));
+		orion.addItemStack(new ItemStack(Item.getItemById(0), 2));
+		orion.addItemStack(new ItemStack(Item.getItemById(14), 2));
+		orion.addItemStack(new ItemStack(Item.getItemById(26), 2));
+		orion.addItemStack(new ItemStack(Item.getItemById(40), 2));
 
 		/* shuffle the planets and put it inside a HashMap */
 
@@ -102,12 +77,38 @@ public class Model {
 			planetMap.put(planet.getName().replaceAll(" ", "").toLowerCase(), planet);
 		}
 
-		/* assign planets to character objects */
+		return planetMap;
+	}
 
-		player.setCurrentPlanet(centerUniverse);
-		player.setPlanets(planetMap);
+	@SuppressWarnings("unchecked")
+	private void initalizeQuizes() {
+		YamlParser parser = new YamlParser(new File("./src/DAL/resource/quizdatabase.yaml"));
 
-		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
-		blacksmith.setPlanets(planetMap);
+		Map<Integer, Map<String, Object>> database;
+
+		try {
+			database = parser.getYaml().load(new FileReader(parser.getFile()));
+
+			quizes = new ArrayList<>(database.size());
+
+			String question;
+			List<String> opList;
+			String[] options;
+			Integer answer;
+
+			for (Map<String, Object> map : database.values()) {
+				question = (String) map.get("question");
+
+				opList = (List<String>) map.get("options");
+				options = opList.toArray(new String[opList.size()]);
+
+				answer = (Integer) map.get("answer");
+
+				quizes.add(new Quiz(question, options, answer));
+			}
+		} catch (FileNotFoundException e) {
+			quizes = null;
+			e.printStackTrace();
+		}
 	}
 }

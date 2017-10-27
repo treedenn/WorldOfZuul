@@ -1,7 +1,6 @@
-package DAL.character.player;
+package BLL.character.player;
 
-import DAL.character.Character;
-import DAL.character.Inventory;
+import BLL.character.Character;
 
 public class Player extends Character {
 	private Backpack backpack;

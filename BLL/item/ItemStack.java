@@ -1,4 +1,4 @@
-package DAL.item;
+package BLL.item;
 
 public final class ItemStack {
 	private Item item;

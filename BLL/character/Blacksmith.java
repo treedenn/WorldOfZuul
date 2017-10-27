@@ -1,8 +1,7 @@
-package DAL.character;
+package BLL.character;
 
-import DAL.character.player.Player;
-import DAL.character.player.Recipe;
-import DAL.world.Planet;
+import BLL.character.player.Recipe;
+import BLL.world.Planet;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;

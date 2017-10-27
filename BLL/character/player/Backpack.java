@@ -1,9 +1,9 @@
-package DAL.character.player;
+package BLL.character.player;
 
-import DAL.character.Inventory;
-import DAL.item.Item;
-import DAL.item.ItemStack;
-import DAL.item.PortalGun;
+import BLL.character.Inventory;
+import BLL.item.Item;
+import BLL.item.ItemStack;
+import BLL.item.PortalGun;
 
 import java.util.ArrayList;
 import java.util.List;

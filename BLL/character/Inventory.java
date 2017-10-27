@@ -1,7 +1,7 @@
-package DAL.character;
+package BLL.character;
 
-import DAL.item.Item;
-import DAL.item.ItemStack;
+import BLL.item.Item;
+import BLL.item.ItemStack;
 
 public interface Inventory {
 	boolean add(ItemStack itemStack);

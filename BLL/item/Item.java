@@ -1,4 +1,4 @@
-package DAL.item;
+package BLL.item;
 
 import DAL.yaml.ItemParser;
 
