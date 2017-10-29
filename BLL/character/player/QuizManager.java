@@ -18,7 +18,7 @@ public class QuizManager {
     public String[] getUnoXMessage() {
         return new String[] {
                 "Before leaving you make a quick stop at the local gas station Uno-X",
-                "would you like to play a small quiz in order to win some gas for your ship?",
+                "[Station Manager]: Would you like to play a small quiz in order to win some gas for your ship?",
                 "Enter Y/N"
         };
     }

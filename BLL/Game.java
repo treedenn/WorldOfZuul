@@ -47,7 +47,8 @@ public class Game {
 		view.println(welcomeMessage());
                 view.println(descriptionMessage());
                 view.println(hintMessage());
-		view.println("Planets: " + player.getPlanetNames());
+                view.println(player.getCurrentPlanet().getDescription());
+		view.println("\n[ Planets: " + player.getPlanetNames() + "]");
 
 		gameLoop();
 	}
@@ -359,7 +360,7 @@ public class Game {
                     int answer = view.getParser().getQuizAnswer(manager.getOptionsSize());
 
                     if(manager.isAnswerCorrect(answer)) {
-	                    view.println("Correct answer! Fuel increase by 10!");
+	                    view.println("Correct answer! Fuel increased by 10!");
                         player.increaseFuel(10);
                     } else {
                         view.println("Wrong answer! Fuel decreased by 10!");
@@ -378,7 +379,8 @@ public class Game {
 
 				blacksmith.move();
 
-				view.println(player.getCurrentPlanet().getDescription());
+				view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+                                view.println(player.getCurrentPlanet().getDescription());
 				view.println(player.getCurrentPlanet().getArriveMessage());
 				view.println("Planets: " + player.getPlanetNames());
 			}
@@ -402,7 +404,6 @@ public class Game {
 				"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
 				"[Type '" + CommandWord.HELP + "' if you need help]",
 				"",
-				player.getCurrentPlanet().getDescription()
 		};
 	}
         
@@ -410,7 +411,7 @@ public class Game {
             return new String[] {
                                 "GAME DESCRIPTION",
 				"--------------",
-				"You are Rick, the brilliant scientist. But you have mistakenly destroyed earth in your current dimension.",
+				"You are Rick, the brilliant scientist. But you have mistakenly destroyed Earth in your current dimension.",
 				"Normally, you would use your Portal Gun to teleport yourself to a new dimension... But it's broken!",
 				"Your mission is now to fix your Portal Gun and travel safely to a new dimension. Good luck!",
 				"--------------",  
@@ -420,7 +421,12 @@ public class Game {
         
         private String[] hintMessage() {
             return new String[] {
-                                "HINT: Find the blacksmith! Find all items! Find blacksmith to repair the Portal Gun!",
+                                "HINT:",
+                                "--------------",
+                                "Find the blacksmith named Gearhad!",
+                                "Find all items in recipe!",
+                                "Return to blacksmith and repair the Portal Gun!",
+                                "--------------",
                                 "",
             };
         }
@@ -477,8 +483,8 @@ public class Game {
 			sb.append("--------------------------------------------------------\n");
 			sb.append("---------------------- GAME OVER! ----------------------\n");
 			sb.append("You ran out of fuel!\n");
-			sb.append("If you want to play again type \"restart\"\n");
-			sb.append("If you want to quit type \"quit\"\n");
+			sb.append("If you want to play again - type 'restart'\n");
+			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");
 			sb.append("--------------------------------------------------------");
 			view.println(sb.toString());
 		}
