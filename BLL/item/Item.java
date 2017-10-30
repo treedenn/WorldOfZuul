@@ -89,7 +89,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return String.format("%s [%s]", getName(), getItemType().name());
+		return String.format("%s [%s]: %s", getName(), getItemType().name(), getDescription());
 	}
 
 	// Database related

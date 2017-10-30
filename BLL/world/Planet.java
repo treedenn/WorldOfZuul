@@ -79,6 +79,15 @@ public class Planet
     	return itemList.toArray(new ItemStack[itemList.size()]);
     }
 
+    public String[] getContentDescription(){
+        ItemStack[] itemsOnPlanet = this.getContent();
+        String[] contentDescription = new String[itemsOnPlanet.length];
+        for(int i = 0; i < itemsOnPlanet.length; i++) {
+            contentDescription[i] = String.format("[%d] %s", (1 + i), itemsOnPlanet[i].toString());
+        }
+        return contentDescription;
+    }
+
     private int findItem(ItemStack itemStack) {
         for(int i = 0; i < itemList.size(); i++) {
             ItemStack existingStack = itemList.get(i);

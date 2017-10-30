@@ -202,8 +202,11 @@ public class Game {
 				}
 
 				view.println("Search complete!");
+				view.println("----------------");
+				view.println(planet.getContentDescription());
+				view.println("");
 				view.println(blacksmith.getVisitMessage(player.getCurrentPlanet().getName()));
-
+				view.println("----------------");
 				planet.setPermanentSearch(true);
 				planet.setTemporarySearch(true);
 			}
@@ -215,9 +218,7 @@ public class Game {
 
 		if(player.getCurrentPlanet().getPermSearched()) {
 			if(!command.hasArguments()) {
-				for(int i = 0; i < itemsOnPlanet.length; i++) {
-					 view.println(String.format("[%d] %s", (1 + i), itemsOnPlanet[i].toString()));
-				}
+				view.println(player.getCurrentPlanet().getContentDescription());
 			} else {
 				if(command.getArgumentLength() > 2) {
 					view.println(argumentMessage("pickup <item-index> [quantity]"));

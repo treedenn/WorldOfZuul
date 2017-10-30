@@ -494,6 +494,7 @@
   pickupable: true
   dropable: true
   weight: 1.0
+
 55:
   name: "CSP M2X1V"
   description: "This item is {{color}} and {{state}}."
@@ -503,4 +504,15 @@
   pickupable: true
   dropable: true
   weight: 1.0
+
+56:
+  name: "Clue"
+  description: "The {{itemType}} you are searching for is said to be {{color}}."
+  itemType: NONE
+  color: WHITE
+  state: NORMAL
+  pickupable: false
+  dropable: false
+  weight: 0.0
+
 
