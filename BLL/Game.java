@@ -366,8 +366,6 @@ public class Game {
                         view.println("Wrong answer! Fuel decreased by 10!");
                         player.decreaseFuel(10);
                     }
-
-                    view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
                 }
 
                 view.getParser().resetReader();
@@ -471,21 +469,22 @@ public class Game {
 			int stars = pointSystem.calculatePoints(player.getTotalFuelConsumption());
 			char[] earnedStars = new char[stars];
 			Arrays.fill(earnedStars, '\u26e4');
-			sb.append("--------------------------------------------------------\n");
+
 			sb.append("---------------------- GAME WON! -----------------------\n");
 			sb.append("Here are some stats for you to brag about...\n");
 			sb.append("You played for ").append(minutes).append(":").append(seconds).append(" minutes\n");
 			sb.append("Your total fuel consumption was ").append(player.getTotalFuelConsumption()).append(" liters\n");
 			sb.append("Out of 5 stars ").append("you earned: ").append(earnedStars).append("\n");
 			sb.append("--------------------------------------------------------");
+
 			view.println(sb.toString());
 		} else{
-			sb.append("--------------------------------------------------------\n");
 			sb.append("---------------------- GAME OVER! ----------------------\n");
 			sb.append("You ran out of fuel!\n");
 			sb.append("If you want to play again - type 'restart'\n");
 			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");
 			sb.append("--------------------------------------------------------");
+
 			view.println(sb.toString());
 		}
 
