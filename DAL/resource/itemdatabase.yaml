@@ -174,7 +174,7 @@
   name: "Zajanj"
   description: "This item is {{color}} and {{state}}."
   itemType: CANISTER
-  Color: GREEN
+  color: GREEN
   state: TOXIC
   pickupable: true
   dropable: true
