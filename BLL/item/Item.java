@@ -127,10 +127,12 @@ public class Item {
 
 			for(Map<String, Object> o : map.values()) {
 				name = (String) o.get("name");
-				description = (String) o.get("description");
-				type = ItemType.valueOf((String) o.get("itemType"));
 				color = Color.valueOf((String) o.get("color"));
 				state = State.valueOf((String) o.get("state"));
+				description = (String) o.get("description");
+				description = description.replace("{{color}}", color.name().toLowerCase());
+				description = description.replace("{{state}}", state.name().toLowerCase());
+				type = ItemType.valueOf((String) o.get("itemType"));
 				pickupable = (boolean) o.get("pickupable");
 				dropable = (boolean) o.get("dropable");
 				weight = (double) o.get("weight");

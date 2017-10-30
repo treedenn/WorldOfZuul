@@ -4,6 +4,10 @@ public final class ItemStack {
 	private Item item;
 	private int quantity;
 
+	public ItemStack(Item item){
+		this(item,1);
+	}
+
 	public ItemStack(Item item, int quantity) {
 		this.item = item;
 		this.quantity = quantity;

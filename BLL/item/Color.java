@@ -1,7 +1,7 @@
 package BLL.item;
 
 public enum Color {
-	CYAN(0, 188, 212), PINK(233, 30, 99), ORANGE(255, 152, 0), PURPLE(156, 39, 176);
+	CYAN(0, 188, 212), PINK(233, 30, 99), ORANGE(255, 152, 0), PURPLE(156, 39, 176), GREEN(0, 255,0), WHITE(255,255,255);
 
 	private int red;
 	private int green;

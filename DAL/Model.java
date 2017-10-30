@@ -57,10 +57,75 @@ public class Model {
 
 		/* adding items to planets */
 
-		orion.addItemStack(new ItemStack(Item.getItemById(0), 2));
-		orion.addItemStack(new ItemStack(Item.getItemById(14), 2));
-		orion.addItemStack(new ItemStack(Item.getItemById(26), 2));
-		orion.addItemStack(new ItemStack(Item.getItemById(40), 2));
+		cleron.addItemStack(new ItemStack(Item.getItemById(0)));
+		cleron.addItemStack(new ItemStack(Item.getItemById(14)));
+		cleron.addItemStack(new ItemStack(Item.getItemById(26)));
+		cleron.addItemStack(new ItemStack(Item.getItemById(40)));
+		cleron.addItemStack(new ItemStack(Item.getItemById(39)));
+
+		scurn.addItemStack(new ItemStack(Item.getItemById(1)));
+		scurn.addItemStack(new ItemStack(Item.getItemById(15)));
+		scurn.addItemStack(new ItemStack(Item.getItemById(27)));
+		scurn.addItemStack(new ItemStack(Item.getItemById(41)));
+		scurn.addItemStack(new ItemStack(Item.getItemById(54)));
+
+		hebrilles.addItemStack(new ItemStack(Item.getItemById(2)));
+		hebrilles.addItemStack(new ItemStack(Item.getItemById(16)));
+		hebrilles.addItemStack(new ItemStack(Item.getItemById(28)));
+		hebrilles.addItemStack(new ItemStack(Item.getItemById(42)));
+		hebrilles.addItemStack(new ItemStack(Item.getItemById(55)));
+
+		xehna.addItemStack(new ItemStack(Item.getItemById(3)));
+		xehna.addItemStack(new ItemStack(Item.getItemById(17)));
+		xehna.addItemStack(new ItemStack(Item.getItemById(29)));
+		xehna.addItemStack(new ItemStack(Item.getItemById(43)));
+		xehna.addItemStack(new ItemStack(Item.getItemById(53)));
+
+		gallifrey.addItemStack(new ItemStack(Item.getItemById(4)));
+		gallifrey.addItemStack(new ItemStack(Item.getItemById(18)));
+		gallifrey.addItemStack(new ItemStack(Item.getItemById(30)));
+		gallifrey.addItemStack(new ItemStack(Item.getItemById(44)));
+
+		skaro.addItemStack(new ItemStack(Item.getItemById(5)));
+		skaro.addItemStack(new ItemStack(Item.getItemById(19)));
+		skaro.addItemStack(new ItemStack(Item.getItemById(31)));
+		skaro.addItemStack(new ItemStack(Item.getItemById(45)));
+
+		orion.addItemStack(new ItemStack(Item.getItemById(6)));
+		orion.addItemStack(new ItemStack(Item.getItemById(20)));
+		orion.addItemStack(new ItemStack(Item.getItemById(32)));
+		orion.addItemStack(new ItemStack(Item.getItemById(46)));
+
+		deineax.addItemStack(new ItemStack(Item.getItemById(7)));
+		deineax.addItemStack(new ItemStack(Item.getItemById(21)));
+		deineax.addItemStack(new ItemStack(Item.getItemById(33)));
+		deineax.addItemStack(new ItemStack(Item.getItemById(47)));
+
+		uskillion.addItemStack(new ItemStack(Item.getItemById(8)));
+		uskillion.addItemStack(new ItemStack(Item.getItemById(22)));
+		uskillion.addItemStack(new ItemStack(Item.getItemById(34)));
+		uskillion.addItemStack(new ItemStack(Item.getItemById(48)));
+
+		ayrus.addItemStack(new ItemStack(Item.getItemById(9)));
+		ayrus.addItemStack(new ItemStack(Item.getItemById(23)));
+		ayrus.addItemStack(new ItemStack(Item.getItemById(35)));
+		ayrus.addItemStack(new ItemStack(Item.getItemById(49)));
+		ayrus.addItemStack(new ItemStack(Item.getItemById(13)));
+
+		amrit.addItemStack(new ItemStack(Item.getItemById(10)));
+		amrit.addItemStack(new ItemStack(Item.getItemById(24)));
+		amrit.addItemStack(new ItemStack(Item.getItemById(36)));
+		amrit.addItemStack(new ItemStack(Item.getItemById(50)));
+		amrit.addItemStack(new ItemStack(Item.getItemById(12)));
+
+		earth.addItemStack(new ItemStack(Item.getItemById(11)));
+		earth.addItemStack(new ItemStack(Item.getItemById(25)));
+		earth.addItemStack(new ItemStack(Item.getItemById(37)));
+		earth.addItemStack(new ItemStack(Item.getItemById(51)));
+		earth.addItemStack(new ItemStack(Item.getItemById(52)));
+		earth.addItemStack(new ItemStack(Item.getItemById(38)));
+
+
 
 		/* shuffle the planets and put it inside a HashMap */
 
