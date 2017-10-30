@@ -70,12 +70,12 @@
     - "On your computer"
   answer: 1
 10:
-  question: "How many times will the following code print Welcome to Java\n int count=0;\n while (count < 10) {\n System.out.println(Welcome to Java)}"
+  question: "_______ is the code with natural language mixed with Java code"
   options:
-    - "9"
-    - "10"
-    - "11"
-  answer: 1
+    - "A Java statement"
+    - "A flowchart diagram"
+    - "Pseudocode"
+  answer: 2
 11:
   question: "An object is an instance of a _______"
   options:
@@ -139,4 +139,171 @@
     - "two bytes"
     - "four bytes"
   answer: 1
-
+20:
+  question: "Which of the following is a valid identifier?"
+  options:
+    - "$343"
+    - "class"
+    - "9x"
+  answer: 1
+21:
+  question: "To assign a value 1 to variable x, you write"
+  options:
+    - "1=x;"
+    - "x=1;"
+    - "x==1;"
+  answer: 1
+22:
+  question: "	Which of these data types requires the most amount of memory?"
+  options:
+    - "long"
+    - "short"
+    - "byte"
+  answer: 0
+23:
+  question: "What is the result of 45 / 4?"
+  options:
+    - "10"
+    - "11"
+    - "11.25"
+  answer: 1
+24:
+  question: "Which of the following expression results in a value 1?"
+  options:
+    - "2 % 1"
+    - "15 % 4"
+    - "25 % 5"
+  answer: 0
+25:
+  question: "Which of the Boolean expressions below is incorrect?"
+  options:
+    - "(true) && (3 => 4)"
+    - "!(x > 0) && (x > 0)"
+    - "(x > 0) || (x < 0)"
+  answer: 0
+26:
+  question: "The Unicode of 'a' is 97. What is the Unicode for 'c'?"
+  options:
+    - "96"
+    - "98"
+    - "99"
+  answer: 2
+27:
+  question: "The __________ method parses a string s to an int value."
+  options:
+    - "integer.parseInt(s);"
+    - "Integer.parseInt(s);"
+    - "Integer.parseInteger(s);"
+  answer: 1
+28:
+  question: "Suppose your method does not return any value, which of the following keywords can be used as a return type?"
+  options:
+    - "Void"
+    - "double"
+    - "public"
+  answer: 1
+29:
+  question: "(int)(Math.random() * (65535 + 1)) returns a random number "
+  options:
+    - "between 0 and 65535"
+    - "between 1 and 65536"
+    - "between 0 and 65536"
+  answer: 0
+30:
+  question: "How many elements are in array double[] list = new double[5]?"
+  options:
+    - "4"
+    - "5"
+    - "6"
+  answer: 1
+31:
+  question: "Assume int[] t = {1, 2, 3, 4}. What is t.length?"
+  options:
+    - "0"
+    - "5"
+    - "4"
+  answer: 2
+32:
+  question: "When you pass an array to a method, the method receives"
+  options:
+    - "a copy of the array"
+    - "the lenght of the array"
+    - "the reference of the array"
+  answer: 2
+33:
+  question: "To prevent a class from being instantiated, _____________________"
+  options:
+    - "don't use any modifiers on the constructor."
+    - "use the private modifier on the constructor."
+    - "use the static modifier on the constructor."
+  answer: 1
+34:
+  question: "Which is the advantage of encapsulation?"
+  options:
+    - "Making the class final causes no consequential changes to other code. "
+    - "It changes the implementation without changing a class's contract and causes no consequential changes to other code. "
+    - "It changes a class's contract without changing the implementation and causes no consequential changes to other code. "
+  answer: 1
+35:
+  question: "In JDK 1.5, you may directly assign a primitive data type value to a wrapper object. This is called ______________"
+  options:
+    - "auto conversion"
+    - "auto casting"
+    - "auto boxing"
+  answer: 2
+36:
+  question: "BigInteger and BigDecimal are immutable"
+  options:
+    - "true"
+    - "false"
+    - "what is imutable?"
+  answer: 0
+37:
+  question: "What is the best suitable relationship between Employee and Faculty?"
+  options:
+    - "Aggregation"
+    - "Inheritance"
+    - "Composition"
+  answer: 1
+38:
+  question: "java.util.Vector is a subtype of __________."
+  options:
+    - "java.util.AbstractList"
+    - "java.util.Vector"
+    - "java.util.LinkedList"
+  answer: 0
+39:
+  question: "The most efficient algorithm for sorting integer keys is"
+  options:
+    - "quick sort"
+    - "radix sort"
+    - "merge sort"
+  answer: 1
+40:
+  question: "Which of the data types below does not allow duplicates?"
+  options:
+    - "Set"
+    - "List"
+    - "Vector"
+  answer: 0
+41:
+  question: " Which of the following data types does not implement the Collection interface?"
+  options:
+    - "HashSet"
+    - "ArrayList"
+    - "Map"
+  answer: 2
+42:
+  question: "To empty a Collection or a Map, you use the __________ method."
+  options:
+    - "SetEmpty"
+    - "empty"
+    - "clear"
+  answer: 2
+43:
+  question: "The elements in ________ are sorted"
+  options:
+    - "TreeSet"
+    - "List"
+    - "HashSet"
+  answer: 0
