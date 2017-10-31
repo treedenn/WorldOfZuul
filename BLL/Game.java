@@ -236,7 +236,7 @@ public class Game {
 
 							if(player.getBackpack().add(is)) {
 								player.getCurrentPlanet().removeItemStack(is);
-								view.println("You successfully picked " +is.toString()+ " from the planet!");
+								view.println("You successfully picked " + is.getQuantity() + "x [" + is.getItem().getName() + "] from the planet!");
 							} else {
 								Backpack bp = player.getBackpack();
 
