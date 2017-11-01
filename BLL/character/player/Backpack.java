@@ -110,10 +110,11 @@ public class Backpack implements Inventory {
 		if(index != -1) {
 			ItemStack existingStack = items.get(index);
 
-			existingStack.decreaseQuantity(itemStack.getQuantity());
-
-			if(existingStack.getQuantity() == 0) {
+			if(existingStack.getQuantity() - itemStack.getQuantity() == 0) {
 				remove(index);
+			} else{
+				existingStack.decreaseQuantity(itemStack.getQuantity());
+				decreaseCurrentCapacity(itemStack.getTotalWeight());
 			}
 
 			return true;

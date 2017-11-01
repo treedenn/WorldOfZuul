@@ -9,7 +9,7 @@ public class Player extends Character {
 
 	public Player() {
 		super(null, null);
-		this.backpack = new Backpack(10);
+		this.backpack = new Backpack(6);
 		this.fuel = 100;
 	}
 

@@ -322,6 +322,8 @@ public class Game {
 				}
 			}
 		} else {
+			view.println(String.format("Backpack capacity: %.2f [kg] / %.2f [kg]", bp.getCurrentCapacity(), bp.getMaxCapacity()));
+			view.println("----");
 			for(int i = 0; i < content.length; i++) {
 				view.println(String.format("[%d] %s", (1 + i), content[i].toString()));
 			}
@@ -413,8 +415,17 @@ public class Game {
 				s = j % 2 == 0 ? "{{color}}" : "{{state}}";
 				newDescription = clue.getDescription().replace("{{clue}}", s);
 				clue.setDescription(newDescription);
+				System.out.println(clue.toString());
 			}
 		}
+
+		List<Planet> planetsList = new ArrayList<>(player.getPlanets().values());
+		Collections.shuffle(planetsList);
+		for (int i = 0; i < clues.length; i++) {
+			planetsList.get(i).addItemStack(new ItemStack(clues[i]));
+		}
+
+/*
 		Iterator<Planet> planetIterator = player.getPlanets().values().iterator();
 		Planet p;
 		int count = 0;
@@ -423,7 +434,7 @@ public class Game {
 			p.addItemStack(new ItemStack(clues[count]));
 			count++;
 			if(count == 8) break;
-		}
+		}*/
 	}
 
 	/* function to print a welcome message */
