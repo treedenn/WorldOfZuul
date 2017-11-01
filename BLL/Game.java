@@ -13,10 +13,7 @@ import UI.command.CommandWord;
 import UI.ConsoleView;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Game {
@@ -58,14 +55,13 @@ public class Game {
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
 		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.");
-
 		player.setCurrentPlanet(centerUniverse);
 		player.setPlanets(planetMap);
-
 		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
 		blacksmith.setPlanets(planetMap);
 
 		manager.setQuizes(model.getQuizes());
+		addCluesToPlanets();
 	}
 
 	private void gameLoop() {
@@ -393,6 +389,42 @@ public class Game {
 		} else {
 			finished = true;
 		}
+	}
+
+	private void addCluesToPlanets(){
+		Item[] items = blacksmith.getRecipe().getRequirements();
+		Item[] clues = new Item[8];
+
+		for (int i = 0; i < clues.length; i++) {
+			clues[i] = Model.getItemById(56);
+		}
+
+		Item item;
+		Item clue;
+		String s;
+		String newDescription;
+		for (int i = 0; i < items.length; i++) {
+			item = items[i];
+			for (int j = i * 2; j < i * 2 + 2; j++) {
+				clue = clues[j];
+				clue.setColor(item.getColor());
+				clue.setState(item.getState());
+				clue.setItemType(item.getItemType());
+				s = j % 2 == 0 ? "{{color}}" : "{{state}}";
+				newDescription = clue.getDescription().replace("{{clue}}", s);
+				clue.setDescription(newDescription);
+			}
+		}
+		Iterator<Planet> planetIterator = player.getPlanets().values().iterator();
+		Planet p;
+		int count = 0;
+		while(planetIterator.hasNext()){
+			p = planetIterator.next();
+			p.addItemStack(new ItemStack(clues[count]));
+			count++;
+			if(count == 8) break;
+		}
+
 	}
 
 	/* function to print a welcome message */

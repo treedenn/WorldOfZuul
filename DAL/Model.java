@@ -4,7 +4,6 @@ import BLL.character.player.Quiz;
 import BLL.item.*;
 import DAL.scoring.PointSystem;
 import BLL.world.Planet;
-import DAL.yaml.ItemParser;
 import DAL.yaml.YamlParser;
 
 import java.io.File;
@@ -30,7 +29,7 @@ public class Model {
 	}
 
 	public static Item getItemById(int index) {
-		return itemDatabase.get(index);
+		return new Item(itemDatabase.get(index));
 	}
 
 	public PointSystem getPointSystem() {
@@ -171,8 +170,6 @@ public class Model {
 				color = Color.valueOf((String) o.get("color"));
 				state = State.valueOf((String) o.get("state"));
 				description = (String) o.get("description");
-				description = description.replace("{{color}}", color.name().toLowerCase());
-				description = description.replace("{{state}}", state.name().toLowerCase());
 				type = ItemType.valueOf((String) o.get("itemType"));
 				pickupable = (boolean) o.get("pickupable");
 				dropable = (boolean) o.get("dropable");

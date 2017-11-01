@@ -507,7 +507,7 @@
 
 56:
   name: "Clue"
-  description: "The {{itemType}} you are searching for is said to be {{color}}."
+  description: "The {{itemtype}} you are searching for is probably {{clue}}."
   itemType: NONE
   color: WHITE
   state: NORMAL

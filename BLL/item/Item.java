@@ -1,10 +1,5 @@
 package BLL.item;
 
-import DAL.yaml.ItemParser;
-
-import java.io.IOException;
-import java.util.*;
-
 public class Item {
 	private String name;
 	private String description;
@@ -43,7 +38,10 @@ public class Item {
 	}
 
 	public String getDescription() {
-		return description;
+		String temp = description.replace("{{itemtype}}", itemType.name().toLowerCase());
+		temp = temp.replace("{{state}}", state.name().toLowerCase());
+		temp = temp.replace("{{color}}", color.name().toLowerCase());
+		return temp;
 	}
 
 	public ItemType getItemType() {
@@ -70,6 +68,22 @@ public class Item {
 		return weight;
 	}
 
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setItemType(ItemType itemType) {
+		this.itemType = itemType;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if(object instanceof Item) {
@@ -77,7 +91,6 @@ public class Item {
 
 			return this.getName().equals(item.getName()) && this.getDescription().equals(item.getDescription()) && this.getItemType().equals(item.getItemType());
 		}
-
 		return false;
 	}
 
@@ -85,4 +98,5 @@ public class Item {
 	public String toString() {
 		return String.format("%s [%s]: %s", getName(), getItemType().name(), getDescription());
 	}
+
 }
