@@ -8,7 +8,7 @@ package UI.command;
 /* enum class for all the commands */
 public enum CommandWord {
     /* command enums with their keyword */
-    GO("go"), SEARCH("search"), BACKPACK("backpack"), PICKUP("pickup"), DROP("drop"), INTERACT("interact"), FUEL("fuel"), HELP("help"), QUIT("quit"), UNKNOWN("?");
+    GO("go"), SEARCH("search"), BACKPACK("backpack"), PICKUP("pickup"), DROP("drop"), INTERACT("interact"), FUEL("fuel"), HELP("help"), QUIT("quit"), RESTART("restart"),UNKNOWN("?");
 
     /* stores the keyword */
     private String commandString;

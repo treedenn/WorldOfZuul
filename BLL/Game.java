@@ -13,10 +13,7 @@ import UI.command.CommandWord;
 import UI.ConsoleView;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Game {
@@ -58,14 +55,13 @@ public class Game {
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
 		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.");
-
 		player.setCurrentPlanet(centerUniverse);
 		player.setPlanets(planetMap);
-
 		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
 		blacksmith.setPlanets(planetMap);
 
 		manager.setQuizes(model.getQuizes());
+		addCluesToPlanets();
 	}
 
 	private void gameLoop() {
@@ -112,6 +108,9 @@ public class Game {
 				break;
 			case QUIT:
 				quit(command);
+				break;
+			case RESTART:
+				restart(command);
 		}
 	}
 
@@ -184,9 +183,9 @@ public class Game {
 					loading[i] = '=';
 
 					if(!planet.getPermSearched()) {
-						sleep = (long) (1000 * (-0.022 * i * i + 0.20 * i + 0.15));
+						sleep = (long) (300 * (-0.022 * i * i + 0.20 * i + 0.15));
 					} else {
-						sleep = (long) (1000 * (-0.004329 * i * i + 0.02165 * i + 0.15));
+						sleep = (long) (300 * (-0.004329 * i * i + 0.02165 * i + 0.15));
 					}
 
 					//System.out.println("Sleep: " + sleep);
@@ -311,7 +310,7 @@ public class Game {
 					ItemStack is = content[index];
 
 					view.println(is.getItem().getName());
-					view.println("\t" + is.getItem().getDescription());
+					view.println("\t" + is.getItem().getPHDescription());
 				} else if(index == content.length) {
 					PortalGun pg = bp.getPortalGun();
 
@@ -326,6 +325,8 @@ public class Game {
 				}
 			}
 		} else {
+			view.println(String.format("Backpack capacity: %.2f [kg] / %.2f [kg]", bp.getCurrentCapacity(), bp.getMaxCapacity()));
+			view.println("----");
 			for(int i = 0; i < content.length; i++) {
 				view.println(String.format("[%d] %s", (1 + i), content[i].toString()));
 			}
@@ -351,6 +352,12 @@ public class Game {
 			} else if(player.samePlanet(planets.get(planetName))) {
 				view.println("You cannot travel to the same planet!");
 			} else {
+				if(player.getFuel() == 0){
+					finished = true;
+					gameWon = false;
+					player.setFuelEmpty(true);
+					return;
+				}
                 view.println(manager.getUnoXMessage());
 
                 if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
@@ -393,6 +400,52 @@ public class Game {
 		} else {
 			finished = true;
 		}
+	}
+
+	private void restart(Command command){
+		if(command.getArgumentLength() > 0) {
+			view.println("Restart what?");
+		} else {
+			view.println("\n \n \n \n \n NEW GAME STARTED \n \n \n \n \n \n");
+			finished = false;
+			gameWon = false;
+			player.setFuelEmpty(false);
+			Game game = new Game();
+			game.start();
+		}
+	}
+
+	private void addCluesToPlanets(){
+		Item[] items = blacksmith.getRecipe().getRequirements();
+		Item[] clues = new Item[8];
+
+		for (int i = 0; i < clues.length; i++) {
+			clues[i] = Model.getItemById(56);
+		}
+
+		Item item;
+		Item clue;
+		String s;
+		String newDescription;
+		for (int i = 0; i < items.length; i++) {
+			item = items[i];
+			for (int j = i * 2; j < i * 2 + 2; j++) {
+				clue = clues[j];
+				clue.setColor(item.getColor());
+				clue.setState(item.getState());
+				clue.setItemType(item.getItemType());
+				s = j % 2 == 0 ? "{{color}}" : "{{state}}";
+				newDescription = clue.getDescription().replace("{{clue}}", s);
+				clue.setDescription(newDescription);
+			}
+		}
+
+		List<Planet> planetsList = new ArrayList<>(player.getPlanets().values());
+		Collections.shuffle(planetsList);
+		for (int i = 0; i < clues.length; i++) {
+			planetsList.get(i).addItemStack(new ItemStack(clues[i]));
+		}
+
 	}
 
 	/* function to print a welcome message */
@@ -481,12 +534,15 @@ public class Game {
 			view.println(sb.toString());
 		} else{
 			sb.append("---------------------- GAME OVER! ----------------------\n");
-			sb.append("You ran out of fuel!\n");
-			sb.append("If you want to play again - type 'restart'\n");
-			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");
+			if(player.isFuelEmpty()){
+				sb.append("You ran out of fuel!\n");
+			}
+			/*sb.append("If you want to play again - type '" + CommandWord.RESTART + "'\n");
+			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");*/
 			sb.append("--------------------------------------------------------");
 
 			view.println(sb.toString());
+
 		}
 
 	}

@@ -45,15 +45,16 @@ public class Recipe {
 		final int canisters = 12; // 14 -> 26
 		final int gears = 14; // 26 -> 40
 		final int cpus = 16; // 40 -> 56
-		/*
-		requirements[0] = Item.getItemById((int) (Math.random() * liquids));
-		requirements[1] = Item.getItemById((int) (liquids + Math.random() * canisters));
-		requirements[2] = Item.getItemById((int) (liquids + canisters + Math.random() * gears));
-		requirements[3] = Item.getItemById((int) (liquids + canisters + gears + Math.random() * cpus));
-		*/
-		requirements[0] = Model.getItemByIndex(0);
-		requirements[1] = Model.getItemByIndex(liquids);
-		requirements[2] = Model.getItemByIndex(liquids + canisters);
-		requirements[3] = Model.getItemByIndex(liquids + canisters + gears);
+
+		requirements[0] = Model.getItemById((int) (Math.random() * liquids));
+		requirements[1] = Model.getItemById((int) (liquids + Math.random() * canisters));
+		requirements[2] = Model.getItemById((int) (liquids + canisters + Math.random() * gears));
+		requirements[3] = Model.getItemById((int) (liquids + canisters + gears + Math.random() * cpus));
+
+		/*requirements[0] = Model.getItemById(0);
+		requirements[1] = Model.getItemById(liquids);
+		requirements[2] = Model.getItemById(liquids + canisters);
+		requirements[3] = Model.getItemById(liquids + canisters + gears);*/
+
 	}
 }
