@@ -543,7 +543,7 @@ public class Game {
 			sb.append("--------------------------------------------------------");
 
 			view.println(sb.toString());
-			
+
 		}
 
 	}
