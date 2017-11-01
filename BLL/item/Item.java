@@ -6,12 +6,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class Item {
-	private static List<Item> database;
-
-	static {
-		initalizeDatabase();
-	}
-
 	private String name;
 	private String description;
 	private ItemType itemType;
@@ -90,65 +84,5 @@ public class Item {
 	@Override
 	public String toString() {
 		return String.format("%s [%s]: %s", getName(), getItemType().name(), getDescription());
-	}
-
-	// Database related
-
-	public static Item getItemById(int id) {
-		return new Item(database.get(id));
-	}
-
-	public static Item getItemById(Item.id itemId) {
-		return getItemById(itemId.ordinal());
-	}
-
-	public static int getDatabaseSize() {
-		return database.size();
-	}
-
-	private static void initalizeDatabase() {
-		ItemParser parser = ItemParser.getInstance();
-
-		try {
-			Map<Integer, Map<String, Object>> map = parser.getDatabase();
-
-			database = new ArrayList<>(map.size());
-
-			String name;
-			String description;
-			ItemType type;
-			Color color;
-			State state;
-			boolean pickupable;
-			boolean dropable;
-			double weight;
-
-			Item item;
-
-			for(Map<String, Object> o : map.values()) {
-				name = (String) o.get("name");
-				color = Color.valueOf((String) o.get("color"));
-				state = State.valueOf((String) o.get("state"));
-				description = (String) o.get("description");
-				description = description.replace("{{color}}", color.name().toLowerCase());
-				description = description.replace("{{state}}", state.name().toLowerCase());
-				type = ItemType.valueOf((String) o.get("itemType"));
-				pickupable = (boolean) o.get("pickupable");
-				dropable = (boolean) o.get("dropable");
-				weight = (double) o.get("weight");
-
-				database.add(new Item(name, description, type, color, state, weight, pickupable, dropable));
-			}
-		} catch(IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	public enum id {
-		LQ_KERISA, LQ_MOLT, LQ_SEDARUS, LQ_GOULIIQ, LQ_CRYPTIC, LQ_AMANZI, LQ_ZUUR, LQ_EAUX, LQ_HUNAJAR, LQ_MIELEPE, LQ_FUSILIA_FERROX, LQ_LATEX, KALIDECA, LQ_AMBRUSIA, // LIQUIDS
-		CN_REKAR, CN_OLTAM, CN_EDAUSS, CN_QIIGOL, CN_RYPICAS, CN_ZINAMA, CN_RUUKAZ, CN_XARUJA, CN_UNJAROH, CN_LEMIPE, CN_FEROXIS, CN_TEXIO, CN_DOIM, CN_ALDAKK, // CANISTERS
-		GR_KAREDU, GR_LOQOO, GR_DAUPYRA, GR_GONAZI, GR_PIKARQ, GR_ZAJANJ, GR_JUKOHRA, GR_MIPLIM, GR_REXIRN, GR_TEDOX, GR_AKELOS, GR_DOIH, // GEARS
-		CPU_TEK_XX, CPU_TEK_XXVI, CPU_MOLT_IV, CPU_MOLT_VD, CPU_CX_TITANIUM_4, CPU_CX_TITANIUM_8, CPU_FIX_FEROCITY_1, CPU_FIX_FEROCITY_3, // CPUS
-		CPU_I11_X2017, CPU_I13_II5290, CPU_I13_IV8525, CPU_I15_7750, CPU_CSP_6M2T, CPU_CSP_10MT, CPU_CSP_MXV, CPU_CSP_M2X1V
 	}
 }

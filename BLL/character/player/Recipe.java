@@ -2,6 +2,7 @@ package BLL.character.player;
 
 import BLL.item.Item;
 import BLL.item.ItemStack;
+import DAL.Model;
 
 public class Recipe {
 	private Item[] requirements;
@@ -50,9 +51,9 @@ public class Recipe {
 		requirements[2] = Item.getItemById((int) (liquids + canisters + Math.random() * gears));
 		requirements[3] = Item.getItemById((int) (liquids + canisters + gears + Math.random() * cpus));
 		*/
-		requirements[0] = Item.getItemById(0);
-		requirements[1] = Item.getItemById(liquids);
-		requirements[2] = Item.getItemById(liquids + canisters);
-		requirements[3] = Item.getItemById(liquids + canisters + gears);
+		requirements[0] = Model.getItemById(0);
+		requirements[1] = Model.getItemById(liquids);
+		requirements[2] = Model.getItemById(liquids + canisters);
+		requirements[3] = Model.getItemById(liquids + canisters + gears);
 	}
 }

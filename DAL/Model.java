@@ -1,28 +1,36 @@
 package DAL;
 
-import BLL.character.Blacksmith;
-import BLL.character.player.Player;
 import BLL.character.player.Quiz;
-import BLL.character.player.QuizManager;
-import BLL.item.Item;
-import BLL.item.ItemStack;
+import BLL.item.*;
 import DAL.scoring.PointSystem;
 import BLL.world.Planet;
+import DAL.yaml.ItemParser;
 import DAL.yaml.YamlParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class Model {
+	private static List<Item> itemDatabase;
+
 	private PointSystem pointSystem;
 	private List<Quiz> quizes;
+
+	static {
+		initalizeDatabase();
+	}
 
 	public Model() {
 		pointSystem = new PointSystem();
 		createPlanets();
-		initalizeQuizes();
+		initalizeQuiz();
+	}
+
+	public static Item getItemById(int index) {
+		return itemDatabase.get(index);
 	}
 
 	public PointSystem getPointSystem() {
@@ -32,8 +40,6 @@ public class Model {
 	public List<Quiz> getQuizes() {
 		return quizes;
 	}
-
-
 
 	/* function to create rooms */
 	public Map<String, Planet> createPlanets() {
@@ -57,75 +63,73 @@ public class Model {
 
 		/* adding items to planets */
 
-		cleron.addItemStack(new ItemStack(Item.getItemById(0)));
-		cleron.addItemStack(new ItemStack(Item.getItemById(14)));
-		cleron.addItemStack(new ItemStack(Item.getItemById(26)));
-		cleron.addItemStack(new ItemStack(Item.getItemById(40)));
-		cleron.addItemStack(new ItemStack(Item.getItemById(39)));
+		cleron.addItemStack(new ItemStack(Model.getItemById(0)));
+		cleron.addItemStack(new ItemStack(Model.getItemById(14)));
+		cleron.addItemStack(new ItemStack(Model.getItemById(26)));
+		cleron.addItemStack(new ItemStack(Model.getItemById(40)));
+		cleron.addItemStack(new ItemStack(Model.getItemById(39)));
 
-		scurn.addItemStack(new ItemStack(Item.getItemById(1)));
-		scurn.addItemStack(new ItemStack(Item.getItemById(15)));
-		scurn.addItemStack(new ItemStack(Item.getItemById(27)));
-		scurn.addItemStack(new ItemStack(Item.getItemById(41)));
-		scurn.addItemStack(new ItemStack(Item.getItemById(54)));
+		scurn.addItemStack(new ItemStack(Model.getItemById(1)));
+		scurn.addItemStack(new ItemStack(Model.getItemById(15)));
+		scurn.addItemStack(new ItemStack(Model.getItemById(27)));
+		scurn.addItemStack(new ItemStack(Model.getItemById(41)));
+		scurn.addItemStack(new ItemStack(Model.getItemById(54)));
 
-		hebrilles.addItemStack(new ItemStack(Item.getItemById(2)));
-		hebrilles.addItemStack(new ItemStack(Item.getItemById(16)));
-		hebrilles.addItemStack(new ItemStack(Item.getItemById(28)));
-		hebrilles.addItemStack(new ItemStack(Item.getItemById(42)));
-		hebrilles.addItemStack(new ItemStack(Item.getItemById(55)));
+		hebrilles.addItemStack(new ItemStack(Model.getItemById(2)));
+		hebrilles.addItemStack(new ItemStack(Model.getItemById(16)));
+		hebrilles.addItemStack(new ItemStack(Model.getItemById(28)));
+		hebrilles.addItemStack(new ItemStack(Model.getItemById(42)));
+		hebrilles.addItemStack(new ItemStack(Model.getItemById(55)));
 
-		xehna.addItemStack(new ItemStack(Item.getItemById(3)));
-		xehna.addItemStack(new ItemStack(Item.getItemById(17)));
-		xehna.addItemStack(new ItemStack(Item.getItemById(29)));
-		xehna.addItemStack(new ItemStack(Item.getItemById(43)));
-		xehna.addItemStack(new ItemStack(Item.getItemById(53)));
+		xehna.addItemStack(new ItemStack(Model.getItemById(3)));
+		xehna.addItemStack(new ItemStack(Model.getItemById(17)));
+		xehna.addItemStack(new ItemStack(Model.getItemById(29)));
+		xehna.addItemStack(new ItemStack(Model.getItemById(43)));
+		xehna.addItemStack(new ItemStack(Model.getItemById(53)));
 
-		gallifrey.addItemStack(new ItemStack(Item.getItemById(4)));
-		gallifrey.addItemStack(new ItemStack(Item.getItemById(18)));
-		gallifrey.addItemStack(new ItemStack(Item.getItemById(30)));
-		gallifrey.addItemStack(new ItemStack(Item.getItemById(44)));
+		gallifrey.addItemStack(new ItemStack(Model.getItemById(4)));
+		gallifrey.addItemStack(new ItemStack(Model.getItemById(18)));
+		gallifrey.addItemStack(new ItemStack(Model.getItemById(30)));
+		gallifrey.addItemStack(new ItemStack(Model.getItemById(44)));
 
-		skaro.addItemStack(new ItemStack(Item.getItemById(5)));
-		skaro.addItemStack(new ItemStack(Item.getItemById(19)));
-		skaro.addItemStack(new ItemStack(Item.getItemById(31)));
-		skaro.addItemStack(new ItemStack(Item.getItemById(45)));
+		skaro.addItemStack(new ItemStack(Model.getItemById(5)));
+		skaro.addItemStack(new ItemStack(Model.getItemById(19)));
+		skaro.addItemStack(new ItemStack(Model.getItemById(31)));
+		skaro.addItemStack(new ItemStack(Model.getItemById(45)));
 
-		orion.addItemStack(new ItemStack(Item.getItemById(6)));
-		orion.addItemStack(new ItemStack(Item.getItemById(20)));
-		orion.addItemStack(new ItemStack(Item.getItemById(32)));
-		orion.addItemStack(new ItemStack(Item.getItemById(46)));
+		orion.addItemStack(new ItemStack(Model.getItemById(6)));
+		orion.addItemStack(new ItemStack(Model.getItemById(20)));
+		orion.addItemStack(new ItemStack(Model.getItemById(32)));
+		orion.addItemStack(new ItemStack(Model.getItemById(46)));
 
-		deineax.addItemStack(new ItemStack(Item.getItemById(7)));
-		deineax.addItemStack(new ItemStack(Item.getItemById(21)));
-		deineax.addItemStack(new ItemStack(Item.getItemById(33)));
-		deineax.addItemStack(new ItemStack(Item.getItemById(47)));
+		deineax.addItemStack(new ItemStack(Model.getItemById(7)));
+		deineax.addItemStack(new ItemStack(Model.getItemById(21)));
+		deineax.addItemStack(new ItemStack(Model.getItemById(33)));
+		deineax.addItemStack(new ItemStack(Model.getItemById(47)));
 
-		uskillion.addItemStack(new ItemStack(Item.getItemById(8)));
-		uskillion.addItemStack(new ItemStack(Item.getItemById(22)));
-		uskillion.addItemStack(new ItemStack(Item.getItemById(34)));
-		uskillion.addItemStack(new ItemStack(Item.getItemById(48)));
+		uskillion.addItemStack(new ItemStack(Model.getItemById(8)));
+		uskillion.addItemStack(new ItemStack(Model.getItemById(22)));
+		uskillion.addItemStack(new ItemStack(Model.getItemById(34)));
+		uskillion.addItemStack(new ItemStack(Model.getItemById(48)));
 
-		ayrus.addItemStack(new ItemStack(Item.getItemById(9)));
-		ayrus.addItemStack(new ItemStack(Item.getItemById(23)));
-		ayrus.addItemStack(new ItemStack(Item.getItemById(35)));
-		ayrus.addItemStack(new ItemStack(Item.getItemById(49)));
-		ayrus.addItemStack(new ItemStack(Item.getItemById(13)));
+		ayrus.addItemStack(new ItemStack(Model.getItemById(9)));
+		ayrus.addItemStack(new ItemStack(Model.getItemById(23)));
+		ayrus.addItemStack(new ItemStack(Model.getItemById(35)));
+		ayrus.addItemStack(new ItemStack(Model.getItemById(49)));
+		ayrus.addItemStack(new ItemStack(Model.getItemById(13)));
 
-		amrit.addItemStack(new ItemStack(Item.getItemById(10)));
-		amrit.addItemStack(new ItemStack(Item.getItemById(24)));
-		amrit.addItemStack(new ItemStack(Item.getItemById(36)));
-		amrit.addItemStack(new ItemStack(Item.getItemById(50)));
-		amrit.addItemStack(new ItemStack(Item.getItemById(12)));
+		amrit.addItemStack(new ItemStack(Model.getItemById(10)));
+		amrit.addItemStack(new ItemStack(Model.getItemById(24)));
+		amrit.addItemStack(new ItemStack(Model.getItemById(36)));
+		amrit.addItemStack(new ItemStack(Model.getItemById(50)));
+		amrit.addItemStack(new ItemStack(Model.getItemById(12)));
 
-		earth.addItemStack(new ItemStack(Item.getItemById(11)));
-		earth.addItemStack(new ItemStack(Item.getItemById(25)));
-		earth.addItemStack(new ItemStack(Item.getItemById(37)));
-		earth.addItemStack(new ItemStack(Item.getItemById(51)));
-		earth.addItemStack(new ItemStack(Item.getItemById(52)));
-		earth.addItemStack(new ItemStack(Item.getItemById(38)));
-
-
+		earth.addItemStack(new ItemStack(Model.getItemById(11)));
+		earth.addItemStack(new ItemStack(Model.getItemById(25)));
+		earth.addItemStack(new ItemStack(Model.getItemById(37)));
+		earth.addItemStack(new ItemStack(Model.getItemById(51)));
+		earth.addItemStack(new ItemStack(Model.getItemById(52)));
+		earth.addItemStack(new ItemStack(Model.getItemById(38)));
 
 		/* shuffle the planets and put it inside a HashMap */
 
@@ -145,8 +149,44 @@ public class Model {
 		return planetMap;
 	}
 
+	private static void initalizeDatabase() {
+		YamlParser parser = new YamlParser(new File("./src/DAL/resource/itemdatabase.yaml"));
+
+		try {
+			Map<Integer, Map<String, Object>> map = parser.getYaml().load(new FileReader(parser.getFile()));
+
+			itemDatabase = new ArrayList<>(map.size());
+
+			String name;
+			String description;
+			ItemType type;
+			Color color;
+			State state;
+			boolean pickupable;
+			boolean dropable;
+			double weight;
+
+			for(Map<String, Object> o : map.values()) {
+				name = (String) o.get("name");
+				color = Color.valueOf((String) o.get("color"));
+				state = State.valueOf((String) o.get("state"));
+				description = (String) o.get("description");
+				description = description.replace("{{color}}", color.name().toLowerCase());
+				description = description.replace("{{state}}", state.name().toLowerCase());
+				type = ItemType.valueOf((String) o.get("itemType"));
+				pickupable = (boolean) o.get("pickupable");
+				dropable = (boolean) o.get("dropable");
+				weight = (double) o.get("weight");
+
+				itemDatabase.add(new Item(name, description, type, color, state, weight, pickupable, dropable));
+			}
+		} catch(IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	@SuppressWarnings("unchecked")
-	private void initalizeQuizes() {
+	private void initalizeQuiz() {
 		YamlParser parser = new YamlParser(new File("./src/DAL/resource/quizdatabase.yaml"));
 
 		Map<Integer, Map<String, Object>> database;
