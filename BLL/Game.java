@@ -65,6 +65,7 @@ public class Game {
 	}
 
 	private void gameLoop() {
+		player.decreaseFuel(100);
 		while (!finished) {
 			Command command = view.getParser().getCommand();
 			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
@@ -108,6 +109,9 @@ public class Game {
 				break;
 			case QUIT:
 				quit(command);
+				break;
+			case RESTART:
+				restart(command);
 		}
 	}
 
@@ -349,6 +353,12 @@ public class Game {
 			} else if(player.samePlanet(planets.get(planetName))) {
 				view.println("You cannot travel to the same planet!");
 			} else {
+				if(player.getFuel() == 0){
+					finished = true;
+					gameWon = false;
+					player.setFuelEmpty(true);
+					return;
+				}
                 view.println(manager.getUnoXMessage());
 
                 if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
@@ -393,6 +403,19 @@ public class Game {
 		}
 	}
 
+	private void restart(Command command){
+		if(command.getArgumentLength() > 0) {
+			view.println("Restart what?");
+		} else {
+			view.println("\n \n \n \n \n NEW GAME STARTED \n \n \n \n \n \n");
+			finished = false;
+			gameWon = false;
+			player.setFuelEmpty(false);
+			Game game = new Game();
+			game.start();
+		}
+	}
+
 	private void addCluesToPlanets(){
 		Item[] items = blacksmith.getRecipe().getRequirements();
 		Item[] clues = new Item[8];
@@ -415,7 +438,6 @@ public class Game {
 				s = j % 2 == 0 ? "{{color}}" : "{{state}}";
 				newDescription = clue.getDescription().replace("{{clue}}", s);
 				clue.setDescription(newDescription);
-				System.out.println(clue.toString());
 			}
 		}
 
@@ -425,16 +447,6 @@ public class Game {
 			planetsList.get(i).addItemStack(new ItemStack(clues[i]));
 		}
 
-/*
-		Iterator<Planet> planetIterator = player.getPlanets().values().iterator();
-		Planet p;
-		int count = 0;
-		while(planetIterator.hasNext()) {
-			p = planetIterator.next();
-			p.addItemStack(new ItemStack(clues[count]));
-			count++;
-			if(count == 8) break;
-		}*/
 	}
 
 	/* function to print a welcome message */
@@ -523,12 +535,13 @@ public class Game {
 			view.println(sb.toString());
 		} else{
 			sb.append("---------------------- GAME OVER! ----------------------\n");
-			sb.append("You ran out of fuel!\n");
-			sb.append("If you want to play again - type 'restart'\n");
-			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");
+			if(player.isFuelEmpty()){
+				sb.append("You ran out of fuel!\n");
+			}
 			sb.append("--------------------------------------------------------");
 
 			view.println(sb.toString());
+
 		}
 
 	}

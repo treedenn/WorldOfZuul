@@ -4,6 +4,7 @@ import BLL.character.Character;
 
 public class Player extends Character {
 	private Backpack backpack;
+	private boolean fuelEmpty;
 	private double fuel;
 	private int totalFuelConsumption;
 
@@ -11,6 +12,15 @@ public class Player extends Character {
 		super(null, null);
 		this.backpack = new Backpack(6);
 		this.fuel = 100;
+		fuelEmpty = false;
+	}
+
+	public void setFuelEmpty(boolean fuelEmpty) {
+		this.fuelEmpty = fuelEmpty;
+	}
+
+	public boolean isFuelEmpty() {
+		return fuelEmpty;
 	}
 
 	public Backpack getBackpack() {
