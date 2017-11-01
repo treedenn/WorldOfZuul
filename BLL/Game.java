@@ -538,8 +538,8 @@ public class Game {
 			if(player.isFuelEmpty()){
 				sb.append("You ran out of fuel!\n");
 			}
-			sb.append("If you want to play again - type '" + CommandWord.RESTART + "'\n");
-			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");
+			/*sb.append("If you want to play again - type '" + CommandWord.RESTART + "'\n");
+			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");*/
 			sb.append("--------------------------------------------------------");
 
 			view.println(sb.toString());
