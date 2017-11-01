@@ -183,9 +183,9 @@ public class Game {
 					loading[i] = '=';
 
 					if(!planet.getPermSearched()) {
-						sleep = (long) (1000 * (-0.022 * i * i + 0.20 * i + 0.15));
+						sleep = (long) (300 * (-0.022 * i * i + 0.20 * i + 0.15));
 					} else {
-						sleep = (long) (1000 * (-0.004329 * i * i + 0.02165 * i + 0.15));
+						sleep = (long) (300 * (-0.004329 * i * i + 0.02165 * i + 0.15));
 					}
 
 					//System.out.println("Sleep: " + sleep);
