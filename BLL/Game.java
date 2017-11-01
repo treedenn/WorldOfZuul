@@ -307,7 +307,7 @@ public class Game {
 					ItemStack is = content[index];
 
 					view.println(is.getItem().getName());
-					view.println("\t" + is.getItem().getDescription());
+					view.println("\t" + is.getItem().getPHDescription());
 				} else if(index == content.length) {
 					PortalGun pg = bp.getPortalGun();
 
@@ -418,13 +418,12 @@ public class Game {
 		Iterator<Planet> planetIterator = player.getPlanets().values().iterator();
 		Planet p;
 		int count = 0;
-		while(planetIterator.hasNext()){
+		while(planetIterator.hasNext()) {
 			p = planetIterator.next();
 			p.addItemStack(new ItemStack(clues[count]));
 			count++;
 			if(count == 8) break;
 		}
-
 	}
 
 	/* function to print a welcome message */

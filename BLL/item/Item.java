@@ -37,11 +37,15 @@ public class Item {
 		return name;
 	}
 
-	public String getDescription() {
+	public String getPHDescription() {
 		String temp = description.replace("{{itemtype}}", itemType.name().toLowerCase());
 		temp = temp.replace("{{state}}", state.name().toLowerCase());
 		temp = temp.replace("{{color}}", color.name().toLowerCase());
 		return temp;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	public ItemType getItemType() {
@@ -96,7 +100,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return String.format("%s [%s]: %s", getName(), getItemType().name(), getDescription());
+		return String.format("%s [%s]: %s", getName(), getItemType().name(), getPHDescription());
 	}
 
 }
