@@ -65,7 +65,6 @@ public class Game {
 	}
 
 	private void gameLoop() {
-		player.decreaseFuel(100);
 		while (!finished) {
 			Command command = view.getParser().getCommand();
 			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
