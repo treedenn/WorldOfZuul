@@ -42,9 +42,9 @@ public class Game {
 		init();
 
 		view.println(welcomeMessage());
-                view.println(descriptionMessage());
-                view.println(hintMessage());
-                view.println(player.getCurrentPlanet().getDescription());
+		view.println(descriptionMessage());
+		view.println(hintMessage());
+		view.println(player.getCurrentPlanet().getDescription());
 		view.println("\n[ Planets: " + player.getPlanetNames() + "]");
 
 		gameLoop();
