@@ -42,8 +42,6 @@ public class Game {
 		init();
 
 		view.println(welcomeMessage());
-		view.println(descriptionMessage());
-		view.println(hintMessage());
 		view.println(player.getCurrentPlanet().getDescription());
 		view.println("\n[ Planets: " + player.getPlanetNames() + "]");
 
@@ -85,6 +83,10 @@ public class Game {
 			case HELP:
 				view.println(helpMessage());
 				break;
+                        case INFO:
+                                view.println(descriptionMessage());
+                                view.println(hintMessage());
+                                break;
 			case GO:
 				goPlanet(command);
 				break;
@@ -452,6 +454,7 @@ public class Game {
 				"Welcome to the ridicoulous Rick & Morty spinoff!",
 				"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
 				"[Type '" + CommandWord.HELP + "' if you need help]",
+                                "[Type '" + CommandWord.INFO + "' if you need more information]",
 				"",
 		};
 	}
@@ -470,13 +473,13 @@ public class Game {
         
         private String[] hintMessage() {
             return new String[] {
-                                "HINT:",
+                                "OBJECTIVE:",
                                 "--------------",
-                                "Find the blacksmith named Gearhad!",
-                                "Find all items in recipe!",
-                                "Return to blacksmith and repair the Portal Gun!",
+                                "> You need to find the blacksmith named Gearhead!",
+                                "> Gearhead will show you his recipe for the Portal Gun!",
+                                "> It is now your job to find all the items needed!",
+                                "> Return to Gearhead and repair your Portal Gun!",
                                 "--------------",
-                                "",
             };
         }
 
