@@ -407,9 +407,6 @@ public class Game {
 			view.println("Restart what?");
 		} else {
 			view.println("\n \n \n \n \n NEW GAME STARTED \n \n \n \n \n \n");
-			finished = false;
-			gameWon = false;
-			player.setFuelEmpty(false);
 			Game game = new Game();
 			game.start();
 		}
