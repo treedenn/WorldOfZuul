@@ -2,12 +2,12 @@ package BLL.character.player;
 
 import java.util.*;
 
-public class QuizManager {
+public class UnoX {
     private Scanner scanner;
     private List<Quiz> quizes;
     private Quiz currentQuiz;
 
-    public QuizManager() {
+    public UnoX() {
         scanner = new Scanner(System.in);
     }
 

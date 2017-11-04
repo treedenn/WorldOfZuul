@@ -24,7 +24,7 @@ public class Game {
 	private boolean gameWon;
 	private Player player;
 	private Blacksmith blacksmith;
-	private QuizManager manager;
+	private UnoX manager;
 
 	public Game() {
 		view = new ConsoleView();
@@ -34,7 +34,7 @@ public class Game {
 		gameWon = false;
 		player = new Player();
 		blacksmith = new Blacksmith();
-		manager = new QuizManager();
+		manager = new UnoX();
 	}
 
 	/* function to begin game */

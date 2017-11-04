@@ -39,7 +39,7 @@ public class Parser
     /**
      * Scans user input for a word/character.
      * Continues until it receives an n/N or y/Y.
-     * Function is connected to QuizManager.
+     * Function is connected to UnoX.
      * @return the first character from the scanner input word.
      */
     public char getQuizOfferAnswer() {
@@ -57,7 +57,7 @@ public class Parser
 	/**
 	 * Scans user input for a number.
 	 * Continues until it receives a number between 1 and max.
-	 * Function is connected to QuizManager.
+	 * Function is connected to UnoX.
 	 * @param max the maximum value the input can be (inclusive).
 	 * @return
 	 */
