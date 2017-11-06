@@ -1,8 +1,5 @@
 
 import BLL.Game;
-import BLL.item.Color;
-import BLL.item.ItemType;
-import BLL.item.State;
 
 public class Main {
 	/*
