@@ -14,6 +14,16 @@ public class Blacksmith extends Character {
 		recipe = new Recipe();
 		visitedPlanets = new String[4]; // used for traces
 	}
+        
+        public String[] getBlacksmithMsg() {
+            return new String[] {
+                "[Blacksmith]: Hello Fellow!",
+                "I'm the blacksmith! Name's Gearhead!",
+                "You've somehow broken your portal gun?",
+                "Here's a list of items needed for you to repair it!",
+                "--------------",
+            };
+        }
 
 	public Recipe getRecipe() {
 		return recipe;

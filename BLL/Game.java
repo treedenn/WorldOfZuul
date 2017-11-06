@@ -144,6 +144,7 @@ public class Game {
 				if(!blacksmith.samePlanet(player.getCurrentPlanet())) {
 					view.println("The blacksmith is not here.");
 				} else {
+                                        view.println(blacksmith.getBlacksmithMsg());
 					Recipe recipe = blacksmith.getRecipe();
 					Item[] items = recipe.getRequirements();
 					boolean[] containItems = recipe.haveItems(player.getBackpack().getContent());
