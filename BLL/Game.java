@@ -22,6 +22,7 @@ public class Game {
 
 	private boolean finished;
 	private boolean gameWon;
+    private boolean trapped;
 	private Player player;
 	private Blacksmith blacksmith;
 	private UnoX manager;
@@ -33,7 +34,7 @@ public class Game {
 		finished = false;
 		gameWon = false;
 		player = new Player();
-		blacksmith = new Blacksmith();
+        blacksmith = new Blacksmith();
 		manager = new UnoX();
 	}
 
@@ -44,7 +45,7 @@ public class Game {
 		view.println(welcomeMessage());
 		view.println(player.getCurrentPlanet().getDescription());
 		view.println("\n[ Planets: " + player.getPlanetNames() + "]");
-
+        
 		gameLoop();
 	}
 
@@ -57,9 +58,9 @@ public class Game {
 		player.setPlanets(planetMap);
 		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
 		blacksmith.setPlanets(planetMap);
-
 		manager.setQuizes(model.getQuizes());
 		addCluesToPlanets();
+        trapped = true;
 	}
 
 	private void gameLoop() {
@@ -82,11 +83,12 @@ public class Game {
 				view.println("I don't know what you mean...");
 			case HELP:
 				view.println(helpMessage());
+                view.println(blacksmith.getCurrentPlanet().getName());
 				break;
-                        case INFO:
-                                view.println(descriptionMessage());
-                                view.println(hintMessage());
-                                break;
+            case INFO:
+                view.println(descriptionMessage());
+                view.println(hintMessage());
+                break;
 			case GO:
 				goPlanet(command);
 				break;
@@ -144,21 +146,50 @@ public class Game {
 				if(!blacksmith.samePlanet(player.getCurrentPlanet())) {
 					view.println("The blacksmith is not here.");
 				} else {
-                                        view.println(blacksmith.getBlacksmithMsg());
-					Recipe recipe = blacksmith.getRecipe();
-					Item[] items = recipe.getRequirements();
-					boolean[] containItems = recipe.haveItems(player.getBackpack().getContent());
+                    int trappedInt = trapped ? 1 : 2;
+                    switch(trappedInt) {
+                        case 1:
+                            view.println(blacksmith.getLockedMsg());
+                            if(blacksmith.hasAccepted(view.getParser().getQuizOfferAnswer())) {
+                                player.decreaseFuel(10);
+                                view.println("You chose to help Gearhead! Fuel has decreased by 10!");
+                                trapped = false;
+                            }
+                            view.getParser().resetReader();
+                            break;
+                        case 2:
+                            view.println(blacksmith.getBlacksmithMsg());
+                            Recipe recipe = blacksmith.getRecipe();
+                            Item[] items = recipe.getRequirements();
+                            boolean[] containItems = recipe.haveItems(player.getBackpack().getContent());
 
-					for(int i = 0; i < items.length; i++) {
-						view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getItemType().name());
-					}
+                            for(int i = 0; i < items.length; i++) {
+                                view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getItemType().name());
+                            }
 
-					if(allTrue(containItems)) {
-						// TODO: remove items from the players backpack
-						view.println("");
-						view.println("Portalgun has been repaired!");
-						player.getBackpack().getPortalGun().repair();
-					}
+                            if(allTrue(containItems)) {
+                                // TODO: remove items from the players backpack
+                                view.println("");
+                                view.println("Portalgun has been repaired!");
+                                player.getBackpack().getPortalGun().repair();
+                            }
+                            break;
+                    }
+//                    view.println(lockedBlacksmith.getBlacksmithMsg());
+//					Recipe recipe = lockedBlacksmith.getRecipe();
+//					Item[] items = recipe.getRequirements();
+//					boolean[] containItems = recipe.haveItems(player.getBackpack().getContent());
+//
+//					for(int i = 0; i < items.length; i++) {
+//						view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getItemType().name());
+//					}
+//
+//					if(allTrue(containItems)) {
+//						// TODO: remove items from the players backpack
+//						view.println("");
+//						view.println("Portalgun has been repaired!");
+//						player.getBackpack().getPortalGun().repair();
+//					}
 				}
 			}
 		}
@@ -207,7 +238,11 @@ public class Game {
 				view.println("----------------");
 				view.println(planet.getContentDescription());
 				view.println("");
-				view.println(blacksmith.getVisitMessage(player.getCurrentPlanet().getName()));
+                if(!trapped) { 
+                    view.println(blacksmith.getVisitMessage(player.getCurrentPlanet().getName())); 
+                } else if (player.samePlanet(blacksmith.getCurrentPlanet())) {
+                    view.println("The blacksmith is here!");
+                }
 				view.println("----------------");
 				planet.setPermanentSearch(true);
 				planet.setTemporarySearch(true);
@@ -304,7 +339,7 @@ public class Game {
 		ItemStack[] content = bp.getContent();
 
 		if(command.hasArguments()) {
-			if(command.getArgumentLength() > 1) {
+                        if(command.getArgumentLength() > 1) {
 				view.println(argumentMessage("backpack [item-index]"));
 			} else {
 				int index = Integer.parseInt(command.getArgument(0)) - 1;
@@ -386,10 +421,10 @@ public class Game {
 
 				player.getCurrentPlanet().setTemporarySearch(false);
 
-				blacksmith.move();
+				if(!trapped) { blacksmith.move(); }
 
 				view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-                                view.println(player.getCurrentPlanet().getDescription());
+                view.println(player.getCurrentPlanet().getDescription());
 				view.println(player.getCurrentPlanet().getArriveMessage());
 				view.println("Planets: " + player.getPlanetNames());
 			}
