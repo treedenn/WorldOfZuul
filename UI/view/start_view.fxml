@@ -1,14 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="UI.controller.StartController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.controller.StartController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <VBox alignment="CENTER" layoutY="45.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Georgia" size="30.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="Rick's Adventure" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Georgia" size="30.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Georgia" size="30.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="..." textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Georgia" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="..." textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Georgia" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <GridPane layoutY="90.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                          </rowConstraints>
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <Button fx:id="buttonNewGame" defaultButton="true" mnemonicParsing="false" onAction="#handleNewGameAction" style="-fx-background-radius: 20;" text="--- New Game ---" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane GridPane.rowIndex="2">
+                                 <children>
+                                    <Button fx:id="buttonExit" cancelButton="true" mnemonicParsing="false" onAction="#handleExitAction" style="-fx-background-radius: 20;" text="- Exit -" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane GridPane.rowIndex="1">
+                                 <children>
+                                    <Button fx:id="buttonHighscore" mnemonicParsing="false" onAction="#handleHighscoreAction" style="-fx-background-radius: 20;" text="-- Highscore --" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
 </AnchorPane>

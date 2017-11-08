@@ -14,16 +14,30 @@ public class Blacksmith extends Character {
 		recipe = new Recipe();
 		visitedPlanets = new String[4]; // used for traces
 	}
+    
+    public boolean hasAccepted(char c) {
+        return c == 'Y' || c == 'y';
+    }
         
-        public String[] getBlacksmithMsg() {
-            return new String[] {
-                "[Blacksmith]: Hello Fellow!",
-                "I'm the blacksmith! Name's Gearhead!",
-                "You've somehow broken your portal gun?",
-                "Here's a list of items needed for you to repair it!",
-                "--------------",
-            };
-        }
+    public String[] getBlacksmithMsg() {
+        return new String[] {
+            "[Blacksmith]: My dear Rick!",
+            "It's already time to return the favor?",
+            "I've heard that you somehow broke your portal gun?",
+            "Here's a list of items needed for you to repair it!",
+            "--------------",
+        };
+    }
+    
+    public String[] getLockedMsg() {
+        return new String[] {
+            "[BlackSmith]: Hello Fellow, I'm the blacksmith, name's Gearhead!",
+            "Dear adventurer, I believe our meeting is Fate!",
+            "I ran out of fuel and is now stranded on this planet ...",
+            "Please spare me some fuel, I will be in your debt and do anything in return!",
+            "[Would you like to help Gearhead, enter Y/N]",
+        };
+    }
 
 	public Recipe getRecipe() {
 		return recipe;
