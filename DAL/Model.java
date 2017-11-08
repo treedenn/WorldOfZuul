@@ -221,7 +221,7 @@ public class Model {
 	public void Highscores(){
 
 		HighscoreManager hm= new HighscoreManager();
-		hm.addScore("player", getPointSystem().calculateEndPoints());
+
 
 
 	}
