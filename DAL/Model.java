@@ -2,15 +2,12 @@ package DAL;
 
 import BLL.character.player.Quiz;
 import BLL.item.*;
-import DAL.scoring.HighscoreManager;
 import DAL.scoring.PointSystem;
 import BLL.world.Planet;
+import DAL.scoring.Score;
 import DAL.yaml.YamlParser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Model {
@@ -18,6 +15,7 @@ public class Model {
 
 	private PointSystem pointSystem;
 	private List<Quiz> quizes;
+	private List<Score> highscore;
 
 	static {
 		initalizeDatabase();
@@ -25,6 +23,7 @@ public class Model {
 
 	public Model() {
 		pointSystem = new PointSystem();
+		highscore = new ArrayList<>();
 		createPlanets();
 		initalizeQuiz();
 	}
@@ -43,6 +42,10 @@ public class Model {
 
 	public List<Quiz> getQuizes() {
 		return quizes;
+	}
+
+	public List<Score> getHighscore() {
+		return highscore;
 	}
 
 	/* function to create rooms */
@@ -137,7 +140,7 @@ public class Model {
 
 		/* shuffle the planets and put it inside a HashMap */
 
-		Planet[] planets = new Planet[] {
+		Planet[] planets = new Planet[]{
 				cleron, scurn, hebrilles, xehna, gallifrey, skaro, orion,
 				deineax, uskillion, ayrus, amrit, earth
 		};
@@ -145,12 +148,55 @@ public class Model {
 		Collections.shuffle(Arrays.asList(planets));
 
 		LinkedHashMap<String, Planet> planetMap = new LinkedHashMap<>();
-		
-		for(Planet planet : planets) {
+
+		for (Planet planet : planets) {
 			planetMap.put(planet.getName().replaceAll(" ", "").toLowerCase(), planet);
 		}
 
 		return planetMap;
+	}
+
+	public void loadHighscore() {
+		YamlParser parser = new YamlParser(new File("./src/DAL/resource/highscore.yaml"));
+
+		try {
+			Map<Integer, Map<String, Object>> map = parser.getYaml().load(new FileReader(parser.getFile()));
+
+			String name;
+			int score;
+
+			for (Map<String, Object> o : map.values()) {
+				name = (String) o.get("name");
+				score = (int) o.get("score");
+
+				highscore.add(new Score(name, score));
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void saveHighscore(List<Score> scores) {
+		File file = new File("./src/DAL/resource/highscore.yaml");
+		YamlParser yaml = new YamlParser(file);
+
+		Map<Integer, HashMap<String, Object>> map = new HashMap<>();
+
+		for (int i = 0; i < scores.size(); i++) {
+			HashMap<String, Object> data = new HashMap<>();
+
+			data.put("name", scores.get(i).getName());
+			data.put("score", scores.get(i).getScore());
+
+			map.put(i, data);
+		}
+
+		try {
+			yaml.getYaml().dump(map, new FileWriter(new File("./src/DAL/resource/highscore.yaml")));
+			System.out.println();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void initalizeDatabase() {
@@ -170,7 +216,7 @@ public class Model {
 			boolean dropable;
 			double weight;
 
-			for(Map<String, Object> o : map.values()) {
+			for (Map<String, Object> o : map.values()) {
 				name = (String) o.get("name");
 				color = Color.valueOf((String) o.get("color"));
 				state = State.valueOf((String) o.get("state"));
@@ -182,7 +228,7 @@ public class Model {
 
 				itemDatabase.add(new Item(name, description, type, color, state, weight, pickupable, dropable));
 			}
-		} catch(IOException ex) {
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
@@ -207,7 +253,7 @@ public class Model {
 				question = (String) map.get("question");
 
 				opList = (List<String>) map.get("options");
-				options = opList.toArray(new String [opList.size()]);
+				options = opList.toArray(new String[opList.size()]);
 
 				answer = (Integer) map.get("answer");
 
@@ -218,13 +264,4 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
-	public void Highscores(){
-
-		HighscoreManager hm= new HighscoreManager();
-
-
-
-	}
 }
-
-
