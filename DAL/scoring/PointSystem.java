@@ -17,6 +17,7 @@ public class PointSystem implements scoringConstants{
         int points = startScore - fuelPoints - timePoints;
         int stars;
 
+
         if(points >= 8000){
             stars = 5;
         } else if (points >= 6000){
@@ -32,6 +33,18 @@ public class PointSystem implements scoringConstants{
         }
         return stars;
     }
+    public int calculateEndPoints(int totalFuelConsumption) {
+        int fuelPoints = totalFuelConsumption * pointDecreaseFuelConsumption;
+        int timePoints = (int) TimeUnit.MILLISECONDS.toMinutes(calculateTimeElapsed()) * pointDecreasePerMinute;
+        int points = startScore - fuelPoints - timePoints;
+        return points;
+    }
+
+
+
+
+
+
 
 
 
@@ -52,5 +65,6 @@ public class PointSystem implements scoringConstants{
     public double getFinishTime() {
         return finishTime;
     }
+
 
 }

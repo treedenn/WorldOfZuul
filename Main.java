@@ -1,5 +1,7 @@
 
 import BLL.Game;
+import DAL.scoring.HighscoreManager;
+
 
 public class Main {
 	/*
@@ -10,5 +12,10 @@ public class Main {
 	/* runs the game */
 	public static void main(String[] args) {
 		new Game().start();
+
+
 	}
 }
+
+
+

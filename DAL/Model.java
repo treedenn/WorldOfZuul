@@ -2,6 +2,7 @@ package DAL;
 
 import BLL.character.player.Quiz;
 import BLL.item.*;
+import DAL.scoring.HighscoreManager;
 import DAL.scoring.PointSystem;
 import BLL.world.Planet;
 import DAL.yaml.YamlParser;
@@ -206,7 +207,7 @@ public class Model {
 				question = (String) map.get("question");
 
 				opList = (List<String>) map.get("options");
-				options = opList.toArray(new String[opList.size()]);
+				options = opList.toArray(new String [opList.size()]);
 
 				answer = (Integer) map.get("answer");
 
@@ -217,4 +218,13 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
+	public void Highscores(){
+
+		HighscoreManager hm= new HighscoreManager();
+		hm.addScore("player", getPointSystem().calculateEndPoints());
+
+
+	}
 }
+
+
