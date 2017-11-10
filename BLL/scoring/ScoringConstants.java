@@ -1,6 +1,6 @@
-package DAL.scoring;
+package BLL.scoring;
 
-public interface scoringConstants {
+public interface ScoringConstants {
     int startScore = 10000;
     int pointDecreasePerMinute = 10;
     int pointDecreaseFuelConsumption = 10;

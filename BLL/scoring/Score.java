@@ -1,4 +1,4 @@
-package DAL.scoring;
+package BLL.scoring;
 
 import java.io.Serializable;
 

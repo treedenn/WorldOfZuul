@@ -1,9 +1,8 @@
-package DAL.scoring;
+package BLL.scoring;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-public class PointSystem implements scoringConstants{
+public class PointSystem implements ScoringConstants {
     private long startTime;
     private long finishTime;
 

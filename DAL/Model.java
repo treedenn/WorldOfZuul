@@ -1,19 +1,19 @@
 package DAL;
 
+import BLL.Persistent;
 import BLL.character.player.Quiz;
 import BLL.item.*;
-import DAL.scoring.PointSystem;
+import BLL.scoring.PointSystem;
 import BLL.world.Planet;
-import DAL.scoring.Score;
+import BLL.scoring.Score;
 import DAL.yaml.YamlParser;
 
 import java.io.*;
 import java.util.*;
 
-public class Model {
+public class Model implements Persistent {
 	private static List<Item> itemDatabase;
 
-	private PointSystem pointSystem;
 	private List<Quiz> quizes;
 	private List<Score> highscore;
 
@@ -22,9 +22,7 @@ public class Model {
 	}
 
 	public Model() {
-		pointSystem = new PointSystem();
-		highscore = new ArrayList<>();
-		createPlanets();
+		loadHighscore();
 		initalizeQuiz();
 	}
 
@@ -32,24 +30,9 @@ public class Model {
 		return new Item(itemDatabase.get(index));
 	}
 
-	public PointSystem getPointSystem() {
-		return pointSystem;
-	}
-
-	public static Item getItemByIndex(int index) {
-		return itemDatabase.get(index);
-	}
-
-	public List<Quiz> getQuizes() {
-		return quizes;
-	}
-
-	public List<Score> getHighscore() {
-		return highscore;
-	}
-
 	/* function to create rooms */
-	public Map<String, Planet> createPlanets() {
+	@Override
+	public Map<String, Planet> getPlanets() {
 		Planet cleron, scurn, hebrilles, xehna, gallifrey,
 				skaro, orion, deineax, uskillion, ayrus, amrit, earth;
 
@@ -156,7 +139,19 @@ public class Model {
 		return planetMap;
 	}
 
+	@Override
+	public List<Quiz> getQuizes() {
+		return quizes;
+	}
+
+	@Override
+	public List<Score> getHighscore() {
+		return highscore;
+	}
+
 	public void loadHighscore() {
+		highscore = new ArrayList<>();
+
 		YamlParser parser = new YamlParser(new File("./src/DAL/resource/highscore.yaml"));
 
 		try {
@@ -171,6 +166,8 @@ public class Model {
 
 				highscore.add(new Score(name, score));
 			}
+
+			Collections.sort(highscore);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

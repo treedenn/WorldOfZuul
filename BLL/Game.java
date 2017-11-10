@@ -6,7 +6,7 @@ import BLL.character.player.*;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 import BLL.item.PortalGun;
-import DAL.scoring.PointSystem;
+import BLL.scoring.PointSystem;
 import BLL.world.Planet;
 import UI.command.Command;
 import UI.command.CommandWord;
@@ -16,9 +16,11 @@ import UI.ConsoleView;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class Game {
+public class Game implements Domain {
+	private static Game INSTANCE;
+
 	private ConsoleView view;
-	private Model model;
+	private Persistent model;
 
 	private boolean finished;
 	private boolean gameWon;
@@ -26,8 +28,9 @@ public class Game {
 	private Player player;
 	private Blacksmith blacksmith;
 	private UnoX manager;
+	private PointSystem pointSystem;
 
-	public Game() {
+	private Game() {
 		view = new ConsoleView();
 		model = new Model();
 
@@ -50,7 +53,7 @@ public class Game {
 	}
 
 	private void init() {
-		Map<String, Planet> planetMap = model.createPlanets();
+		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
 		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.");
@@ -547,7 +550,6 @@ public class Game {
 
 	public void gameIsFinished() {
 		StringBuilder sb = new StringBuilder();
-		PointSystem pointSystem = model.getPointSystem();
 
 		if(gameWon){
 			pointSystem.setFinishTime();
@@ -578,8 +580,11 @@ public class Game {
 			sb.append("--------------------------------------------------------");
 
 			view.println(sb.toString());
-
 		}
+	}
 
+	public static Game getInstance() {
+		if(INSTANCE == null) INSTANCE = new Game();
+		return INSTANCE;
 	}
 }
