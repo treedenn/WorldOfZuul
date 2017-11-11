@@ -10,12 +10,15 @@ public class PointSystem implements ScoringConstants {
         startTime = System.currentTimeMillis();
     }
 
-    public int calculatePoints(int totalFuelConsumption){
+    public int calculatePoints(int totalFuelConsumption) {
         int fuelPoints = totalFuelConsumption * pointDecreaseFuelConsumption;
         int timePoints = (int)TimeUnit.MILLISECONDS.toMinutes(calculateTimeElapsed()) * pointDecreasePerMinute;
-        int points = startScore - fuelPoints - timePoints;
-        int stars;
 
+        return startScore - fuelPoints - timePoints;
+    }
+
+    public int getStars(int points) {
+        int stars;
 
         if(points >= 8000){
             stars = 5;
@@ -30,26 +33,11 @@ public class PointSystem implements ScoringConstants {
         } else{
             stars = 0;
         }
+
         return stars;
     }
-    public int calculateEndPoints(int totalFuelConsumption) {
-        int fuelPoints = totalFuelConsumption * pointDecreaseFuelConsumption;
-        int timePoints = (int) TimeUnit.MILLISECONDS.toMinutes(calculateTimeElapsed()) * pointDecreasePerMinute;
-        int points = startScore - fuelPoints - timePoints;
-        return points;
-    }
 
-
-
-
-
-
-
-
-
-
-
-    public long calculateTimeElapsed(){
+    public long calculateTimeElapsed() {
         return finishTime - startTime;
     }
 
@@ -64,6 +52,4 @@ public class PointSystem implements ScoringConstants {
     public double getFinishTime() {
         return finishTime;
     }
-
-
 }

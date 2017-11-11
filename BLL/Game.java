@@ -39,10 +39,11 @@ public class Game implements Domain {
 		player = new Player();
         blacksmith = new Blacksmith();
 		manager = new UnoX();
+		pointSystem = new PointSystem();
 	}
 
 	/* function to begin game */
-	public void start() {
+	private void start() {
 		init();
 
 		view.println(welcomeMessage());
@@ -489,38 +490,38 @@ public class Game implements Domain {
 	/* function to print a welcome message */
 	private String[] welcomeMessage() {
 		return new String[] {
-				"",
-				"Welcome to the ridicoulous Rick & Morty spinoff!",
-				"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
-				"[Type '" + CommandWord.HELP + "' if you need help]",
-                                "[Type '" + CommandWord.INFO + "' if you need more information]",
-				"",
+			"",
+			"Welcome to the ridicoulous Rick & Morty spinoff!",
+			"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
+			"[Type '" + CommandWord.HELP + "' if you need help]",
+                            "[Type '" + CommandWord.INFO + "' if you need more information]",
+			"",
 		};
 	}
         
-        private String[] descriptionMessage() {
-            return new String[] {
-                                "GAME DESCRIPTION",
-				"--------------",
-				"You are Rick, the brilliant scientist. But you have mistakenly destroyed Earth in your current dimension.",
-				"Normally, you would use your Portal Gun to teleport yourself to a new dimension... But it's broken!",
-				"Your mission is now to fix your Portal Gun and travel safely to a new dimension. Good luck!",
-				"--------------",  
-                                "",
-            };
-        }
+    private String[] descriptionMessage() {
+        return new String[] {
+                            "GAME DESCRIPTION",
+			"--------------",
+			"You are Rick, the brilliant scientist. But you have mistakenly destroyed Earth in your current dimension.",
+			"Normally, you would use your Portal Gun to teleport yourself to a new dimension... But it's broken!",
+			"Your mission is now to fix your Portal Gun and travel safely to a new dimension. Good luck!",
+			"--------------",
+                            "",
+        };
+    }
         
-        private String[] hintMessage() {
-            return new String[] {
-                                "OBJECTIVE:",
-                                "--------------",
-                                "> You need to find the blacksmith named Gearhead!",
-                                "> Gearhead will show you his recipe for the Portal Gun!",
-                                "> It is now your job to find all the items needed!",
-                                "> Return to Gearhead and repair your Portal Gun!",
-                                "--------------",
-            };
-        }
+    private String[] hintMessage() {
+        return new String[] {
+            "OBJECTIVE:",
+            "--------------",
+            "> You need to find the blacksmith named Gearhead!",
+            "> Gearhead will show you his recipe for the Portal Gun!",
+            "> It is now your job to find all the items needed!",
+            "> Return to Gearhead and repair your Portal Gun!",
+            "--------------",
+        };
+    }
 
 	/* function to print the help section */
 	private String[] helpMessage() {
@@ -548,7 +549,7 @@ public class Game implements Domain {
 		return true;
 	}
 
-	public void gameIsFinished() {
+	private void gameIsFinished() {
 		StringBuilder sb = new StringBuilder();
 
 		if(gameWon){
@@ -558,7 +559,9 @@ public class Game implements Domain {
 			int seconds = (int) ((millisecondsElapsed / 1000) % 60);
 			int minutes = (int) ((millisecondsElapsed / 1000) / 60);
 
-			int stars = pointSystem.calculatePoints(player.getTotalFuelConsumption());
+			int points = pointSystem.calculatePoints(player.getTotalFuelConsumption());
+			int stars = pointSystem.getStars(points);
+
 			char[] earnedStars = new char[stars];
 			Arrays.fill(earnedStars, '\u26e4');
 

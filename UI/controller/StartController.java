@@ -17,7 +17,7 @@ public class StartController {
 	@FXML private ListView<Score> listviewHighscore;
 
 	public StartController() {
-		domain = (Domain) Game.getInstance();
+		domain = Game.getInstance();
 	}
 
 	@FXML
