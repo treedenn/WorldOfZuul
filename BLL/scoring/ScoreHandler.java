@@ -38,11 +38,7 @@ public class PointSystem implements ScoringConstants {
     }
 
     public long calculateTimeElapsed() {
-        return finishTime - startTime;
-    }
-
-    public void setFinishTime() {
-        this.finishTime = System.currentTimeMillis();
+        return System.currentTimeMillis() - startTime;
     }
 
     public double getStartTime() {
