@@ -172,17 +172,18 @@ public class Model implements Persistent {
 		}
 	}
 
-	public void saveHighscore(List<Score> scores) {
+	@Override
+	public void saveHighscore() {
 		File file = new File("./src/DAL/resource/highscore.yaml");
 		YamlParser yaml = new YamlParser(file);
 
 		Map<Integer, HashMap<String, Object>> map = new HashMap<>();
 
-		for (int i = 0; i < scores.size(); i++) {
+		for (int i = 0; i < highscore.size(); i++) {
 			HashMap<String, Object> data = new HashMap<>();
 
-			data.put("name", scores.get(i).getName());
-			data.put("score", scores.get(i).getScore());
+			data.put("name", highscore.get(i).getName());
+			data.put("score", highscore.get(i).getScore());
 
 			map.put(i, data);
 		}

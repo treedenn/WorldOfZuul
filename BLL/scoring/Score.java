@@ -21,6 +21,6 @@ public class Score implements Serializable, Comparable<Score> {
 
     @Override
     public int compareTo(Score o) {
-        return this.score - o.score;
+        return o.score - this.score;
     }
 }

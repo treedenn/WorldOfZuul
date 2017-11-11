@@ -2,11 +2,11 @@ package BLL.scoring;
 
 import java.util.concurrent.TimeUnit;
 
-public class PointSystem implements ScoringConstants {
+public class ScoreHandler implements ScoringConstants {
     private long startTime;
     private long finishTime;
 
-    public PointSystem(){
+    public ScoreHandler(){
         startTime = System.currentTimeMillis();
     }
 

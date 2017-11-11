@@ -11,4 +11,5 @@ public interface Persistent {
 	Map<String, Planet> getPlanets();
 	List<Quiz> getQuizes();
 	List<Score> getHighscore();
+	void saveHighscore();
 }

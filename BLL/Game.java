@@ -1,12 +1,13 @@
 package BLL;
 
+import BLL.scoring.Score;
 import DAL.Model;
 import BLL.character.Blacksmith;
 import BLL.character.player.*;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 import BLL.item.PortalGun;
-import BLL.scoring.PointSystem;
+import BLL.scoring.ScoreHandler;
 import BLL.world.Planet;
 import UI.command.Command;
 import UI.command.CommandWord;
@@ -28,7 +29,7 @@ public class Game implements Domain {
 	private Player player;
 	private Blacksmith blacksmith;
 	private UnoX manager;
-	private PointSystem pointSystem;
+	private ScoreHandler scoreHandler;
 
 	private Game() {
 		view = new ConsoleView();
@@ -39,7 +40,7 @@ public class Game implements Domain {
 		player = new Player();
         blacksmith = new Blacksmith();
 		manager = new UnoX();
-		pointSystem = new PointSystem();
+		scoreHandler = new ScoreHandler();
 	}
 
 	/* function to begin game */
@@ -282,8 +283,8 @@ public class Game implements Domain {
 								Backpack bp = player.getBackpack();
 
 								view.println(String.format("The backpack [%.2f/%.2f] does not have enough space for %dx %.2f.",
-										bp.getCurrentCapacity(), bp.getMaxCapacity(),
-										is.getQuantity(), is.getItem().getWeight()));
+								bp.getCurrentCapacity(), bp.getMaxCapacity(),
+								is.getQuantity(), is.getItem().getWeight()));
 							}
 						} else {
 							view.println(selected.getItem().getName() + " is not pickupable.");
@@ -466,6 +467,7 @@ public class Game implements Domain {
 		Item clue;
 		String s;
 		String newDescription;
+
 		for (int i = 0; i < items.length; i++) {
 			item = items[i];
 			for (int j = i * 2; j < i * 2 + 2; j++) {
@@ -484,7 +486,31 @@ public class Game implements Domain {
 		for (int i = 0; i < clues.length; i++) {
 			planetsList.get(i).addItemStack(new ItemStack(clues[i]));
 		}
+	}
 
+	// TODO: Perhaps change boolean to int to get the direct location
+	@Override
+	public boolean hasBeatenHighscore() {
+		int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
+		List<Score> scores = model.getHighscore();
+
+		for(Score score : scores) {
+			if(points > score.getScore()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public void addPlayerToHighscore(String playerName) {
+		int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
+		List<Score> scores = model.getHighscore();
+		scores.add(new Score(playerName, points));
+		Collections.sort(scores);
+		scores.remove(scores.size() - 1);
+		model.saveHighscore();
 	}
 
 	/* function to print a welcome message */
@@ -494,7 +520,7 @@ public class Game implements Domain {
 			"Welcome to the ridicoulous Rick & Morty spinoff!",
 			"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
 			"[Type '" + CommandWord.HELP + "' if you need help]",
-                            "[Type '" + CommandWord.INFO + "' if you need more information]",
+            "[Type '" + CommandWord.INFO + "' if you need more information]",
 			"",
 		};
 	}
@@ -553,14 +579,12 @@ public class Game implements Domain {
 		StringBuilder sb = new StringBuilder();
 
 		if(gameWon){
-			pointSystem.setFinishTime();
-
-			double millisecondsElapsed = pointSystem.calculateTimeElapsed();
+			double millisecondsElapsed = scoreHandler.calculateTimeElapsed();
 			int seconds = (int) ((millisecondsElapsed / 1000) % 60);
 			int minutes = (int) ((millisecondsElapsed / 1000) / 60);
 
-			int points = pointSystem.calculatePoints(player.getTotalFuelConsumption());
-			int stars = pointSystem.getStars(points);
+			int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
+			int stars = scoreHandler.getStars(points);
 
 			char[] earnedStars = new char[stars];
 			Arrays.fill(earnedStars, '\u26e4');
