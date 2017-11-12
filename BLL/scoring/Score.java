@@ -3,8 +3,8 @@ package BLL.scoring;
 import java.io.Serializable;
 
 public class Score implements Serializable, Comparable<Score> {
-    private int score;
     private String name;
+    private int score;
 
     public Score(String name, int score) {
         this.score = score;

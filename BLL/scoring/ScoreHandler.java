@@ -1,5 +1,6 @@
 package BLL.scoring;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ScoreHandler implements ScoringConstants {

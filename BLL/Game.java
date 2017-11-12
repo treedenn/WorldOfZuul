@@ -513,6 +513,11 @@ public class Game implements Domain {
 		model.saveHighscore();
 	}
 
+	@Override
+	public List<Score> getHighscore() {
+		return model.getHighscore();
+	}
+
 	/* function to print a welcome message */
 	private String[] welcomeMessage() {
 		return new String[] {
