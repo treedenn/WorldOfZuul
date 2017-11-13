@@ -11,7 +11,7 @@ public class ProfessorPutricide implements NPC, Stationary{
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "ProfessorPutricide";
     }
 

@@ -1,7 +1,7 @@
 package BLL.character;
 
 public interface NPC {
-    String name();
+    String getName();
     boolean isGood();
     String[] message();
 

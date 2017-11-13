@@ -8,7 +8,7 @@ public abstract class Character {
 	private Planet currentPlanet;
 	private Map<String, Planet> planets;
 
-	public Character() {
+	Character() {
 		this(null, null);
 	}
 

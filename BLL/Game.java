@@ -43,6 +43,11 @@ public class Game implements Domain {
 		scoreHandler = new ScoreHandler();
 	}
 
+	@Override
+	public Player getPlayer() {
+		return player;
+	}
+
 	/* function to begin game */
 	private void start() {
 		init();
@@ -344,7 +349,7 @@ public class Game implements Domain {
 		ItemStack[] content = bp.getContent();
 
 		if(command.hasArguments()) {
-                        if(command.getArgumentLength() > 1) {
+			if(command.getArgumentLength() > 1) {
 				view.println(argumentMessage("backpack [item-index]"));
 			} else {
 				int index = Integer.parseInt(command.getArgument(0)) - 1;

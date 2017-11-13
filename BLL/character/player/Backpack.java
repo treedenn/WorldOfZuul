@@ -14,7 +14,7 @@ public class Backpack implements Inventory {
 	private List<ItemStack> items;
 	private PortalGun portalGun;
 
-	public Backpack(double maxCapacity) {
+	Backpack(double maxCapacity) {
 		this.maxWeightCapacity = maxCapacity;
 		this.currentWeightCapacity = 0;
 		items = new ArrayList<>();
