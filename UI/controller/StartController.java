@@ -64,8 +64,6 @@ public class StartController implements Initializable {
 	private void switchToGameView() throws Exception {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../view/game_view.fxml"));
 
-		System.out.println(getClass().getResource("../view/start_view.fxml"));
-
 		Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
 		scene.setRoot(pane);
 

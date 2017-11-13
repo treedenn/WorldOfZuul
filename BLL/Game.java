@@ -33,7 +33,7 @@ public class Game implements Domain {
 
 	private Game() {
 		view = new ConsoleView();
-		model = new Model();
+		model = Model.getInstance();
 
 		finished = false;
 		gameWon = false;

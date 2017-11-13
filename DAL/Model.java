@@ -11,6 +11,8 @@ import java.io.*;
 import java.util.*;
 
 public class Model implements Persistent {
+	private static Model INSTANCE;
+
 	private static List<Item> itemDatabase;
 
 	private List<Quiz> quizes;
@@ -20,9 +22,14 @@ public class Model implements Persistent {
 		initalizeDatabase();
 	}
 
-	public Model() {
+	private Model() {
 		loadHighscore();
 		initalizeQuiz();
+	}
+
+	public static Model getInstance() {
+		if(INSTANCE == null) INSTANCE = new Model();
+		return INSTANCE;
 	}
 
 	public static Item getItemById(int index) {
