@@ -14,18 +14,19 @@ import java.util.*;
 /* class for a planet */
 public class Planet
 {
-    /* variables for the room class */
+    / /* variables for the room class */
     private String name;
     private String description;
     private boolean[] searched;
     private List<ItemStack> itemList;
-    private List<NPC> npcList = new ArrayList<NPC>();
+    private List<NPC> npcList;
 
     /* constructor for the planet class */
     public Planet(String name, String description) {
         this.name = name;
         this.description = description;
         this.itemList = new ArrayList<>();
+        this.npcList = new ArrayList<>();
         searched = new boolean[] {false, false};
     }
 
