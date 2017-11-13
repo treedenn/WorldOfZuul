@@ -30,6 +30,7 @@ public class Game implements Domain {
 	private Blacksmith blacksmith;
 	private UnoX manager;
 	private ScoreHandler scoreHandler;
+	private SpacePirate manager2;
 
 	private Game() {
 		view = new ConsoleView();
@@ -41,6 +42,7 @@ public class Game implements Domain {
         blacksmith = new Blacksmith();
 		manager = new UnoX();
 		scoreHandler = new ScoreHandler();
+		manager2=new SpacePirate();
 	}
 
 	/* function to begin game */
@@ -418,6 +420,11 @@ public class Game implements Domain {
                         player.decreaseFuel(10);
                     }
                 }
+                view.println(manager2.getPirateMsg());
+                if (manager2.hasAcceptedOffer()){
+                	view.println("im glad we could come to an understanding, now be on your war");
+                	player.decreaseFuel(30);
+				}
 
                 view.getParser().resetReader();
                             
