@@ -1,5 +1,7 @@
 package BLL.world;
 
+import BLL.character.NPC;
+import BLL.character.SpecificNPC;
 import BLL.item.ItemStack;
 
 import java.util.*;
@@ -17,6 +19,7 @@ public class Planet
     private String description;
     private boolean[] searched;
     private List<ItemStack> itemList;
+    private List<NPC> npcList = new ArrayList<NPC>();
 
     /* constructor for the planet class */
     public Planet(String name, String description) {
