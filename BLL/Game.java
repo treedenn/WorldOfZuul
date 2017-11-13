@@ -1,5 +1,6 @@
 package BLL;
 
+import BLL.character.ProfessorPutricide;
 import BLL.scoring.Score;
 import DAL.Model;
 import BLL.character.Blacksmith;
@@ -28,6 +29,7 @@ public class Game implements Domain {
     private boolean trapped;
 	private Player player;
 	private Blacksmith blacksmith;
+	private ProfessorPutricide professorPutricide;
 	private UnoX manager;
 	private ScoreHandler scoreHandler;
 	private SpacePirate manager2;
@@ -40,9 +42,15 @@ public class Game implements Domain {
 		gameWon = false;
 		player = new Player();
         blacksmith = new Blacksmith();
+        professorPutricide = new ProfessorPutricide();
 		manager = new UnoX();
 		scoreHandler = new ScoreHandler();
 		manager2=new SpacePirate();
+	}
+
+	@Override
+	public Player getPlayer() {
+		return player;
 	}
 
 	/* function to begin game */
@@ -91,6 +99,7 @@ public class Game implements Domain {
 			case HELP:
 				view.println(helpMessage());
                 view.println(blacksmith.getCurrentPlanet().getName());
+                //view.println(professorPutricide.getCurrentPlant().getName());
 				break;
             case INFO:
                 view.println(descriptionMessage());
@@ -346,7 +355,7 @@ public class Game implements Domain {
 		ItemStack[] content = bp.getContent();
 
 		if(command.hasArguments()) {
-                        if(command.getArgumentLength() > 1) {
+			if(command.getArgumentLength() > 1) {
 				view.println(argumentMessage("backpack [item-index]"));
 			} else {
 				int index = Integer.parseInt(command.getArgument(0)) - 1;

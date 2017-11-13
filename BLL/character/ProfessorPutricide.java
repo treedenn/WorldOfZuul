@@ -2,16 +2,17 @@ package BLL.character;
 
 import java.util.Scanner;
 
-public class ProfessorPutricide implements NPC, Stationary{
+public class ProfessorPutricide extends SpecificNPC implements NPC, Stationary{
     private Scanner scanner;
     private String elixier;
 
     public ProfessorPutricide(){
+        super();
         scanner = new Scanner(System.in);
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "ProfessorPutricide";
     }
 
@@ -36,6 +37,8 @@ public class ProfessorPutricide implements NPC, Stationary{
     public boolean isStationary() {
         return true;
     }
+
+
 }
 
 

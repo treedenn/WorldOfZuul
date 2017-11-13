@@ -17,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -62,7 +64,7 @@ public class StartController implements Initializable {
 	}
 
 	private void switchToGameView() throws Exception {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("../view/game_view.fxml"));
+		Pane pane = FXMLLoader.load(getClass().getResource("../view/game_view.fxml"));
 
 		Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
 		scene.setRoot(pane);
