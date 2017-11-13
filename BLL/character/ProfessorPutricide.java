@@ -9,7 +9,7 @@ public class ProfessorPutricide implements NPC, Stationary{
     public ProfessorPutricide(){
         scanner = new Scanner(System.in);
     }
-        
+
     @Override
     public String name() {
         return "ProfessorPutricide";
