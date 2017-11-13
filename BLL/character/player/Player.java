@@ -4,23 +4,20 @@ import BLL.character.Character;
 
 public class Player extends Character {
 	private Backpack backpack;
-	private boolean fuelEmpty;
 	private double fuel;
 	private int totalFuelConsumption;
+
+	private final int MAX_FUEL;
 
 	public Player() {
 		super(null, null);
 		this.backpack = new Backpack(6);
 		this.fuel = 100;
-		fuelEmpty = false;
-	}
-
-	public void setFuelEmpty(boolean fuelEmpty) {
-		this.fuelEmpty = fuelEmpty;
+		this.MAX_FUEL = (int) fuel;
 	}
 
 	public boolean isFuelEmpty() {
-		return fuelEmpty;
+		return fuel == 0;
 	}
 
 	public Backpack getBackpack() {
@@ -32,7 +29,7 @@ public class Player extends Character {
 	}
 
 	public void setFuel(double fuel) {
-		this.fuel = Math.max(fuel, 0);
+		this.fuel = Math.min(MAX_FUEL, Math.max(fuel, 0));
 	}
 
 	public int getTotalFuelConsumption() {
@@ -46,6 +43,10 @@ public class Player extends Character {
 	public void decreaseFuel(double amount) {
 		setFuel(getFuel() - amount);
 		totalFuelConsumption += amount;
+	}
+
+	public int getMaxFuel() {
+		return MAX_FUEL;
 	}
 
 }

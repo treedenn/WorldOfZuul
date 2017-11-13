@@ -406,10 +406,9 @@ public class Game implements Domain {
 			} else if(player.samePlanet(planets.get(planetName))) {
 				view.println("You cannot travel to the same planet!");
 			} else {
-				if(player.getFuel() == 0){
+				if(player.isFuelEmpty()){
 					finished = true;
 					gameWon = false;
-					player.setFuelEmpty(true);
 					return;
 				}
                 view.println(manager.getUnoXMessage());

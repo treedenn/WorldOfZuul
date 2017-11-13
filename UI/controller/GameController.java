@@ -2,12 +2,10 @@ package UI.controller;
 
 import BLL.Domain;
 import BLL.Game;
+import BLL.character.player.Backpack;
 import BLL.character.player.Player;
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
+import BLL.item.ItemStack;
+import DAL.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,35 +28,21 @@ public class GameController implements Initializable {
 	@FXML private Button buttonInformation;
 
 	private Player player;
-	private SimpleDoubleProperty fuel;
-	private ObservableValue<Double> backpackItems;
 
 	public GameController() {
 		domain = Game.getInstance();
-
 		player = domain.getPlayer();
-		fuel = new SimpleDoubleProperty(player.getFuel());
-		backpackItems = new SimpleObjectProperty<>(player.getBackpack().getCurrentCapacity());
-
-		fuel.addListener((observableValue, aDouble, t1) -> {
-			System.out.println(observableValue);
-			System.out.println(aDouble);
-			System.out.println(t1);
-		});
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		barFuel.progressProperty().bind(fuel.divide(100));
+		updateFuelProgressBar();
+		updateBackpackProgressBar();
 	}
 
 	@FXML
 	void handleSearchAction(ActionEvent event) {
-		//player.decreaseFuel(5);
-		//barFuel.progressProperty().set(player.getFuel() / 100);
 
-		//System.out.println(player.getFuel());
-		//System.out.println(fuel.getValue());
 	}
 
 	@FXML
@@ -69,5 +53,16 @@ public class GameController implements Initializable {
 	@FXML
 	void handleInformationAction(ActionEvent event) {
 
+	}
+
+	private void updateFuelProgressBar() {
+		barFuel.progressProperty().setValue(player.getFuel() / player.getMaxFuel());
+		labelFuel.setText(String.format("[%.0f / %d]", player.getFuel(), player.getMaxFuel()));
+	}
+
+	private void updateBackpackProgressBar() {
+		Backpack bp = player.getBackpack();
+		barBackpack.progressProperty().setValue(bp.getCurrentCapacity() / bp.getMaxCapacity());
+		labelBackpack.setText(String.format("[%.1f / %.1f]", bp.getCurrentCapacity(), bp.getMaxCapacity()));
 	}
 }
