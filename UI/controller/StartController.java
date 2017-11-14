@@ -34,6 +34,9 @@ public class StartController implements Initializable {
 	@FXML private Button buttonExit;
 	@FXML private Button buttonHighscore;
 	@FXML private TableView<Score> tableviewHighscore;
+	@FXML private AnchorPane aboutWrapper;
+	@FXML private Button exitButton__about;
+	@FXML private Button button__about;
 
 	public StartController() {
 		domain = Game.getInstance();
@@ -53,10 +56,10 @@ public class StartController implements Initializable {
 		}
 	}
 
-	@FXML
-	void handleHighscoreAction(ActionEvent event) {
-		tableviewHighscore.setVisible(!tableviewHighscore.isVisible());
-	}
+	@FXML void displayAboutScreen(ActionEvent event) { aboutWrapper.setVisible(!aboutWrapper.isVisible());}
+
+	@FXML void closeAboutScreen(ActionEvent event) { aboutWrapper.setVisible(!aboutWrapper.isVisible());}
+
 
 	@FXML
 	void handleExitAction(ActionEvent event) {
@@ -77,8 +80,9 @@ public class StartController implements Initializable {
 	private void configListView() {
 		List<Score> highscore = domain.getHighscore();
 
-		tableviewHighscore.setVisible(false);
+		aboutWrapper.setVisible(false);
 
+		tableviewHighscore.setSelectionModel(null);
 		tableviewHighscore.setItems(FXCollections.observableArrayList(highscore));
 		//tableviewHighscore.getColumns().get(0).setCellValueFactory();
 		tableviewHighscore.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));

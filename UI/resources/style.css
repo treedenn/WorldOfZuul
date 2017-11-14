@@ -1,0 +1,222 @@
+/* LOAD CUSTOM FONT */
+
+@font-face {
+    src: url('fonts/circular-book.ttf');
+}
+
+@font-face {
+    src: url('fonts/circular-medium.ttf');
+}
+
+@font-face {
+    src: url('fonts/circular-bold.ttf');
+}
+
+@font-face {
+    src: url('fonts/circular-black.ttf');
+}
+
+/* -----------------------------------*/
+
+/* START VIEW */
+
+.launcherTitle{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 65px;
+}
+
+.launcherSubTitle{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 20px;
+}
+
+.launcherSmallTitle{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 14px;
+}
+
+.launcherNoiseBG{
+    -fx-background-image: url("img/noise.png");
+    -fx-background-repeat: repeat;
+}
+
+.start-view-button {
+    -fx-border-color: white;
+    -fx-background-color: none;
+    -fx-border-radius: 100% !important;
+    -fx-border-width: 2px !important;
+    -fx-text-fill: white !important;
+    -fx-cursor: hand;
+}
+
+.start-view-button:hover{
+    -fx-background-color: rgba(0,0,0,0.2);
+}
+
+.startViewButton__exit{
+    -fx-background-color: transparent;
+}
+
+.startViewButton__continue--green{
+    -fx-background-color: #1db954;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 56px 12px;
+}
+
+.startViewButton__secondary{
+    -fx-text-fill: #1db954;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+}
+
+
+.startViewButton__secondary:hover{
+    -fx-scale-x: 107%;
+    -fx-scale-y: 107%;
+}
+
+
+.startViewButton__secondary:pressed{
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
+    -fx-opacity: 0.8;
+}
+
+.startViewButton__continue--green:hover{
+    -fx-background-color: #1ed760;
+}
+
+.startViewButton__continue--green:pressed{
+    -fx-background-color: #1db954;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.wrapper__buttonWrapper--white-outline{
+    -fx-border-width: 2px;
+    -fx-border-color: transparent;
+    -fx-padding: 16px;
+}
+
+.highscoreTable{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.highscoreTable .column-header-background{
+    -fx-background-color: transparent;
+}
+
+.highscoreTable .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.highscoreTable .column-header .label{
+    -fx-alignment: center-left;
+}
+
+.highscoreTable .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.19);
+}
+
+.highscoreTable .table-cell{
+    -fx-text-fill: white;
+    -fx-font-family: "Circular Std Medium";
+}
+
+.highscoreTable .table-row-cell{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-width: 1;
+    -fx-border-color: transparent;
+
+}
+
+.highscoreTable .table-cell{
+    -fx-font-size: 25px;
+    -fx-text-fill: rgba(255,255,255,0.3);
+}
+
+.highscoreTable .table-row-cell:odd{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.startViewButton__closeHighscore{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+.highscoreScrollPane{
+    -fx-font-size: 15px;
+}
+.highscoreScrollPane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.highscoreScrollPane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.highscoreScrollPane .scroll-bar:vertical .thumb{
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0em;
+}
+
+
+
+/* -----------------------------------*/
+/* */
+.root{
+    -fx-font-family: 'Circular Std Black';
+}
+
+.button{
+    -fx-cursor: hand;
+}
+
+.buttonScale:hover{
+    -fx-scale-x: 107%;
+    -fx-scale-y: 107%;
+}
+
+
+.buttonScale:pressed{
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
+    -fx-opacity: 0.8;
+}
+
+/* -----------------------------------*/
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.accordion .titled-pane > *.content{
+    -fx-background-color: transparent ;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: #fff;
+}
+
+.accordion .titled-pane{
+    -fx-text-fill: #fff;
+    -fx-font-size: 20px;
+    -fx-font-family: "Circular Std Book";
+}
+
+.accordion .titled-pane .title {
+    -fx-background-color: transparent ;
+    -fx-text-fill: #fff;
+    -fx-border-color: #282828;
+    -fx-border-width: 0 0 1px 0;
+}
