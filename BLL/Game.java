@@ -428,11 +428,12 @@ public class Game implements Domain {
                         player.decreaseFuel(10);
                     }
                 }
-                view.println(manager2.getPirateMsg());
-                if (manager2.hasAcceptedOffer()){
-                	view.println("im glad we could come to an understanding, now be on your war");
-                	player.decreaseFuel(30);
-				}
+
+//                view.println(manager2.getPirateMsg());
+//                if (manager2.hasAcceptedOffer()) {
+//                	view.println("im glad we could come to an understanding, now be on your war");
+//                	player.decreaseFuel(30);
+//				}
 
                 view.getParser().resetReader();
                             

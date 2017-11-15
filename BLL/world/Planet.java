@@ -14,7 +14,7 @@ import java.util.*;
 /* class for a planet */
 public class Planet
 {
-    / /* variables for the room class */
+    /* variables for the room class */
     private String name;
     private String description;
     private boolean[] searched;

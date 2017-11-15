@@ -21,4 +21,3 @@ public class YamlParser {
 		return yaml;
 	}
 }
-
