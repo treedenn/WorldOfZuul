@@ -1,24 +1,22 @@
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import BLL.Domain;
+import BLL.Game;
+import BLL.Persistent;
+import BLL.UserInterface;
+import DAL.Model;
+import UI.JavaFX;
 
-public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("UI/view/start_view.fxml"));
 
-		primaryStage.setScene(new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight()));
-		primaryStage.setTitle("Rick's Adventure");
-		primaryStage.setResizable(false);
-
-		primaryStage.show();
-	}
-
+public class Main {
 	/* runs the game */
 	public static void main(String[] args) {
-		Application.launch(args);
+		UserInterface ui = new JavaFX();
+		Domain domain = Game.getInstance();
+		Persistent persistent = Model.getInstance();
+
+		domain.injectPersistent(persistent);
+
+		ui.injectDomain(domain);
+		ui.startApplication();
 	}
 }
 

@@ -36,7 +36,6 @@ public class Game implements Domain {
 
 	private Game() {
 		view = new ConsoleView();
-		model = Model.getInstance();
 
 		finished = false;
 		gameWon = false;
@@ -45,7 +44,12 @@ public class Game implements Domain {
         professorPutricide = new ProfessorPutricide();
 		manager = new UnoX();
 		scoreHandler = new ScoreHandler();
-		manager2=new SpacePirate();
+		manager2 = new SpacePirate();
+	}
+
+	@Override
+	public void injectPersistent(Persistent persistent) {
+		this.model = persistent;
 	}
 
 	@Override

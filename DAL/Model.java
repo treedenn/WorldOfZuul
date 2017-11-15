@@ -27,11 +27,6 @@ public class Model implements Persistent {
 		initalizeQuiz();
 	}
 
-	public static Model getInstance() {
-		if(INSTANCE == null) INSTANCE = new Model();
-		return INSTANCE;
-	}
-
 	public static Item getItemById(int index) {
 		return new Item(itemDatabase.get(index));
 	}
@@ -267,5 +262,10 @@ public class Model implements Persistent {
 			quizes = null;
 			e.printStackTrace();
 		}
+	}
+
+	public static Model getInstance() {
+		if(INSTANCE == null) INSTANCE = new Model();
+		return INSTANCE;
 	}
 }

@@ -1,14 +1,9 @@
 package UI.controller;
 
-import BLL.Game;
 import BLL.Domain;
 import BLL.scoring.Score;
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,8 +30,8 @@ public class StartController implements Initializable {
 	@FXML private Button exitButton__about;
 	@FXML private Button button__about;
 
-	public StartController() {
-		domain = Game.getInstance();
+	public StartController(Domain domain) {
+		this.domain = domain;
 	}
 
 	@Override
@@ -56,10 +48,9 @@ public class StartController implements Initializable {
 		}
 	}
 
-	@FXML void displayAboutScreen(ActionEvent event) { aboutWrapper.setVisible(!aboutWrapper.isVisible());}
+	@FXML void displayAboutScreen(ActionEvent event) { aboutWrapper.setVisible(!aboutWrapper.isVisible()); }
 
-	@FXML void closeAboutScreen(ActionEvent event) { aboutWrapper.setVisible(!aboutWrapper.isVisible());}
-
+	@FXML void closeAboutScreen(ActionEvent event) { displayAboutScreen(event); }
 
 	@FXML
 	void handleExitAction(ActionEvent event) {
@@ -67,7 +58,10 @@ public class StartController implements Initializable {
 	}
 
 	private void switchToGameView() throws Exception {
-		Pane pane = FXMLLoader.load(getClass().getResource("../view/game_view.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/game_view.fxml"));
+		loader.setController(new GameController(domain));
+
+		Pane pane = loader.load();
 
 		Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
 		scene.setRoot(pane);

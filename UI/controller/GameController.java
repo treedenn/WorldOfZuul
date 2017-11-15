@@ -5,6 +5,7 @@ import BLL.Game;
 import BLL.character.player.Backpack;
 import BLL.character.player.Player;
 import BLL.item.ItemStack;
+import BLL.scoring.Score;
 import DAL.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,8 +30,8 @@ public class GameController implements Initializable {
 
 	private Player player;
 
-	public GameController() {
-		domain = Game.getInstance();
+	public GameController(Domain domain) {
+		this.domain = domain;
 		player = domain.getPlayer();
 	}
 
