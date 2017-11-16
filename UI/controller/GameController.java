@@ -1,19 +1,15 @@
 package UI.controller;
 
 import BLL.Domain;
-import BLL.Game;
 import BLL.character.player.Backpack;
 import BLL.character.player.Player;
-import BLL.item.ItemStack;
-import BLL.scoring.Score;
-import DAL.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-
+import javafx.scene.control.ProgressIndicator;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,6 +20,7 @@ public class GameController implements Initializable {
 	@FXML private Label labelBackpack;
 	@FXML private ProgressBar barFuel;
 	@FXML private ProgressBar barBackpack;
+	@FXML private ProgressBar barSearch;
 	@FXML private Button buttonSearch;
 	@FXML private Button buttonBackpack;
 	@FXML private Button buttonInformation;
@@ -43,7 +40,25 @@ public class GameController implements Initializable {
 
 	@FXML
 	void handleSearchAction(ActionEvent event) {
+		/*
+		barSearch.setPrefWidth(buttonSearch.getPrefWidth());
+		barSearch.progressProperty().set(0);
+		barSearch.setVisible(true);
+		buttonSearch.setText("");
 
+		for(int i = 1; i <= 10; i++) {
+			try {
+				Thread.sleep(200);
+				barSearch.progressProperty().set(i * 0.1);
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		//barSearch.setVisible(false);
+		//barSearch.setPrefWidth(0);
+		buttonSearch.setText("Search");
+		*/
 	}
 
 	@FXML

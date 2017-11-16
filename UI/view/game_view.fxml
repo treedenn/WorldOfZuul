@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <right>
     <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -60,10 +59,14 @@
                         <Insets />
                      </VBox.margin>
                   </AnchorPane>
-                  <Pane VBox.vgrow="ALWAYS" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   <AnchorPane>
                      <children>
-                        <Button fx:id="buttonSearch" mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="35.0" style="-fx-background-radius: 20; -fx-opacity: 0.5;" text="Search" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="buttonSearch" mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="35.0" style="-fx-background-radius: 20;" text="Search" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <graphic>
+                              <ProgressBar fx:id="barSearch" minHeight="-Infinity" minWidth="-Infinity" prefWidth="0.0" progress="0.0" visible="false" />
+                           </graphic>
+                        </Button>
                      </children>
                   </AnchorPane>
                   <AnchorPane>
