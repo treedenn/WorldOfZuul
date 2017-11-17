@@ -32,10 +32,12 @@ public class GameController implements Initializable {
 	@FXML private Button buttonInformation;
 
 	private Player player;
+	private Task task;
 
 	public GameController(Domain domain) {
 		this.domain = domain;
-		player = domain.getPlayer();
+		this.player = domain.getPlayer();
+		this.task = null;
 	}
 
 	@Override
@@ -46,24 +48,27 @@ public class GameController implements Initializable {
 
 	@FXML
 	void handleSearchAction(ActionEvent event) {
-		barSearch.setPrefWidth(buttonSearch.getWidth() * 8/10);
-		barSearch.setVisible(true);
-		buttonSearch.setText("");
+		if(task == null || !task.isRunning()) {
+			this.task = new SearchTask(false);
 
-		// player.getCurrentPlanet().getPermSearched()
-		Task task = new SearchTask(true);
-		Thread th = new Thread(task);
+			barSearch.setPrefWidth(buttonSearch.getWidth() * 8/10);
+			barSearch.setVisible(true);
+			buttonSearch.setText("");
 
-		barSearch.progressProperty().bind(task.progressProperty());
-		task.setOnSucceeded(event1 -> {
-			buttonSearch.setText("Search");
-			barSearch.setVisible(false);
-			barSearch.setPrefWidth(0);
+			// player.getCurrentPlanet().getPermSearched()
+			Thread th = new Thread(task);
 
-			// Place action here!
-		});
+			barSearch.progressProperty().bind(task.progressProperty());
+			task.setOnSucceeded(event1 -> {
+				buttonSearch.setText("Search");
+				barSearch.setVisible(false);
+				barSearch.setPrefWidth(0);
 
-		th.start();
+				// Place action here!
+			});
+
+			th.start();
+		}
 	}
 
 	@FXML
