@@ -248,7 +248,7 @@
                     <panes>
                       <TitledPane animated="false" style="-fx-background-color: none;" text="FAQ">
                            <content>
-                              <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none;">
+                              <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none;">
                                  <content>
                                     <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla enim elit, porttitor in mauris eget, tempor dignissim leo. Etiam tempor arcu et urna porttitor tempor. Donec egestas velit nibh, eget pellentesque risus fringilla a. Sed justo turpis, tempus vitae justo in, molestie pretium nisi. Nullam feugiat blandit auctor. Etiam hendrerit vitae sem a viverra. Quisque id enim ut ante lobortis vestibulum. Donec diam quam, euismod eu malesuada ut, mattis ut ipsum. Nam sed accumsan arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer convallis id nibh et consequat. Donec ornare orci eget eros fringilla pellentesque. Integer nec venenatis odio. Nunc maximus suscipit arcu, sed efficitur odio commodo et. Aliquam neque quam, fermentum eu est ut, sodales egestas mauris." textFill="WHITE" wrapText="true" />
                                  </content>
@@ -258,6 +258,18 @@
                               </ScrollPane>
                            </content>
                       </TitledPane>
+                        <TitledPane animated="false" style="-fx-background-color: none;" text="Credits">
+                           <content>
+                              <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none;">
+                                 <content>
+                                    <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla enim elit, porttitor in mauris eget, tempor dignissim leo. Etiam tempor arcu et urna porttitor tempor. Donec egestas velit nibh, eget pellentesque risus fringilla a. Sed justo turpis, tempus vitae justo in, molestie pretium nisi. Nullam feugiat blandit auctor. Etiam hendrerit vitae sem a viverra. Quisque id enim ut ante lobortis vestibulum. Donec diam quam, euismod eu malesuada ut, mattis ut ipsum. Nam sed accumsan arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer convallis id nibh et consequat. Donec ornare orci eget eros fringilla pellentesque. Integer nec venenatis odio. Nunc maximus suscipit arcu, sed efficitur odio commodo et. Aliquam neque quam, fermentum eu est ut, sodales egestas mauris." textFill="WHITE" wrapText="true" />
+                                 </content>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </ScrollPane>
+                           </content>
+                        </TitledPane>
                     </panes>
                   </Accordion>
                </children>
