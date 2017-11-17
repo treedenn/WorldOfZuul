@@ -481,7 +481,7 @@ public class Game implements Domain {
 		Item[] clues = new Item[8];
 
 		for (int i = 0; i < clues.length; i++) {
-			clues[i] = Model.getItemById(56);
+			clues[i] = model.getItemById(56);
 		}
 
 		Item item;
