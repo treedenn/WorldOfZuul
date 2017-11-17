@@ -16,7 +16,7 @@ public class SpacePirate extends SpecificNPC implements NPC, Stationary {
 
                 "you have been intercepted and captured by space pirates",
                 "Would you like to pay the ransom to them in order to proceed on your voyage?",
-                "Answer Y/N "
+                "Answer Y/N"
 
 
         };
@@ -37,9 +37,7 @@ public class SpacePirate extends SpecificNPC implements NPC, Stationary {
     }
 
     @Override
-    public boolean isGood() {
-        return false;
-    }
+    public boolean isGood() {return false; }
 
     @Override
     public String[] message() {
