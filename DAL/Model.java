@@ -39,18 +39,18 @@ public class Model implements Persistent {
 
 		/* initializing planets */
 
-		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!");
-		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.");
-		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.");
-		xehna = new Planet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.");
-		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.");
-		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.");
-		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.");
-		deineax = new Planet("Deineax", "No one knows exactly the origin behind the name of this planet, yet myths say it comes from 'Dennis'.");
-		uskillion = new Planet("Uskillon", "An extremely hot planet, yet it contains different types of liquids.");
-		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...");
-		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.");
-		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.");
+		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!", 0, 0);
+		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.", 0, 0);
+		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.", 0, 0);
+		xehna = new Planet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", 0, 0);
+		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.", 0, 0);
+		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.", 0, 0);
+		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.", 0, 0);
+		deineax = new Planet("Deineax", "No one knows exactly the origin behind the name of this planet, yet myths say it comes from 'Dennis'.", 0, 0);
+		uskillion = new Planet("Uskillon", "An extremely hot planet, yet it contains different types of liquids.", 0, 0);
+		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...", 0, 0);
+		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.", 0, 0);
+		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.", 0, 0);
 
 		/* adding items to planets */
 

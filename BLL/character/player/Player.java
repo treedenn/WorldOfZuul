@@ -1,9 +1,11 @@
 package BLL.character.player;
 
 import BLL.character.Character;
+import javafx.geometry.Point2D;
 
 public class Player extends Character {
 	private Backpack backpack;
+	private Point2D coordinates;
 	private double fuel;
 	private int totalFuelConsumption;
 
@@ -12,6 +14,7 @@ public class Player extends Character {
 	public Player() {
 		super(null, null);
 		this.backpack = new Backpack(6);
+		this.coordinates = new Point2D(0, 0);
 		this.fuel = 100;
 		this.MAX_FUEL = (int) fuel;
 	}

@@ -73,7 +73,7 @@ public class Game implements Domain {
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
-		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.");
+		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.", 0, 0);
 		player.setCurrentPlanet(centerUniverse);
 		player.setPlanets(planetMap);
 		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
