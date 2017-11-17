@@ -1,6 +1,7 @@
 package BLL;
 
 import BLL.character.ProfessorPutricide;
+import BLL.character.SpacePirate;
 import BLL.scoring.Score;
 import DAL.Model;
 import BLL.character.Blacksmith;
@@ -433,11 +434,11 @@ public class Game implements Domain {
                     }
                 }
 
-//                view.println(manager2.getPirateMsg());
-//                if (manager2.hasAcceptedOffer()) {
-//                	view.println("im glad we could come to an understanding, now be on your war");
-//                	player.decreaseFuel(30);
-//				}
+               view.println(manager2.getPirateMsg());
+               if (manager2.hasAcceptedOffer("y")) {
+               	view.println("im glad we could come to an understanding, now be on your way");
+              	player.decreaseFuel(30);
+				}
 
                 view.getParser().resetReader();
                             
