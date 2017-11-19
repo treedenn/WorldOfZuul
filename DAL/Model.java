@@ -1,6 +1,6 @@
 package DAL;
 
-import BLL.Persistent;
+import BLL.ACQ.Persistent;
 import BLL.character.player.Quiz;
 import BLL.item.*;
 import BLL.world.Planet;

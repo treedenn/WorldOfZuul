@@ -1,4 +1,4 @@
-package BLL;
+package BLL.ACQ;
 
 import BLL.character.player.Quiz;
 import BLL.item.Item;

@@ -1,6 +1,6 @@
 package BLL.character;
 
-import BLL.Persistent;
+import BLL.ACQ.Persistent;
 import BLL.character.player.Recipe;
 import BLL.item.Item;
 import BLL.world.Planet;

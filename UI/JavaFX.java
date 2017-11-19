@@ -1,9 +1,8 @@
 package UI;
 
-import BLL.Domain;
+import BLL.ACQ.Domain;
 import BLL.Game;
-import BLL.UserInterface;
-import BLL.scoring.Score;
+import BLL.ACQ.UserInterface;
 import UI.controller.StartController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,6 +1,6 @@
 package UI.controller;
 
-import BLL.Domain;
+import BLL.ACQ.Domain;
 import BLL.scoring.Score;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

@@ -1,7 +1,7 @@
-import BLL.Domain;
+import BLL.ACQ.Domain;
 import BLL.Game;
-import BLL.Persistent;
-import BLL.UserInterface;
+import BLL.ACQ.Persistent;
+import BLL.ACQ.UserInterface;
 import DAL.Model;
 import UI.JavaFX;
 

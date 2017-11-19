@@ -1,9 +1,10 @@
 package BLL;
 
+import BLL.ACQ.Domain;
+import BLL.ACQ.Persistent;
 import BLL.character.ProfessorPutricide;
 import BLL.character.SpacePirate;
 import BLL.scoring.Score;
-import DAL.Model;
 import BLL.character.Blacksmith;
 import BLL.character.player.*;
 import BLL.item.Item;
