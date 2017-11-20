@@ -1,6 +1,7 @@
-package BLL;
+package BLL.ACQ;
 
 import BLL.character.player.Quiz;
+import BLL.item.Item;
 import BLL.world.Planet;
 import BLL.scoring.Score;
 
@@ -12,4 +13,5 @@ public interface Persistent {
 	List<Quiz> getQuizes();
 	List<Score> getHighscore();
 	void saveHighscore();
+	Item getItemById(int index);
 }

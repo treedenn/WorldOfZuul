@@ -1,8 +1,10 @@
 package BLL;
 
+import BLL.ACQ.Domain;
+import BLL.ACQ.Persistent;
 import BLL.character.ProfessorPutricide;
+import BLL.character.SpacePirate;
 import BLL.scoring.Score;
-import DAL.Model;
 import BLL.character.Blacksmith;
 import BLL.character.player.*;
 import BLL.item.Item;
@@ -72,7 +74,7 @@ public class Game implements Domain {
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
-		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.");
+		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.", 0, 0);
 		player.setCurrentPlanet(centerUniverse);
 		player.setPlanets(planetMap);
 		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
@@ -433,11 +435,11 @@ public class Game implements Domain {
                     }
                 }
 
-//                view.println(manager2.getPirateMsg());
-//                if (manager2.hasAcceptedOffer()) {
-//                	view.println("im glad we could come to an understanding, now be on your war");
-//                	player.decreaseFuel(30);
-//				}
+               view.println(manager2.getPirateMsg());
+               if (manager2.hasAcceptedOffer("y")) {
+               	view.println("im glad we could come to an understanding, now be on your way");
+              	player.decreaseFuel(30);
+				}
 
                 view.getParser().resetReader();
                             
@@ -480,7 +482,7 @@ public class Game implements Domain {
 		Item[] clues = new Item[8];
 
 		for (int i = 0; i < clues.length; i++) {
-			clues[i] = Model.getItemById(56);
+			clues[i] = model.getItemById(56);
 		}
 
 		Item item;

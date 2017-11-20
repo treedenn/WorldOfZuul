@@ -1,8 +1,8 @@
 package BLL.world;
 
 import BLL.character.NPC;
-import BLL.character.SpecificNPC;
 import BLL.item.ItemStack;
+import javafx.geometry.Point2D;
 
 import java.util.*;
 
@@ -17,14 +17,16 @@ public class Planet
     /* variables for the room class */
     private String name;
     private String description;
+    private Point2D coordinates;
     private boolean[] searched;
     private List<ItemStack> itemList;
     private List<NPC> npcList;
 
     /* constructor for the planet class */
-    public Planet(String name, String description) {
+    public Planet(String name, String description, double x, double y) {
         this.name = name;
         this.description = description;
+        this.coordinates = new Point2D(x, y);
         this.itemList = new ArrayList<>();
         this.npcList = new ArrayList<>();
         searched = new boolean[] {false, false};
@@ -41,6 +43,10 @@ public class Planet
 
     public String getArriveMessage() {
     	return "You arrived safely at " + getName() + ".";
+    }
+
+    public Point2D getCoordinates() {
+        return coordinates;
     }
 
     public boolean getTempSearched() {

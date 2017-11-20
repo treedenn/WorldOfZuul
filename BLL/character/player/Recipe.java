@@ -7,9 +7,8 @@ import DAL.Model;
 public class Recipe {
 	private Item[] requirements;
 
-	public Recipe() {
-		requirements = new Item[4];
-		generateRecipeRequirements();
+	public Recipe(Item[] requirements) {
+		this.requirements = requirements;
 	}
 
 	public Item[] getRequirements() {
@@ -38,23 +37,5 @@ public class Recipe {
 		}
 
 		return false;
-	}
-
-	private void generateRecipeRequirements() {
-		final int liquids = 14; // 0 -> 14
-		final int canisters = 12; // 14 -> 26
-		final int gears = 14; // 26 -> 40
-		final int cpus = 16; // 40 -> 56
-
-		requirements[0] = Model.getItemById((int) (Math.random() * liquids));
-		requirements[1] = Model.getItemById((int) (liquids + Math.random() * canisters));
-		requirements[2] = Model.getItemById((int) (liquids + canisters + Math.random() * gears));
-		requirements[3] = Model.getItemById((int) (liquids + canisters + gears + Math.random() * cpus));
-
-		/*requirements[0] = Model.getItemById(0);
-		requirements[1] = Model.getItemById(liquids);
-		requirements[2] = Model.getItemById(liquids + canisters);
-		requirements[3] = Model.getItemById(liquids + canisters + gears);*/
-
 	}
 }

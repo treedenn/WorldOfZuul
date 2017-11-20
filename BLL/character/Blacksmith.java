@@ -1,6 +1,8 @@
 package BLL.character;
 
+import BLL.ACQ.Persistent;
 import BLL.character.player.Recipe;
+import BLL.item.Item;
 import BLL.world.Planet;
 
 import java.util.Iterator;
@@ -11,7 +13,7 @@ public class Blacksmith extends Character {
 	private String[] visitedPlanets;
 
 	public Blacksmith() {
-		recipe = new Recipe();
+		recipe = null;
 		visitedPlanets = new String[4]; // used for traces
 	}
     
@@ -95,5 +97,29 @@ public class Blacksmith extends Character {
 			default: msg = "No traces of the Blacksmith here!";
 		}
 		return msg;
+	}
+
+	private void generateRecipeRequirements(Persistent model) {
+		// TODO: Call function when spoken to Blacksmith for the firs time.
+
+		final int liquids = 14; // 0 -> 14
+		final int canisters = 12; // 14 -> 26
+		final int gears = 14; // 26 -> 40
+		final int cpus = 16; // 40 -> 56
+
+		Item[] requirements = new Item[4];
+
+		requirements[0] = model.getItemById((int) (Math.random() * liquids));
+		requirements[1] = model.getItemById((int) (liquids + Math.random() * canisters));
+		requirements[2] = model.getItemById((int) (liquids + canisters + Math.random() * gears));
+		requirements[3] = model.getItemById((int) (liquids + canisters + gears + Math.random() * cpus));
+
+		recipe = new Recipe(requirements);
+
+//		requirements[0] = Model.getItemById(0);
+//		requirements[1] = Model.getItemById(liquids);
+//		requirements[2] = Model.getItemById(liquids + canisters);
+//		requirements[3] = Model.getItemById(liquids + canisters + gears);
+
 	}
 }
