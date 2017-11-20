@@ -26,7 +26,7 @@ public class JavaFX extends Application implements UserInterface {
 
 		primaryStage.setScene(new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight()));
 		primaryStage.setTitle("Rick's Adventure");
-		primaryStage.setResizable(false);
+		primaryStage.setResizable(true);
 
 		primaryStage.show();
 

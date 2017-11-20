@@ -57,10 +57,6 @@ public class Model implements Persistent {
 		return plHandler.getPlanets();
 	}
 
-	public Map<String, Planet> fuckedUp(){
-		return plHandler.getPlanets();
-	}
-
 	private void load(Loadable object) {
 		try {
 			object.load();

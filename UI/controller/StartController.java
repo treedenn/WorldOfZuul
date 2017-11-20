@@ -38,8 +38,6 @@ public class StartController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		configListView();
 
-		System.out.println(domain.getPlayer().getPlanets());
-
 	}
 
 	@FXML

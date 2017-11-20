@@ -47,7 +47,6 @@ public class Map {
 
         addStars(rootPane);
         addLabels(rootPane);
-        addPlanets(rootPane);
 
         rootPane.getChildren().addAll(children);
 
@@ -71,15 +70,9 @@ public class Map {
         }
     }
 
-    private void addPlanets(Pane pane){
-
-        UI.GameComponents.Planet planet = new UI.GameComponents.Planet();
-        GameObject.addGameObject(planet, 100,100, rootPane);
-    }
-
     protected void createPlanets(java.util.Map<String, Planet> planets){
         for (Planet planet : planets.values()) {
-            GameObject.addGameObject(new UI.GameComponents.Planet(), planet.getCoordinates().getX(), planet.getCoordinates().getY(), rootPane);
+            GameObject.addGameObject(new UI.GameComponents.Planet(planet), planet.getCoordinates().getX(), planet.getCoordinates().getY(), rootPane);
         }
     }
 

@@ -53,6 +53,8 @@ public class LasseGameController implements Initializable {
     private boolean mouseIsOnSubscene;
     private double dt;
 
+    @FXML private AnchorPane wrapper;
+
     @FXML private SubScene subScene;
 
     @FXML private Button gameMenuButton;
@@ -106,14 +108,11 @@ public class LasseGameController implements Initializable {
         configFuelBar();
         configBackpackBar();
 
-        //innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
-
-        System.out.println(domain.getPlayer().getPlanets());
-
         innersceneHandler = new Innerscene(subScene, stage);
         innersceneHandler.getSubScene().heightProperty().bind(heightReference.heightProperty());
         innersceneHandler.getSubScene().widthProperty().bind(contentWrapper.widthProperty());
 
+        innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
