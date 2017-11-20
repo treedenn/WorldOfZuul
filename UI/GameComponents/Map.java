@@ -41,7 +41,8 @@ public class Map {
     private void generateRootPane(){
         rootPane = new Pane();
         rootPane.setStyle("-fx-background-color: transparent, linear-gradient(from 0.5px 0px to 30.5px 0px, repeat, rgba(255,255,255,0.1), transparent 2%), linear-gradient(from 0px 0.5px to 0px 30.5px, repeat, rgba(255,255,255,0.1), transparent 2%);");
-        rootPane.setCache(true);
+        //Cache temporarily disabled to get smooth gameplay!
+        //rootPane.setCache(true);
         rootPane.setMinHeight(mapHeight);
         rootPane.setMinWidth(mapWidth);
 
