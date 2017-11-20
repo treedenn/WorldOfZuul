@@ -36,7 +36,7 @@
 }
 
 .launcherNoiseBG{
-    -fx-background-image: url("img/noise.png");
+    -fx-background-image: url("img/noise2.png");
     -fx-background-repeat: repeat;
 }
 
@@ -65,6 +65,32 @@
     -fx-padding: 12px 56px 12px;
 }
 
+.startViewButton__continue--green:hover{
+    -fx-background-color: #1ed760;
+}
+
+.startViewButton__continue--green:pressed{
+    -fx-background-color: #1db954;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.startViewButton__continue--red{
+    -fx-background-color: linear-gradient(to right,#ed2931 0,#f95a3e);
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 56px 12px;
+}
+
+.startViewButton__continue--red:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.startViewButton__continue--red:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
 .startViewButton__secondary{
     -fx-text-fill: #1db954;
     -fx-background-color: transparent;
@@ -84,14 +110,6 @@
     -fx-opacity: 0.8;
 }
 
-.startViewButton__continue--green:hover{
-    -fx-background-color: #1ed760;
-}
-
-.startViewButton__continue--green:pressed{
-    -fx-background-color: #1db954;
-    -fx-text-fill: rgba(255,255,255,0.8);
-}
 
 .wrapper__buttonWrapper--white-outline{
     -fx-border-width: 2px;
@@ -177,6 +195,7 @@
 /* */
 .root{
     -fx-font-family: 'Circular Std Black';
+    -fx-background-color: transparent;
 }
 
 .button{
@@ -220,3 +239,136 @@
     -fx-border-color: #282828;
     -fx-border-width: 0 0 1px 0;
 }
+
+/* GAME VIEW ---------------------------- */
+.barometerLabel{
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 10px;
+}
+
+/* ---- MENU BAR ------ */
+.button__menuBar{
+    -fx-border-color: white;
+    -fx-background-color: none;
+    -fx-border-radius: 100%;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 56px 12px;
+}
+
+.button__menuBar:hover{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.button__menuBar:pressed{
+    -fx-background-color: #d9dadc;
+    -fx-border-color: #d9dadc;
+    -fx-text-fill: black;
+}
+
+.exitButton__drawer{
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+
+.exitButton__drawer:hover{
+    -fx-background-color: rgba(0,0,0,0.3);
+}
+
+.map{
+
+/*    -fx-background-image: radial-gradient(radius 0, white, rgba(255,255,255,.2) 2px,transparent 40px),
+    radial-gradient( radius 0, white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient( radius 0, white, rgba(255,255,255,.1) 2px, transparent 40px),
+    radial-gradient(radius 2%, rgba(255,255,255,.4),rgba(255,255,255,.1) 2px, transparent 30px);
+
+    -fx-background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    -fx-background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;*/
+
+    /*-fx-background-color: linear-gradient(from 41px 34px to 50px 50px, reflect,  #ff7f50 30%, #faebd7  47%);*/
+
+
+
+/*radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),*/
+/*radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),*/
+/*radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),*/
+/*radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);*/
+
+}
+
+.notification{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-width: 4px;
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-radius: 5px;
+}
+
+.notification .notification__title{
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 20;
+}
+
+.notification .notification__text{
+    -fx-font-family: "Circular Std book";
+    -fx-font-size: 12;
+}
+
+
+.bar__fuel > .track{
+
+}
+
+.bar__fuel .bar{
+
+    -fx-padding: 15px 5px 15px 5px;
+    -fx-background-color: linear-gradient(to right,#ed2931 0,#f95a3e);
+    -fx-background-image: url("img/noise2.png");
+    -fx-background-repeat: repeat;
+
+}
+
+.bar__backpack > .track{
+
+}
+
+.bar__backpack .bar{
+    -fx-padding: 15px 5px 15px 5px;
+    -fx-background-color: linear-gradient(to right,#1db954 0,#1ed760);
+    -fx-background-image: url("img/noise2.png");
+    -fx-background-repeat: repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -291,10 +291,10 @@
   options:
     - "HashSet"
     - "ArrayList"
-    - "Map"
+    - "Innerscene"
   answer: 2
 42:
-  question: "To empty a Collection or a Map, you use the __________ method."
+  question: "To empty a Collection or a Innerscene, you use the __________ method."
   options:
     - "SetEmpty"
     - "empty"

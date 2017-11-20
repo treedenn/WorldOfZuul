@@ -2,6 +2,7 @@ package UI.controller;
 
 import BLL.Domain;
 import BLL.scoring.Score;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.List;
@@ -30,9 +32,7 @@ public class StartController implements Initializable {
 	@FXML private Button exitButton__about;
 	@FXML private Button button__about;
 
-	public StartController(Domain domain) {
-		this.domain = domain;
-	}
+	public StartController(Domain domain) {this.domain = domain;	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -58,10 +58,13 @@ public class StartController implements Initializable {
 	}
 
 	private void switchToGameView() throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/game_view.fxml"));
-		loader.setController(new GameController(domain));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/LasseGame_view.fxml"));
+		LasseGameController controller = new LasseGameController(domain);
+		controller.setStage((Stage) buttonNewGame.getScene().getWindow());
+		loader.setController(controller);
 
 		Pane pane = loader.load();
+
 
 		Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
 		scene.setRoot(pane);
@@ -70,6 +73,7 @@ public class StartController implements Initializable {
 		stage.setScene(scene);
 		stage.centerOnScreen();
 	}
+
 
 	private void configListView() {
 		List<Score> highscore = domain.getHighscore();
