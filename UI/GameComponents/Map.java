@@ -71,12 +71,16 @@ public class Map {
         }
     }
 
-   //       GameObject.addGameObject(new Planet(),300,300,map.getRootPane());
-   //     GameObject.addGameObject(new Planet(),400,400,map.getRootPane());
-
-
     private void addPlanets(Pane pane){
-        // HENT PLANETER HER
+
+        UI.GameComponents.Planet planet = new UI.GameComponents.Planet();
+        GameObject.addGameObject(planet, 100,100, rootPane);
+    }
+
+    protected void createPlanets(java.util.Map<String, Planet> planets){
+        for (Planet planet : planets.values()) {
+            GameObject.addGameObject(new UI.GameComponents.Planet(), planet.getCoordinates().getX(), planet.getCoordinates().getY(), rootPane);
+        }
     }
 
 

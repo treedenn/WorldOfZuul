@@ -17,6 +17,7 @@ class PlanetHandler implements Loadable {
 	PlanetHandler(Model model) {
 		this.planets = null;
 		this.model = model;
+
 	}
 
 	Map<String, Planet> getPlanets() {

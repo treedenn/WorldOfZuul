@@ -47,6 +47,8 @@ public class Game implements Domain {
 		manager = new UnoX();
 		scoreHandler = new ScoreHandler();
 		manager2 = new SpacePirate();
+
+		//init();
 	}
 
 	@Override

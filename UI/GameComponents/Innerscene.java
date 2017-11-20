@@ -1,5 +1,7 @@
 package UI.GameComponents;
 
+import BLL.ACQ.Domain;
+import BLL.world.Planet;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -21,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -59,11 +62,9 @@ public class Innerscene {
         playerRoot.setEffect(new DropShadow(20,0,0,Color.rgb(0,0,0,0.3)));
         playerRoot.setCenterShape(true);
 
-
         player = new UI.GameComponents.Player(50,50, playerRoot);
         player.setVelocity(new Point2D(0,0));
-        GameObject.addGameObject(player,150,150, map.getRootPane());
-
+        GameObject.addGameObject(player,map.mapWidth/2,map.mapHeight/2, map.getRootPane());
 
     }
 
@@ -108,6 +109,10 @@ public class Innerscene {
         if (player.getView().getTranslateY() > map.getRootPane().getHeight() - player.getHeight()){
             player.getView().setTranslateY(map.getRootPane().getHeight() - player.getHeight());
         }
+    }
+
+    public void createPlanets(java.util.Map<String, Planet> planets){
+        map.createPlanets(planets);
     }
 
 

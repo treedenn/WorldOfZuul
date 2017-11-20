@@ -106,6 +106,10 @@ public class LasseGameController implements Initializable {
         configFuelBar();
         configBackpackBar();
 
+        //innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
+
+        System.out.println(domain.getPlayer().getPlanets());
+
         innersceneHandler = new Innerscene(subScene, stage);
         innersceneHandler.getSubScene().heightProperty().bind(heightReference.heightProperty());
         innersceneHandler.getSubScene().widthProperty().bind(contentWrapper.widthProperty());
@@ -148,35 +152,35 @@ public class LasseGameController implements Initializable {
 
     @FXML
     void keyIsPressed(KeyEvent event) {
-        if(event.getCode() == KeyCode.LEFT){
+        if(event.getCode() == KeyCode.A){
             innersceneHandler.getPlayer().setLeft(true);
         }
-        if(event.getCode() == KeyCode.RIGHT){
+        if(event.getCode() == KeyCode.D){
             innersceneHandler.getPlayer().setRight(true);
         }
-        if(event.getCode() == KeyCode.UP){
+        if(event.getCode() == KeyCode.W){
             innersceneHandler.getPlayer().setDecelerate(false);
             innersceneHandler.getPlayer().setAccelerate(true);
         }
-        if(event.getCode() == KeyCode.DOWN){
+        if(event.getCode() == KeyCode.S){
 
         }
     }
 
     @FXML
     void keyIsReleased(KeyEvent event) {
-        if(event.getCode() == KeyCode.LEFT){
+        if(event.getCode() == KeyCode.A){
             innersceneHandler.getPlayer().setLeft(false);
 
         }
-        if(event.getCode() == KeyCode.RIGHT){
+        if(event.getCode() == KeyCode.D){
             innersceneHandler.getPlayer().setRight(false);
         }
-        if(event.getCode() == KeyCode.UP){
+        if(event.getCode() == KeyCode.W){
             innersceneHandler.getPlayer().setAccelerate(false);
             innersceneHandler.getPlayer().setDecelerate(true);
         }
-        if(event.getCode() == KeyCode.DOWN){
+        if(event.getCode() == KeyCode.S){
 
         }
     }
@@ -194,7 +198,6 @@ public class LasseGameController implements Initializable {
 
         for(GameObject planet : Planet.getPlanets()){
             if(planet.isColliding(innersceneHandler.getPlayer())){
-                System.out.println(Planet.getPlanets().size());
                 notificationHandler.showNotification(dashBoard.getHeight() - 100);
             }
         }
