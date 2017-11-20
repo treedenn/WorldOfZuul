@@ -31,18 +31,18 @@ class PlanetHandler implements Loadable {
 
 		/* initializing planets */
 
-		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!", 0, 0);
-		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.", 0, 0);
-		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.", 0, 0);
-		xehna = new Planet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", 0, 0);
-		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.", 0, 0);
-		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.", 0, 0);
-		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.", 0, 0);
-		deineax = new Planet("Deineax", "No one knows exactly the origin behind the name of this planet, yet myths say it comes from 'Dennis'.", 0, 0);
-		uskillion = new Planet("Uskillon", "An extremely hot planet, yet it contains different types of liquids.", 0, 0);
-		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...", 0, 0);
-		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.", 0, 0);
-		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.", 0, 0);
+		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!", 1229, 5370);
+		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.", 2688, 5504);
+		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.", 3850, 5410);
+		xehna = new Planet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", 5048, 5343);
+		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.", 4929, 3267);
+		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.", 3887, 3508);
+		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.", 2413, 3428);
+		deineax = new Planet("Deineax", "No one knows exactly the origin behind the name of this planet, yet myths say it comes from 'Dennis'.", 1147, 3348);
+		uskillion = new Planet("Uskillon", "An extremely hot planet, yet it contains different types of liquids.", 999, 1419);
+		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...", 2130, 1258);
+		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.", 3664, 1352);
+		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.", 4936, 1232);
 
 		/* adding items to planets */
 
