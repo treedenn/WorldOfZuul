@@ -29,7 +29,6 @@ public class Model implements Persistent {
 		load(qzHandler);
 		load(hsHandler);
 		load(plHandler);
-
 	}
 
 	@Override
@@ -55,7 +54,6 @@ public class Model implements Persistent {
 	/* function to create rooms */
 	@Override
 	public Map<String, Planet> getPlanets() {
-		System.out.println(plHandler.getPlanets());
 		return plHandler.getPlanets();
 	}
 

@@ -47,13 +47,12 @@ public class Game implements Domain {
 		manager = new UnoX();
 		scoreHandler = new ScoreHandler();
 		manager2 = new SpacePirate();
-
-		//init();
 	}
 
 	@Override
 	public void injectPersistent(Persistent persistent) {
 		this.model = persistent;
+		init();
 	}
 
 	@Override
@@ -71,8 +70,8 @@ public class Game implements Domain {
         
 		gameLoop();
 	}
-
-	private void init() {
+	
+	public void init() {
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
@@ -82,7 +81,7 @@ public class Game implements Domain {
 		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
 		blacksmith.setPlanets(planetMap);
 		manager.setQuizes(model.getQuizes());
-		addCluesToPlanets();
+		//addCluesToPlanets();
         trapped = true;
 	}
 
