@@ -5,7 +5,8 @@ import BLL.world.Planet;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
@@ -40,9 +41,7 @@ public class Map {
 
     private void generateRootPane(){
         rootPane = new Pane();
-        rootPane.setStyle("-fx-background-color: transparent, linear-gradient(from 0.5px 0px to 30.5px 0px, repeat, rgba(255,255,255,0.1), transparent 2%), linear-gradient(from 0px 0.5px to 0px 30.5px, repeat, rgba(255,255,255,0.1), transparent 2%);");
-        //Cache temporarily disabled to get smooth gameplay!
-        //rootPane.setCache(true);
+        rootPane.setBackground(new Background(new BackgroundImage(new Image("./UI/resources/img/grid.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         rootPane.setMinHeight(mapHeight);
         rootPane.setMinWidth(mapWidth);
 
