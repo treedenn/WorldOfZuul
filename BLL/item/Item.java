@@ -1,63 +1,46 @@
 package BLL.item;
 
-public class Item {
+import BLL.ACQ.Usable;
+import BLL.Game;
+import BLL.character.player.Player;
+
+public class Item implements Cloneable {
 	private String name;
 	private String description;
-	private ItemType itemType;
-	private Color color;
-	private State state;
+	private ItemType type;
 	private boolean pickupable;
 	private boolean dropable;
 	private double weight;
+	private Usable usable;
 
-	public Item(Item item) {
-		this(item.getName(), item.getDescription(), item.getItemType(), item.getColor(), item.getState(), item.getWeight(), item.isPickupable(), item.isDropable());
+	public Item() {
+
 	}
 
-	public Item(String name, String description, ItemType itemType, Color color, State state, double weight, boolean isPickupable, boolean isDropable) {
+	public Item(String name, String description, ItemType type, double weight, boolean isPickupable, boolean isDropable) {
 		this.name = name;
 		this.description = description;
-		this.itemType = itemType;
-		this.color = color;
-		this.state = state;
+		this.type = type;
 		this.pickupable = isPickupable;
 		this.dropable = isDropable;
 		this.weight = weight;
+		this.usable = null;
 	}
 
-	public Item(String name, String description, ItemType itemType, Color color, State state, double weight) {
-		this(name, description, itemType, color, state, weight, true, true);
-	}
-
-	public Item(String name, String description, ItemType itemType, Color color, State state) {
-		this(name, description, itemType, color, state,1, true, true);
+	public Item(String name, String description, double weight, boolean isPickupable, boolean isDropable) {
+		this(name, description, ItemType.DEFAULT, weight, isPickupable, isDropable);
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String getPHDescription() {
-		String temp = description.replace("{{itemtype}}", itemType.name().toLowerCase());
-		temp = temp.replace("{{state}}", state.name().toLowerCase());
-		temp = temp.replace("{{color}}", color.name().toLowerCase());
-		return temp;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
-	public ItemType getItemType() {
-		return itemType;
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public State getState() {
-		return state;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public boolean isPickupable() {
@@ -72,20 +55,17 @@ public class Item {
 		return weight;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setUsable(Usable usable) {
+		this.usable = usable;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public boolean use(Player player, Game game) {
+		return usable != null && usable.use(this, player, game);
 	}
 
-	public void setItemType(ItemType itemType) {
-		this.itemType = itemType;
-	}
-
-	public void setState(State state) {
-		this.state = state;
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 	@Override
@@ -93,14 +73,14 @@ public class Item {
 		if(object instanceof Item) {
 			Item item = (Item) object;
 
-			return this.getName().equals(item.getName()) && this.getDescription().equals(item.getDescription()) && this.getItemType().equals(item.getItemType());
+			return this.getName().equals(item.getName()) && this.getDescription().equals(item.getDescription());
 		}
 		return false;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%s [%s]: %s", getName(), getItemType().name(), getPHDescription());
+		return String.format("%s: %s", getName(), getDescription());
 	}
 
 }

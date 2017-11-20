@@ -1,25 +1,20 @@
 import BLL.ACQ.Domain;
-import BLL.Game;
 import BLL.ACQ.Persistent;
 import BLL.ACQ.UserInterface;
-import BLL.world.Planet;
+import BLL.Game;
 import DAL.Model;
 import UI.JavaFX;
-
 
 public class Main {
 	/* runs the game */
 	public static void main(String[] args) {
-		UserInterface ui = new JavaFX();
-		Domain domain = Game.getInstance();
 		Persistent persistent = Model.getInstance();
+		Domain domain = Game.getInstance();
 
 		domain.injectPersistent(persistent);
 
+		UserInterface ui = new JavaFX();
 		ui.injectDomain(domain);
 		ui.startApplication();
 	}
 }
-
-
-

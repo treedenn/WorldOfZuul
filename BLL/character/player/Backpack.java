@@ -3,7 +3,6 @@ package BLL.character.player;
 import BLL.character.Inventory;
 import BLL.item.Item;
 import BLL.item.ItemStack;
-import BLL.item.PortalGun;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +11,11 @@ public class Backpack implements Inventory {
 	private double maxWeightCapacity;
 	private double currentWeightCapacity;
 	private List<ItemStack> items;
-	private PortalGun portalGun;
 
 	Backpack(double maxCapacity) {
 		this.maxWeightCapacity = maxCapacity;
 		this.currentWeightCapacity = 0;
 		items = new ArrayList<>();
-		portalGun = new PortalGun();
 	}
 
 	public double getMaxCapacity() {
@@ -35,10 +32,6 @@ public class Backpack implements Inventory {
 
 	private void decreaseCurrentCapacity(double amount) {
 		this.currentWeightCapacity -= amount;
-	}
-
-	public PortalGun getPortalGun() {
-		return portalGun;
 	}
 
 	private boolean isBelowMaxCapacity(ItemStack item) {

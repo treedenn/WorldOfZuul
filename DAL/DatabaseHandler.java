@@ -1,9 +1,8 @@
 package DAL;
 
-import BLL.item.Color;
-import BLL.item.Item;
-import BLL.item.ItemType;
-import BLL.item.State;
+import BLL.ACQ.Usable;
+import BLL.UsableHandler;
+import BLL.item.*;
 import DAL.ACQ.Loadable;
 import DAL.yaml.YamlObject;
 
@@ -16,9 +15,14 @@ import java.util.Map;
 
 class DatabaseHandler implements Loadable {
 	private List<Item> database;
+	private UsableHandler usableHandler;
 
 	DatabaseHandler() {
 		database = null;
+	}
+
+	public void setUsableHandler(UsableHandler usableHandler) {
+		this.usableHandler = usableHandler;
 	}
 
 	Item getItemById(int index) {
@@ -34,27 +38,50 @@ class DatabaseHandler implements Loadable {
 		if(!map.isEmpty()) {
 			database = new ArrayList<>(map.size());
 
-			String name;
-			String description;
-			ItemType type;
-			Color color;
-			State state;
-			boolean pickupable;
-			boolean dropable;
-			double weight;
+			Item item;
 
 			for (Map<String, Object> o : map.values()) {
-				name = (String) o.get("name");
-				color = Color.valueOf((String) o.get("color"));
-				state = State.valueOf((String) o.get("state"));
-				description = (String) o.get("description");
-				type = ItemType.valueOf((String) o.get("itemType"));
-				pickupable = (boolean) o.get("pickupable");
-				dropable = (boolean) o.get("dropable");
-				weight = (double) o.get("weight");
+				switch(ItemType.valueOf((String) o.get("itemType"))) {
+					case DEFAULT: item = getItem(o); break;
+					case COMPONENT: item = getComponent(o); break;
+					case PORTALGUN: item = getPortalGun(o); break;
+					default: item = getItem(o);
+				}
 
-				database.add(new Item(name, description, type, color, state, weight, pickupable, dropable));
+				if(o.containsKey("usableId")) {
+					item.setUsable(usableHandler.getUsable((Integer) o.get("usableId")));
+				}
+
+				database.add(item);
 			}
 		}
+	}
+
+	private Item getItem(Map<String, Object> o) {
+		return new Item((String) o.get("name"),
+				(String) o.get("description"),
+				(double) o.get("weight"),
+				(boolean) o.get("pickupable"),
+				(boolean) o.get("dropable")
+		);
+	}
+
+	private Item getComponent(Map<String, Object> o) {
+		return new ItemComponent((String) o.get("name"),
+				(String) o.get("description"),
+				(double) o.get("weight"),
+				ComponentType.valueOf((String) o.get("componentType")),
+				Color.valueOf((String) o.get("color")),
+				State.valueOf((String) o.get("state"))
+		);
+	}
+
+	private Item getPortalGun(Map<String, Object> o) {
+		return new ItemPortalGun((String) o.get("name"),
+				(String) o.get("description"),
+				(double) o.get("weight"),
+				(boolean) o.get("pickupable"),
+				(boolean) o.get("dropable")
+		);
 	}
 }

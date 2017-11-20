@@ -2,517 +2,580 @@
 0:
   name: "Sewage"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: GREEN
-  state: RADIOACTIVE
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: GREEN
+  state: RADIOACTIVE
 1:
   name: "Molt"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: ORANGE
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: ORANGE
+  state: BURNING
 2:
   name: "Sedarus"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: CYAN
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: CYAN
+  state: CHILL
 3:
   name: "Gouliiq"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: PINK
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: PINK
+  state: LUMINESCENT
 4:
   name: "Cryptic"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: PURPLE
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: PURPLE
+  state: LUMINESCENT
 5:
   name: "Amanzi"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: GREEN
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: GREEN
+  state: BURNING
 6:
   name: "Zuur"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: ORANGE
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: ORANGE
+  state: LUMINESCENT
 7:
   name: "Eaux"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: CYAN
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: CYAN
+  state: NORMAL
 8:
   name: "Hunajar"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: WHITE
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: WHITE
+  state: CHILL
 9:
   name: "Mielepe"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: CYAN
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: CYAN
+  state: NORMAL
 10:
   name: "Fusilia Ferrox"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: WHITE
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: WHITE
+  state: CHILL
 11:
   name: "Latex"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: PINK
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: PINK
+  state: LUMINESCENT
 12:
   name: "Kalideca"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: CYAN
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: CYAN
+  state: NORMAL
 13:
   name: "Ambrusia"
   description: "This item is {{color}} and {{state}}."
-  itemType: LIQUID
-  color: CYAN
-  state: TOXIC
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: LIQUID
+  color: CYAN
+  state: TOXIC
 14:
   name: "Karedu"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: CYAN
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: CYAN
+  state: CHILL
 15:
   name: "Loqoo"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: PURPLE
-  state: TOXIC
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: PURPLE
+  state: TOXIC
 16:
   name: "Daupyra"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: PURPLE
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: PURPLE
+  state: NORMAL
 17:
   name: "Gonazi"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: ORANGE
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: ORANGE
+  state: BURNING
 18:
   name: "Pikarq"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: PINK
-  state: TOXIC
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: PINK
+  state: TOXIC
 19:
   name: "Zajanj"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: GREEN
-  state: TOXIC
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: GREEN
+  state: TOXIC
 20:
   name: "Jukohra"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: PURPLE
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: PURPLE
+  state: BURNING
 21:
   name: "Miplim"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: PURPLE
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: PURPLE
+  state: CHILL
 22:
   name: "Rexirn"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: CYAN
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: CYAN
+  state: BURNING
 23:
   name: "Tedox"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: PURPLE
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: PURPLE
+  state: LUMINESCENT
 24:
   name: "Akelos"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: CYAN
-  state: RADIOACTIVE
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: CYAN
+  state: RADIOACTIVE
 25:
   name: "Doih"
   description: "This item is {{color}} and {{state}}."
-  itemType: CANISTER
-  color: CYAN
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CANISTER
+  color: CYAN
+  state: NORMAL
 26:
   name: "Rekar"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: PINK
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: PINK
+  state: NORMAL
 27:
   name: "Oltam"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: CYAN
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: CYAN
+  state: LUMINESCENT
 28:
   name: "Edauss"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: PINK
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: PINK
+  state: CHILL
 29:
   name: "Qiigol"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: PURPLE
-  state: RADIOACTIVE
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: PURPLE
+  state: RADIOACTIVE
 30:
   name: "Rypicas"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: GREEN
-  state: RADIOACTIVE
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: GREEN
+  state: RADIOACTIVE
 31:
   name: "Zinama"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: PINK
-  state: RADIOACTIVE
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: PINK
+  state: RADIOACTIVE
 32:
   name: "Ruukaz"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: PINK
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: PINK
+  state: NORMAL
 33:
   name: "Xaruja"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: ORANGE
-  state: RADIOACTIVE
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: ORANGE
+  state: RADIOACTIVE
 34:
   name: "Unjaroh"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: PINK
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: PINK
+  state: BURNING
 35:
   name: "Lemipe"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: WHITE
-  state: RADIOACTIVE
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: WHITE
+  state: RADIOACTIVE
 36:
   name: "Feroxis"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: GREEN
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: GREEN
+  state: NORMAL
 37:
   name: "Texio"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: GREEN
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: GREEN
+  state: BURNING
 38:
   name: "Doim"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: GREEN
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: GREEN
+  state: CHILL
 39:
   name: "Aldakk"
   description: "This item is {{color}} and {{state}}."
-  itemType: GEARS
-  color: CYAN
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: GEARS
+  color: CYAN
+  state: LUMINESCENT
 40:
   name: "Tek XX"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: ORANGE
-  state: TOXIC
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: ORANGE
+  state: TOXIC
 41:
   name: "Tek XXVI"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: CYAN
-  state: RADIOACTIVE
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: CYAN
+  state: RADIOACTIVE
 42:
   name: "MOLT IV"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: ORANGE
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: ORANGE
+  state: LUMINESCENT
 43:
   name: "MOLT -V(D)"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: PURPLE
-  state: TOXIC
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: PURPLE
+  state: TOXIC
 44:
   name: "CX Titanium 4"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: ORANGE
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: ORANGE
+  state: BURNING
 45:
   name: "CX Titanium 8"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: ORANGE
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: ORANGE
+  state: NORMAL
 46:
   name: "FIX Ferocity 1"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: ORANGE
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: ORANGE
+  state: CHILL
 47:
   name: "FIX Ferocity 3"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: GREEN
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: GREEN
+  state: BURNING
 48:
   name: "i11 X2017"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: WHITE
-  state: BURNING
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: WHITE
+  state: BURNING
 49:
   name: "i13 II5290"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: PINK
-  state: NORMAL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: PINK
+  state: NORMAL
 50:
   name: "i13 IV8525"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: GREEN
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: GREEN
+  state: CHILL
 51:
   name: "i15 7750"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: PURPLE
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: PURPLE
+  state: CHILL
 52:
   name: "CSP 6M2T"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: ORANGE
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: ORANGE
+  state: LUMINESCENT
 53:
   name: "CSP 10MT"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: PINK
-  state: TOXIC
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: PINK
+  state: TOXIC
 54:
   name: "CSP MXV"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: WHITE
-  state: CHILL
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: WHITE
+  state: CHILL
 
 55:
   name: "CSP M2X1V"
   description: "This item is {{color}} and {{state}}."
-  itemType: CPU
-  color: GREEN
-  state: LUMINESCENT
+  itemType: COMPONENT
   pickupable: true
   dropable: true
   weight: 1.0
+  componentType: CPU
+  color: GREEN
+  state: LUMINESCENT
 
 56:
-  name: "Clue"
-  description: "The {{itemtype}} you are searching for is probably {{clue}}."
-  itemType: NONE
-  color: WHITE
-  state: NORMAL
+  name: "CSP M2X1V"
+  description: "This item is {{color}} and {{state}}."
+  itemType: COMPONENT
+  pickupable: true
+  dropable: true
+  weight: 1.0
+  componentType: NONE
+  color: GREEN
+  state: LUMINESCENT
+57:
+  name: "Portal Gun"
+  description: "Powerful Tool!"
+  itemType: PORTALGUN
   pickupable: false
   dropable: false
   weight: 0.0
-
-
+  usableId: 0

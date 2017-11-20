@@ -30,7 +30,7 @@ public class GameController implements Initializable {
 	private Player player;
 	private Task task;
 
-	public GameController(Domain domain) {
+	GameController(Domain domain) {
 		this.domain = domain;
 		this.player = domain.getPlayer();
 		this.task = null;

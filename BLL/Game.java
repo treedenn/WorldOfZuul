@@ -9,7 +9,7 @@ import BLL.character.Blacksmith;
 import BLL.character.player.*;
 import BLL.item.Item;
 import BLL.item.ItemStack;
-import BLL.item.PortalGun;
+import BLL.item.ItemPortalGun;
 import BLL.scoring.ScoreHandler;
 import BLL.world.Planet;
 import UI.command.Command;
@@ -25,6 +25,7 @@ public class Game implements Domain {
 
 	private ConsoleView view;
 	private Persistent model;
+	private UsableHandler usableHandler;
 
 	private boolean finished;
 	private boolean gameWon;
@@ -38,6 +39,7 @@ public class Game implements Domain {
 
 	private Game() {
 		view = new ConsoleView();
+		usableHandler = new UsableHandler();
 
 		finished = false;
 		gameWon = false;
@@ -52,7 +54,27 @@ public class Game implements Domain {
 	@Override
 	public void injectPersistent(Persistent persistent) {
 		this.model = persistent;
+		this.model.setUsableHandler(usableHandler);
+		this.model.load();
 		init();
+	}
+
+
+	// TODO: REMOVE THESE IF NOT NEEDED (USED FOR TEST PURPOSES)
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public boolean isGameWon() {
+		return gameWon;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+	public void setGameWon(boolean gameWon) {
+		this.gameWon = gameWon;
 	}
 
 	@Override
@@ -184,17 +206,18 @@ public class Game implements Domain {
                             view.println(blacksmith.getBlacksmithMsg());
                             Recipe recipe = blacksmith.getRecipe();
                             Item[] items = recipe.getRequirements();
-                            boolean[] containItems = recipe.haveItems(player.getBackpack().getContent());
+	                        ItemStack[] content = player.getBackpack().getContent();
+                            boolean[] containItems = recipe.haveItems(content);
 
                             for(int i = 0; i < items.length; i++) {
-                                view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getItemType().name());
+                                view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX ");
                             }
 
                             if(allTrue(containItems)) {
                                 // TODO: remove items from the players backpack
+	                            // TODO: change portal gun to be repaired
                                 view.println("");
                                 view.println("Portalgun has been repaired!");
-                                player.getBackpack().getPortalGun().repair();
                             }
                             break;
                     }
@@ -204,14 +227,14 @@ public class Game implements Domain {
 //					boolean[] containItems = recipe.haveItems(player.getBackpack().getContent());
 //
 //					for(int i = 0; i < items.length; i++) {
-//						view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getItemType().name());
+//						view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getComponentType().name());
 //					}
 //
 //					if(allTrue(containItems)) {
 //						// TODO: remove items from the players backpack
 //						view.println("");
 //						view.println("Portalgun has been repaired!");
-//						player.getBackpack().getPortalGun().repair();
+//						player.getBackpack().getItemPortalGun().repair();
 //					}
 				}
 			}
@@ -371,16 +394,16 @@ public class Game implements Domain {
 					ItemStack is = content[index];
 
 					view.println(is.getItem().getName());
-					view.println("\t" + is.getItem().getPHDescription());
+//					view.println("\t" + is.getItem().getPHDescription());
 				} else if(index == content.length) {
-					PortalGun pg = bp.getPortalGun();
-
-					if(pg.isBroken()) {
-						view.println("The Portal Gun is broken. You'll have to fix it!");
-					} else {
-						finished = true;
-						gameWon = true;
-					}
+//					ItemPortalGun pg = bp.getItemPortalGun();
+//
+//					if(pg.isBroken()) {
+//						view.println("The Portal Gun is broken. You'll have to fix it!");
+//					} else {
+//						finished = true;
+//						gameWon = true;
+//					}
 				} else {
 					view.println("The entered index does not match.");
 				}
@@ -392,7 +415,7 @@ public class Game implements Domain {
 				view.println(String.format("[%d] %s", (1 + i), content[i].toString()));
 			}
 
-			view.println(String.format("[%d] %s", content.length + 1, bp.getPortalGun().toString()));
+//			view.println(String.format("[%d] %s", content.length + 1, bp.getItemPortalGun().toString()));
 		}
 	}
 
@@ -495,9 +518,9 @@ public class Game implements Domain {
 			item = items[i];
 			for (int j = i * 2; j < i * 2 + 2; j++) {
 				clue = clues[j];
-				clue.setColor(item.getColor());
-				clue.setState(item.getState());
-				clue.setItemType(item.getItemType());
+//				clue.setColor(item.getColor());
+//				clue.setState(item.getState());
+//				clue.setComponentType(item.getComponentType());
 				s = j % 2 == 0 ? "{{color}}" : "{{state}}";
 				newDescription = clue.getDescription().replace("{{clue}}", s);
 				clue.setDescription(newDescription);

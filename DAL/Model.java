@@ -1,6 +1,7 @@
 package DAL;
 
 import BLL.ACQ.Persistent;
+import BLL.UsableHandler;
 import BLL.character.player.Quiz;
 import BLL.item.*;
 import BLL.world.Planet;
@@ -24,11 +25,19 @@ public class Model implements Persistent {
 		qzHandler = new QuizHandler();
 		hsHandler = new HighscoreHandler();
 		plHandler = new PlanetHandler(this);
+	}
 
+	@Override
+	public void load() {
 		load(dbHandler);
 		load(qzHandler);
 		load(hsHandler);
 		load(plHandler);
+	}
+
+	@Override
+	public void setUsableHandler(UsableHandler handler) {
+		dbHandler.setUsableHandler(handler);
 	}
 
 	@Override
@@ -48,7 +57,12 @@ public class Model implements Persistent {
 
 	@Override
 	public Item getItemById(int index) {
-		return new Item(dbHandler.getItemById(index));
+		try {
+			return (Item) dbHandler.getItemById(index).clone();
+		} catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/* function to create rooms */
