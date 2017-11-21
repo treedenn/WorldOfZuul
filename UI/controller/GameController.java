@@ -1,6 +1,9 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.IBackpack;
+import BLL.ACQ.IPlayer;
+import BLL.character.Inventory;
 import BLL.character.player.Backpack;
 import BLL.character.player.Player;
 import UI.SearchTask;
@@ -27,7 +30,7 @@ public class GameController implements Initializable {
 	@FXML private Button buttonBackpack;
 	@FXML private Button buttonInformation;
 
-	private Player player;
+	private IPlayer player;
 	private Task task;
 
 	GameController(Domain domain) {
@@ -83,7 +86,7 @@ public class GameController implements Initializable {
 	}
 
 	private void updateBackpackProgressBar() {
-		Backpack bp = player.getBackpack();
+		IBackpack bp = (IBackpack) player.getInventory();
 		barBackpack.progressProperty().setValue(bp.getCurrentCapacity() / bp.getMaxCapacity());
 		labelBackpack.setText(String.format("[%.1f / %.1f]", bp.getCurrentCapacity(), bp.getMaxCapacity()));
 	}

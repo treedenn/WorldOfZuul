@@ -1,10 +1,12 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.IScore;
 import BLL.scoring.Score;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,7 +30,7 @@ public class StartController implements Initializable {
 	@FXML private Button buttonNewGame;
 	@FXML private Button buttonExit;
 	@FXML private Button buttonHighscore;
-	@FXML private TableView<Score> tableviewHighscore;
+	@FXML private TableView<IScore> tableviewHighscore;
 	@FXML private AnchorPane aboutWrapper;
 	@FXML private Button exitButton__about;
 	@FXML private Button button__about;
@@ -77,8 +80,7 @@ public class StartController implements Initializable {
 
 
 	private void configListView() {
-		List<Score> highscore = domain.getHighscore();
-
+		List<IScore> highscore = domain.getHighscore();
 		aboutWrapper.setVisible(false);
 
 		tableviewHighscore.setSelectionModel(null);

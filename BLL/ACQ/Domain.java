@@ -1,14 +1,13 @@
 package BLL.ACQ;
 
-import BLL.character.player.Player;
-import BLL.scoring.Score;
-
 import java.util.List;
+import java.util.Map;
 
 public interface Domain {
 	void injectPersistent(Persistent persistent);
-	Player getPlayer();
+	IPlayer getPlayer();
+	Map<String, IPlanet> getPlayerPlanets();
 	boolean hasBeatenHighscore();
 	void addPlayerToHighscore(String playerName);
-	List<Score> getHighscore();
+	List<IScore> getHighscore();
 }

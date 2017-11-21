@@ -1,23 +1,27 @@
 package BLL.scoring;
 
+import BLL.ACQ.IScore;
+
 import java.io.Serializable;
 
-public class Score implements Serializable, Comparable<Score> {
+public class Score implements IScore, Serializable, Comparable<Score> {
     private String name;
     private int score;
 
     public Score(String name, int score) {
-        this.score = score;
         this.name = name;
+        this.score = score;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getScore() {
         return score;
     }
 
-    public String getName() {
-        return name;
-    }
+
 
     @Override
     public int compareTo(Score o) {

@@ -1,5 +1,7 @@
 package BLL.character;
 
+import BLL.ACQ.IPlanet;
+import BLL.ACQ.IPlayer;
 import BLL.world.Planet;
 
 import java.util.Map;
@@ -33,12 +35,12 @@ public abstract class Character {
 		this.planets = planets;
 	}
 
-	public boolean samePlanet(Planet planet) {
+	public boolean samePlanet(IPlanet planet) {
 		return getCurrentPlanet() == planet;
 	}
 
 	public void go(String planetName) {
-		currentPlanet = planets.get(planetName);
+		currentPlanet = (Planet) planets.get(planetName);
 	}
 
 	public String getPlanetNames() {

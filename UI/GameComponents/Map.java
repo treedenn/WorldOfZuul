@@ -1,5 +1,6 @@
 package UI.GameComponents;
 
+import BLL.ACQ.IPlanet;
 import BLL.Game;
 import BLL.world.Planet;
 import javafx.scene.Group;
@@ -70,9 +71,9 @@ public class Map {
         }
     }
 
-    protected void createPlanets(java.util.Map<String, Planet> planets){
-        for (Planet planet : planets.values()) {
-            GameObject.addGameObject(new UI.GameComponents.Planet(planet), planet.getCoordinates().getX(), planet.getCoordinates().getY(), rootPane);
+    void createPlanets(java.util.Map<String, ? extends IPlanet> planets){
+        for (IPlanet planet : planets.values()) {
+            GameObject.addGameObject(new UI.GameComponents.Planet(planet), planet.getX(), planet.getY(), rootPane);
         }
     }
 

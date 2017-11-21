@@ -1,5 +1,6 @@
 package UI.GameComponents;
 
+import BLL.ACQ.IPlayer;
 import BLL.Game;
 import BLL.character.player.Backpack;
 import BLL.character.player.Player;
@@ -14,7 +15,7 @@ public class FuelBar extends Meter{
 
     @Override
     public void update() {
-        Player player = Game.getInstance().getPlayer();
+        IPlayer player = Game.getInstance().getPlayer();
         getBar().progressProperty().setValue(player.getFuel() / player.getMaxFuel());
         getLabel().setText(String.format("[%.0f / %d]", player.getFuel(), player.getMaxFuel()));
 

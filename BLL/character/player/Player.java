@@ -1,10 +1,12 @@
 package BLL.character.player;
 
+import BLL.ACQ.IPlayer;
 import BLL.character.Character;
+import BLL.character.Inventory;
 import javafx.geometry.Point2D;
 
-public class Player extends Character {
-	private Backpack backpack;
+public class Player extends Character implements IPlayer {
+	private Inventory inventory;
 	private Point2D coordinates;
 	private double fuel;
 	private int totalFuelConsumption;
@@ -13,22 +15,30 @@ public class Player extends Character {
 
 	public Player() {
 		super(null, null);
-		this.backpack = new Backpack(6);
+		this.inventory = new Backpack(6);
 		this.coordinates = new Point2D(0, 0);
 		this.fuel = 100;
 		this.MAX_FUEL = (int) fuel;
 	}
 
+	@Override
 	public boolean isFuelEmpty() {
 		return fuel == 0;
 	}
 
-	public Backpack getBackpack() {
-		return backpack;
+	@Override
+	public Inventory getInventory() {
+		return inventory;
 	}
 
+	@Override
 	public double getFuel() {
 		return fuel;
+	}
+
+	@Override
+	public int getMaxFuel() {
+		return MAX_FUEL;
 	}
 
 	public void setFuel(double fuel) {
@@ -47,9 +57,4 @@ public class Player extends Character {
 		setFuel(getFuel() - amount);
 		totalFuelConsumption += amount;
 	}
-
-	public int getMaxFuel() {
-		return MAX_FUEL;
-	}
-
 }

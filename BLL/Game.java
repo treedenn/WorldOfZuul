@@ -1,7 +1,7 @@
 package BLL;
 
-import BLL.ACQ.Domain;
-import BLL.ACQ.Persistent;
+import BLL.ACQ.*;
+import BLL.character.Inventory;
 import BLL.character.ProfessorPutricide;
 import BLL.character.SpacePirate;
 import BLL.scoring.Score;
@@ -9,7 +9,6 @@ import BLL.character.Blacksmith;
 import BLL.character.player.*;
 import BLL.item.Item;
 import BLL.item.ItemStack;
-import BLL.item.ItemPortalGun;
 import BLL.scoring.ScoreHandler;
 import BLL.world.Planet;
 import UI.command.Command;
@@ -59,14 +58,14 @@ public class Game implements Domain {
 		init();
 	}
 
-
-	// TODO: REMOVE THESE IF NOT NEEDED (USED FOR TEST PURPOSES)
-	public boolean isFinished() {
-		return finished;
+	@Override
+	public IPlayer getPlayer() {
+		return player;
 	}
 
-	public boolean isGameWon() {
-		return gameWon;
+	@Override
+	public Map<String, IPlanet> getPlayerPlanets() {
+		return new HashMap<>(player.getPlanets());
 	}
 
 	public void setFinished(boolean finished) {
@@ -75,11 +74,6 @@ public class Game implements Domain {
 
 	public void setGameWon(boolean gameWon) {
 		this.gameWon = gameWon;
-	}
-
-	@Override
-	public Player getPlayer() {
-		return player;
 	}
 
 	/* function to begin game */
@@ -93,7 +87,7 @@ public class Game implements Domain {
 		gameLoop();
 	}
 	
-	public void init() {
+	private void init() {
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
@@ -206,7 +200,7 @@ public class Game implements Domain {
                             view.println(blacksmith.getBlacksmithMsg());
                             Recipe recipe = blacksmith.getRecipe();
                             Item[] items = recipe.getRequirements();
-	                        ItemStack[] content = player.getBackpack().getContent();
+	                        ItemStack[] content = player.getInventory().getContent();
                             boolean[] containItems = recipe.haveItems(content);
 
                             for(int i = 0; i < items.length; i++) {
@@ -224,7 +218,7 @@ public class Game implements Domain {
 //                    view.println(lockedBlacksmith.getBlacksmithMsg());
 //					Recipe recipe = lockedBlacksmith.getRecipe();
 //					Item[] items = recipe.getRequirements();
-//					boolean[] containItems = recipe.haveItems(player.getBackpack().getContent());
+//					boolean[] containItems = recipe.haveItems(player.getInventory().getContent());
 //
 //					for(int i = 0; i < items.length; i++) {
 //						view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getComponentType().name());
@@ -234,7 +228,7 @@ public class Game implements Domain {
 //						// TODO: remove items from the players backpack
 //						view.println("");
 //						view.println("Portalgun has been repaired!");
-//						player.getBackpack().getItemPortalGun().repair();
+//						player.getInventory().getItemPortalGun().repair();
 //					}
 				}
 			}
@@ -317,11 +311,11 @@ public class Game implements Domain {
 
 							ItemStack is = new ItemStack(selected.getItem(), quantity);
 
-							if(player.getBackpack().add(is)) {
+							if(player.getInventory().add(is)) {
 								player.getCurrentPlanet().removeItemStack(is);
 								view.println("You successfully picked " + is.getQuantity() + "x [" + is.getItem().getName() + "] from the planet!");
 							} else {
-								Backpack bp = player.getBackpack();
+								Backpack bp = (Backpack) player.getInventory();
 
 								view.println(String.format("The backpack [%.2f/%.2f] does not have enough space for %dx %.2f.",
 								bp.getCurrentCapacity(), bp.getMaxCapacity(),
@@ -348,7 +342,7 @@ public class Game implements Domain {
 				if(command.getArgumentLength() > 2) {
 					view.println(argumentMessage("drop <item-index> [quantity]"));
 				} else {
-					Backpack backpack = player.getBackpack();
+					Inventory backpack = player.getInventory();
 					ItemStack[] content = backpack.getContent();
 
 					int index = Integer.parseInt(command.getArgument(0)) - 1;
@@ -380,7 +374,7 @@ public class Game implements Domain {
 	}
 
 	private void showBackpackContent(Command command) {
-		Backpack bp = player.getBackpack();
+		Backpack bp = (Backpack) player.getInventory();
 
 		ItemStack[] content = bp.getContent();
 
@@ -560,8 +554,8 @@ public class Game implements Domain {
 	}
 
 	@Override
-	public List<Score> getHighscore() {
-		return model.getHighscore();
+	public List<IScore> getHighscore() {
+		return new ArrayList<>(model.getHighscore());
 	}
 
 	/* function to print a welcome message */

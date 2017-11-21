@@ -1,6 +1,7 @@
 package UI.GameComponents;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.IPlanet;
 import BLL.world.Planet;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -111,7 +112,7 @@ public class Innerscene {
         }
     }
 
-    public void createPlanets(java.util.Map<String, Planet> planets){
+    public void createPlanets(java.util.Map<String, ? extends IPlanet> planets){
         map.createPlanets(planets);
     }
 

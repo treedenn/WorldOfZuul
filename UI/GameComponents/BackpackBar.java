@@ -1,5 +1,6 @@
 package UI.GameComponents;
 
+import BLL.ACQ.IBackpack;
 import BLL.Game;
 import BLL.character.player.Backpack;
 import BLL.character.player.Player;
@@ -12,9 +13,11 @@ public class BackpackBar extends Meter{
         super(bar, label);
     }
 
+    // TODO: Lasse, you cannot go directly to the game instance (line 20)
+
     @Override
     public void update() {
-        Backpack bp = Game.getInstance().getPlayer().getBackpack();
+        IBackpack bp = (IBackpack) Game.getInstance().getPlayer().getInventory();
         getBar().progressProperty().setValue(bp.getCurrentCapacity() / bp.getMaxCapacity());
         getLabel().setText(String.format("[%.1f / %.1f]", bp.getCurrentCapacity(), bp.getMaxCapacity()));
     }

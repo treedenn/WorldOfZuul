@@ -1,5 +1,6 @@
 package UI.GameComponents;
 
+import BLL.ACQ.IPlanet;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -13,7 +14,7 @@ public class Planet extends GameObject {
 
     private static List<Planet> planets = new ArrayList<>();
 
-    public Planet(BLL.world.Planet planet){
+    public Planet(IPlanet planet){
         super(new StackPane(new Circle(150,150,100 + (int) (Math.random() * (200) + 1), Color.WHITE), new Label(planet.getName())));
         planets.add(this);
     }

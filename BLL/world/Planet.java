@@ -1,5 +1,6 @@
 package BLL.world;
 
+import BLL.ACQ.IPlanet;
 import BLL.character.NPC;
 import BLL.item.ItemStack;
 import javafx.geometry.Point2D;
@@ -12,8 +13,7 @@ import java.util.*;
  */
 
 /* class for a planet */
-public class Planet
-{
+public class Planet implements IPlanet {
     /* variables for the room class */
     private String name;
     private String description;
@@ -32,15 +32,18 @@ public class Planet
         this.searched = new boolean[] {false, false};
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
     /* function to return the short description */
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public String getArriveMessage() {
     	return "You arrived safely at " + getName() + ".";
     }
@@ -49,6 +52,17 @@ public class Planet
         return coordinates;
     }
 
+    @Override
+    public double getX() {
+        return coordinates.getX();
+    }
+
+    @Override
+    public double getY() {
+        return coordinates.getY();
+    }
+
+    @Override
     public boolean getTempSearched() {
         return searched[1];
     }
@@ -57,6 +71,7 @@ public class Planet
         searched[1] = value;
     }
 
+    @Override
     public boolean getPermSearched() {
         return searched[0];
     }
@@ -65,6 +80,7 @@ public class Planet
         searched[0] = value;
     }
 
+    @Override
 	public boolean hasSearched() {
 		return searched[0] && searched[1];
 	}

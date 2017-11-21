@@ -1,6 +1,7 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.IPlayer;
 import BLL.character.player.Player;
 import UI.GameComponents.*;
 import javafx.animation.AnimationTimer;
@@ -39,7 +40,7 @@ import java.util.Timer;
 public class LasseGameController implements Initializable {
 
     private Domain domain;
-    private Player player;
+    private IPlayer player;
     private Stage stage;
     private Scene scene;
     private Pane pane;
@@ -113,6 +114,7 @@ public class LasseGameController implements Initializable {
         innersceneHandler.getSubScene().widthProperty().bind(contentWrapper.widthProperty());
 
         innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override

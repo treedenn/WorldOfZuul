@@ -1,13 +1,13 @@
 package BLL.character.player;
 
-import BLL.character.Inventory;
+import BLL.ACQ.IBackpack;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Backpack implements Inventory {
+public class Backpack implements IBackpack {
 	private double maxWeightCapacity;
 	private double currentWeightCapacity;
 	private List<ItemStack> items;
@@ -18,10 +18,12 @@ public class Backpack implements Inventory {
 		items = new ArrayList<>();
 	}
 
+	@Override
 	public double getMaxCapacity() {
 		return maxWeightCapacity;
 	}
 
+	@Override
 	public double getCurrentCapacity() {
 		return currentWeightCapacity;
 	}
