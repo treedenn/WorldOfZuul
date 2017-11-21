@@ -5,6 +5,7 @@ import BLL.Game;
 import BLL.ACQ.UserInterface;
 import UI.controller.StartController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

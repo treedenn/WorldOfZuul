@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
@@ -47,7 +48,7 @@ public class StartController implements Initializable {
 	void handleNewGameAction(ActionEvent event) {
 		try {
 			switchToGameView();
-		} catch(Exception e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -61,7 +62,7 @@ public class StartController implements Initializable {
 		Platform.exit();
 	}
 
-	private void switchToGameView() throws Exception {
+	private void switchToGameView() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/LasseGame_view.fxml"));
 		LasseGameController controller = new LasseGameController(domain);
 		controller.setStage((Stage) buttonNewGame.getScene().getWindow());
@@ -69,11 +70,15 @@ public class StartController implements Initializable {
 
 		Pane pane = loader.load();
 
-
 		Scene scene = new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight());
-		scene.setRoot(pane);
+//		scene.setRoot(pane); // does not change anything when this is commented out
 
 		Stage stage = (Stage) buttonNewGame.getScene().getWindow();
+		stage.setOnCloseRequest(event -> {
+			Platform.exit();
+			System.exit(0);
+		});
+
 		stage.setScene(scene);
 		stage.centerOnScreen();
 	}
