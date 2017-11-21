@@ -29,7 +29,7 @@ public class Planet
         this.coordinates = new Point2D(x, y);
         this.itemList = new ArrayList<>();
         this.npcList = new ArrayList<>();
-        searched = new boolean[] {false, false};
+        this.searched = new boolean[] {false, false};
     }
 
     public String getName() {
