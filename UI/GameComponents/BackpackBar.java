@@ -2,8 +2,6 @@ package UI.GameComponents;
 
 import BLL.ACQ.IBackpack;
 import BLL.Game;
-import BLL.character.player.Backpack;
-import BLL.character.player.Player;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 

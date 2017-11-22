@@ -1,18 +1,11 @@
 package UI.GameComponents;
 
 import BLL.ACQ.IPlanet;
-import BLL.Game;
-import BLL.world.Planet;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;

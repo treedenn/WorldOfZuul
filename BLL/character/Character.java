@@ -1,7 +1,6 @@
 package BLL.character;
 
 import BLL.ACQ.IPlanet;
-import BLL.ACQ.IPlayer;
 import BLL.world.Planet;
 
 import java.util.Map;

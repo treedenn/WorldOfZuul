@@ -2,7 +2,6 @@ package BLL.character.player;
 
 import BLL.item.Item;
 import BLL.item.ItemStack;
-import DAL.Model;
 
 public class Recipe {
 	private Item[] requirements;

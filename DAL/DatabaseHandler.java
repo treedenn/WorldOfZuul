@@ -1,6 +1,5 @@
 package DAL;
 
-import BLL.ACQ.Usable;
 import BLL.UsableHandler;
 import BLL.item.*;
 import DAL.ACQ.Loadable;
