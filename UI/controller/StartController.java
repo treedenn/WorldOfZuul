@@ -25,16 +25,26 @@ import java.util.ResourceBundle;
 public class StartController implements Initializable {
 	private Domain domain;
 
-	@FXML private Button buttonNewGame;
-	@FXML private Button buttonExit;
-	@FXML private Button buttonHighscore;
-	@FXML private TableView<UIScore> tableviewHighscore;
-	@FXML private TableColumn<UIScore, String> tablecolumnIndex;
-	@FXML private AnchorPane aboutWrapper;
-	@FXML private Button exitButton__about;
-	@FXML private Button button__about;
+	@FXML
+	private Button buttonNewGame;
+	@FXML
+	private Button buttonExit;
+	@FXML
+	private Button buttonHighscore;
+	@FXML
+	private TableView<UIScore> tableviewHighscore;
+	@FXML
+	private TableColumn<UIScore, String> tablecolumnIndex;
+	@FXML
+	private AnchorPane aboutWrapper;
+	@FXML
+	private Button exitButton__about;
+	@FXML
+	private Button button__about;
 
-	public StartController(Domain domain) {this.domain = domain;	}
+	public StartController(Domain domain) {
+		this.domain = domain;
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -51,9 +61,15 @@ public class StartController implements Initializable {
 		}
 	}
 
-	@FXML void displayAboutScreen(ActionEvent event) { aboutWrapper.setVisible(!aboutWrapper.isVisible()); }
+	@FXML
+	void displayAboutScreen(ActionEvent event) {
+		aboutWrapper.setVisible(!aboutWrapper.isVisible());
+	}
 
-	@FXML void closeAboutScreen(ActionEvent event) { displayAboutScreen(event); }
+	@FXML
+	void closeAboutScreen(ActionEvent event) {
+		displayAboutScreen(event);
+	}
 
 	@FXML
 	void handleExitAction(ActionEvent event) {

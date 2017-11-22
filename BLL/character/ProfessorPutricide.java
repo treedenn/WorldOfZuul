@@ -30,9 +30,7 @@ public class ProfessorPutricide extends SpecificNPC implements NPC, Stationary{
     }
 
     public boolean hasAcceptedOffer(String answer){
-        if (answer.equalsIgnoreCase("y")){
-            return true;
-        } else return false;
+	    return answer.equalsIgnoreCase("y");
     }
 
     @Override

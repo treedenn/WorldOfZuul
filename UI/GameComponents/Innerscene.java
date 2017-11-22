@@ -48,7 +48,7 @@ public class Innerscene {
 
         player = new UI.GameComponents.Player(50,50, playerRoot);
         player.setVelocity(new Point2D(0,0));
-        GameObject.addGameObject(player,map.mapWidth/2,map.mapHeight/2, map.getRootPane());
+        GameObject.addGameObject(player, Map.mapWidth /2, Map.mapHeight /2, map.getRootPane());
 
     }
 

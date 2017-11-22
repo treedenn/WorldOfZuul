@@ -39,7 +39,7 @@ public abstract class Character {
 	}
 
 	public void go(String planetName) {
-		currentPlanet = (Planet) planets.get(planetName);
+		currentPlanet = planets.get(planetName);
 	}
 
 	public String getPlanetNames() {

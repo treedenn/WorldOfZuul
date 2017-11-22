@@ -11,4 +11,8 @@ public class UIScore extends BLL.scoring.Score {
 	public int getPlace() {
 		return place;
 	}
+
+	public void setPlace(int place) {
+		this.place = place;
+	}
 }
