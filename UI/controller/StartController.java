@@ -1,17 +1,10 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.IScore;
-import BLL.scoring.Score;
+import BLL.ACQ.IScore;`
 import UI.UIScore;
-import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,29 +15,36 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class StartController implements Initializable {
 	private Domain domain;
 
-	@FXML private Button buttonNewGame;
-	@FXML private Button buttonExit;
-	@FXML private Button buttonHighscore;
-	@FXML private TableView<UIScore> tableviewHighscore;
-	@FXML private TableColumn<UIScore, String> tablecolumnIndex;
-	@FXML private AnchorPane aboutWrapper;
-	@FXML private Button exitButton__about;
-	@FXML private Button button__about;
+	@FXML
+	private Button buttonNewGame;
+	@FXML
+	private Button buttonExit;
+	@FXML
+	private Button buttonHighscore;
+	@FXML
+	private TableView<UIScore> tableviewHighscore;
+	@FXML
+	private TableColumn<UIScore, String> tablecolumnIndex;
+	@FXML
+	private AnchorPane aboutWrapper;
+	@FXML
+	private Button exitButton__about;
+	@FXML
+	private Button button__about;
 
-	public StartController(Domain domain) {this.domain = domain;	}
+	public StartController(Domain domain) {
+		this.domain = domain;
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -61,9 +61,15 @@ public class StartController implements Initializable {
 		}
 	}
 
-	@FXML void displayAboutScreen(ActionEvent event) { aboutWrapper.setVisible(!aboutWrapper.isVisible()); }
+	@FXML
+	void displayAboutScreen(ActionEvent event) {
+		aboutWrapper.setVisible(!aboutWrapper.isVisible());
+	}
 
-	@FXML void closeAboutScreen(ActionEvent event) { displayAboutScreen(event); }
+	@FXML
+	void closeAboutScreen(ActionEvent event) {
+		displayAboutScreen(event);
+	}
 
 	@FXML
 	void handleExitAction(ActionEvent event) {

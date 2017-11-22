@@ -1,14 +1,10 @@
 package UI.GameComponents;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Star {
 

@@ -1,10 +1,7 @@
 package UI.GameComponents;
 
-import BLL.Game;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.SubScene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 public abstract class GameObject {
