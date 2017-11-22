@@ -21,8 +21,6 @@ public class Score implements IScore, Serializable, Comparable<Score> {
         return score;
     }
 
-
-
     @Override
     public int compareTo(Score o) {
         return o.score - this.score;

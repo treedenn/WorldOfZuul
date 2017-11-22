@@ -4,6 +4,7 @@ import BLL.scoring.Score;
 import DAL.ACQ.Loadable;
 import DAL.ACQ.Savable;
 import DAL.yaml.YamlObject;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.*;
@@ -27,6 +28,7 @@ class HighscoreHandler implements Savable, Loadable {
 
 		if(!map.isEmpty()) {
 			highscore = new ArrayList<>();
+
 			String name;
 			int score;
 

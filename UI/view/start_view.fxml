@@ -142,7 +142,7 @@
                                  <content>
                                     <TableView fx:id="tableviewHighscore" prefHeight="500.0" styleClass="highscoreTable">
                                       <columns>
-                                        <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="25.0" resizable="false" text="#" />
+                                        <TableColumn fx:id="tablecolumnIndex" editable="false" maxWidth="1.7976931348623157E308" prefWidth="20.0" resizable="false" text="#" />
                                         <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="150.0" resizable="false" sortable="false" text="NAME" />
                                           <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="150.0" resizable="false" sortable="false" text="SCORE" />
                                       </columns>

@@ -3,8 +3,13 @@ package UI.controller;
 import BLL.ACQ.Domain;
 import BLL.ACQ.IScore;
 import BLL.scoring.Score;
+import UI.UIScore;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,10 +22,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -31,7 +38,8 @@ public class StartController implements Initializable {
 	@FXML private Button buttonNewGame;
 	@FXML private Button buttonExit;
 	@FXML private Button buttonHighscore;
-	@FXML private TableView<IScore> tableviewHighscore;
+	@FXML private TableView<UIScore> tableviewHighscore;
+	@FXML private TableColumn<UIScore, String> tablecolumnIndex;
 	@FXML private AnchorPane aboutWrapper;
 	@FXML private Button exitButton__about;
 	@FXML private Button button__about;
@@ -86,12 +94,20 @@ public class StartController implements Initializable {
 
 	private void configListView() {
 		List<IScore> highscore = domain.getHighscore();
+		List<UIScore> scores = new ArrayList<>();
+
+		IScore is;
+		for(int i = 0; i < highscore.size(); i++) {
+			is = highscore.get(i);
+			scores.add(new UIScore(is.getName(), is.getScore(), i + 1));
+		}
+
 		aboutWrapper.setVisible(false);
 
 		tableviewHighscore.setSelectionModel(null);
-		tableviewHighscore.setItems(FXCollections.observableArrayList(highscore));
-		//tableviewHighscore.getColumns().get(0).setCellValueFactory();
+		tableviewHighscore.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("place"));
 		tableviewHighscore.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
 		tableviewHighscore.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("score"));
+		tableviewHighscore.setItems(FXCollections.observableArrayList(scores));
 	}
 }
