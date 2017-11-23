@@ -9,7 +9,7 @@ public class Player extends GameObject {
     private boolean accelerate, right, left, decelerate;
     private double accelerationTime;
     private double decelerationTime;
-    private double maxSpeed = 12;
+    private double maxSpeed = 10;
     private double speed = 0;
     double acceleration = 1500;
     double deceleration = 500;
