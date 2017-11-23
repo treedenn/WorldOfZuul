@@ -1,7 +1,7 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.IScore;`
+import BLL.ACQ.IScore;
 import UI.UIScore;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

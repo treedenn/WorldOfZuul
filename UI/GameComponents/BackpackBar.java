@@ -13,6 +13,8 @@ public class BackpackBar extends Meter{
 
     // TODO: Lasse, you cannot go directly to the game instance (line 20)
 
+    // TODO: Dennis, this is not my work but still needs to be fixed (line 20)
+
     @Override
     public void update() {
         IBackpack bp = (IBackpack) Game.getInstance().getPlayer().getInventory();
