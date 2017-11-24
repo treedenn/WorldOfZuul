@@ -1,7 +1,7 @@
 package BLL.character.player;
 
+import BLL.ACQ.IItemStack;
 import BLL.item.Item;
-import BLL.item.ItemStack;
 
 public class Recipe {
 	private Item[] requirements;
@@ -14,12 +14,12 @@ public class Recipe {
 		return requirements;
 	}
 
-	public boolean[] haveItems(ItemStack[] itemStacks) {
+	public boolean[] haveItems(IItemStack[] itemStacks) {
 		boolean[] containItems = new boolean[4];
 
 		for(int i = 0; i < requirements.length; i++) {
-			for(ItemStack itemStack : itemStacks) {
-				if(requirements[i].getName().equals(itemStack.getItem().getName())) {
+			for(IItemStack itemStack : itemStacks) {
+				if(requirements[i].getName().equals(itemStack.getIItem().getName())) {
 					containItems[i] = true; break;
 				}
 			}

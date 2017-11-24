@@ -4,6 +4,8 @@ import BLL.item.Item;
 import BLL.item.ItemStack;
 
 public interface Inventory {
+	double getMaxCapacity();
+	double getCurrentCapacity();
 	boolean add(ItemStack itemStack);
 	boolean remove(Item item);
 	boolean remove(ItemStack itemStack);

@@ -1,8 +1,11 @@
 package BLL.character.player;
 
+import BLL.ACQ.IInventory;
+import BLL.ACQ.IItemStack;
 import BLL.ACQ.IPlayer;
 import BLL.character.Character;
 import BLL.character.Inventory;
+import BLL.item.ItemStack;
 import javafx.geometry.Point2D;
 
 public class Player extends Character implements IPlayer {
@@ -26,9 +29,13 @@ public class Player extends Character implements IPlayer {
 		return fuel == 0;
 	}
 
-	@Override
 	public Inventory getInventory() {
 		return inventory;
+	}
+
+	@Override
+	public IInventory getIInventory() {
+		return (IInventory) inventory;
 	}
 
 	@Override

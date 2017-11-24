@@ -1,6 +1,9 @@
 package BLL.item;
 
-public final class ItemStack {
+import BLL.ACQ.IItem;
+import BLL.ACQ.IItemStack;
+
+public final class ItemStack implements IItemStack {
 	private Item item;
 	private int quantity;
 
@@ -17,6 +20,11 @@ public final class ItemStack {
 		return item;
 	}
 
+	public IItem getIItem() {
+		return (IItem) getItem();
+	}
+
+	@Override
 	public int getQuantity() {
 		return quantity;
 	}
@@ -33,6 +41,7 @@ public final class ItemStack {
 		setQuantity(this.quantity - amount);
 	}
 
+	@Override
 	public double getTotalWeight() {
 		return item.getWeight() * quantity;
 	}
