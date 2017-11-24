@@ -81,6 +81,7 @@ public class GameController implements Initializable {
 	private void updateFuelProgressBar() {
 		barFuel.progressProperty().setValue(player.getFuel() / player.getMaxFuel());
 		labelFuel.setText(String.format("[%.0f / %d]", player.getFuel(), player.getMaxFuel()));
+
 	}
 
 	private void updateBackpackProgressBar() {

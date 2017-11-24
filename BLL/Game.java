@@ -235,7 +235,7 @@ public class Game implements Domain {
 
 	@Override
 	public void decreaseFuelOnMove() {
-		player.decreaseFuel(0.1 / 60);
+		player.decreaseFuel(0.3 / 60);
 	}
 
 	private void addCluesToPlanets(){

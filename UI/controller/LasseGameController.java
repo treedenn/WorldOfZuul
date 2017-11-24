@@ -27,6 +27,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -247,13 +248,15 @@ public class LasseGameController implements Initializable {
         innersceneHandler.getPlayer().update(dt);
         innersceneHandler.centerView(innersceneHandler.getPlayer());
         innersceneHandler.keepPlayerInMap();
+        if (innersceneHandler.getPlayer().isAccelerate()){
+            domain.decreaseFuelOnMove();
+        }
 
         for(GameObject planet : Planet.getPlanets()){
             if(planet.isColliding(innersceneHandler.getPlayer())){
-               notificationHandler.showNotification(dashBoard.heightProperty().doubleValue() - 100);
+                notificationHandler.showNotification(dashBoard.heightProperty().doubleValue() - 100);
             }
         }
-
     }
 
     public void setStage(Stage stage){ this.stage = stage; }

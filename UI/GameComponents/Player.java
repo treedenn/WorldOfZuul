@@ -110,4 +110,8 @@ public class Player extends GameObject {
     public void setRight(boolean right) {
         this.right = right;
     }
+
+    public boolean isAccelerate() {
+        return accelerate;
+    }
 }
