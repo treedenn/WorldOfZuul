@@ -1,4 +1,4 @@
-package BLL.character;
+package BLL.character.npc;
 
 import java.util.Scanner;
 

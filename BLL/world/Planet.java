@@ -1,7 +1,7 @@
 package BLL.world;
 
 import BLL.ACQ.IPlanet;
-import BLL.character.NPC;
+import BLL.character.npc.NPC;
 import BLL.item.ItemStack;
 import javafx.geometry.Point2D;
 
@@ -21,6 +21,7 @@ public class Planet implements IPlanet {
     private boolean[] searched;
     private List<ItemStack> itemList;
     private List<NPC> npcList;
+
 
     /* constructor for the planet class */
     public Planet(String name, String description, double x, double y) {
@@ -103,6 +104,11 @@ public class Planet implements IPlanet {
 
     public ItemStack[] getContent() {
     	return itemList.toArray(new ItemStack[itemList.size()]);
+    }
+
+    @Override
+    public List<NPC> getNPCs() {
+        return npcList;
     }
 
     public String[] getContentDescription(){
