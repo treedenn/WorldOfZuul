@@ -16,4 +16,6 @@ public interface Domain {
 	boolean dropItem(IItemStack iis);
 	SearchPlanetState searchPlanet();
 	void decreaseFuelOnMove();
+	IQuiz getQuiz();
+	boolean isAnswerCorrect(int index);
 }

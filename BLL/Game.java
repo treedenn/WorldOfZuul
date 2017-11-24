@@ -83,6 +83,17 @@ public class Game implements Domain {
 	}
 
 	@Override
+	public boolean isAnswerCorrect(int index) {
+		return manager.isAnswerCorrect(index);
+	}
+
+	@Override
+	public IQuiz getQuiz() {
+		manager.pickRandomQuiz();
+		return manager.getCurrentQuiz();
+	}
+
+	@Override
 	public boolean useItem(IItemStack iis) {
 		if(iis.getIItem() instanceof Item) {
 			Item i = (Item) iis.getIItem();
