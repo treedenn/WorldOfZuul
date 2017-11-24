@@ -1,14 +1,13 @@
 package BLL.character.npc;
 
-public class ProfessorPutricide extends SpecificNPC implements NPC, Stationary {
+public class ProfessorPutricide extends ConcreteNPC implements NPC, Stationary {
     public ProfessorPutricide(){
         super();
-
     }
 
     @Override
     public String getName() {
-        return "ProfessorPutricide";
+        return "Professor Putricide";
     }
 
     @Override

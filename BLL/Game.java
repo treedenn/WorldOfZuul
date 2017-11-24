@@ -2,8 +2,10 @@ package BLL;
 
 import BLL.ACQ.*;
 import BLL.character.Inventory;
+import BLL.character.npc.NPC;
 import BLL.character.npc.ProfessorPutricide;
 import BLL.character.npc.SpacePirate;
+import BLL.character.npc.actions.NPCAction;
 import BLL.scoring.Score;
 import BLL.character.npc.Blacksmith;
 import BLL.character.player.*;
@@ -80,6 +82,8 @@ public class Game implements Domain {
 		npcHandler.getUnoX().setQuizes(model.getQuizes());
 		//addCluesToPlanets();
         trapped = true;
+
+        player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
 	}
 
 	@Override
@@ -123,18 +127,14 @@ public class Game implements Domain {
 		return SearchPlanetState.NOTHING;
 	}
 
+	@Override
+	public void interact(int index, int actionId) {
+		List<NPC> npcs = player.getCurrentPlanet().getNPCs();
 
-	private void interact(int index) {
-//		if(player.getCurrentPlanet().getNPCs().size() > 0){
-//			return player.getCurrentPlanet().getNPCs();
-//		}
-//
-//
-//
-//
-//
-//
-//
+		if(npcs.size() > 0 && index < npcs.size()){
+			NPC npc = player.getCurrentPlanet().getNPCs().get(index);
+			((NPCAction) npc.getActions()[actionId]).endEvent(player, model);
+		}
 //
 //					if(command.hasArguments()) {
 //			view.println("Interact does not need any arguments.");

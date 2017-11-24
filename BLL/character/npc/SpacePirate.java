@@ -2,7 +2,7 @@ package BLL.character.npc;
 
 import java.util.Scanner;
 
-public class SpacePirate extends SpecificNPC implements NPC, Stationary {
+public class SpacePirate extends ConcreteNPC implements NPC, Stationary {
 
     private Scanner scanner;
 

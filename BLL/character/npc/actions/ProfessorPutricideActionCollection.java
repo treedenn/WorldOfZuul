@@ -1,9 +1,8 @@
 package BLL.character.npc.actions;
 
-import BLL.character.npc.NPCAction;
 import BLL.character.player.Player;
 
-public class ProfessorPutricideAction implements NPCActions {
+public class ProfessorPutricideAction implements NPCActionCollection {
     private NPCAction[] actions;
 
     public ProfessorPutricideAction() {

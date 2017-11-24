@@ -579,3 +579,11 @@
   dropable: false
   weight: 0.0
   usableId: 0
+57:
+  name: "Transformation Elixir"
+  description: "A powerful elixir given by Professor Putricide."
+  itemType: DEFAULT
+  pickupable: true
+  dropable: false
+  weight: 0.0
+  usableId: 1

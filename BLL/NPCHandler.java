@@ -3,7 +3,7 @@ package BLL;
 import BLL.character.npc.Blacksmith;
 import BLL.character.npc.ProfessorPutricide;
 import BLL.character.npc.SpacePirate;
-import BLL.character.npc.actions.ProfessorPutricideAction;
+import BLL.character.npc.actions.ProfessorPutricideActionCollection;
 import BLL.character.player.UnoX;
 
 public class NPCHandler {
@@ -17,10 +17,12 @@ public class NPCHandler {
 		professorPutricide = new ProfessorPutricide();
 		unoX = new UnoX();
 		pirate = new SpacePirate();
+
+		initActions();
 	}
 
 	private void initActions() {
-		professorPutricide.setActions(new ProfessorPutricideAction());
+		professorPutricide.setActions(new ProfessorPutricideActionCollection());
 	}
 
 	public Blacksmith getBlacksmith() {

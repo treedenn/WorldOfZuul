@@ -1,12 +1,14 @@
 package BLL.character.npc;
 
-import BLL.character.npc.actions.NPCActions;
+import BLL.ACQ.INPCAction;
+import BLL.character.npc.actions.NPCAction;
+import BLL.character.npc.actions.NPCActionCollection;
 
 public interface NPC {
     String getName();
     boolean isGood();
-    NPCAction[] getActions();
-    void setActions(NPCActions actions);
+    INPCAction[] getActions();
+    void setActions(NPCActionCollection actions);
 
     //What else?
 }
