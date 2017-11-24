@@ -7,6 +7,8 @@ import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,13 +17,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class LasseGameController implements Initializable {
@@ -61,7 +68,7 @@ public class LasseGameController implements Initializable {
 
     @FXML private AnchorPane notification;
 
-    @FXML private GridPane dashBoard;
+    @FXML private AnchorPane dashBoard;
 
     @FXML private Label notificationTitle;
 
@@ -71,7 +78,7 @@ public class LasseGameController implements Initializable {
 
     @FXML private GridPane contentWrapper;
 
-    @FXML private AnchorPane heightReference;
+    @FXML private AnchorPane subsceneWrapper;
 
     @FXML private ProgressBar barFuel;
 
@@ -80,6 +87,8 @@ public class LasseGameController implements Initializable {
     @FXML private ProgressBar barBackpack;
 
     @FXML private Label labelBackpack;
+
+    @FXML private AnchorPane miniMapWrapper;
 
 
     public LasseGameController(Domain domain) {
@@ -97,10 +106,65 @@ public class LasseGameController implements Initializable {
         configBackpackBar();
 
         innersceneHandler = new Innerscene(subScene, stage);
-        innersceneHandler.getSubScene().heightProperty().bind(heightReference.heightProperty());
-        innersceneHandler.getSubScene().widthProperty().bind(contentWrapper.widthProperty());
+        innersceneHandler.getSubScene().heightProperty().bind(subsceneWrapper.heightProperty());
+        innersceneHandler.getSubScene().widthProperty().bind(subsceneWrapper.widthProperty());
 
         innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
+
+        //Stop[] stops = {new Stop(0, Color.WHITE), new Stop(1, Color.BLACK)};
+        //wrapper.setBackground(new Background(new BackgroundFill(new RadialGradient(0,0.1,500,500,10000,false,CycleMethod.NO_CYCLE, stops),null,new Insets(-10))));
+
+        wrapper.setStyle("-fx-background-color: black;");
+
+
+
+
+
+
+
+        miniMapWrapper.setMinWidth(innersceneHandler.getMap().mapWidth);
+        miniMapWrapper.setPrefWidth(innersceneHandler.getMap().mapWidth);
+        miniMapWrapper.setMaxWidth(innersceneHandler.getMap().mapWidth);
+        miniMapWrapper.setMinHeight(innersceneHandler.getMap().mapHeight);
+        miniMapWrapper.setPrefHeight(innersceneHandler.getMap().mapHeight);
+        miniMapWrapper.setMaxHeight(innersceneHandler.getMap().mapHeight);
+
+        subsceneWrapper.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double prefScreenRealEstate = 0.3;
+            double maxScreenRealEstate = 200;
+            double newWidth = ((innersceneHandler.getMap().mapWidth/(innersceneHandler.getMap().mapWidth/newValue.doubleValue())))*prefScreenRealEstate;
+            miniMapWrapper.setMinWidth(newWidth);
+            miniMapWrapper.setPrefWidth(newWidth);
+            miniMapWrapper.setMaxWidth(maxScreenRealEstate);
+        });
+
+        miniMapWrapper.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double widthRatio = (newValue.doubleValue()/innersceneHandler.getMap().mapWidth);
+            double maxScreenRealEstate = 200;
+            double newHeight = innersceneHandler.getMap().mapHeight*widthRatio;
+            miniMapWrapper.setMinHeight(newHeight);
+            miniMapWrapper.setPrefHeight(newHeight);
+            miniMapWrapper.setMaxHeight(newHeight);
+        });
+
+
+        miniMapWrapper.setStyle("-fx-border-color: white; -fx-border-size: 2;");
+
+        for (Map.Entry<Planet, Point2D> planet : innersceneHandler.getMap().getPlanetsOnMap().entrySet()) {
+            int count = 1;
+            Circle newUiPlanet = new Circle(5,Color.WHITE);
+            miniMapWrapper.getChildren().add(newUiPlanet);
+            newUiPlanet.setTranslateX(count);
+            newUiPlanet.setTranslateY(count);
+            count += 25;
+
+        }
+
+
+
+
+
+
 
 
         AnimationTimer timer = new AnimationTimer() {
@@ -186,7 +250,7 @@ public class LasseGameController implements Initializable {
 
         for(GameObject planet : Planet.getPlanets()){
             if(planet.isColliding(innersceneHandler.getPlayer())){
-                notificationHandler.showNotification(dashBoard.getHeight() - 100);
+               notificationHandler.showNotification(dashBoard.heightProperty().doubleValue() - 100);
             }
         }
 

@@ -10,6 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 
 public class Innerscene {
 
@@ -108,4 +110,7 @@ public class Innerscene {
         return subScene;
     }
 
+    public Map getMap() {
+        return map;
+    }
 }

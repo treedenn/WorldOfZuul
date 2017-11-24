@@ -1,6 +1,7 @@
 package UI.GameComponents;
 
 import BLL.ACQ.IPlanet;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -8,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Map {
@@ -18,12 +20,15 @@ public class Map {
     private List<Node> children;
     private Group root;
     private Pane rootPane;
+    private java.util.Map<Planet, javafx.geometry.Point2D> planetsOnMap;
 
     private int numberOfStars = 100;
 
     public Map(){
         children = new ArrayList<>();
+        planetsOnMap = new HashMap<>();
         root = new Group();
+
         generateRootPane();
 
         configRoot();
@@ -66,7 +71,10 @@ public class Map {
 
     void createPlanets(java.util.Map<String, ? extends IPlanet> planets){
         for (IPlanet planet : planets.values()) {
-            GameObject.addGameObject(new UI.GameComponents.Planet(planet), planet.getX(), planet.getY(), rootPane);
+            Planet newUIPlanet = new UI.GameComponents.Planet(planet);
+            javafx.geometry.Point2D coordinates = new javafx.geometry.Point2D(planet.getX(), planet.getY());
+            GameObject.addGameObject(newUIPlanet, coordinates.getX(), coordinates.getY(), rootPane);
+            planetsOnMap.put(newUIPlanet, coordinates);
         }
     }
 
@@ -81,5 +89,9 @@ public class Map {
 
     public Pane getRootPane() {
         return rootPane;
+    }
+
+    public java.util.Map<Planet, Point2D> getPlanetsOnMap() {
+        return planetsOnMap;
     }
 }

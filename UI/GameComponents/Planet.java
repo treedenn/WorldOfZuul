@@ -1,6 +1,7 @@
 package UI.GameComponents;
 
 import BLL.ACQ.IPlanet;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -22,4 +23,5 @@ public class Planet extends GameObject {
     public static List<Planet> getPlanets() {
         return planets;
     }
+
 }
