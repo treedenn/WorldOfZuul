@@ -36,11 +36,6 @@ public class SpacePirate extends SpecificNPC implements NPC, Stationary {
     public boolean isGood() {return false; }
 
     @Override
-    public String[] message() {
-        return new String[0];
-    }
-
-    @Override
     public boolean isStationary() {
         return false;
     }

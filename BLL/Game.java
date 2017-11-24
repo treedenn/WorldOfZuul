@@ -84,13 +84,13 @@ public class Game implements Domain {
 
 	@Override
 	public boolean isAnswerCorrect(int index) {
-		return manager.isAnswerCorrect(index);
+		return npcHandler.getUnoX().isAnswerCorrect(index);
 	}
 
 	@Override
 	public IQuiz getQuiz() {
-		manager.pickRandomQuiz();
-		return manager.getCurrentQuiz();
+		npcHandler.getUnoX().pickRandomQuiz();
+		return npcHandler.getUnoX().getCurrentQuiz();
 	}
 
 	@Override
