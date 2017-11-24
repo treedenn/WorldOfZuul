@@ -1,8 +1,9 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.IBackpack;
+import BLL.ACQ.IInventory;
 import BLL.ACQ.IPlayer;
+import BLL.character.Inventory;
 import UI.SearchTask;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -83,8 +84,8 @@ public class GameController implements Initializable {
 	}
 
 	private void updateBackpackProgressBar() {
-		IBackpack bp = (IBackpack) player.getInventory();
-		barBackpack.progressProperty().setValue(bp.getCurrentCapacity() / bp.getMaxCapacity());
-		labelBackpack.setText(String.format("[%.1f / %.1f]", bp.getCurrentCapacity(), bp.getMaxCapacity()));
+		IInventory inv = domain.getPlayer().getIInventory();
+		barBackpack.progressProperty().setValue(inv.getCurrentCapacity() / inv.getMaxCapacity());
+		labelBackpack.setText(String.format("[%.1f / %.1f]", inv.getCurrentCapacity(), inv.getMaxCapacity()));
 	}
 }

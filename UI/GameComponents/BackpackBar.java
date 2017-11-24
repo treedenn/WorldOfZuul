@@ -1,7 +1,8 @@
 package UI.GameComponents;
 
-import BLL.ACQ.IBackpack;
+import BLL.ACQ.IInventory;
 import BLL.Game;
+import BLL.character.Inventory;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
@@ -17,7 +18,7 @@ public class BackpackBar extends Meter{
 
     @Override
     public void update() {
-        IBackpack bp = (IBackpack) Game.getInstance().getPlayer().getInventory();
+        IInventory bp = Game.getInstance().getPlayer().getIInventory();
         getBar().progressProperty().setValue(bp.getCurrentCapacity() / bp.getMaxCapacity());
         getLabel().setText(String.format("[%.1f / %.1f]", bp.getCurrentCapacity(), bp.getMaxCapacity()));
     }

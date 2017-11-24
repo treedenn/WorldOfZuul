@@ -1,7 +1,5 @@
 package BLL.ACQ;
 
-import BLL.character.Inventory;
-
 import java.util.Map;
 
 public interface IPlayer {
@@ -9,5 +7,5 @@ public interface IPlayer {
 	boolean isFuelEmpty();
 	double getFuel();
 	int getMaxFuel();
-	Inventory getInventory();
+	IInventory getIInventory();
 }

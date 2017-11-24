@@ -1,5 +1,6 @@
 package BLL.character;
 
+import BLL.ACQ.BlacksmithTraceState;
 import BLL.ACQ.Persistent;
 import BLL.character.player.Recipe;
 import BLL.item.Item;
@@ -72,8 +73,7 @@ public class Blacksmith extends Character {
 		}
 	}
 
-	public String getVisitMessage(String planetName) {
-		String msg;
+	public BlacksmithTraceState getVisitState(String planetName) {
 		int traceIndex = -1;
 
 		for(int i = 0; i < visitedPlanets.length; i++) {
@@ -86,17 +86,12 @@ public class Blacksmith extends Character {
 		}
 
 		switch(traceIndex) {
-			case 0: msg = "The Blacksmith is on the planet!";
-				break;
-			case 1: msg = "The Blacksmith just left this planet!";
-				break;
-			case 2: msg = "The Blacksmith was here recently.";
-				break;
-			case 3: msg = "Time has passed and the trace of the Blacksmith is almost gone!";
-				break;
-			default: msg = "No traces of the Blacksmith here!";
+			case 0: return BlacksmithTraceState.ON_PLANET;
+			case 1: return BlacksmithTraceState.ONE_STEP;
+			case 2: return BlacksmithTraceState.TWO_STEP;
+			case 3: return BlacksmithTraceState.THREE_STEP;
+			default: return BlacksmithTraceState.NO_TRACE;
 		}
-		return msg;
 	}
 
 	private void generateRecipeRequirements(Persistent model) {

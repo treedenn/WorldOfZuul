@@ -17,7 +17,6 @@ import UI.ConsoleView;
 
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class Game implements Domain {
 	private static Game INSTANCE;
@@ -75,17 +74,6 @@ public class Game implements Domain {
 	public void setGameWon(boolean gameWon) {
 		this.gameWon = gameWon;
 	}
-
-	/* function to begin game */
-	private void start() {
-		init();
-
-		view.println(welcomeMessage());
-		view.println(player.getCurrentPlanet().getDescription());
-		view.println("\n[ Planets: " + player.getPlanetNames() + "]");
-        
-		gameLoop();
-	}
 	
 	private void init() {
 		Map<String, Planet> planetMap = model.getPlanets();
@@ -101,79 +89,36 @@ public class Game implements Domain {
         trapped = true;
 	}
 
-	private void gameLoop() {
-		while (!finished) {
-			Command command = view.getParser().getCommand();
-			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-			processCommand(command);
-			view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+	@Override
+	public boolean useItem(IItemStack iis) {
+		if(iis.getIItem() instanceof Item) {
+			Item i = (Item) iis.getIItem();
+
+			if(i.hasUsable()) {
+				i.use(player, this);
+				return true;
+			}
 		}
 
-		gameIsFinished();
+		return false;
 	}
 
-	/* function containing the actions of a command */
-	private void processCommand(Command command) {
-		CommandWord commandWord = command.getCommandWord();
+	@Override
+	public SearchPlanetState searchPlanet() {
+		if(player.getCurrentPlanet().getTempSearched()) {
+			return SearchPlanetState.ALREADY_SEARCHED;
+		} else {
+			player.getCurrentPlanet().setPermanentSearch(true);
+			player.getCurrentPlanet().setTemporarySearch(true);
 
-		switch(commandWord) {
-			case UNKNOWN:
-				view.println("I don't know what you mean...");
-			case HELP:
-				view.println(helpMessage());
-                view.println(blacksmith.getCurrentPlanet().getName());
-                //view.println(professorPutricide.getCurrentPlant().getName());
-				break;
-            case INFO:
-                view.println(descriptionMessage());
-                view.println(hintMessage());
-                break;
-			case GO:
-				goPlanet(command);
-				break;
-			case PICKUP:
-				pickupItem(command);
-				break;
-			case DROP:
-				dropItem(command);
-				break;
-			case BACKPACK:
-				showBackpackContent(command);
-				break;
-			case SEARCH:
-				searchOnPlanet(command);
-				break;
-			case INTERACT:
-				interact(command);
-				break;
-			case FUEL:
-				showFuel(command);
-				break;
-			case QUIT:
-				quit(command);
-				break;
-			case RESTART:
-				restart(command);
-		}
-	}
-
-	private void showFuel(Command command){
-		double fuel = player.getFuel();
-		StringBuilder sb = new StringBuilder();
-
-		char[] fuelBars = new char[10];
-		Arrays.fill(fuelBars, ' ');
-
-		for(int i = 0; i < fuel/10; i++){
-			fuelBars[i] = '=';
+			if(player.samePlanet(blacksmith.getCurrentPlanet())) {
+				return SearchPlanetState.BLACKSMITH;
+			}
 		}
 
-		sb.append("Fuel: \n");
-		sb.append("[");
-		sb.append(fuelBars);
-		sb.append("]");
-		view.println(sb.toString());
+		return SearchPlanetState.NOTHING;
 	}
+
 
 	private void interact(Command command) {
 		if(command.hasArguments()) {
@@ -235,263 +180,56 @@ public class Game implements Domain {
 		}
 	}
 
-	private void searchOnPlanet(Command command) {
-		if(command.hasArguments()) {
-			view.println("Search does not need any argument.");
-		} else {
-			Planet planet = player.getCurrentPlanet();
-
-			if(planet.hasSearched()) {
-				view.println("Planet has already been searched!");
-			} else {
-				view.println("Searching planet...");
-
-				/* loading phase... */
-
-				char[] loading = new char[10];
-				Arrays.fill(loading, ' ');
-
-				long sleep;
-
-				for(int i = 0; i < loading.length; i++) {
-					loading[i] = '=';
-
-					if(!planet.getPermSearched()) {
-						sleep = (long) (300 * (-0.022 * i * i + 0.20 * i + 0.15));
-					} else {
-						sleep = (long) (300 * (-0.004329 * i * i + 0.02165 * i + 0.15));
-					}
-
-					//System.out.println("Sleep: " + sleep);
-
-					try {
-						TimeUnit.MILLISECONDS.sleep(sleep);
-						view.print("\r["+ new String(loading) +"]");
-					} catch(InterruptedException ex) {
-						ex.printStackTrace();
-					}
-
-					if(i == loading.length - 1) { view.println(""); }
-				}
-
-				view.println("Search complete!");
-				view.println("----------------");
-				view.println(planet.getContentDescription());
-				view.println("");
-                if(!trapped) { 
-                    view.println(blacksmith.getVisitMessage(player.getCurrentPlanet().getName())); 
-                } else if (player.samePlanet(blacksmith.getCurrentPlanet())) {
-                    view.println("The blacksmith is here!");
-                }
-				view.println("----------------");
-				planet.setPermanentSearch(true);
-				planet.setTemporarySearch(true);
-			}
-		}
-	}
-
-	private void pickupItem(Command command) {
-		ItemStack[] itemsOnPlanet = player.getCurrentPlanet().getContent();
-
+	@Override
+	public boolean pickupItem(IItemStack iis) {
 		if(player.getCurrentPlanet().getPermSearched()) {
-			if(!command.hasArguments()) {
-				view.println(player.getCurrentPlanet().getContentDescription());
-			} else {
-				if(command.getArgumentLength() > 2) {
-					view.println(argumentMessage("pickup <item-index> [quantity]"));
-				} else {
-					int index = Integer.parseInt(command.getArgument(0)) - 1;
+			if(iis.getIItem().isPickupable()) {
+				Inventory bp = player.getInventory();
+				ItemStack is = (ItemStack) iis;
 
-					if(index >= 0 && index < itemsOnPlanet.length) {
-						ItemStack selected = itemsOnPlanet[index];
-
-						if(selected.getItem().isPickupable()) {
-							int quantity = command.containsIndex(1) ? Integer.parseInt(command.getArgument(1)) : selected.getQuantity();
-							quantity = Math.min(quantity, selected.getQuantity());
-
-							ItemStack is = new ItemStack(selected.getItem(), quantity);
-
-							if(player.getInventory().add(is)) {
-								player.getCurrentPlanet().removeItemStack(is);
-								view.println("You successfully picked " + is.getQuantity() + "x [" + is.getItem().getName() + "] from the planet!");
-							} else {
-								Backpack bp = (Backpack) player.getInventory();
-
-								view.println(String.format("The backpack [%.2f/%.2f] does not have enough space for %dx %.2f.",
-								bp.getCurrentCapacity(), bp.getMaxCapacity(),
-								is.getQuantity(), is.getItem().getWeight()));
-							}
-						} else {
-							view.println(selected.getItem().getName() + " is not pickupable.");
-						}
-					} else {
-						view.println("The entered index does not match.");
-					}
+				if(bp.add(is)) {
+					player.getCurrentPlanet().removeItemStack(is);
+					return true;
 				}
 			}
-		} else {
-			view.println("You have not searched the planet!");
 		}
+
+		return false;
 	}
 
-	private void dropItem(Command command) {
+	@Override
+	public boolean dropItem(IItemStack iis) {
 		if(player.getCurrentPlanet().getPermSearched()) {
-			if(!command.hasArguments()) {
-				showBackpackContent(command);
-			} else {
-				if(command.getArgumentLength() > 2) {
-					view.println(argumentMessage("drop <item-index> [quantity]"));
-				} else {
-					Inventory backpack = player.getInventory();
-					ItemStack[] content = backpack.getContent();
+			if(iis.getIItem().isDropable()) {
+				Inventory bp = player.getInventory();
+				ItemStack is = (ItemStack) iis;
 
-					int index = Integer.parseInt(command.getArgument(0)) - 1;
-
-					if(index >= 0 && index < content.length) {
-						ItemStack selected = content[index];
-
-						if(selected.getItem().isDropable()) {
-							int quantity = command.containsIndex(1) ? Integer.parseInt(command.getArgument(1)) : selected.getQuantity();
-							quantity = Math.max(Math.min(quantity, selected.getQuantity()), 0);
-
-							ItemStack is = new ItemStack(selected.getItem(), quantity);
-
-							if(backpack.remove(is)) {
-								player.getCurrentPlanet().addItemStack(is);
-								view.println("You successfully dropped " +is.toString()+ " from the backpack!");
-							}
-						} else {
-							view.println(selected.getItem().getName() + " is not dropable!");
-						}
-					} else {
-						view.println("The entered index does not match.");
-					}
+				if(bp.remove(is)) {
+					player.getCurrentPlanet().addItemStack(is);
+					return true;
 				}
 			}
-		} else {
-			view.println("It is not a good idea to drop items, before you have searched the planet.");
 		}
+
+		return false;
 	}
 
-	private void showBackpackContent(Command command) {
-		Backpack bp = (Backpack) player.getInventory();
+	@Override
+	public MovePlayerState movePlayer(String planetName) {
+		planetName = planetName.toLowerCase();
 
-		ItemStack[] content = bp.getContent();
+		Map<String, Planet> planets = player.getPlanets();
 
-		if(command.hasArguments()) {
-			if(command.getArgumentLength() > 1) {
-				view.println(argumentMessage("backpack [item-index]"));
-			} else {
-				int index = Integer.parseInt(command.getArgument(0)) - 1;
-
-				if(index >= 0 && index < content.length) {
-					ItemStack is = content[index];
-
-					view.println(is.getItem().getName());
-//					view.println("\t" + is.getItem().getPHDescription());
-				} else if(index == content.length) {
-//					ItemPortalGun pg = bp.getItemPortalGun();
-//
-//					if(pg.isBroken()) {
-//						view.println("The Portal Gun is broken. You'll have to fix it!");
-//					} else {
-//						finished = true;
-//						gameWon = true;
-//					}
-				} else {
-					view.println("The entered index does not match.");
-				}
-			}
+		if(!planets.containsKey(planetName)) {
+			return MovePlayerState.NOT_VALID;
+		} else if(player.samePlanet(planets.get(planetName))) {
+			return MovePlayerState.SAME_PLANET;
 		} else {
-			view.println(String.format("Backpack capacity: %.2f [kg] / %.2f [kg]", bp.getCurrentCapacity(), bp.getMaxCapacity()));
-			view.println("----");
-			for(int i = 0; i < content.length; i++) {
-				view.println(String.format("[%d] %s", (1 + i), content[i].toString()));
-			}
+			player.go(planetName);
+			player.decreaseFuel(10);
+			player.getCurrentPlanet().setTemporarySearch(false);
 
-//			view.println(String.format("[%d] %s", content.length + 1, bp.getItemPortalGun().toString()));
-		}
-	}
-
-	/* function to replace the current room by it exits */
-	private void goPlanet(Command command) {
-
-		// run the quiz
-
-		if(!command.hasArguments() || command.getArgumentLength() > 1) {
-			view.println(argumentMessage("go <planet-name> (not case-sensitive)"));
-		} else {
-			String planetName = command.getArgument(0).toLowerCase();
-			Map<String, Planet> planets = player.getPlanets();
-
-			if(!planets.containsKey(planetName)) {
-				view.println("Not a valid destination!");
-				view.println("Planets: " + player.getPlanetNames());
-			} else if(player.samePlanet(planets.get(planetName))) {
-				view.println("You cannot travel to the same planet!");
-			} else {
-				if(player.isFuelEmpty()){
-					finished = true;
-					gameWon = false;
-					return;
-				}
-                view.println(manager.getUnoXMessage());
-
-                if(manager.hasAcceptedOffer(view.getParser().getQuizOfferAnswer())) {
-                    manager.pickRandomQuiz();
-                    view.println(manager.getCurrentQuizMessage());
-                    view.println("Answer: ");
-
-                    int answer = view.getParser().getQuizAnswer(manager.getOptionsSize());
-
-                    if(manager.isAnswerCorrect(answer)) {
-	                    view.println("Correct answer! Fuel increased by 10!");
-                        player.increaseFuel(10);
-                    } else {
-                        view.println("Wrong answer! Fuel decreased by 10!");
-                        player.decreaseFuel(10);
-                    }
-                }
-
-               view.println(manager2.getPirateMsg());
-               if (manager2.hasAcceptedOffer("y")) {
-               	view.println("im glad we could come to an understanding, now be on your way");
-              	player.decreaseFuel(30);
-				}
-
-                view.getParser().resetReader();
-                            
-				player.go(planetName);
-				player.decreaseFuel(10);
-
-				player.getCurrentPlanet().setTemporarySearch(false);
-
-				if(!trapped) { blacksmith.move(); }
-
-				view.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-                view.println(player.getCurrentPlanet().getDescription());
-				view.println(player.getCurrentPlanet().getArriveMessage());
-				view.println("Planets: " + player.getPlanetNames());
-			}
-		}
-	}
-
-	/* function to exit? */
-	private void quit(Command command) {
-		if(command.getArgumentLength() > 0) {
-			view.println("Quit what?");
-		} else {
-			finished = true;
-		}
-	}
-
-	private void restart(Command command){
-		if(command.getArgumentLength() > 0) {
-			view.println("Restart what?");
-		} else {
-			view.println("\n \n \n \n \n NEW GAME STARTED \n \n \n \n \n \n");
-			Game game = new Game();
-			game.start();
+			return MovePlayerState.SUCCESS;
 		}
 	}
 

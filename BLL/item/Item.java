@@ -1,10 +1,11 @@
 package BLL.item;
 
+import BLL.ACQ.IItem;
 import BLL.ACQ.Usable;
 import BLL.Game;
 import BLL.character.player.Player;
 
-public class Item implements Cloneable {
+public class Item implements IItem, Cloneable {
 	private String name;
 	private String description;
 	private ItemType type;
@@ -31,10 +32,12 @@ public class Item implements Cloneable {
 		this(name, description, ItemType.DEFAULT, weight, isPickupable, isDropable);
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -43,16 +46,23 @@ public class Item implements Cloneable {
 		this.description = description;
 	}
 
+	@Override
 	public boolean isPickupable() {
 		return pickupable;
 	}
 
+	@Override
 	public boolean isDropable() {
 		return dropable;
 	}
 
+	@Override
 	public double getWeight() {
 		return weight;
+	}
+
+	public boolean hasUsable() {
+		return this.usable != null;
 	}
 
 	public void setUsable(Usable usable) {
