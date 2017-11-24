@@ -1,7 +1,7 @@
 package BLL.character.npc.actions;
 
-import BLL.character.npc.NPCAction;
+import BLL.ACQ.INPCAction;
 
-public interface NPCActions {
-	NPCAction[] getActions();
+public interface NPCActionCollection {
+	INPCAction[] getActions();
 }
