@@ -215,7 +215,7 @@ public class Game implements Domain {
 	}
 
 	@Override
-	public MovePlayerState movePlayer(String planetName) {
+	public MovePlayerState movePlayerToPlanet(String planetName) {
 		planetName = planetName.toLowerCase();
 
 		Map<String, Planet> planets = player.getPlanets();
@@ -231,6 +231,11 @@ public class Game implements Domain {
 
 			return MovePlayerState.SUCCESS;
 		}
+	}
+
+	@Override
+	public void decreaseFuelOnMove() {
+		player.decreaseFuel(0.1 / 60);
 	}
 
 	private void addCluesToPlanets(){
