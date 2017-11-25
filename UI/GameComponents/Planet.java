@@ -48,8 +48,7 @@ public class Planet extends GameObject {
         atmosphere.setFill(rg1);
         atmosphere.setCache(true);
 
-        Group planetGroup = new Group(sphere, name);
-
+        Group planetGroup = new Group(atmosphere, sphere, name);
         planetWrapper.getChildren().add(planetGroup);
 
         planetGroup.setTranslateX(-atmosphere.getRadius());
