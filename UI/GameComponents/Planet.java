@@ -16,7 +16,7 @@ public class Planet extends GameObject {
     private static List<Planet> planets = new ArrayList<>();
 
     public Planet(IPlanet planet){
-        super(new StackPane(new Circle(150,150,100 + (int) (Math.random() * (200) + 1), Color.WHITE), new Label(planet.getName())));
+        super(new StackPane(new Circle(200,200,100 + (int) (Math.random() * (200) + 1), Color.WHITE), new Label(planet.getName())));
         planets.add(this);
     }
 

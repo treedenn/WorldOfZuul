@@ -155,7 +155,7 @@
          </children>
       </GridPane>
       <AnchorPane fx:id="darkOverlay" prefHeight="660.0" prefWidth="1010.0" style="-fx-background-color: rgba(0,0,0,0.7);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <GridPane fx:id="drawer" prefHeight="660.0" prefWidth="260.0" style="-fx-background-color: linear-gradient(to top,#ed2931 0,#f95a3e);" visible="false">
+      <GridPane fx:id="drawer" prefHeight="660.0" prefWidth="260.0" style="-fx-background-color: linear-gradient(to top,#ed2931 0,#f95a3e);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>

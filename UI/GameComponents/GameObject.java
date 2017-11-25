@@ -9,16 +9,12 @@ public abstract class GameObject {
     private Node view;
     private Point2D velocity;
 
-    double speed;
-    double maxSpeed;
 
     public GameObject(Node view){
         this.view = view;
     }
 
-    public void update(double dt){
-        System.out.println("Override this");
-    }
+    public void update(double dt){};
 
     public void rotateRight(){
         view.setRotate(view.getRotate() + 5);
@@ -26,14 +22,6 @@ public abstract class GameObject {
 
     public void rotateLeft(){
         view.setRotate(view.getRotate() - 5);
-    }
-
-    public void accelerate(){
-        speed++;
-    }
-
-    public void decelerate(){
-        speed = 0;
     }
 
     public static void addGameObject(GameObject o, double x, double y, Pane root){
