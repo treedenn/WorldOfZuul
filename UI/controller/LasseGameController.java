@@ -210,22 +210,17 @@ public class LasseGameController implements Initializable {
         innersceneHandler.getPlayer().update(dt);
         innersceneHandler.centerView(innersceneHandler.getPlayer());
         innersceneHandler.keepPlayerInMap();
-<<<<<<< HEAD
+
         miniMapHandler.update();
 
-        for(GameObject planet : Planet.getPlanets()){
-            if(planet.isColliding(innersceneHandler.getPlayer())){
-               //notificationHandler.showNotification(dashBoard.heightProperty().doubleValue() - 100);
-=======
-        if (innersceneHandler.getPlayer().isAccelerate()){
-            domain.decreaseFuelOnMove();
+        for(GameObject planet : Planet.getPlanets()) {
+            if (planet.isColliding(innersceneHandler.getPlayer())) {
+                //notificationHandler.showNotification(dashBoard.heightProperty().doubleValue() - 100);
+            }
         }
 
-        for(GameObject planet : Planet.getPlanets()){
-            if(planet.isColliding(innersceneHandler.getPlayer())){
-                notificationHandler.showNotification(dashBoard.heightProperty().doubleValue() - 100);
->>>>>>> 30171ad4d5dffcae6ca0e5a0cf5d7a2bc3bfaecf
-            }
+        if (innersceneHandler.getPlayer().isAccelerate()){
+            domain.decreaseFuelOnMove();
         }
     }
 
