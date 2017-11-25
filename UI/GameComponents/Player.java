@@ -3,6 +3,7 @@ package UI.GameComponents;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Shear;
 
 public class Player extends GameObject {
 
@@ -47,7 +48,9 @@ public class Player extends GameObject {
         }
     }
 
+
     public void accelerate(double dt){
+
 
         if(accelerationTime == 0){
             accelerationTime = dt;
