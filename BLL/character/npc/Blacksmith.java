@@ -1,13 +1,15 @@
-package BLL.character;
+package BLL.character.npc;
 
 import BLL.ACQ.BlacksmithTraceState;
 import BLL.ACQ.Persistent;
+import BLL.character.Character;
 import BLL.character.player.Recipe;
 import BLL.item.Item;
 import BLL.world.Planet;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Blacksmith extends Character {
 	private Recipe recipe;
@@ -17,8 +19,12 @@ public class Blacksmith extends Character {
 		recipe = null;
 		visitedPlanets = new String[4]; // used for traces
 	}
-    
-    public boolean hasAccepted(char c) {
+
+	public Blacksmith(Planet currentPlanet, Map<String, Planet> planets) {
+		super(currentPlanet, planets);
+	}
+
+	public boolean hasAccepted(char c) {
         return c == 'Y' || c == 'y';
     }
         

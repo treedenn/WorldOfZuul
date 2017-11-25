@@ -1,8 +1,8 @@
-package BLL.character;
+package BLL.character.npc;
 
 import java.util.Scanner;
 
-public class SpacePirate extends SpecificNPC implements NPC, Stationary {
+public class SpacePirate extends ConcreteNPC implements NPC, Stationary {
 
     private Scanner scanner;
 
@@ -34,11 +34,6 @@ public class SpacePirate extends SpecificNPC implements NPC, Stationary {
 
     @Override
     public boolean isGood() {return false; }
-
-    @Override
-    public String[] message() {
-        return new String[0];
-    }
 
     @Override
     public boolean isStationary() {

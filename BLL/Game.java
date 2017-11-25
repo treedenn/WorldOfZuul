@@ -2,16 +2,17 @@ package BLL;
 
 import BLL.ACQ.*;
 import BLL.character.Inventory;
-import BLL.character.ProfessorPutricide;
-import BLL.character.SpacePirate;
+import BLL.character.npc.NPC;
+import BLL.character.npc.ProfessorPutricide;
+import BLL.character.npc.SpacePirate;
+import BLL.character.npc.actions.NPCAction;
 import BLL.scoring.Score;
-import BLL.character.Blacksmith;
+import BLL.character.npc.Blacksmith;
 import BLL.character.player.*;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 import BLL.scoring.ScoreHandler;
 import BLL.world.Planet;
-import UI.command.Command;
 import UI.command.CommandWord;
 import UI.ConsoleView;
 
@@ -29,11 +30,8 @@ public class Game implements Domain {
 	private boolean gameWon;
     private boolean trapped;
 	private Player player;
-	private Blacksmith blacksmith;
-	private ProfessorPutricide professorPutricide;
-	private UnoX manager;
+	private NPCHandler npcHandler;
 	private ScoreHandler scoreHandler;
-	private SpacePirate manager2;
 
 	private Game() {
 		view = new ConsoleView();
@@ -42,11 +40,8 @@ public class Game implements Domain {
 		finished = false;
 		gameWon = false;
 		player = new Player();
-        blacksmith = new Blacksmith();
-        professorPutricide = new ProfessorPutricide();
-		manager = new UnoX();
+		npcHandler = new NPCHandler();
 		scoreHandler = new ScoreHandler();
-		manager2 = new SpacePirate();
 	}
 
 	@Override
@@ -82,11 +77,24 @@ public class Game implements Domain {
 		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.", 0, 0);
 		player.setCurrentPlanet(centerUniverse);
 		player.setPlanets(planetMap);
-		blacksmith.setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
-		blacksmith.setPlanets(planetMap);
-		manager.setQuizes(model.getQuizes());
+		npcHandler.getBlacksmith().setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
+		npcHandler.getBlacksmith().setPlanets(planetMap);
+		npcHandler.getUnoX().setQuizes(model.getQuizes());
 		//addCluesToPlanets();
         trapped = true;
+
+        player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
+	}
+
+	@Override
+	public boolean isAnswerCorrect(int index) {
+		return npcHandler.getUnoX().isAnswerCorrect(index);
+	}
+
+	@Override
+	public IQuiz getQuiz() {
+		npcHandler.getUnoX().pickRandomQuiz();
+		return npcHandler.getUnoX().getCurrentQuiz();
 	}
 
 	@Override
@@ -111,7 +119,7 @@ public class Game implements Domain {
 			player.getCurrentPlanet().setPermanentSearch(true);
 			player.getCurrentPlanet().setTemporarySearch(true);
 
-			if(player.samePlanet(blacksmith.getCurrentPlanet())) {
+			if(player.samePlanet(npcHandler.getBlacksmith().getCurrentPlanet())) {
 				return SearchPlanetState.BLACKSMITH;
 			}
 		}
@@ -119,47 +127,54 @@ public class Game implements Domain {
 		return SearchPlanetState.NOTHING;
 	}
 
+	@Override
+	public void interact(int index, int actionId) {
+		List<NPC> npcs = player.getCurrentPlanet().getNPCs();
 
-	private void interact(Command command) {
-		if(command.hasArguments()) {
-			view.println("Interact does not need any arguments.");
-		} else {
-			if(!player.getCurrentPlanet().getTempSearched()) {
-				view.println("You have not searched the planet!");
-			} else {
-				if(!blacksmith.samePlanet(player.getCurrentPlanet())) {
-					view.println("The blacksmith is not here.");
-				} else {
-                    int trappedInt = trapped ? 1 : 2;
-                    switch(trappedInt) {
-                        case 1:
-                            view.println(blacksmith.getLockedMsg());
-                            if(blacksmith.hasAccepted(view.getParser().getQuizOfferAnswer())) {
-                                player.decreaseFuel(10);
-                                view.println("You chose to help Gearhead! Fuel has decreased by 10!");
-                                trapped = false;
-                            }
-                            view.getParser().resetReader();
-                            break;
-                        case 2:
-                            view.println(blacksmith.getBlacksmithMsg());
-                            Recipe recipe = blacksmith.getRecipe();
-                            Item[] items = recipe.getRequirements();
-	                        ItemStack[] content = player.getInventory().getContent();
-                            boolean[] containItems = recipe.haveItems(content);
-
-                            for(int i = 0; i < items.length; i++) {
-                                view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX ");
-                            }
-
-                            if(allTrue(containItems)) {
-                                // TODO: remove items from the players backpack
-	                            // TODO: change portal gun to be repaired
-                                view.println("");
-                                view.println("Portalgun has been repaired!");
-                            }
-                            break;
-                    }
+		if(npcs.size() > 0 && index < npcs.size()){
+			NPC npc = player.getCurrentPlanet().getNPCs().get(index);
+			((NPCAction) npc.getActions()[actionId]).endEvent(player, model);
+		}
+//
+//					if(command.hasArguments()) {
+//			view.println("Interact does not need any arguments.");
+//		} else {
+//			if(!player.getCurrentPlanet().getTempSearched()) {
+//				view.println("You have not searched the planet!");
+//			} else {
+//				if(!blacksmith.samePlanet(player.getCurrentPlanet())) {
+//					view.println("The blacksmith is not here.");
+//				} else {
+//                    int trappedInt = trapped ? 1 : 2;
+//                    switch(trappedInt) {
+//                        case 1:
+//                            view.println(blacksmith.getLockedMsg());
+//                            if(blacksmith.hasAccepted(view.getParser().getQuizOfferAnswer())) {
+//                                player.decreaseFuel(10);
+//                                view.println("You chose to help Gearhead! Fuel has decreased by 10!");
+//                                trapped = false;
+//                            }
+//                            view.getParser().resetReader();
+//                            break;
+//                        case 2:
+//                            view.println(blacksmith.getBlacksmithMsg());
+//                            Recipe recipe = blacksmith.getRecipe();
+//                            Item[] items = recipe.getRequirements();
+//	                        ItemStack[] content = player.getInventory().getContent();
+//                            boolean[] containItems = recipe.haveItems(content);
+//
+//                            for(int i = 0; i < items.length; i++) {
+//                                view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX ");
+//                            }
+//
+//                            if(allTrue(containItems)) {
+//                                // TODO: remove items from the players backpack
+//	                            // TODO: change portal gun to be repaired
+//                                view.println("");
+//                                view.println("Portalgun has been repaired!");
+//                            }
+//                            break;
+//                    }*/
 //                    view.println(lockedBlacksmith.getBlacksmithMsg());
 //					Recipe recipe = lockedBlacksmith.getRecipe();
 //					Item[] items = recipe.getRequirements();
@@ -174,10 +189,10 @@ public class Game implements Domain {
 //						view.println("");
 //						view.println("Portalgun has been repaired!");
 //						player.getInventory().getItemPortalGun().repair();
-//					}
-				}
-			}
-		}
+////					}
+//				}
+//			}
+//		}
 	}
 
 	@Override
@@ -215,7 +230,7 @@ public class Game implements Domain {
 	}
 
 	@Override
-	public MovePlayerState movePlayer(String planetName) {
+	public MovePlayerState movePlayerToPlanet(String planetName) {
 		planetName = planetName.toLowerCase();
 
 		Map<String, Planet> planets = player.getPlanets();
@@ -233,8 +248,13 @@ public class Game implements Domain {
 		}
 	}
 
+	@Override
+	public void decreaseFuelOnMove() {
+		player.decreaseFuel(0.3 / 60);
+	}
+
 	private void addCluesToPlanets(){
-		Item[] items = blacksmith.getRecipe().getRequirements();
+		Item[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
 		Item[] clues = new Item[8];
 
 		for (int i = 0; i < clues.length; i++) {

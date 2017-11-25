@@ -24,6 +24,8 @@ public class Player extends Character implements IPlayer {
 		this.MAX_FUEL = (int) fuel;
 	}
 
+
+
 	@Override
 	public boolean isFuelEmpty() {
 		return fuel == 0;
