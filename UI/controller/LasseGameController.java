@@ -142,7 +142,7 @@ public class LasseGameController implements Initializable {
     }
 
     @FXML
-    void displayDrawer(ActionEvent event) { drawerHandler.showDrawer(); }
+    void displayDrawer(ActionEvent event) { drawerHandler.showDrawer();         stage.setFullScreen(true);}
 
     @FXML
     void closeDrawer(ActionEvent event) { drawerHandler.hideDrawer(); }

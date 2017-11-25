@@ -22,7 +22,7 @@ public class Map {
     private Pane rootPane;
     private java.util.Map<Planet, javafx.geometry.Point2D> planetsOnMap;
 
-    private int numberOfStars = 100;
+    private int numberOfStars = 200;
 
     public Map(){
         children = new ArrayList<>();
@@ -70,8 +70,51 @@ public class Map {
     }
 
     void createPlanets(java.util.Map<String, ? extends IPlanet> planets){
+        String imageURL;
         for (IPlanet planet : planets.values()) {
-            Planet newUIPlanet = new UI.GameComponents.Planet(planet);
+            switch (planet.getName()){
+                case "Scurn 01K":
+                    imageURL = "./UI/resources/img/planetMaps/uranusmap.jpg";
+                    break;
+                case "Skaro":
+                    imageURL = "./UI/resources/img/planetMaps/saturnmap.jpg";
+                    break;
+                case "Orion":
+                    imageURL = "./UI/resources/img/planetMaps/jupitermap.jpg";
+                    break;
+                case "Cleron OR7":
+                    imageURL = "./UI/resources/img/planetMaps/mars_1k_color.jpg";
+                    break;
+                case "Gallifrey":
+                    imageURL = "./UI/resources/img/planetMaps/mercurymap.jpg";
+                    break;
+                case "Uskillon":
+                    imageURL = "./UI/resources/img/planetMaps/neptunemap.jpg";
+                    break;
+                case "Deineax":
+                    imageURL = "./UI/resources/img/planetMaps/venusmap.jpg";
+                    break;
+                case "Amrif Arret":
+                    imageURL = "./UI/resources/img/planetMaps/plutomap2k.jpg";
+                    break;
+                case "Hebrilles":
+                    imageURL = "./UI/resources/img/planetMaps/uvbluesun.jpg";
+                    break;
+                case "New Earth":
+                    imageURL = "./UI/resources/img/planetMaps/earthmap1k.jpg";
+                    break;
+                case "Xehna":
+                    imageURL = "./UI/resources/img/planetMaps/dgnyre.jpg";
+                    break;
+                case "J8 Ayrus Z420":
+                    imageURL = "./UI/resources/img/planetMaps/barrenRock.jpg";
+                    break;
+                default:
+                    imageURL = "./UI/resources/img/planetMaps/earthmap1k.jpg";
+                    break;
+            }
+
+            Planet newUIPlanet = new UI.GameComponents.Planet(planet, new Image(imageURL));
             javafx.geometry.Point2D coordinates = new javafx.geometry.Point2D(planet.getX(), planet.getY());
             GameObject.addGameObject(newUIPlanet, coordinates.getX(), coordinates.getY(), rootPane);
             planetsOnMap.put(newUIPlanet, coordinates);
