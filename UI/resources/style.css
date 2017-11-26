@@ -281,27 +281,6 @@
     -fx-background-color: rgba(0,0,0,0.3);
 }
 
-.map{
-
-/*    -fx-background-image: radial-gradient(radius 0, white, rgba(255,255,255,.2) 2px,transparent 40px),
-    radial-gradient( radius 0, white, rgba(255,255,255,.15) 1px, transparent 30px),
-    radial-gradient( radius 0, white, rgba(255,255,255,.1) 2px, transparent 40px),
-    radial-gradient(radius 2%, rgba(255,255,255,.4),rgba(255,255,255,.1) 2px, transparent 30px);
-
-    -fx-background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
-    -fx-background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;*/
-
-    /*-fx-background-color: linear-gradient(from 41px 34px to 50px 50px, reflect,  #ff7f50 30%, #faebd7  47%);*/
-
-
-
-/*radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),*/
-/*radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),*/
-/*radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),*/
-/*radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);*/
-
-}
-
 .notification{
     -fx-background-color: white;
     -fx-background-radius: 5px;

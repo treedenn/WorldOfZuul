@@ -54,10 +54,9 @@ public class Map {
     private void addLabels(Pane pane){
         Label centerLabel = new Label("Center of the Universe");
         centerLabel.setStyle("-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 20px; -fx-font-family: 'Circular Std Bold';");
-
         centerLabel.setTranslateX(pane.getMinWidth()/2 - centerLabel.getWidth()/2);
         centerLabel.setTranslateY(pane.getMinHeight()/2 - centerLabel.getHeight()/2);
-
+        centerLabel.setCache(true);
         pane.getChildren().add(centerLabel);
 
     }
