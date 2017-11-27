@@ -1,5 +1,7 @@
-package BLL.character.player;
+package BLL.character.npc;
 
+import BLL.character.player.Quiz;
+import BLL.character.player.Quiz;
 import java.util.*;
 
 public class UnoX {
