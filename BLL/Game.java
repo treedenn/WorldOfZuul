@@ -3,19 +3,16 @@ package BLL;
 import BLL.ACQ.*;
 import BLL.character.Inventory;
 import BLL.character.npc.NPC;
-import BLL.character.npc.ProfessorPutricide;
-import BLL.character.npc.SpacePirate;
 import BLL.character.npc.actions.NPCAction;
-import BLL.scoring.Score;
-import BLL.character.npc.Blacksmith;
-import BLL.character.player.*;
+import BLL.character.player.Player;
+import BLL.character.player.buff.Buff;
 import BLL.item.Item;
 import BLL.item.ItemStack;
+import BLL.scoring.Score;
 import BLL.scoring.ScoreHandler;
 import BLL.world.Planet;
-import UI.command.CommandWord;
 import UI.ConsoleView;
-
+import UI.command.CommandWord;
 
 import java.util.*;
 
@@ -125,6 +122,22 @@ public class Game implements Domain {
 		}
 
 		return SearchPlanetState.NOTHING;
+	}
+
+	@Override
+	public void updateBuffs() {
+		List<Buff> buffs = player.getBuffs();
+
+		Buff buff;
+		for(int i = 0; i < buffs.size(); i++) {
+			buff = buffs.get(i);
+
+			buff.onGameTick(player);
+
+			if(buff.isExpired()) {
+				player.removeBuff(i);
+			}
+		}
 	}
 
 	@Override
