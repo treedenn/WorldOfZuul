@@ -104,15 +104,19 @@ public class LasseGameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        configInnerscene();
         configGameMenuButton();
         configDrawer();
         configNotification();
         configAvatar();
         configFuelBar();
         configBackpackBar();
+        wrapper.setStyle("-fx-background-color: #081519;");
 
 
-        innersceneHandler = new Innerscene(subScene, stage);
+
+
+       innersceneHandler = new Innerscene(subScene, stage);
         innersceneHandler.getSubScene().heightProperty().bind(subsceneWrapper.heightProperty());
         innersceneHandler.getSubScene().widthProperty().bind(subsceneWrapper.widthProperty());
         innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
@@ -124,9 +128,6 @@ public class LasseGameController implements Initializable {
         };
         stage.widthProperty().addListener(stageSizeListener);
         stage.heightProperty().addListener(stageSizeListener);
-
-
-        wrapper.setStyle("-fx-background-color: #081519;");
 
 
 
@@ -243,6 +244,8 @@ public class LasseGameController implements Initializable {
     public void configBackpackBar(){ backpackHandler = new BackpackBar(barBackpack, labelBackpack);}
 
     public void configMiniMap(){ miniMapHandler = new MiniMap(miniMapWrapper, innersceneHandler.getMap().mapWidth, innersceneHandler.getMap().mapHeight, innersceneHandler.getPlayer(), innersceneHandler.getMap().getPlanetsOnMap()); }
+
+    public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, stage);}
 
 
 }
