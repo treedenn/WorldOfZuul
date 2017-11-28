@@ -205,6 +205,11 @@ public class LasseGameController implements Initializable {
 
 
     private void onUpdate(){
+        if (domain.getPlayer().getMorphId() == -1){
+            avatarHandler.isRick(true);
+        } else{
+            avatarHandler.isRick(false);
+        }
         dt = System.nanoTime();
         fuelHandler.update();
         backpackHandler.update();
