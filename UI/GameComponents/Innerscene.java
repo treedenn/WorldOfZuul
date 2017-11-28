@@ -52,6 +52,7 @@ public class Innerscene {
         player.setVelocity(new Point2D(0,0));
         GameObject.addGameObject(player, Map.mapWidth /2, Map.mapHeight /2, map.getRootPane());
 
+
     }
 
 
@@ -59,24 +60,7 @@ public class Innerscene {
 
         camera.setTranslateX((o.getView().getTranslateX()) - (subScene.getWidth()/2) + player.getWidth()/2);
         camera.setTranslateY((o.getView().getTranslateY()) - (subScene.getHeight()/2) + player.getHeight()/2);
-
-
-        /* COMMENT OUT IF CAMERA SHOULD STOP WHEN PLAYER REACHES THE END OF MAP */
-//        if (camera.getTranslateX() < rootPane.getTranslateX()){
-//            camera.setTranslateX(rootPane.getTranslateX());
-//        }
-//
-//        if (camera.getTranslateX() > rootPane.getWidth() - subScene.getWidth()){
-//            camera.setTranslateX(rootPane.getWidth() - subScene.getWidth());
-//        }
-//
-//        if (camera.getTranslateY() < rootPane.getTranslateY()){
-//            camera.setTranslateY(rootPane.getTranslateY());
-//        }
-//
-//        if (camera.getTranslateY() > rootPane.getHeight() - subScene.getHeight()){
-//            camera.setTranslateY(rootPane.getHeight() - subScene.getHeight());
-//        }
+        
     }
 
     public void keepPlayerInMap(){
