@@ -9,4 +9,5 @@ public interface IPlayer {
 	double getFuel();
 	int getMaxFuel();
 	IInventory getIInventory();
+	int getMorphId();
 }

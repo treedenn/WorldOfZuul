@@ -60,7 +60,6 @@ public class Innerscene {
 
         camera.setTranslateX((o.getView().getTranslateX()) - (subScene.getWidth()/2) + player.getWidth()/2);
         camera.setTranslateY((o.getView().getTranslateY()) - (subScene.getHeight()/2) + player.getHeight()/2);
-        
     }
 
     public void keepPlayerInMap(){

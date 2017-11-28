@@ -107,6 +107,7 @@ public class LasseGameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        configInnerscene();
         configGameMenuButton();
         configDrawer();
         configNotification();
@@ -115,9 +116,12 @@ public class LasseGameController implements Initializable {
         configBackpackBar();
         configHoverLabel();
         configPlanetView();
+        wrapper.setStyle("-fx-background-color: #081519;");
 
 
-        innersceneHandler = new Innerscene(subScene, stage);
+
+
+       innersceneHandler = new Innerscene(subScene, stage);
         innersceneHandler.getSubScene().heightProperty().bind(subsceneWrapper.heightProperty());
         innersceneHandler.getSubScene().widthProperty().bind(subsceneWrapper.widthProperty());
         innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
@@ -135,7 +139,6 @@ public class LasseGameController implements Initializable {
 
 
         wrapper.setStyle("-fx-background-color: #081519;");
-
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -276,5 +279,7 @@ public class LasseGameController implements Initializable {
     public void configHoverLabel(){ hoverLabelHandler = new HoverLabel(wrapper); hoverLabelHandler.setup("Press", "SPACE", "to land on planet");}
 
     public void configPlanetView(){}
+
+    public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, stage);}
 
 }

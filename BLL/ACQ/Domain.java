@@ -11,6 +11,7 @@ public interface Domain {
 	MovePlayerState movePlayerToPlanet(String planetName);
 	List<IScore> getHighscore();
 	boolean hasBeatenHighscore();
+	void updateBuffs();
 	void interact(int index, int actionId);
 	boolean useItem(IItemStack iis);
 	boolean pickupItem(IItemStack iis);

@@ -574,12 +574,12 @@
 57:
   name: "Portal Gun"
   description: "Powerful Tool!"
-  itemType: PORTALGUN
+  itemType: DEFAULT
   pickupable: false
   dropable: false
   weight: 0.0
   usableId: 0
-57:
+58:
   name: "Transformation Elixir"
   description: "A powerful elixir given by Professor Putricide."
   itemType: DEFAULT

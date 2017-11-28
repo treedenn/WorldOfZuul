@@ -43,7 +43,6 @@ class DatabaseHandler implements Loadable {
 				switch(ItemType.valueOf((String) o.get("itemType"))) {
 					case DEFAULT: item = getItem(o); break;
 					case COMPONENT: item = getComponent(o); break;
-					case PORTALGUN: item = getPortalGun(o); break;
 					default: item = getItem(o);
 				}
 
@@ -72,15 +71,6 @@ class DatabaseHandler implements Loadable {
 				ComponentType.valueOf((String) o.get("componentType")),
 				Color.valueOf((String) o.get("color")),
 				State.valueOf((String) o.get("state"))
-		);
-	}
-
-	private Item getPortalGun(Map<String, Object> o) {
-		return new ItemPortalGun((String) o.get("name"),
-				(String) o.get("description"),
-				(double) o.get("weight"),
-				(boolean) o.get("pickupable"),
-				(boolean) o.get("dropable")
 		);
 	}
 }

@@ -5,10 +5,10 @@ import BLL.ACQ.Persistent;
 import BLL.character.player.Player;
 import BLL.item.ItemStack;
 
-public class ProfessorPutricideActionCollection implements NPCActionCollection {
+public class ProfessorPutricideAction implements NPCActionCollection {
     private INPCAction[] actions;
 
-    public ProfessorPutricideActionCollection() {
+    public ProfessorPutricideAction() {
         actions = new INPCAction[] {
             new NPCAction("Hi there. My name is Professor Putricide!", false),
             new NPCAction("I have a transformation elixir. Do you want it?", true) {
