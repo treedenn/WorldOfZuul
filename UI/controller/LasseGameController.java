@@ -53,6 +53,7 @@ public class LasseGameController implements Initializable {
     private BackpackBar backpackHandler;
     private MiniMap miniMapHandler;
     private HoverLabel hoverLabelHandler;
+    private PlanetView planetViewHandler;
     private boolean mouseIsOnSubscene;
     private double dt;
     private boolean[] planetCollisions;
@@ -115,7 +116,8 @@ public class LasseGameController implements Initializable {
         configFuelBar();
         configBackpackBar();
         configHoverLabel();
-        configPlanetView();
+        //configPlanetView();
+
         wrapper.setStyle("-fx-background-color: #081519;");
 
 
@@ -283,7 +285,7 @@ public class LasseGameController implements Initializable {
 
     public void configHoverLabel(){ hoverLabelHandler = new HoverLabel(wrapper); hoverLabelHandler.setup("Press", "SPACE", "to land on planet");}
 
-    public void configPlanetView(){}
+    public void configPlanetView(){ planetViewHandler = new PlanetView(subsceneWrapper);}
 
     public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, stage);}
 

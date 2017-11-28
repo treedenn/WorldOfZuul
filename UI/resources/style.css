@@ -324,6 +324,28 @@
     -fx-background-repeat: repeat;
 }
 
+body{
+
+}
+
+.button__leavePlanet{
+    -fx-background-color: #ed2931;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.button__leavePlanet:hover{
+    -fx-background-color: #1ed760;
+}
+
+.button__leavePlanet:selected{
+    -fx-background-color: #1db954;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
 
 
 

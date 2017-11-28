@@ -49,6 +49,10 @@ public class MiniMap {
 
     }
 
+    public void hide(){
+
+    }
+
     private void addPlanets(){
         for (Map.Entry<Planet, Point2D> planetPoint2DEntry : children.entrySet()) {
             double scaleRatio = miniMapWrapper.getPrefWidth() / widthReference;
