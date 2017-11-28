@@ -20,7 +20,7 @@ public interface Domain {
 	boolean pickupItem(IItemStack iis);
 	boolean dropItem(IItemStack iis);
 	SearchPlanetState searchPlanet();
-	void decreaseFuelOnMove();
+	void decreaseFuelOnMove(int ticksPerSecond);
 	IQuiz getQuiz();
 	boolean isAnswerCorrect(int index);
 }

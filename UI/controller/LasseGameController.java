@@ -262,7 +262,7 @@ public class LasseGameController implements Initializable {
 
 
         if (innersceneHandler.getPlayer().isAccelerate()){
-            domain.decreaseFuelOnMove();
+            domain.decreaseFuelOnMove(60);
         }
     }
 

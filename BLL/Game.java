@@ -197,7 +197,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * It triggers the start event of the action inside specific NPC.
+	 * It triggers the start event of the action inside a specific NPC.
 	 * At every action, the GUI must invoke this function first before doing anything.
 	 * @param npc is the specific NPC for interaction
 	 * @param actionId is the specific action of the NPC
@@ -210,7 +210,12 @@ public class Game implements Domain {
 		}
 	}
 
-
+	/**
+	 * It triggers the end event of the action inside specific NPC.
+	 * At every action, the GUI must invoke this function last.
+	 * @param npc is the specific NPC for interaction
+	 * @param actionId is the specific action of the NPC
+	 */
 	@Override
 	public void endInteract(NPC npc, int actionId) {
 		if(npc != null) {
@@ -279,6 +284,11 @@ public class Game implements Domain {
 //		}
 	}
 
+	/**
+	 * Picks an itemstack and sends it to the player's inventory.
+	 * @param iis the item stack to add to the inventory
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean pickupItem(IItemStack iis) {
 		if(player.getCurrentPlanet().getPermSearched()) {
@@ -296,6 +306,11 @@ public class Game implements Domain {
 		return false;
 	}
 
+	/**
+	 * Drops an itemstack from the player's inventory to the current planet.
+	 * @param iis the item stack to drop from the inventory
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean dropItem(IItemStack iis) {
 		if(player.getCurrentPlanet().getPermSearched()) {
@@ -313,6 +328,11 @@ public class Game implements Domain {
 		return false;
 	}
 
+	/**
+	 * Moves the player to the specified planet.
+	 * @param planetName the name of planet
+	 * @return an enum based on the what happen {@link MovePlayerState}
+	 */
 	@Override
 	public MovePlayerState movePlayerToPlanet(String planetName) {
 		planetName = planetName.toLowerCase();
@@ -332,11 +352,18 @@ public class Game implements Domain {
 		}
 	}
 
+	/**
+	 * An method to decrease fuel when moving,
+	 * if decrease of fuel on move is desired.
+	 */
 	@Override
-	public void decreaseFuelOnMove() {
-		player.decreaseFuel(0.3 / 60);
+	public void decreaseFuelOnMove(int ticksPerSecond) {
+		player.decreaseFuel(0.3 / ticksPerSecond);
 	}
 
+	/**
+	 * Add the clues to the planets at random.
+	 */
 	private void addCluesToPlanets(){
 		Item[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
 		Item[] clues = new Item[8];
@@ -371,6 +398,11 @@ public class Game implements Domain {
 	}
 
 	// TODO: Perhaps change boolean to int to get the direct location
+
+	/**
+	 * Checks whether a player has beaten any highscore.
+	 * @return true, if player has beaten a highscore.
+	 */
 	@Override
 	public boolean hasBeatenHighscore() {
 		int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
@@ -385,6 +417,11 @@ public class Game implements Domain {
 		return false;
 	}
 
+	/**
+	 * Adds a player to the highscore, sorts the list,
+	 * removes the 'unused' one and saves the highscore.
+	 * @param playerName the name of the player
+	 */
 	@Override
 	public void addPlayerToHighscore(String playerName) {
 		int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
@@ -395,6 +432,10 @@ public class Game implements Domain {
 		model.saveHighscore();
 	}
 
+	/**
+	 * Gets the current highscore list as {@link IScore}.
+	 * @return the highscore list
+	 */
 	@Override
 	public List<IScore> getHighscore() {
 		return new ArrayList<>(model.getHighscore());
@@ -497,6 +538,11 @@ public class Game implements Domain {
 		}
 	}
 
+	/**
+	 * Gets the instance of the Game.
+	 * *Singleton*
+	 * @return the instance of game
+	 */
 	public static Game getInstance() {
 		if(INSTANCE == null) INSTANCE = new Game();
 		return INSTANCE;
