@@ -52,7 +52,6 @@ public class Innerscene {
         player.setVelocity(new Point2D(0,0));
         GameObject.addGameObject(player, Map.mapWidth /2, Map.mapHeight /2, map.getRootPane());
 
-
     }
 
 
@@ -60,6 +59,7 @@ public class Innerscene {
 
         camera.setTranslateX((o.getView().getTranslateX()) - (subScene.getWidth()/2) + player.getWidth()/2);
         camera.setTranslateY((o.getView().getTranslateY()) - (subScene.getHeight()/2) + player.getHeight()/2);
+
     }
 
     public void keepPlayerInMap(){

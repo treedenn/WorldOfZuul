@@ -10,22 +10,16 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class Avatar{
 
     private ImageView imageView;
-    private List<String> imagePaths1;
-    private List<String> imagePaths2;
-    private static final File rickdir = new File("./src/UI/resources/img/ricksHead");
-    private static final File mortydir = new File("./src/UI/resources/img/mortysHead");
+    private List<String> imagePaths;
+    private static final File dir = new File("./src/UI/resources/img/ricksHead");
     Timer timer;
-    private boolean isRick;
 
     public Avatar(ImageView imageView){
         this.imageView = imageView;
-        imagePaths1 = new ArrayList<>();
-        imagePaths2 = new ArrayList<>();
-        isRick = true;
+        imagePaths = new ArrayList<>();
         loadIMGs();
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -37,32 +31,18 @@ public class Avatar{
     }
 
     private void loadIMGs(){
-        if(rickdir.isDirectory()){
-            for( File f : rickdir.listFiles()){
+        if(dir.isDirectory()){
+            for(final File f : dir.listFiles()){
                 String imgPath = f.toURI().toString().replace("\\", "/");
-                imagePaths1.add(imgPath);
+
+                imagePaths.add(imgPath);
             }
-        }
-        if(mortydir.isDirectory()){
-            for(File f : mortydir.listFiles()){
-                String imgPath = f.toURI().toString().replace("\\", "/");
-                imagePaths2.add(imgPath);
-            }
+
         }
     }
 
     public void changeAvatarIMG(){
-        if(isRick){
-            int index = (int) (Math.random() * (imagePaths1.size()));
-            imageView.setImage(new Image(imagePaths1.get(index)));
-        } else{
-            int index = (int) (Math.random() * (imagePaths2.size()));
-            imageView.setImage(new Image(imagePaths2.get(index)));
-        }
-    }
-
-    public void isRick(boolean rick) {
-        isRick = rick;
+        int index = (int) (Math.random() * (imagePaths.size()));
+        imageView.setImage(new Image(imagePaths.get(index)));
     }
 }
-

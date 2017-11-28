@@ -1,5 +1,7 @@
 package BLL.ACQ;
 
+import BLL.character.npc.NPC;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +14,8 @@ public interface Domain {
 	List<IScore> getHighscore();
 	boolean hasBeatenHighscore();
 	void updateBuffs();
-	void interact(int index, int actionId);
+	void startInteract(NPC npc, int actionId);
+	void endInteract(NPC npc, int actionId);
 	boolean useItem(IItemStack iis);
 	boolean pickupItem(IItemStack iis);
 	boolean dropItem(IItemStack iis);

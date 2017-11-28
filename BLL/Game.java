@@ -3,7 +3,6 @@ package BLL;
 import BLL.ACQ.*;
 import BLL.character.Inventory;
 import BLL.character.npc.NPC;
-import BLL.character.npc.actions.NPCAction;
 import BLL.character.player.Player;
 import BLL.character.player.buff.Buff;
 import BLL.item.Item;
@@ -141,13 +140,21 @@ public class Game implements Domain {
 	}
 
 	@Override
-	public void interact(int index, int actionId) {
-		List<NPC> npcs = player.getCurrentPlanet().getNPCs();
-
-		if(npcs.size() > 0 && index < npcs.size()){
-			NPC npc = player.getCurrentPlanet().getNPCs().get(index);
-			((NPCAction) npc.getActions()[actionId]).endEvent(player, model);
+	public void startInteract(NPC npc, int actionId) {
+		if(npc != null) {
+			INPCAction[] actions = npc.getActions();
+			actions[actionId].onStartEvent(player, npc, model);
 		}
+	}
+
+	@Override
+	public void endInteract(NPC npc, int actionId) {
+		if(npc != null) {
+			INPCAction[] actions = npc.getActions();
+			actions[actionId].onEndEvent(player, npc, model);
+		}
+
+
 //
 //					if(command.hasArguments()) {
 //			view.println("Interact does not need any arguments.");

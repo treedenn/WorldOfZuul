@@ -7,6 +7,7 @@ package BLL.character.npc.actions;
 
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.Persistent;
+import BLL.character.npc.NPC;
 import BLL.character.player.Player;
 
 /**
@@ -18,20 +19,22 @@ public class SpacePirateAction implements NPCActionCollection {
 
     public SpacePirateAction() {
         actions = new INPCAction[] {
-            new NPCAction("You have been intercepted and captured by space pirates!", false),
-            new NPCAction("Would you like to pay the ransom to them in order to proceed on your voyage?", true) {
+            new NPCAction("You have been intercepted and captured by space pirates!"),
+            new NPCDialogAction("Would you like to pay the ransom to them in order to proceed on your voyage?") {
                 @Override
-                public void endEvent(Player player, Persistent persistent) {
-                    super.endEvent(player, persistent);
+                public void onEndEvent(Player player, NPC npc, Persistent persistent) {
+                    super.onEndEvent(player, npc, persistent);
 
-                    if(isAnswerYes) {
+                    if(answerYes) {
                         player.decreaseFuel(10);
                     } else {
                         player.decreaseFuel(20);
+                        setActionId(3);
                     }
                 }
             },
-            new NPCAction("... Arrr', We will be seeing you again, you landlubber!", false)
+            new NPCAction("... Arrr', We will be seeing you again, you landlubber!"),
+            new NPCAction("... Arrr', you fool! No one denies my orders!")
         };
     }
 

@@ -7,9 +7,9 @@ package BLL.character.npc.actions;
 
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.Persistent;
-import BLL.character.player.Player;
 import BLL.character.npc.Blacksmith;
-import BLL.character.player.Recipe;
+import BLL.character.npc.NPC;
+import BLL.character.player.Player;
 import BLL.item.Item;
 
 /**
@@ -18,32 +18,42 @@ import BLL.item.Item;
  */
 public class BlacksmithAction implements NPCActionCollection {
     private INPCAction[] actions;
-    Blacksmith bs = new Blacksmith();
-    Recipe recipe = bs.getRecipe();
 
     public BlacksmithAction() {
         actions = new INPCAction[] {
-            new NPCAction("My dear Rick!" +
-            "It's already time to return the favor?" +
-            "I've heard that you somehow broke your portal gun?", false),
-            new NPCAction("Would you like to see my recipe for the Portal Gun?", true) {
+            new NPCDialogAction("My dear Rick!" +
+            "\nIt's already time to return the favor?" +
+            "\nI've heard that you somehow broke your portal gun?"),
+            new NPCDialogAction("Would you like to see my recipe for the Portal Gun?") {
                 @Override
-                public void endEvent(Player player, Persistent persistent) {
-                    super.endEvent(player, persistent);
+                public void onEndEvent(Player player, NPC npc, Persistent persistent) {
+                    super.onEndEvent(player, npc, persistent);
 
-                    if(isAnswerYes) {
-                        Item[] items = recipe.getRequirements();
-                        int i;
-                        for (i = 0; i < items.length; i++) {
-                            INPCAction action = actions[i];
-                            
-                        }
-                        new NPCAction(items[i].toString(), true);
-                        
+                    if(answerYes) {
+                        setActionId(3);
                     }
                 }
             },
-            new NPCAction("... I hope I will see you again!", false)
+            new NPCAction("... I hope I will see you again!"),
+            new NPCAction("") {
+                @Override
+                public void onStartEvent(Player player, NPC npc, Persistent persistent) {
+                    super.onStartEvent(player, npc, persistent);
+
+                    if(npc instanceof Blacksmith) {
+                        Blacksmith bs = (Blacksmith) npc;
+
+                        Item[] items = bs.getRecipe().getRequirements();
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < items.length; i++) {
+                            sb.append(items[i].toString());
+                            sb.append(System.lineSeparator());
+                        }
+
+                        message = sb.toString();
+                    }
+                }
+            }
         };
     }
 

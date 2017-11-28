@@ -32,7 +32,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -52,10 +51,8 @@ public class LasseGameController implements Initializable {
     private FuelBar fuelHandler;
     private BackpackBar backpackHandler;
     private MiniMap miniMapHandler;
-    private HoverLabel hoverLabelHandler;
     private boolean mouseIsOnSubscene;
     private double dt;
-    private boolean[] planetCollisions;
 
     @FXML private AnchorPane wrapper;
 
@@ -114,8 +111,6 @@ public class LasseGameController implements Initializable {
         configAvatar();
         configFuelBar();
         configBackpackBar();
-        configHoverLabel();
-        configPlanetView();
         wrapper.setStyle("-fx-background-color: #081519;");
 
 
@@ -126,9 +121,6 @@ public class LasseGameController implements Initializable {
         innersceneHandler.getSubScene().widthProperty().bind(subsceneWrapper.widthProperty());
         innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
 
-
-        planetCollisions = new boolean[Planet.getPlanets().size()];
-
         configMiniMap();
 
         ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
@@ -138,7 +130,6 @@ public class LasseGameController implements Initializable {
         stage.heightProperty().addListener(stageSizeListener);
 
 
-        wrapper.setStyle("-fx-background-color: #081519;");
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -196,6 +187,7 @@ public class LasseGameController implements Initializable {
     void keyIsReleased(KeyEvent event) {
         if(event.getCode() == KeyCode.A){
             innersceneHandler.getPlayer().setLeft(false);
+
         }
         if(event.getCode() == KeyCode.D){
             innersceneHandler.getPlayer().setRight(false);
@@ -210,58 +202,28 @@ public class LasseGameController implements Initializable {
     }
 
 
-    boolean playerCollidedWithPlanet;
+
 
     private void onUpdate(){
-        if (domain.getPlayer().getMorphId() == -1){
-            avatarHandler.isRick(true);
-        } else{
-            avatarHandler.isRick(false);
-        }
-
-        wrapper.getChildren().remove(subsceneWrapper);
-
         dt = System.nanoTime();
         fuelHandler.update();
         backpackHandler.update();
         innersceneHandler.getPlayer().update(dt);
         innersceneHandler.centerView(innersceneHandler.getPlayer());
         innersceneHandler.keepPlayerInMap();
+
         miniMapHandler.update();
 
-
-        int count = 0;
         for(GameObject planet : Planet.getPlanets()) {
             if (planet.isColliding(innersceneHandler.getPlayer())) {
-                planetCollisions[count] = true;
-            } else{
-                planetCollisions[count] = false;
-            }
-            count++;
-        }
-        count = 0;
-
-        for (boolean value : planetCollisions) {
-            if(value){
-                playerCollidedWithPlanet = true;
-                break;
-            } else {
-                playerCollidedWithPlanet = false;
+                //notificationHandler.showNotification(dashBoard.heightProperty().doubleValue() - 100);
             }
         }
-
-        if(playerCollidedWithPlanet){
-            hoverLabelHandler.show();
-        } else if (!playerCollidedWithPlanet){
-            hoverLabelHandler.hide();
-        }
-
 
         if (innersceneHandler.getPlayer().isAccelerate()){
             domain.decreaseFuelOnMove();
         }
     }
-
 
     public void setStage(Stage stage){ this.stage = stage; }
 
@@ -273,6 +235,8 @@ public class LasseGameController implements Initializable {
 
     public void hideNotification(){ notificationHandler.hideNotification(); }
 
+    public void showNotification(){ notificationHandler.showNotification(dashBoard.getHeight() - 100);}
+
     public void configAvatar(){ avatarHandler = new Avatar(avatarImage);}
 
     public void configFuelBar(){ fuelHandler = new FuelBar(barFuel, labelFuel); }
@@ -281,10 +245,7 @@ public class LasseGameController implements Initializable {
 
     public void configMiniMap(){ miniMapHandler = new MiniMap(miniMapWrapper, innersceneHandler.getMap().mapWidth, innersceneHandler.getMap().mapHeight, innersceneHandler.getPlayer(), innersceneHandler.getMap().getPlanetsOnMap()); }
 
-    public void configHoverLabel(){ hoverLabelHandler = new HoverLabel(wrapper); hoverLabelHandler.setup("Press", "SPACE", "to land on planet");}
-
-    public void configPlanetView(){}
-
     public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, stage);}
+
 
 }
