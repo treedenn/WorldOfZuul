@@ -10,12 +10,16 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 public class Avatar{
 
     private ImageView imageView;
     private List<String> imagePaths;
-    private static final File dir = new File("./src/UI/resources/img/ricksHead");
+    private static final File rickdir = new File("./src/UI/resources/img/ricksHead");
+    private static final File mortydir = new File("./src/UI/resources/img/ricksHead/mortyshead");
     Timer timer;
+
+    boolean isRick;
 
     public Avatar(ImageView imageView){
         this.imageView = imageView;
@@ -31,13 +35,22 @@ public class Avatar{
     }
 
     private void loadIMGs(){
-        if(dir.isDirectory()){
-            for(final File f : dir.listFiles()){
-                String imgPath = f.toURI().toString().replace("\\", "/");
+        if(isRick){
+            if(rickdir.isDirectory()){
+                for(final File f : rickdir.listFiles()){
+                    String imgPath = f.toURI().toString().replace("\\", "/");
 
-                imagePaths.add(imgPath);
+                    imagePaths.add(imgPath);
+                }
             }
+        } else{
+            if(mortydir.isDirectory()){
+                for(final File f : mortydir.listFiles()){
+                    String imgPath = f.toURI().toString().replace("\\", "/");
 
+                    imagePaths.add(imgPath);
+                }
+            }
         }
     }
 
@@ -45,4 +58,9 @@ public class Avatar{
         int index = (int) (Math.random() * (imagePaths.size()));
         imageView.setImage(new Image(imagePaths.get(index)));
     }
+
+    public void isRick(boolean rick) {
+        isRick = rick;
+    }
 }
+
