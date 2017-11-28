@@ -213,17 +213,14 @@ public class LasseGameController implements Initializable {
     boolean playerCollidedWithPlanet;
 
     private void onUpdate(){
-<<<<<<< HEAD
         if (domain.getPlayer().getMorphId() == -1){
             avatarHandler.isRick(true);
         } else{
             avatarHandler.isRick(false);
         }
-=======
 
         wrapper.getChildren().remove(subsceneWrapper);
 
->>>>>>> 0922065bc3ad002c1f80a7f50d7ae729248aece9
         dt = System.nanoTime();
         fuelHandler.update();
         backpackHandler.update();
