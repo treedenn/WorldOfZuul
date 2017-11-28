@@ -17,4 +17,5 @@ public interface Persistent {
 	List<Quiz> getQuizes();
 	List<Score> getHighscore();
 	void saveHighscore();
+	String getMessage(String key);
 }

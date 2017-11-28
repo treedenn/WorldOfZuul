@@ -19,12 +19,14 @@ public class Model implements Persistent {
 	private QuizHandler qzHandler;
 	private HighscoreHandler hsHandler;
 	private PlanetHandler plHandler;
+	private MessageHandler msgHandler;
 
 	private Model() {
 		dbHandler = new DatabaseHandler();
 		qzHandler = new QuizHandler();
 		hsHandler = new HighscoreHandler();
 		plHandler = new PlanetHandler(this);
+		msgHandler = new MessageHandler();
 	}
 
 	@Override
@@ -33,6 +35,7 @@ public class Model implements Persistent {
 		load(qzHandler);
 		load(hsHandler);
 		load(plHandler);
+		load(msgHandler);
 	}
 
 	@Override
@@ -63,6 +66,11 @@ public class Model implements Persistent {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public String getMessage(String key) {
+		return msgHandler.getMessage(key);
 	}
 
 	/* function to create rooms */
