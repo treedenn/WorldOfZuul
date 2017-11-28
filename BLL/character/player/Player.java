@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Identifies a Player in the game.
- * Implements the {@link IPlayer} interface, 
+ * Implements the {@link IPlayer} interface,
  * which is used to limit the functionality to the GUI.
  */
 public class Player extends Character implements IPlayer {
