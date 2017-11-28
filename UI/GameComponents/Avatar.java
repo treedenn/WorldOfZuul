@@ -14,16 +14,18 @@ import java.util.TimerTask;
 public class Avatar{
 
     private ImageView imageView;
-    private List<String> imagePaths;
+    private List<String> imagePaths1;
+    private List<String> imagePaths2;
     private static final File rickdir = new File("./src/UI/resources/img/ricksHead");
-    private static final File mortydir = new File("./src/UI/resources/img/ricksHead/mortyshead");
+    private static final File mortydir = new File("./src/UI/resources/img/mortysHead");
     Timer timer;
-
-    boolean isRick;
+    private boolean isRick;
 
     public Avatar(ImageView imageView){
         this.imageView = imageView;
-        imagePaths = new ArrayList<>();
+        imagePaths1 = new ArrayList<>();
+        imagePaths2 = new ArrayList<>();
+        isRick = true;
         loadIMGs();
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -35,28 +37,28 @@ public class Avatar{
     }
 
     private void loadIMGs(){
-        if(isRick){
-            if(rickdir.isDirectory()){
-                for(final File f : rickdir.listFiles()){
-                    String imgPath = f.toURI().toString().replace("\\", "/");
-
-                    imagePaths.add(imgPath);
-                }
+        if(rickdir.isDirectory()){
+            for( File f : rickdir.listFiles()){
+                String imgPath = f.toURI().toString().replace("\\", "/");
+                imagePaths1.add(imgPath);
             }
-        } else{
-            if(mortydir.isDirectory()){
-                for(final File f : mortydir.listFiles()){
-                    String imgPath = f.toURI().toString().replace("\\", "/");
-
-                    imagePaths.add(imgPath);
-                }
+        }
+        if(mortydir.isDirectory()){
+            for(File f : mortydir.listFiles()){
+                String imgPath = f.toURI().toString().replace("\\", "/");
+                imagePaths2.add(imgPath);
             }
         }
     }
 
     public void changeAvatarIMG(){
-        int index = (int) (Math.random() * (imagePaths.size()));
-        imageView.setImage(new Image(imagePaths.get(index)));
+        if(isRick){
+            int index = (int) (Math.random() * (imagePaths1.size()));
+            imageView.setImage(new Image(imagePaths1.get(index)));
+        } else{
+            int index = (int) (Math.random() * (imagePaths2.size()));
+            imageView.setImage(new Image(imagePaths2.get(index)));
+        }
     }
 
     public void isRick(boolean rick) {
