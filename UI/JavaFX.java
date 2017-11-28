@@ -12,9 +12,7 @@ import javafx.stage.Stage;
 
 public class JavaFX extends Application implements UserInterface {
 	private static Domain domain;
-
-	// TODO: find the error why domain cannot be used!
-
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("./view/start_view.fxml"));
