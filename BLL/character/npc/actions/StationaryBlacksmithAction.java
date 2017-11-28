@@ -7,6 +7,7 @@ package BLL.character.npc.actions;
 
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.Persistent;
+import BLL.character.npc.NPC;
 import BLL.character.player.Player;
 
 /**
@@ -19,20 +20,23 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
     public StationaryBlacksmithAction() {
         actions = new INPCAction[] {
             new NPCAction("Hello Fellow, I'm the blacksmith, name's Gearhead!" +
-            "Dear adventurer, I believe our meeting is Fate!" +
-            "I ran out of fuel and is now stranded on this planet ..." +
-            "Please spare me some fuel, I will be in your debt and do anything in return!", false),
-            new NPCAction("Would you like to help Gearhead?", true) {
+            "\nDear adventurer, I believe our meeting is Fate!" +
+            "\nI ran out of fuel and is now stranded on this planet ..." +
+            "\nPlease spare me some fuel, I will be in your debt and do anything in return!"),
+            new NPCDialogAction("Would you like to help Gearhead?") {
                 @Override
-                public void endEvent(Player player, Persistent persistent) {
-                    super.endEvent(player, persistent);
+                public void onEndEvent(Player player, NPC npc, Persistent persistent) {
+                    super.onEndEvent(player, npc, persistent);
 
-                    if(isAnswerYes) {
+                    if(answerYes) {
                         player.decreaseFuel(20);
+                    } else {
+                        setActionId(3);
                     }
                 }
             },
-            new NPCAction("... I hope I will see you again!", false)
+            new NPCAction("... I hope I will see you again!"),
+            new NPCAction("... Maybe next time then?")
         };
     }
 

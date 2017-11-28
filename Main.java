@@ -1,11 +1,7 @@
 import BLL.ACQ.Domain;
-import BLL.ACQ.INPCAction;
 import BLL.ACQ.Persistent;
 import BLL.ACQ.UserInterface;
 import BLL.Game;
-import BLL.character.npc.NPC;
-import BLL.character.npc.actions.NPCAction;
-import BLL.character.player.Player;
 import DAL.Model;
 import UI.JavaFX;
 

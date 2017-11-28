@@ -32,7 +32,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -57,6 +56,9 @@ public class LasseGameController implements Initializable {
     private boolean mouseIsOnSubscene;
     private double dt;
     private boolean[] planetCollisions;
+    boolean playerCollidedWithPlanet;
+
+
 
     @FXML private AnchorPane wrapper;
 
@@ -128,8 +130,8 @@ public class LasseGameController implements Initializable {
         innersceneHandler.getSubScene().widthProperty().bind(subsceneWrapper.widthProperty());
         innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
 
-
         planetCollisions = new boolean[Planet.getPlanets().size()];
+
 
         configMiniMap();
 
@@ -140,7 +142,6 @@ public class LasseGameController implements Initializable {
         stage.heightProperty().addListener(stageSizeListener);
 
 
-        wrapper.setStyle("-fx-background-color: #081519;");
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -198,6 +199,7 @@ public class LasseGameController implements Initializable {
     void keyIsReleased(KeyEvent event) {
         if(event.getCode() == KeyCode.A){
             innersceneHandler.getPlayer().setLeft(false);
+
         }
         if(event.getCode() == KeyCode.D){
             innersceneHandler.getPlayer().setRight(false);
@@ -212,16 +214,16 @@ public class LasseGameController implements Initializable {
     }
 
 
-    boolean playerCollidedWithPlanet;
+
 
     private void onUpdate(){
+
         if (domain.getPlayer().getMorphId() == -1){
             avatarHandler.isRick(true);
         } else{
             avatarHandler.isRick(false);
         }
 
-        wrapper.getChildren().remove(subsceneWrapper);
 
         dt = System.nanoTime();
         fuelHandler.update();
@@ -229,8 +231,8 @@ public class LasseGameController implements Initializable {
         innersceneHandler.getPlayer().update(dt);
         innersceneHandler.centerView(innersceneHandler.getPlayer());
         innersceneHandler.keepPlayerInMap();
-        miniMapHandler.update();
 
+        miniMapHandler.update();
 
         int count = 0;
         for(GameObject planet : Planet.getPlanets()) {
@@ -241,7 +243,6 @@ public class LasseGameController implements Initializable {
             }
             count++;
         }
-        count = 0;
 
         for (boolean value : planetCollisions) {
             if(value){
@@ -259,11 +260,11 @@ public class LasseGameController implements Initializable {
         }
 
 
+
         if (innersceneHandler.getPlayer().isAccelerate()){
             domain.decreaseFuelOnMove();
         }
     }
-
 
     public void setStage(Stage stage){ this.stage = stage; }
 
@@ -274,6 +275,8 @@ public class LasseGameController implements Initializable {
     public void configNotification(){ notificationHandler = new Notification(notification, stage.getHeight()); }
 
     public void hideNotification(){ notificationHandler.hideNotification(); }
+
+    public void showNotification(){ notificationHandler.showNotification(dashBoard.getHeight() - 100);}
 
     public void configAvatar(){ avatarHandler = new Avatar(avatarImage);}
 
@@ -288,5 +291,6 @@ public class LasseGameController implements Initializable {
     public void configPlanetView(){ planetViewHandler = new PlanetView(subsceneWrapper);}
 
     public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, stage);}
+
 
 }

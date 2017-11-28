@@ -1,7 +1,10 @@
 package BLL.ACQ;
 
+import BLL.character.npc.NPC;
+import BLL.character.player.Player;
+
 public interface INPCAction {
 	String getMessage();
-	boolean needAnswer();
-	void setAnswer(boolean isYes);
+	void onStartEvent(Player player, NPC npc, Persistent persistent);
+	void onEndEvent(Player player, NPC npc, Persistent persistent);
 }

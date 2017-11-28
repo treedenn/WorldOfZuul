@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class Avatar{
 
     private ImageView imageView;
@@ -18,8 +17,11 @@ public class Avatar{
     private List<String> imagePaths2;
     private static final File rickdir = new File("./src/UI/resources/img/ricksHead");
     private static final File mortydir = new File("./src/UI/resources/img/mortysHead");
+
     Timer timer;
+
     private boolean isRick;
+
 
     public Avatar(ImageView imageView){
         this.imageView = imageView;
@@ -36,20 +38,21 @@ public class Avatar{
         }, 100,8000);
     }
 
-    private void loadIMGs(){
-        if(rickdir.isDirectory()){
-            for( File f : rickdir.listFiles()){
+    private void loadIMGs() {
+        if (rickdir.isDirectory()) {
+            for (File f : rickdir.listFiles()) {
                 String imgPath = f.toURI().toString().replace("\\", "/");
                 imagePaths1.add(imgPath);
             }
         }
-        if(mortydir.isDirectory()){
-            for(File f : mortydir.listFiles()){
+        if (mortydir.isDirectory()) {
+            for (File f : mortydir.listFiles()) {
                 String imgPath = f.toURI().toString().replace("\\", "/");
                 imagePaths2.add(imgPath);
             }
         }
     }
+
 
     public void changeAvatarIMG(){
         if(isRick){
@@ -64,5 +67,5 @@ public class Avatar{
     public void isRick(boolean rick) {
         isRick = rick;
     }
-}
 
+}

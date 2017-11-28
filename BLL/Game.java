@@ -3,7 +3,6 @@ package BLL;
 import BLL.ACQ.*;
 import BLL.character.Inventory;
 import BLL.character.npc.NPC;
-import BLL.character.npc.actions.NPCAction;
 import BLL.character.player.Player;
 import BLL.character.player.buff.Buff;
 import BLL.item.Item;
@@ -41,6 +40,11 @@ public class Game implements Domain {
 		scoreHandler = new ScoreHandler();
 	}
 
+	/**
+	 * Injects an object of the {@link Persistent} interface.
+	 * In additional it runs a few methods inside the persistent interface immediately.
+	 * @param persistent the object implementing {@link Persistent} interface.
+	 */
 	@Override
 	public void injectPersistent(Persistent persistent) {
 		this.model = persistent;
@@ -49,24 +53,50 @@ public class Game implements Domain {
 		init();
 	}
 
+	/**
+	 * Returns an object with {@link IPlayer}, which limits access of GUI.
+	 * The function comes from the {@link Domain} interface.
+	 * @return the player, but casted to {@link IPlayer}.
+	 */
 	@Override
 	public IPlayer getPlayer() {
 		return player;
 	}
 
+	/**
+	 * Returns a map with all planets.
+	 * The key is a planet name and the value is a {@link Planet}.
+	 * @return a map of the planets and their associate names.
+	 */
 	@Override
 	public Map<String, IPlanet> getPlayerPlanets() {
 		return new HashMap<>(player.getPlanets());
 	}
 
+	/**
+	 * Sets the finished boolean to a new value.
+	 * It is used to determine whether the game finish.
+	 * Default is false.
+	 * @param finished a boolean to override current value.
+	 */
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
 
+	/**
+	 * Sets the game won boolean to a new value.
+	 * It is used to determine whether the player has won the game or not.
+	 * Default is false.
+	 * @param gameWon a boolean to override current value.
+	 */
 	public void setGameWon(boolean gameWon) {
 		this.gameWon = gameWon;
 	}
-	
+
+	/**
+	 * An initialization of the business layer.
+	 * Is invoked by {@link #injectPersistent(Persistent)} function.
+	 */
 	private void init() {
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
@@ -83,17 +113,33 @@ public class Game implements Domain {
         player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
 	}
 
+	/**
+	 * Use to determine whether the player has given a correct answer from the GUI.
+	 * Is invoked by GUI when an answer is given from the player.
+	 * @param index is the answer of the multiple choice (exclude 0).
+	 * @return a boolean whether the answer is true or not.
+	 */
 	@Override
 	public boolean isAnswerCorrect(int index) {
 		return npcHandler.getUnoX().isAnswerCorrect(index);
 	}
 
+	/**
+	 * Gets the {@link BLL.character.player.Quiz} object as {@link IQuiz} to limit the functionality in GUI.
+	 * @return returns the current quiz in play.
+	 */
 	@Override
 	public IQuiz getQuiz() {
 		npcHandler.getUnoX().pickRandomQuiz();
 		return npcHandler.getUnoX().getCurrentQuiz();
 	}
 
+	/**
+	 * If the itemstack's item is usable with {@link Item#hasUsable()} function,
+	 * it will trigger the {@link Item#use(Player, Game)} function.
+	 * @param iis the item stack containing the item.
+	 * @return true, if it has a usable, false if it does not.
+	 */
 	@Override
 	public boolean useItem(IItemStack iis) {
 		if(iis.getIItem() instanceof Item) {
@@ -108,6 +154,11 @@ public class Game implements Domain {
 		return false;
 	}
 
+	/**
+	 * Use to determine the search state of the planet {@link SearchPlanetState}.
+	 * In addition, it sets the permanent/temporary search of the current planet.
+	 * @return the state given by the enum
+	 */
 	@Override
 	public SearchPlanetState searchPlanet() {
 		if(player.getCurrentPlanet().getTempSearched()) {
@@ -124,6 +175,11 @@ public class Game implements Domain {
 		return SearchPlanetState.NOTHING;
 	}
 
+	/**
+	 * It loops through the buff list of the player.
+	 * On each buff, it triggers {@link Buff#onGameTick(Player)}
+	 * and {@link Buff#isExpired()}, if true, removes the buff.
+	 */
 	@Override
 	public void updateBuffs() {
 		List<Buff> buffs = player.getBuffs();
@@ -140,14 +196,29 @@ public class Game implements Domain {
 		}
 	}
 
+	/**
+	 * It triggers the start event of the action inside specific NPC.
+	 * At every action, the GUI must invoke this function first before doing anything.
+	 * @param npc is the specific NPC for interaction
+	 * @param actionId is the specific action of the NPC
+	 */
 	@Override
-	public void interact(int index, int actionId) {
-		List<NPC> npcs = player.getCurrentPlanet().getNPCs();
-
-		if(npcs.size() > 0 && index < npcs.size()){
-			NPC npc = player.getCurrentPlanet().getNPCs().get(index);
-			((NPCAction) npc.getActions()[actionId]).endEvent(player, model);
+	public void startInteract(NPC npc, int actionId) {
+		if(npc != null) {
+			INPCAction[] actions = npc.getActions();
+			actions[actionId].onStartEvent(player, npc, model);
 		}
+	}
+
+
+	@Override
+	public void endInteract(NPC npc, int actionId) {
+		if(npc != null) {
+			INPCAction[] actions = npc.getActions();
+			actions[actionId].onEndEvent(player, npc, model);
+		}
+
+
 //
 //					if(command.hasArguments()) {
 //			view.println("Interact does not need any arguments.");
