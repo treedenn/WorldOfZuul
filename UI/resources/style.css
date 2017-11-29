@@ -313,6 +313,7 @@
 
 }
 
+
 .bar__backpack > .track{
 
 }
@@ -338,17 +339,90 @@ body{
 }
 
 .button__leavePlanet:hover{
-    -fx-background-color: #1ed760;
+    -fx-background-color: #f95a3e;
 }
 
-.button__leavePlanet:selected{
-    -fx-background-color: #1db954;
+.button__leavePlanet:pressed{
+    -fx-background-color: #ed2931;
     -fx-text-fill: rgba(255,255,255,0.8);
 }
 
 
+.planet__view{
+    -fx-background-image: url("img/planetview/amrifarret.jpg");
+    -fx-background-size: 100%;
+    -fx-background-position: top center;
+    -fx-background-repeat: no-repeat;
+}
+
+.planet__gradient{
+    -fx-background-color: linear-gradient(to top, #121212, rgba(18,18,18,0));
+}
+
+.planet-view__scroll-pane .scroll-bar:horizontal, .planet-view__scroll-pane .scroll-bar:vertical{
+    -fx-background-color:#181818;
+}
+
+. planet-view__scroll-pane .increment-button, .planet-view__scroll-pane .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.planet-view__scroll-pane .scroll-bar:horizontal .track,
+.planet-view__scroll-pane .scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.planet-view__scroll-pane .scroll-bar:horizontal .thumb,
+.planet-view__scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #535353;
+    -fx-background-radius: 0;
+}
 
 
+.button__leavePlanet{
+    -fx-background-color: #ed2931;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.button__leavePlanet:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.button__leavePlanet:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.button__searchPlanet{
+    -fx-background-color: #2979FF;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.button__searchPlanet:hover{
+    -fx-background-color: #448AFF;
+}
+
+.button__searchPlanet:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.searchList{
+    -fx-background-color: transparent;
+    -fx-border-color: #282828;
+    -fx-border-width: 1 0.5 1 1;
+}
 
 
 

@@ -255,6 +255,7 @@ public class LasseGameController implements Initializable {
 
         if(playerCollidedWithPlanet){
             hoverLabelHandler.show();
+
         } else if (!playerCollidedWithPlanet){
             hoverLabelHandler.hide();
         }
@@ -265,6 +266,9 @@ public class LasseGameController implements Initializable {
             domain.decreaseFuelOnMove(60);
         }
     }
+
+
+
 
     public void setStage(Stage stage){ this.stage = stage; }
 
