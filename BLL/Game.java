@@ -28,6 +28,7 @@ public class Game implements Domain {
 	private Player player;
 	private NPCHandler npcHandler;
 	private ScoreHandler scoreHandler;
+	private MessageContainer messageContainer;
 
 	private Game() {
 		view = new ConsoleView();
@@ -38,6 +39,7 @@ public class Game implements Domain {
 		player = new Player();
 		npcHandler = new NPCHandler();
 		scoreHandler = new ScoreHandler();
+		messageContainer = new MessageContainer();
 	}
 
 	/**
@@ -71,6 +73,14 @@ public class Game implements Domain {
 	@Override
 	public Map<String, IPlanet> getPlayerPlanets() {
 		return new HashMap<>(player.getPlanets());
+	}
+
+	/**
+	 * Returns a reference to the message container.
+	 * @return the message container
+	 */
+	public MessageContainer getMessageContainer() {
+		return messageContainer;
 	}
 
 	/**
@@ -162,16 +172,19 @@ public class Game implements Domain {
 	@Override
 	public SearchPlanetState searchPlanet() {
 		if(player.getCurrentPlanet().getTempSearched()) {
+			messageContainer.setMessage(model.getMessage("planet-search-already"));
 			return SearchPlanetState.ALREADY_SEARCHED;
 		} else {
 			player.getCurrentPlanet().setPermanentSearch(true);
 			player.getCurrentPlanet().setTemporarySearch(true);
 
 			if(player.samePlanet(npcHandler.getBlacksmith().getCurrentPlanet())) {
+				messageContainer.setMessage(model.getMessage("planet-search-blacksmith"));
 				return SearchPlanetState.BLACKSMITH;
 			}
 		}
 
+		messageContainer.setMessage(model.getMessage("planet-search-nothing"));
 		return SearchPlanetState.NOTHING;
 	}
 
@@ -298,11 +311,13 @@ public class Game implements Domain {
 
 				if(bp.add(is)) {
 					player.getCurrentPlanet().removeItemStack(is);
+					messageContainer.setMessage(model.getMessage("item-pickup-successful"));
 					return true;
 				}
 			}
 		}
 
+		messageContainer.setMessage(model.getMessage("item-pickup-denied"));
 		return false;
 	}
 
@@ -320,11 +335,13 @@ public class Game implements Domain {
 
 				if(bp.remove(is)) {
 					player.getCurrentPlanet().addItemStack(is);
+					messageContainer.setMessage(model.getMessage("item-drop-successful"));
 					return true;
 				}
 			}
 		}
 
+		messageContainer.setMessage(model.getMessage("item-drop-denied"));
 		return false;
 	}
 

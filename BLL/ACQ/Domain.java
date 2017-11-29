@@ -1,5 +1,6 @@
 package BLL.ACQ;
 
+import BLL.MessageContainer;
 import BLL.character.npc.NPC;
 
 import java.util.List;
@@ -23,4 +24,5 @@ public interface Domain {
 	void decreaseFuelOnMove(int ticksPerSecond);
 	IQuiz getQuiz();
 	boolean isAnswerCorrect(int index);
+	MessageContainer getMessageContainer();
 }

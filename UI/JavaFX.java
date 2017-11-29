@@ -26,7 +26,6 @@ public class JavaFX extends Application implements UserInterface {
 		primaryStage.setResizable(true);
 
 		primaryStage.show();
-
 	}
 
 	@Override
