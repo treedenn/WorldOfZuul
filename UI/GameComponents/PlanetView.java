@@ -3,6 +3,7 @@ package UI.GameComponents;
 import BLL.character.npc.NPC;
 import BLL.item.Item;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -10,7 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.LinearGradient;
 
 public class PlanetView {
 
@@ -20,7 +24,9 @@ public class PlanetView {
     private StackPane planetViewInnerWrapper;
     private VBox vbox;
     private HBox hbox;
+    StackPane headerWrapper;
     private HBox header;
+    private ImageView image;
     private ScrollPane scrollPane;
     private Region headerSpacer;
     private Label planetName;
@@ -36,9 +42,11 @@ public class PlanetView {
         planetViewWrapper = new AnchorPane();
         planetViewOverlay = new AnchorPane();
         planetViewInnerWrapper = new StackPane();
+        headerWrapper = new StackPane();
         vbox = new VBox();
         hbox = new HBox();
         header = new HBox();
+        image = new ImageView();
         headerSpacer = new Region();
         scrollPane = new ScrollPane();
         planetName = new Label();
@@ -77,6 +85,11 @@ public class PlanetView {
         vbox.setMinHeight(500);
         //vbox.setStyle("-fx-background-color: rgba(255,255,255,0.1);");
 
+        image.setImage(new Image("/UI/resources/img/planetview/amrif arret.jpg"));
+
+        Rectangle2D viewportRect = new Rectangle2D(image.getImage().widthProperty().doubleValue()/4,image.getImage().heightProperty().doubleValue()/4, 650,250);
+        image.setViewport(viewportRect);
+
         header.getChildren().addAll(planetName, headerSpacer, button__leavePlanet);
         header.setHgrow(headerSpacer, Priority.ALWAYS);
         header.setMinWidth(vbox.getPrefWidth());
@@ -84,8 +97,11 @@ public class PlanetView {
         button__leavePlanet.setText("LEAVE PLANET");
         button__leavePlanet.getStyleClass().add("button__leavePlanet");
         planetName.setStyle("-fx-text-fill: white; -fx-font-size: 60; -fx-font-family: 'Circular Std Black';");
+        Pane headerGradient = new Pane();
+        headerGradient.setMinWidth(parent.getWidth());
+        headerGradient.setStyle("-fx-background-color: linear-gradient(to top, #191919, rgba(0,0,0,0.2));");
 
-
+        headerWrapper.getChildren().addAll(image, headerGradient, header);
 
         hbox.getChildren().addAll(itemList, NPCList);
         Group scrollGroup = new Group(hbox, planetDescription);
@@ -93,11 +109,11 @@ public class PlanetView {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-        vbox.getChildren().addAll(header, scrollPane);
+        vbox.getChildren().addAll(headerWrapper, scrollPane);
         vbox.widthProperty().addListener((observable, oldValue, newValue) -> {
-           header.setPrefWidth(newValue.doubleValue());
-           header.setMinWidth(newValue.doubleValue());
-           header.setMaxWidth(newValue.doubleValue());
+           headerWrapper.setPrefWidth(newValue.doubleValue());
+           headerWrapper.setMinWidth(newValue.doubleValue());
+           headerWrapper.setMaxWidth(newValue.doubleValue());
            itemList.setPrefWidth(newValue.doubleValue()/2);
            itemList.setMinWidth(newValue.doubleValue()/2);
            itemList.setMaxWidth(newValue.doubleValue()/2);
