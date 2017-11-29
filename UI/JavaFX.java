@@ -11,15 +11,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class JavaFX extends Application implements UserInterface {
-	private Domain domain;
-
-	// TODO: find the error why domain cannot be used!
-
+	private static Domain domain;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("./view/start_view.fxml"));
 
-		loader.setController(new StartController(Game.getInstance()));
+		loader.setController(new StartController(domain));
 
 		AnchorPane pane = loader.load();
 
@@ -33,7 +31,7 @@ public class JavaFX extends Application implements UserInterface {
 
 	@Override
 	public void injectDomain(Domain domain) {
-		this.domain = domain;
+		JavaFX.domain = domain;
 	}
 
 	@Override
