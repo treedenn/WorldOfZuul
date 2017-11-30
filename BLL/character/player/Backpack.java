@@ -2,13 +2,16 @@ package BLL.character.player;
 
 import BLL.ACQ.IInventory;
 import BLL.ACQ.IItemStack;
-import BLL.character.Inventory;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Backpack is an inventory, based on the inventory.
+ * It is focused on weight instead of the amount of items inside.
+ */
 public class Backpack implements IInventory {
 	private double maxWeightCapacity;
 	private double currentWeightCapacity;
@@ -20,36 +23,73 @@ public class Backpack implements IInventory {
 		items = new ArrayList<>();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double getMaxCapacity() {
 		return maxWeightCapacity;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double getCurrentCapacity() {
 		return currentWeightCapacity;
 	}
 
+	/**
+	 * Increases the current capacity with argument.
+	 * @param amount to increase
+	 */
 	private void increaseCurrentCapacity(double amount) {
 		this.currentWeightCapacity += amount;
 	}
 
+	/**
+	 * Decreases the current capacity with argument.
+	 * @param amount to deecrease
+	 */
 	private void decreaseCurrentCapacity(double amount) {
 		this.currentWeightCapacity -= amount;
 	}
 
+	/**
+	 * Checks if the given ItemStack and its content combined is below the max capacity.
+	 * @param item to check for
+	 * @return a boolean based, if it is capable
+	 */
 	private boolean isBelowMaxCapacity(ItemStack item) {
 		return item.getTotalWeight() + currentWeightCapacity <= maxWeightCapacity;
 	}
 
+	/**
+	 * Searches for an item inside inventory and returns it index.
+	 * Method derives from {@link #findItem(ItemStack)}.
+	 * @param item to search for
+	 * @return the index if found
+	 */
 	private int findItem(Item item) {
 		return findItem(item, -1);
 	}
 
+	/**
+	 * Searches for an item inside inventory and returns it index.
+	 * Method derives from {@link #findItem(ItemStack)}.
+	 * @param item to search for
+	 * @param quantity the at least amount the item has to have
+	 * @return the index if found
+	 */
 	private int findItem(Item item, int quantity) {
 		return findItem(new ItemStack(item, quantity));
 	}
 
+	/**
+	 * Searches for an item inside inventory and returns it index.
+	 * @param itemStack to search for
+	 * @return the index if found
+	 */
 	private int findItem(ItemStack itemStack) {
 		ItemStack is;
 
@@ -66,6 +106,9 @@ public class Backpack implements IInventory {
 		return -1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean add(ItemStack itemStack) {
 		if(isBelowMaxCapacity(itemStack)) {
@@ -88,6 +131,9 @@ public class Backpack implements IInventory {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean remove(Item item) {
 		int index = findItem(item);
@@ -100,6 +146,9 @@ public class Backpack implements IInventory {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean remove(ItemStack itemStack) {
 		int index = findItem(itemStack.getItem());
@@ -120,41 +169,65 @@ public class Backpack implements IInventory {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void remove(int index) throws ArrayIndexOutOfBoundsException {
 		decreaseCurrentCapacity(items.remove(index).getTotalWeight());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean contains(Item item) {
 		return findItem(item) != -1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean contains(Item item, int quantity) {
 		return findItem(item, quantity) != -1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean contains(ItemStack itemStack) {
 		return findItem(itemStack) != -1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ItemStack getItemStack(int index) {
 		return items.get(index);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ItemStack setItemStack(int index, ItemStack item) throws ArrayIndexOutOfBoundsException {
 		return items.set(index, item);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ItemStack[] getContent() {
 		return items.toArray(new ItemStack[items.size()]);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IItemStack[] getIContent() {
 		IItemStack[] iis = new IItemStack[getContent().length];
