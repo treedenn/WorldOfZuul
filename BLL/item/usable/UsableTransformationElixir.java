@@ -6,7 +6,14 @@ import BLL.character.player.Player;
 import BLL.character.player.buff.TransformationBuff;
 import BLL.item.Item;
 
+/**
+ * An {@link Usable} can be assigned to an item to give it functionality when {@link Item#use(Player, Game)} is invoked.
+ * This describes the functionality of the Transformation Elixir given by {@link BLL.character.npc.ProfessorPutricide}.
+ */
 public class UsableTransformationElixir implements Usable {
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean use(Item item, Player player, Game game) {
 		// TODO: add transformation buff to player.
