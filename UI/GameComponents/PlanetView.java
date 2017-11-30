@@ -2,6 +2,7 @@ package UI.GameComponents;
 
 import BLL.character.npc.NPC;
 import BLL.item.Item;
+import UI.SearchTask;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -9,16 +10,14 @@ import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
@@ -43,11 +42,17 @@ public class PlanetView {
     private ListView<Item> itemList;
     private ListView<NPC> NPCList;
     HBox listsWrapper;
+    private Task task;
 
 
 
     public PlanetView(AnchorPane parent){
         this.parent = parent;
+    }
+
+    public void landOnPlanet(String name, String description){
+        task = null;
+
         planetViewWrapper = new AnchorPane();
         planetViewInnerWrapper = new StackPane();
         headerWrapper = new StackPane();
@@ -59,11 +64,6 @@ public class PlanetView {
         itemList = new ListView<>();
         NPCList = new ListView<>();
         listsWrapper = new HBox();
-        layout();
-
-    }
-
-    public void layout(){
 
         scrollPane.setStyle("-fx-background-color: transparent;");
         planetViewInnerWrapper.setStyle("-fx-background-color: transparent;");
@@ -74,13 +74,16 @@ public class PlanetView {
         Label topLabel = new Label("YOU JUST LANDED ON");
         topLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14; -fx-font-family: 'Circular Std Book';");
 
-        Label planetName = new Label("J8 Ayrus Z420");
+        Label planetName = new Label(name);
         planetName.setStyle("-fx-text-fill: white; -fx-font-size: 60; -fx-font-family: 'Circular Std Black';");
 
         //-----
         Button button__leavePlanet = new Button();
         button__leavePlanet.setText("LEAVE PLANET");
         button__leavePlanet.getStyleClass().add("button__leavePlanet");
+        button__leavePlanet.setOnAction(event -> {
+            leavePlanet();
+        });
 
         VBox header = new VBox();
         header.setStyle("-fx-padding: 10px 0 70px 0;");
@@ -95,7 +98,7 @@ public class PlanetView {
         //-----
         Label descriptionTitle = new Label("About this planet");
         descriptionTitle.setStyle("-fx-text-fill: white; -fx-font-size: 18; -fx-font-family: 'Circular Std Medium';");
-        Label descriptionText = new Label("The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System. Uninhabitable planet, however it's possible to be on the planet with a suit. Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.");
+        Label descriptionText = new Label(description);
         descriptionText.setStyle("-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 18; -fx-font-family: 'Circular Std Book'; -fx-padding: 10px 0 25px 0;");
         descriptionText.setWrapText(true);
 
@@ -110,6 +113,11 @@ public class PlanetView {
         Button button__searchPlanet = new Button();
         button__searchPlanet.setText("SEARCH PLANET");
         button__searchPlanet.getStyleClass().add("button__searchPlanet");
+        ProgressBar barSearch = new ProgressBar();
+        barSearch.getStyleClass().add("searchProgress");
+        barSearch.setVisible(false);
+        button__searchPlanet.setContentDisplay(ContentDisplay.TEXT_ONLY);
+        button__searchPlanet.setGraphic(barSearch);
         HBox listsHeaderBar = new HBox(listsTitle, listHeaderSpacer, button__searchPlanet);
         listsHeaderBar.setHgrow(listHeaderSpacer, Priority.ALWAYS);
         listsHeaderBar.setAlignment(Pos.CENTER);
@@ -188,116 +196,76 @@ public class PlanetView {
             image.setOpacity(1 - (newValue.doubleValue()*20));
         });
 
+        // EVENT HANDLER FOR LEAVING PLANET
+        button__leavePlanet.setOnAction(event -> leavePlanet());
+
         // EVENT HANDLER FOR SEARCHING PLANET
         button__searchPlanet.setOnAction(event -> {
-            Timeline displayLists = new Timeline();
-            ArrayList<KeyFrame> keyFrames = new ArrayList<>();
-            keyFrames.add(new KeyFrame(Duration.millis(0), new KeyValue(itemList.opacityProperty(), 0, Interpolator.EASE_BOTH)));
-            keyFrames.add(new KeyFrame(Duration.millis(0), new KeyValue(itemList.translateYProperty(), 40, Interpolator.EASE_BOTH)));
-            keyFrames.add(new KeyFrame(Duration.millis(455), new KeyValue(itemList.opacityProperty(), 1, Interpolator.EASE_BOTH)));
-            keyFrames.add(new KeyFrame(Duration.millis(455), new KeyValue(itemList.translateYProperty(), 0, Interpolator.EASE_BOTH)));
-            keyFrames.add(new KeyFrame(Duration.millis(100), new KeyValue(NPCList.opacityProperty(), 0, Interpolator.EASE_BOTH)));
-            keyFrames.add(new KeyFrame(Duration.millis(100), new KeyValue(NPCList.translateYProperty(), 40, Interpolator.EASE_BOTH)));
-            keyFrames.add(new KeyFrame(Duration.millis(555), new KeyValue(NPCList.opacityProperty(), 1, Interpolator.EASE_BOTH)));
-            keyFrames.add(new KeyFrame(Duration.millis(555), new KeyValue(NPCList.translateYProperty(), 0, Interpolator.EASE_BOTH)));
-            displayLists.getKeyFrames().addAll(keyFrames);
 
-            listsWrapper.getChildren().clear();
-            listsWrapper.getChildren().addAll(itemList, NPCList);
-            listsWrapper.setHgrow(itemList, Priority.ALWAYS);
-            listsWrapper.setHgrow(NPCList, Priority.ALWAYS);
-            itemList.setOpacity(0);
-            NPCList.setOpacity(0);
-            itemList.getStyleClass().add("searchList");
-            NPCList.getStyleClass().add("searchList");
-            displayLists.play();
+            if(task == null || !task.isRunning()) {
+                task = new SearchTask(false);
+
+                barSearch.setPrefWidth(button__searchPlanet.getWidth() * 5.7/10);
+                barSearch.setVisible(true);
+                button__searchPlanet.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                button__searchPlanet.setText("");
+
+                // player.getCurrentPlanet().getPermSearched()
+                Thread th = new Thread(task);
+
+                barSearch.progressProperty().bind(task.progressProperty());
+                task.setOnSucceeded(event1 -> {
+                    button__searchPlanet.setContentDisplay(ContentDisplay.TEXT_ONLY);
+                    button__searchPlanet.setText("SEARCH PLANET");
+                    barSearch.setVisible(false);
+                    barSearch.setPrefWidth(0);
+
+                    Timeline displayLists = new Timeline();
+                    ArrayList<KeyFrame> keyFrames = new ArrayList<>();
+                    keyFrames.add(new KeyFrame(Duration.millis(0), new KeyValue(itemList.opacityProperty(), 0, Interpolator.EASE_BOTH)));
+                    keyFrames.add(new KeyFrame(Duration.millis(0), new KeyValue(itemList.translateYProperty(), 40, Interpolator.EASE_BOTH)));
+                    keyFrames.add(new KeyFrame(Duration.millis(455), new KeyValue(itemList.opacityProperty(), 1, Interpolator.EASE_BOTH)));
+                    keyFrames.add(new KeyFrame(Duration.millis(455), new KeyValue(itemList.translateYProperty(), 0, Interpolator.EASE_BOTH)));
+                    keyFrames.add(new KeyFrame(Duration.millis(100), new KeyValue(NPCList.opacityProperty(), 0, Interpolator.EASE_BOTH)));
+                    keyFrames.add(new KeyFrame(Duration.millis(100), new KeyValue(NPCList.translateYProperty(), 40, Interpolator.EASE_BOTH)));
+                    keyFrames.add(new KeyFrame(Duration.millis(555), new KeyValue(NPCList.opacityProperty(), 1, Interpolator.EASE_BOTH)));
+                    keyFrames.add(new KeyFrame(Duration.millis(555), new KeyValue(NPCList.translateYProperty(), 0, Interpolator.EASE_BOTH)));
+                    displayLists.getKeyFrames().addAll(keyFrames);
+
+                    listsWrapper.getChildren().clear();
+                    listsWrapper.getChildren().addAll(itemList, NPCList);
+                    listsWrapper.setHgrow(itemList, Priority.ALWAYS);
+                    listsWrapper.setHgrow(NPCList, Priority.ALWAYS);
+                    itemList.setOpacity(0);
+                    NPCList.setOpacity(0);
+                    itemList.getStyleClass().add("searchList");
+                    NPCList.getStyleClass().add("searchList");
+                    displayLists.play();
+
+                });
+
+                th.start();
+            }
+
         });
 
+    }
 
+    public void leavePlanet(){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-        planetViewInnerWrapper.getChildren().add(vbox);
-        vbox.setPrefWidth(650);
-        vbox.setMaxWidth(vbox.getPrefWidth());
-        vbox.setMinWidth(0);
-        vbox.setPrefHeight(500);
-        vbox.setMaxHeight(500);
-        vbox.setMinHeight(500);
-        //vbox.setStyle("-fx-background-color: rgba(255,255,255,0.1);");
-
-        image.setImage(new Image("/UI/resources/img/planetview/amrif arret.jpg"));
-
-        Rectangle2D viewportRect = new Rectangle2D(image.getImage().widthProperty().doubleValue()/4,image.getImage().heightProperty().doubleValue()/4, 650,250);
-        image.setViewport(viewportRect);
-
-        header.getChildren().addAll(planetName, headerSpacer, button__leavePlanet);
-        header.setHgrow(headerSpacer, Priority.ALWAYS);
-        header.setMinWidth(vbox.getPrefWidth());
-        header.setAlignment(Pos.CENTER);
-        button__leavePlanet.setText("LEAVE PLANET");
-        button__leavePlanet.getStyleClass().add("button__leavePlanet");
-        planetName.setStyle("-fx-text-fill: white; -fx-font-size: 60; -fx-font-family: 'Circular Std Black';");
-        Pane headerGradient = new Pane();
-        headerGradient.setMinWidth(parent.getWidth());
-        headerGradient.setStyle("-fx-background-color: linear-gradient(to top, #191919, rgba(0,0,0,0.2));");
-
-        headerWrapper.getChildren().addAll(image, headerGradient, header);
-
-        hbox.getChildren().addAll(itemList, NPCList);
-        Group scrollGroup = new Group(hbox, planetDescription);
-        scrollPane.setContent(scrollGroup);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        vbox.getChildren().addAll(headerWrapper, scrollPane);
-        vbox.widthProperty().addListener((observable, oldValue, newValue) -> {
-           headerWrapper.setPrefWidth(newValue.doubleValue());
-           headerWrapper.setMinWidth(newValue.doubleValue());
-           headerWrapper.setMaxWidth(newValue.doubleValue());
-           itemList.setPrefWidth(newValue.doubleValue()/2);
-           itemList.setMinWidth(newValue.doubleValue()/2);
-           itemList.setMaxWidth(newValue.doubleValue()/2);
-           NPCList.setPrefWidth(newValue.doubleValue()/2);
-           NPCList.setMinWidth(newValue.doubleValue()/2);
-           NPCList.setMaxWidth(newValue.doubleValue()/2);
-        });
-
-        planetName.setText("J8 Ayrus Z420");
-
-*/
-
-
-
-
-
+        parent.getChildren().remove(planetViewWrapper);
 
     }
 
 
+    /**
+     * Returns a new divider for layout purposes
+     * @return  AnchorPane
+     */
     private AnchorPane divider(){
         AnchorPane divider = new AnchorPane();
         divider.setStyle("-fx-border-color: #282828; -fx-border-width: 1 0 0 0;");
         return divider;
     }
-
-    private void searchPlanet(){
-
-    }
-
 
 }

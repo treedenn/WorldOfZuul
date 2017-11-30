@@ -27,6 +27,8 @@ public class Planet extends GameObject {
 
     private static List<Planet> planets = new ArrayList<>();
     private StackPane planetWrapper;
+    private String planetName;
+    private String description;
     private Label name;
     private Sphere sphere;
     PhongMaterial texture;
@@ -34,8 +36,10 @@ public class Planet extends GameObject {
     public Planet(IPlanet planet, Image diffuseMap){
 
         super(new StackPane());
+        this.description = planet.getDescription();
+        this.planetName = planet.getName();
         planetWrapper = (StackPane) getView();
-        this.name = new Label(planet.getName());
+        this.name = new Label(planetName);
         texture = new PhongMaterial();
         sphere = new Sphere(280);
 
@@ -55,6 +59,14 @@ public class Planet extends GameObject {
 
 
         planets.add(this);
+    }
+
+    public String getName() {
+        return planetName;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public static List<Planet> getPlanets() {
