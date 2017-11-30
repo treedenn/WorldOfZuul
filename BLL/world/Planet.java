@@ -22,7 +22,6 @@ public class Planet implements IPlanet {
     private List<ItemStack> itemList;
     private List<NPC> npcList;
 
-
     /* constructor for the planet class */
     public Planet(String name, String description, double x, double y) {
         this.name = name;
@@ -33,50 +32,81 @@ public class Planet implements IPlanet {
         this.searched = new boolean[] {false, false};
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return name;
     }
 
-    /* function to return the short description */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDescription() {
         return description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getArriveMessage() {
     	return "You arrived safely at " + getName() + ".";
     }
 
+    /**
+     * Gets a {@link Point2D} containing the coordinates (X and Y) of the planet.
+     * @return a point2D with coordinates
+     */
     public Point2D getCoordinates() {
         return coordinates;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getX() {
         return coordinates.getX();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getY() {
         return coordinates.getY();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean getTempSearched() {
         return searched[1];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setTemporarySearch(boolean value) {
         searched[1] = value;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean getPermSearched() {
         return searched[0];
     }
 
+    /**
+     * Sets the permanent search value.
+     * @param value the new value
+     */
     public void setPermanentSearch(boolean value) {
         searched[0] = value;
     }
@@ -86,10 +116,18 @@ public class Planet implements IPlanet {
 		return searched[0] && searched[1];
 	}
 
+    /**
+     * Adds the argument (item stack) to the planet.
+     * @param itemStack the item stack to add
+     */
     public void addItemStack(ItemStack itemStack) {
         itemList.add(itemStack);
     }
 
+    /**
+     * Removes the argument (item stack) from the planet.
+     * @param itemStack the item stack to remove
+     */
     public void removeItemStack(ItemStack itemStack) {
         int index = findItem(itemStack);
 
@@ -102,24 +140,27 @@ public class Planet implements IPlanet {
         }
     }
 
+    /**
+     * Gets the content of the planet in an array of {@link ItemStack}.
+     * @return the content of the planet
+     */
     public ItemStack[] getContent() {
     	return itemList.toArray(new ItemStack[itemList.size()]);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<NPC> getNPCs() {
         return npcList;
     }
 
-    public String[] getContentDescription(){
-        ItemStack[] itemsOnPlanet = this.getContent();
-        String[] contentDescription = new String[itemsOnPlanet.length];
-        for(int i = 0; i < itemsOnPlanet.length; i++) {
-            contentDescription[i] = String.format("[%d] %s", (1 + i), itemsOnPlanet[i].toString());
-        }
-        return contentDescription;
-    }
-
+    /**
+     * Looks for a specific item stack inside the planet's content.
+     * @param itemStack the item stack to look for
+     * @return the index where it is located
+     */
     private int findItem(ItemStack itemStack) {
         for(int i = 0; i < itemList.size(); i++) {
             ItemStack existingStack = itemList.get(i);
@@ -131,5 +172,4 @@ public class Planet implements IPlanet {
 
         return -1;
     }
-
 }

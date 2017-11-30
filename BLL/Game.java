@@ -43,9 +43,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Injects an object of the {@link Persistent} interface.
-	 * In additional it runs a few methods inside the persistent interface immediately.
-	 * @param persistent the object implementing {@link Persistent} interface.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void injectPersistent(Persistent persistent) {
@@ -56,9 +54,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Returns an object with {@link IPlayer}, which limits access of GUI.
-	 * The function comes from the {@link Domain} interface.
-	 * @return the player, but casted to {@link IPlayer}.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IPlayer getPlayer() {
@@ -66,9 +62,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Returns a map with all planets.
-	 * The key is a planet name and the value is a {@link Planet}.
-	 * @return a map of the planets and their associate names.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Map<String, IPlanet> getPlayerPlanets() {
@@ -76,9 +70,9 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Returns a reference to the message container.
-	 * @return the message container
+	 * {@inheritDoc}
 	 */
+	@Override
 	public MessageContainer getMessageContainer() {
 		return messageContainer;
 	}
@@ -124,10 +118,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Use to determine whether the player has given a correct answer from the GUI.
-	 * Is invoked by GUI when an answer is given from the player.
-	 * @param index is the answer of the multiple choice (exclude 0).
-	 * @return a boolean whether the answer is true or not.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean isAnswerCorrect(int index) {
@@ -135,8 +126,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Gets the {@link BLL.character.player.Quiz} object as {@link IQuiz} to limit the functionality in GUI.
-	 * @return returns the current quiz in play.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IQuiz getQuiz() {
@@ -145,29 +135,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * If the itemstack's item is usable with {@link Item#hasUsable()} function,
-	 * it will trigger the {@link Item#use(Player, Game)} function.
-	 * @param iis the item stack containing the item.
-	 * @return true, if it has a usable, false if it does not.
-	 */
-	@Override
-	public boolean useItem(IItemStack iis) {
-		if(iis.getIItem() instanceof Item) {
-			Item i = (Item) iis.getIItem();
-
-			if(i.hasUsable()) {
-				i.use(player, this);
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Use to determine the search state of the planet {@link SearchPlanetState}.
-	 * In addition, it sets the permanent/temporary search of the current planet.
-	 * @return the state given by the enum
+	 * {@inheritDoc}
 	 */
 	@Override
 	public SearchPlanetState searchPlanet() {
@@ -189,9 +157,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * It loops through the buff list of the player.
-	 * On each buff, it triggers {@link Buff#onGameTick(Player)}
-	 * and {@link Buff#isExpired()}, if true, removes the buff.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void updateBuffs() {
@@ -210,10 +176,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * It triggers the start event of the action inside a specific NPC.
-	 * At every action, the GUI must invoke this function first before doing anything.
-	 * @param npc is the specific NPC for interaction
-	 * @param actionId is the specific action of the NPC
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void startInteract(NPC npc, int actionId) {
@@ -224,10 +187,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * It triggers the end event of the action inside specific NPC.
-	 * At every action, the GUI must invoke this function last.
-	 * @param npc is the specific NPC for interaction
-	 * @param actionId is the specific action of the NPC
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void endInteract(NPC npc, int actionId) {
@@ -298,9 +258,24 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Picks an itemstack and sends it to the player's inventory.
-	 * @param iis the item stack to add to the inventory
-	 * @return true, if successful
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean useItem(IItemStack iis) {
+		if(iis.getIItem() instanceof Item) {
+			Item i = (Item) iis.getIItem();
+
+			if(i.hasUsable()) {
+				i.use(player, this);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean pickupItem(IItemStack iis) {
@@ -322,9 +297,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Drops an itemstack from the player's inventory to the current planet.
-	 * @param iis the item stack to drop from the inventory
-	 * @return true, if successful
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean dropItem(IItemStack iis) {
@@ -346,9 +319,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Moves the player to the specified planet.
-	 * @param planetName the name of planet
-	 * @return an enum based on the what happen {@link MovePlayerState}
+	 * {@inheritDoc}
 	 */
 	@Override
 	public MovePlayerState movePlayerToPlanet(String planetName) {
@@ -370,8 +341,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * An method to decrease fuel when moving,
-	 * if decrease of fuel on move is desired.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void decreaseFuelOnMove(int ticksPerSecond) {
@@ -417,8 +387,7 @@ public class Game implements Domain {
 	// TODO: Perhaps change boolean to int to get the direct location
 
 	/**
-	 * Checks whether a player has beaten any highscore.
-	 * @return true, if player has beaten a highscore.
+	 * @inheritDoc
 	 */
 	@Override
 	public boolean hasBeatenHighscore() {
@@ -435,9 +404,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Adds a player to the highscore, sorts the list,
-	 * removes the 'unused' one and saves the highscore.
-	 * @param playerName the name of the player
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void addPlayerToHighscore(String playerName) {
@@ -450,8 +417,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Gets the current highscore list as {@link IScore}.
-	 * @return the highscore list
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<IScore> getHighscore() {
