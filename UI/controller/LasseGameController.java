@@ -118,17 +118,18 @@ public class LasseGameController implements Initializable {
         configFuelBar();
         configBackpackBar();
         configHoverLabel();
-        //configPlanetView();
+        configPlanetView();
 
         wrapper.setStyle("-fx-background-color: #081519;");
 
 
-
-
-       innersceneHandler = new Innerscene(subScene, stage);
+        innersceneHandler = new Innerscene(subScene, stage);
         innersceneHandler.getSubScene().heightProperty().bind(subsceneWrapper.heightProperty());
         innersceneHandler.getSubScene().widthProperty().bind(subsceneWrapper.widthProperty());
         innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
+
+
+        wrapper.requestFocus();
 
         planetCollisions = new boolean[Planet.getPlanets().size()];
 
@@ -140,6 +141,15 @@ public class LasseGameController implements Initializable {
         };
         stage.widthProperty().addListener(stageSizeListener);
         stage.heightProperty().addListener(stageSizeListener);
+
+
+        // CONSUME SPACE KEYEVENT
+        wrapper.addEventFilter(KeyEvent.KEY_PRESSED, key ->{
+            if(key.getCode() == KeyCode.SPACE){
+                key.consume();
+                landOnPlanet();
+            }
+        });
 
 
 
@@ -195,6 +205,11 @@ public class LasseGameController implements Initializable {
         }
     }
 
+    void landOnPlanet(){
+        planetViewHandler.leavePlanet();
+        planetViewHandler.landOnPlanet("Testplanet", "Dette er en test");
+    }
+
     @FXML
     void keyIsReleased(KeyEvent event) {
         if(event.getCode() == KeyCode.A){
@@ -235,7 +250,7 @@ public class LasseGameController implements Initializable {
         miniMapHandler.update();
 
         int count = 0;
-        for(GameObject planet : Planet.getPlanets()) {
+        for(Planet planet : Planet.getPlanets()) {
             if (planet.isColliding(innersceneHandler.getPlayer())) {
                 planetCollisions[count] = true;
             } else{
