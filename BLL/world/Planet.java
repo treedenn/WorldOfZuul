@@ -89,7 +89,8 @@ public class Planet implements IPlanet {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the temporary search to a new value.
+     * @param value the new value
      */
     public void setTemporarySearch(boolean value) {
         searched[1] = value;

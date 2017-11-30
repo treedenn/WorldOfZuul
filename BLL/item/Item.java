@@ -49,7 +49,8 @@ public class Item implements IItem, Cloneable {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sets the description of item.
+	 * @param description the new description
 	 */
 	public void setDescription(String description) {
 		this.description = description;
