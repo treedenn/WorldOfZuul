@@ -10,15 +10,12 @@ import BLL.item.ItemStack;
 import BLL.scoring.Score;
 import BLL.scoring.ScoreHandler;
 import BLL.world.Planet;
-import UI.ConsoleView;
-import UI.command.CommandWord;
 
 import java.util.*;
 
 public class Game implements Domain {
 	private static Game INSTANCE;
 
-	private ConsoleView view;
 	private Persistent model;
 	private UsableHandler usableHandler;
 
@@ -31,7 +28,6 @@ public class Game implements Domain {
 	private MessageContainer messageContainer;
 
 	private Game() {
-		view = new ConsoleView();
 		usableHandler = new UsableHandler();
 
 		finished = false;
@@ -430,8 +426,8 @@ public class Game implements Domain {
 			"",
 			"Welcome to the ridicoulous Rick & Morty spinoff!",
 			"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
-			"[Type '" + CommandWord.HELP + "' if you need help]",
-            "[Type '" + CommandWord.INFO + "' if you need more information]",
+			"[Type '" + /*CommandWord.HELP + */ "' if you need help]",
+            "[Type '" + /*CommandWord.INFO + */ "' if you need more information]",
 			"",
 		};
 	}
@@ -459,17 +455,6 @@ public class Game implements Domain {
             "--------------",
         };
     }
-
-	/* function to print the help section */
-	private String[] helpMessage() {
-		return new String[] {
-				"You are lost. You are alone.",
-				"You wander around in the universe.",
-				"",
-				"Your command words are:",
-				view.getParser().getAllCommands()
-		};
-	}
 
 	private String[] argumentMessage(String usage) {
 		return new String[]{
@@ -507,7 +492,6 @@ public class Game implements Domain {
 			sb.append("Out of 5 stars ").append("you earned: ").append(earnedStars).append("\n");
 			sb.append("--------------------------------------------------------");
 
-			view.println(sb.toString());
 		} else{
 			sb.append("---------------------- GAME OVER! ----------------------\n");
 			if(player.isFuelEmpty()){
@@ -516,8 +500,6 @@ public class Game implements Domain {
 			/*sb.append("If you want to play again - type '" + CommandWord.RESTART + "'\n");
 			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");*/
 			sb.append("--------------------------------------------------------");
-
-			view.println(sb.toString());
 		}
 	}
 
