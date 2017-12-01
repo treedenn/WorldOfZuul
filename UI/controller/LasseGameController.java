@@ -122,7 +122,6 @@ public class LasseGameController implements Initializable {
         configPlanetView();
         //configDialog();
 
-        dialogHandler.showDialog();
 
         wrapper.setStyle("-fx-background-color: #081519;");
 
