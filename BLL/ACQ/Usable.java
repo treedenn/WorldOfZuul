@@ -4,6 +4,9 @@ import BLL.Game;
 import BLL.character.player.Player;
 import BLL.item.Item;
 
+/**
+ * A {@link Usable} can be assigned to an item to give it functionality when {@link Item#use(Player, Game)} is invoked.
+ */
 public interface Usable {
 	/**
 	 * Whenever an item is used, this is the function that will be invoked.
