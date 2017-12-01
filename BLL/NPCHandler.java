@@ -6,13 +6,18 @@ import BLL.character.npc.SpacePirate;
 import BLL.character.npc.actions.ProfessorPutricideAction;
 import BLL.character.npc.UnoX;
 
+/**
+ * Handles all the functions to NPCs (No Player Characters) within the game.
+ * It contains all the references and all the get methods.
+ * In addition it sets the needed {@link BLL.character.npc.actions.NPCActionCollection} to each NPC.
+ */
 public class NPCHandler {
 	private Blacksmith blacksmith;
 	private ProfessorPutricide professorPutricide;
 	private UnoX unoX;
 	private SpacePirate pirate;
 
-	public NPCHandler() {
+	NPCHandler() {
 		blacksmith = new Blacksmith();
 		professorPutricide = new ProfessorPutricide();
 		unoX = new UnoX();
@@ -21,22 +26,41 @@ public class NPCHandler {
 		initActions();
 	}
 
+	/**
+	 * Inits all the actions to the NPCs.
+	 */
 	private void initActions() {
 		professorPutricide.setActions(new ProfessorPutricideAction());
 	}
 
+	/**
+	 * Gets the Blacksmith NPC.
+	 * @return the blacksmith
+	 */
 	public Blacksmith getBlacksmith() {
 		return blacksmith;
 	}
 
+	/**
+	 * Gets the Professor Putricide NPC.
+	 * @return the professor putricide
+	 */
 	public ProfessorPutricide getProfessorPutricide() {
 		return professorPutricide;
 	}
 
+	/**
+	 * Gets the Pirate NPC.
+	 * @return the pirate
+	 */
 	public SpacePirate getPirate() {
 		return pirate;
 	}
 
+	/**
+	 * Gets the UnoX NPC.
+	 * @return the unox
+	 */
 	public UnoX getUnoX() {
 		return unoX;
 	}

@@ -5,6 +5,9 @@ import BLL.ACQ.Usable;
 import BLL.Game;
 import BLL.character.player.Player;
 
+/**
+ * Any item inside the game derives from Item.
+ */
 public class Item implements IItem, Cloneable {
 	private String name;
 	private String description;

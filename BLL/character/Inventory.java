@@ -3,6 +3,10 @@ package BLL.character;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 
+/**
+ * Creating a new inventory, this interface has to be implemented.
+ * It describes the general and necessary function to an inventory.
+ */
 public interface Inventory {
 	/**
 	 * Gets the max capacity an inventory can have.
