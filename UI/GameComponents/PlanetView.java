@@ -153,7 +153,7 @@ public class PlanetView {
         scrollPane.setContent(planetViewInnerWrapper);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
-        scrollPane.getStyleClass().add("planet-view__scroll-pane");
+        scrollPane.getStyleClass().add("view__scroll-pane");
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPannable(true);
 

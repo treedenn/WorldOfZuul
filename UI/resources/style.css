@@ -359,24 +359,24 @@ body{
     -fx-background-color: linear-gradient(to top, #121212, rgba(18,18,18,0));
 }
 
-.planet-view__scroll-pane .scroll-bar:horizontal, .planet-view__scroll-pane .scroll-bar:vertical{
+.view__scroll-pane .scroll-bar:horizontal, .view__scroll-pane .scroll-bar:vertical{
     -fx-background-color:#181818;
 }
 
-. planet-view__scroll-pane .increment-button, .planet-view__scroll-pane .decrement-button {
+.view__scroll-pane .increment-button, .view__scroll-pane .decrement-button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
-.planet-view__scroll-pane .scroll-bar:horizontal .track,
-.planet-view__scroll-pane .scroll-bar:vertical .track{
+.view__scroll-pane .scroll-bar:horizontal .track,
+.view__scroll-pane .scroll-bar:vertical .track{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-radius: 0em;
 }
 
-.planet-view__scroll-pane .scroll-bar:horizontal .thumb,
-.planet-view__scroll-pane .scroll-bar:vertical .thumb {
+.view__scroll-pane .scroll-bar:horizontal .thumb,
+.view__scroll-pane .scroll-bar:vertical .thumb {
     -fx-background-color: #535353;
     -fx-background-radius: 0;
 }
@@ -435,12 +435,43 @@ body{
 
 }
 
+.choiceButton{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-color: #2979FF;
+    -fx-background-radius: 3px;
+    -fx-border-color: transparent;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-padding: 12px 0;
+}
 
+.choiceButton:hover{
+    -fx-background-color: #448AFF;
+}
 
+.choiceButton:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
 
+.button__dialog-exit{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-color: #ed2931;
+    -fx-background-radius: 3px;
+    -fx-border-color: transparent;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-padding: 12px 0;
+}
 
+.button__dialog-exit:hover{
+    -fx-background-color: #f95a3e;
+}
 
-
+.button__dialog-exit:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
 
 
 

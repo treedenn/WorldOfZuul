@@ -1,11 +1,17 @@
 package UI.GameComponents;
 
 import com.sun.javafx.geom.Ellipse2D;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+
+import java.util.ArrayList;
 
 
 public class Dialog {
@@ -18,6 +24,12 @@ public class Dialog {
     private String imagePath;
     private Pane image;
     private Label name;
+    private VBox dialog;
+    private Label NPCMessage;
+    private VBox choicesVBox;
+    private Button exit;
+    private ScrollPane choicesScrollPane;
+    private VBox choices;
 
 
     public Dialog (AnchorPane parent){
@@ -32,7 +44,12 @@ public class Dialog {
         imagePath = "./UI/resources/img/nps/unoX.png";
         image = new Pane();
         name = new Label();
-
+        dialog = new VBox();
+        NPCMessage = new Label('"' + "Dette er NPC'ens message" + '"');
+        choicesVBox = new VBox();
+        exit = new Button();
+        choicesScrollPane = new ScrollPane();
+        choices = new VBox();
 
 
         NPCrepresentation.getChildren().addAll(image, name);
@@ -43,11 +60,46 @@ public class Dialog {
         image.setMinWidth(200);
         NPCrepresentation.setSpacing(30);
 
-        dialogHbox.getChildren().add(NPCrepresentation);
+        choices.getChildren().addAll(new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"),new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("A THIRD OPTION"));
+        for (Node node : choices.getChildren()) {
+            node.getStyleClass().add("choiceButton");
+        }
+
+        choicesScrollPane.setContent(choices);
+        choicesScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        choicesScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        choicesScrollPane.getStyleClass().add("view__scroll-pane");
+        choicesScrollPane.setStyle("-fx-background-color: transparent;");
+        choicesScrollPane.setFitToWidth(true);
+        choices.setSpacing(15);
+        choices.setFillWidth(true);
+        choices.setAlignment(Pos.CENTER);
+
+        choicesVBox.getChildren().addAll(choicesScrollPane, exit);
+        choicesVBox.setAlignment(Pos.TOP_LEFT);
+        choicesVBox.setFillWidth(true);
+        choicesVBox.setSpacing(30);
+        exit.setMinWidth(choicesScrollPane.getWidth());
+        exit.setText("LEAVE THIS DIALOG");
+        exit.getStyleClass().add("button__dialog-exit");
+
+        dialog.getChildren().addAll(NPCMessage, choicesVBox);
+        dialog.setSpacing(30);
+        NPCMessage.setStyle("-fx-text-fill: white; -fx-font-size: 18; -fx-font-family: 'Circular Std Book';");
+        dialog.widthProperty().addListener((observable, oldValue, newValue) -> {
+            exit.setPrefWidth(newValue.doubleValue() - 76);
+            ObservableList<Button> children = (ObservableList)choices.getChildren();
+            for (Button child : children) {
+                child.setPrefWidth(newValue.doubleValue());
+            }
+        });
+
+        dialogHbox.getChildren().addAll(NPCrepresentation, dialog);
+        dialogHbox.setHgrow(dialog, Priority.ALWAYS);
+        dialog.setStyle("-fx-padding: 30px;");
 
         dialogViewInnerWrapper.getChildren().add(dialogHbox);
         dialogViewInnerWrapper.setAlignment(Pos.TOP_CENTER);
-        dialogHbox.setStyle("-fx-border-color: yellow;");
         dialogHbox.setMaxWidth(800);
 
         dialogViewWrapper.getChildren().add(dialogViewInnerWrapper);

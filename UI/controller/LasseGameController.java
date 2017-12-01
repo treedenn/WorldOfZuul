@@ -120,10 +120,9 @@ public class LasseGameController implements Initializable {
         configBackpackBar();
         configHoverLabel();
         configPlanetView();
-        configDialog();
+        //configDialog();
 
-        // Rasmus
-        //dialogHandler.showDialog();
+        dialogHandler.showDialog();
 
         wrapper.setStyle("-fx-background-color: #081519;");
 
