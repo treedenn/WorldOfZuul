@@ -106,7 +106,7 @@ public class Item implements IItem, Cloneable {
 	 * @return true, if usable could trigger
 	 */
 	public boolean use(Player player, Game game) {
-		return usable != null && usable.use(this, player, game);
+		return hasUsable() && usable.use(this, player, game);
 	}
 
 	/**

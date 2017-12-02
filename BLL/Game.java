@@ -110,6 +110,7 @@ public class Game implements Domain {
 		//addCluesToPlanets();
         trapped = true;
 
+        // TODO: remove temp statement when testing is done.
         player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
 	}
 
@@ -134,22 +135,26 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public SearchPlanetState searchPlanet() {
+	public boolean searchPlanet() {
+		boolean isSearching = false;
+		String message;
+
 		if(player.getCurrentPlanet().getTempSearched()) {
-			messageContainer.setMessage(model.getMessage("planet-search-already"));
-			return SearchPlanetState.ALREADY_SEARCHED;
+			message = model.getMessage("planet-search-already");
 		} else {
 			player.getCurrentPlanet().setPermanentSearch(true);
 			player.getCurrentPlanet().setTemporarySearch(true);
+			isSearching = true;
 
 			if(player.samePlanet(npcHandler.getBlacksmith().getCurrentPlanet())) {
-				messageContainer.setMessage(model.getMessage("planet-search-blacksmith"));
-				return SearchPlanetState.BLACKSMITH;
+				message = model.getMessage("planet-search-blacksmith");
+			} else {
+				message = model.getMessage("planet-search-nothing");
 			}
 		}
 
-		messageContainer.setMessage(model.getMessage("planet-search-nothing"));
-		return SearchPlanetState.NOTHING;
+		messageContainer.setMessage(message);
+		return isSearching;
 	}
 
 	/**
@@ -258,16 +263,25 @@ public class Game implements Domain {
 	 */
 	@Override
 	public boolean useItem(IItemStack iis) {
+		boolean isUsed = false;
+		String message = null;
+
 		if(iis.getIItem() instanceof Item) {
 			Item i = (Item) iis.getIItem();
 
 			if(i.hasUsable()) {
 				i.use(player, this);
-				return true;
+
+				isUsed = true;
+				message = replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
+			} else {
+				message = replacePlaceHolders(model.getMessage("item-use-not-usable"), "{ITEM}", i.getName());
 			}
 		}
 
-		return false;
+		messageContainer.setMessage(message);
+
+		return isUsed;
 	}
 
 	/**
@@ -275,21 +289,36 @@ public class Game implements Domain {
 	 */
 	@Override
 	public boolean pickupItem(IItemStack iis) {
-		if(player.getCurrentPlanet().getPermSearched()) {
-			if(iis.getIItem().isPickupable()) {
-				Inventory bp = player.getInventory();
-				ItemStack is = (ItemStack) iis;
+		boolean isPickedUp = false;
+		String message = null;
 
-				if(bp.add(is)) {
-					player.getCurrentPlanet().removeItemStack(is);
-					messageContainer.setMessage(model.getMessage("item-pickup-successful"));
-					return true;
+		if(player.getCurrentPlanet().getPermSearched()) {
+			if(iis instanceof ItemStack) {
+				ItemStack is = (ItemStack) iis;
+				Item item = is.getItem();
+
+				if(item.isPickupable()) {
+					Inventory bp = player.getInventory();
+
+					if(bp.add(is)) {
+						player.getCurrentPlanet().removeItemStack(is);
+
+						isPickedUp = true;
+						message = replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
+					} else {
+						message = replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
+					}
+				} else {
+					message = replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
 				}
 			}
+		} else {
+			message = model.getMessage("planet-search-require");
 		}
 
-		messageContainer.setMessage(model.getMessage("item-pickup-denied"));
-		return false;
+		messageContainer.setMessage(message);
+
+		return isPickedUp;
 	}
 
 	/**
@@ -297,42 +326,62 @@ public class Game implements Domain {
 	 */
 	@Override
 	public boolean dropItem(IItemStack iis) {
-		if(player.getCurrentPlanet().getPermSearched()) {
-			if(iis.getIItem().isDropable()) {
-				Inventory bp = player.getInventory();
-				ItemStack is = (ItemStack) iis;
+		boolean isDropped = false;
+		String message = null;
 
-				if(bp.remove(is)) {
-					player.getCurrentPlanet().addItemStack(is);
-					messageContainer.setMessage(model.getMessage("item-drop-successful"));
-					return true;
+		if(player.getCurrentPlanet().getPermSearched()) {
+			if(iis instanceof ItemStack) {
+				ItemStack is = (ItemStack) iis;
+				Item item = is.getItem();
+
+				if(item.isDropable()) {
+					Inventory bp = player.getInventory();
+
+					if(bp.remove(is)) {
+						player.getCurrentPlanet().addItemStack(is);
+
+						isDropped = true;
+						message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName());
+					} else {
+						message = replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName());
+					}
+				} else {
+					message = replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName());
 				}
 			}
+		} else {
+			message = model.getMessage("planet-search-require");
 		}
 
-		messageContainer.setMessage(model.getMessage("item-drop-denied"));
-		return false;
+		messageContainer.setMessage(message);
+
+		return isDropped;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public MovePlayerState movePlayerToPlanet(String planetName) {
+	public boolean movePlayerToPlanet(String planetName) {
 		planetName = planetName.toLowerCase();
 
 		Map<String, Planet> planets = player.getPlanets();
 
 		if(!planets.containsKey(planetName)) {
-			return MovePlayerState.NOT_VALID;
+			messageContainer.setMessage(model.getMessage("player-move-not-valid"));
+
+			return false;
 		} else if(player.samePlanet(planets.get(planetName))) {
-			return MovePlayerState.SAME_PLANET;
+			messageContainer.setMessage(model.getMessage("player-move-same-planet"));
+
+			return false;
 		} else {
 			player.go(planetName);
 			player.decreaseFuel(10);
 			player.getCurrentPlanet().setTemporarySearch(false);
+			messageContainer.setMessage(model.getMessage("player-move-successful"));
 
-			return MovePlayerState.SUCCESS;
+			return true;
 		}
 	}
 
@@ -406,10 +455,12 @@ public class Game implements Domain {
 	public void addPlayerToHighscore(String playerName) {
 		int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
 		List<Score> scores = model.getHighscore();
-		scores.add(new Score(playerName, points));
-		Collections.sort(scores);
-		scores.remove(scores.size() - 1);
-		model.saveHighscore();
+
+		if(scores.add(new Score(playerName, points))) {
+			Collections.sort(scores);
+			scores.remove(scores.size() - 1);
+			model.saveHighscore();
+		}
 	}
 
 	/**
@@ -456,13 +507,6 @@ public class Game implements Domain {
         };
     }
 
-	private String[] argumentMessage(String usage) {
-		return new String[]{
-				"You have entered too many arguments!",
-				"Usage: " + usage
-		};
-	}
-
 	private boolean allTrue(boolean[] booleans) {
 		for(boolean b : booleans) {
 			if(!b) { return false; }
@@ -501,6 +545,29 @@ public class Game implements Domain {
 			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");*/
 			sb.append("--------------------------------------------------------");
 		}
+	}
+
+	/**
+	 * Sets a message from a key to the {@link MessageContainer}.
+	 * Invoked by components within the business layer.
+	 * @param key a signature/key from the localization database.
+	 */
+	public void setMessageToContainer(String key) {
+		messageContainer.setMessage(model.getMessage(key));
+	}
+
+
+	public String replacePlaceHolders(String text, String ... strings) {
+		if(strings.length % 2 == 1) { return null; }
+
+		StringBuilder sb = new StringBuilder();
+
+		for(int i = 0; i < strings.length / 2; i++) {
+			sb.insert(0, text.replace(strings[i * 2], strings[i * 2 + 1]).toCharArray());
+			System.out.println(sb.toString());
+		}
+
+		return sb.toString();
 	}
 
 	/**

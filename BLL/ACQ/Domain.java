@@ -43,9 +43,9 @@ public interface Domain {
 	/**
 	 * Moves the player to the specified planet.
 	 * @param planetName the name of planet
-	 * @return an enum based on the what happen {@link MovePlayerState}
+	 * @return true, if player moved
 	 */
-	MovePlayerState movePlayerToPlanet(String planetName);
+	boolean movePlayerToPlanet(String planetName);
 
 	/**
 	 * Gets the current highscore list as {@link IScore}.
@@ -105,11 +105,10 @@ public interface Domain {
 	boolean dropItem(IItemStack iis);
 
 	/**
-	 * Use to determine the search state of the planet {@link SearchPlanetState}.
-	 * In addition, it sets the permanent/temporary search of the current planet.
-	 * @return the state given by the enum
+	 * Ignites the search. It sets the permanent/temporary search of the current planet.
+	 * @return true, if search
 	 */
-	SearchPlanetState searchPlanet();
+	boolean searchPlanet();
 
 	/**
 	 * An method to decrease fuel when moving,
