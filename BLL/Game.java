@@ -2,6 +2,7 @@ package BLL;
 
 import BLL.ACQ.*;
 import BLL.character.Inventory;
+import BLL.character.npc.Blacksmith;
 import BLL.character.npc.NPC;
 import BLL.character.player.Player;
 import BLL.character.player.buff.Buff;
@@ -139,18 +140,18 @@ public class Game implements Domain {
 		boolean isSearching = false;
 		String message;
 
-		if(player.getCurrentPlanet().getTempSearched()) {
+		Planet currentPlanet = player.getCurrentPlanet();
+
+		if(currentPlanet.getTempSearched()) {
 			message = model.getMessage("planet-search-already");
 		} else {
 			player.getCurrentPlanet().setPermanentSearch(true);
 			player.getCurrentPlanet().setTemporarySearch(true);
 			isSearching = true;
 
-			if(player.samePlanet(npcHandler.getBlacksmith().getCurrentPlanet())) {
-				message = model.getMessage("planet-search-blacksmith");
-			} else {
-				message = model.getMessage("planet-search-nothing");
-			}
+			String bsKey = npcHandler.getBlacksmith().getVisitState(currentPlanet.getName()).getKey();
+
+			message = model.getMessage(bsKey);
 		}
 
 		messageContainer.setMessage(message);
@@ -280,7 +281,6 @@ public class Game implements Domain {
 		}
 
 		messageContainer.setMessage(message);
-
 		return isUsed;
 	}
 
@@ -317,7 +317,6 @@ public class Game implements Domain {
 		}
 
 		messageContainer.setMessage(message);
-
 		return isPickedUp;
 	}
 
@@ -354,7 +353,6 @@ public class Game implements Domain {
 		}
 
 		messageContainer.setMessage(message);
-
 		return isDropped;
 	}
 
@@ -363,26 +361,28 @@ public class Game implements Domain {
 	 */
 	@Override
 	public boolean movePlayerToPlanet(String planetName) {
+		boolean playerIsMoving = false;
+		String message;
+
 		planetName = planetName.toLowerCase();
 
 		Map<String, Planet> planets = player.getPlanets();
 
 		if(!planets.containsKey(planetName)) {
-			messageContainer.setMessage(model.getMessage("player-move-not-valid"));
-
-			return false;
+			message = model.getMessage("player-move-not-valid");
 		} else if(player.samePlanet(planets.get(planetName))) {
-			messageContainer.setMessage(model.getMessage("player-move-same-planet"));
-
-			return false;
+			message = model.getMessage("player-move-same-planet");
 		} else {
 			player.go(planetName);
 			player.decreaseFuel(10);
 			player.getCurrentPlanet().setTemporarySearch(false);
-			messageContainer.setMessage(model.getMessage("player-move-successful"));
 
-			return true;
+			playerIsMoving = true;
+			message = model.getMessage("player-move-successful");
 		}
+
+		messageContainer.setMessage(message);
+		return playerIsMoving;
 	}
 
 	/**
