@@ -8,6 +8,9 @@ import DAL.yaml.YamlObject;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Handles the highscore. It saves and loads the highscore.
+ */
 class HighscoreHandler implements Savable, Loadable {
 	private List<Score> highscore;
 
@@ -15,10 +18,17 @@ class HighscoreHandler implements Savable, Loadable {
 		this.highscore = null;
 	}
 
+	/**
+	 * Gets the highscore list.
+	 * @return the list of scores
+	 */
 	List<Score> getHighscore() {
 		return highscore;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void load() throws FileNotFoundException {
 		YamlObject parser = new YamlObject(new File("./src/DAL/resource/highscore.yaml"));
@@ -40,6 +50,9 @@ class HighscoreHandler implements Savable, Loadable {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void save() throws IOException {
 		File file = new File("./src/DAL/resource/highscore.yaml");
