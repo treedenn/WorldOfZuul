@@ -12,7 +12,9 @@ import java.util.*;
  * @version 2006.03.30
  */
 
-/* class for a planet */
+/**
+ * A Planet is a room/place in the game.
+ */
 public class Planet implements IPlanet {
     /* variables for the room class */
     private String name;

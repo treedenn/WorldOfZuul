@@ -13,7 +13,7 @@ import BLL.character.player.Player;
 import BLL.item.Item;
 
 /**
- *
+ * Describes the actions of the Blacksmith NPC.
  * @author lalal
  */
 public class BlacksmithAction implements NPCActionCollection {
@@ -56,6 +56,7 @@ public class BlacksmithAction implements NPCActionCollection {
             }
         };
     }
+
 
     @Override
     public INPCAction[] getActions() {

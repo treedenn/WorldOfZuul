@@ -6,7 +6,10 @@ import BLL.world.Planet;
 
 import java.util.Map;
 
-public abstract class ConcreteNPC {
+/**
+ * An concrete NPC object, the base of all NPCs.
+ */
+public abstract class ConcreteNPC implements NPC {
     private Planet currentPlanet;
     private Map<String, Planet> planets;
     private NPCActionCollection actionCollection;
@@ -24,10 +27,12 @@ public abstract class ConcreteNPC {
         this.currentPlanet = p;
     }
 
+    @Override
     public INPCAction[] getActions() {
         return actionCollection.getActions();
     }
 
+    @Override
     public void setActions(NPCActionCollection actions) {
         this.actionCollection = actions;
     }

@@ -4,6 +4,10 @@ import BLL.ACQ.IScore;
 
 import java.io.Serializable;
 
+/**
+ * Score contains information for the highscore.
+ * It contains a name and a score.
+ */
 public class Score implements IScore, Serializable, Comparable<Score> {
     private String name;
     private int score;
