@@ -1,7 +1,8 @@
 package BLL.ACQ;
 
 /**
- * IItemStack is used to limit the functionality for the GUI.
+ * Limits the functionality of {@link BLL.item.ItemStack}.
+ * Casted from ItemStack and sent to the GUI.
  */
 public interface IItemStack {
 	/**

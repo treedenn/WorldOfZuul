@@ -4,6 +4,10 @@ import BLL.character.npc.NPC;
 
 import java.util.List;
 
+/**
+ * Limits the functionality of {@link BLL.world.Planet}.
+ * Casted from Planet and sent to the GUI.
+ */
 public interface IPlanet {
 
 	/**

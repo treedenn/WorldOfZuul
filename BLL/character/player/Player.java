@@ -35,8 +35,7 @@ public class Player extends Character implements IPlayer {
 	}
 
 	/**
-	 * Returns a boolean on whether the fuel is empty or not.
-	 * @return true, if fuel is empty
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean isFuelEmpty() {
@@ -45,15 +44,14 @@ public class Player extends Character implements IPlayer {
 
 	/**
 	 * Returns the interface Inventory of the player.
-	 * @return Inventory interface of the player.
+	 * @return Inventory of the player.
 	 */
 	public Inventory getInventory() {
 		return inventory;
 	}
 
 	/**
-	 * Returns the interface IInventory, which is used to limit the functionality of the GUI.
-	 * @return IInventory interface of the player.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IInventory getIInventory() {
@@ -87,8 +85,7 @@ public class Player extends Character implements IPlayer {
 	}
 
 	/**
-	 * Returns the amount of fuel the player has.
-	 * @return the amount the fuel.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public double getFuel() {
@@ -96,8 +93,7 @@ public class Player extends Character implements IPlayer {
 	}
 
 	/**
-	 * Returns the maximal fuel the player can have.
-	 * @return an integer of maximum fuel.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int getMaxFuel() {
@@ -143,9 +139,7 @@ public class Player extends Character implements IPlayer {
 	}
 
 	/**
-	 * Returns the id of morph the player currently has.
-	 * The default value is -1 (being Rick).
-	 * @return an integer of the current morph id.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int getMorphId() {

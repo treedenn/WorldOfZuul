@@ -1,5 +1,9 @@
 package BLL.ACQ;
 
+/**
+ * Limits the functionality of {@link BLL.item.Item}.
+ * Casted from Item and sent to the GUI.
+ */
 public interface IItem {
 	/**
 	 * Gets the name of the item.

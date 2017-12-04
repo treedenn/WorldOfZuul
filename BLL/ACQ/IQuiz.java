@@ -1,7 +1,8 @@
 package BLL.ACQ;
 
 /**
- * IQuiz limits the functionality granted when working with {@link BLL.character.player.Quiz}.
+ * Limits the functionality of {@link BLL.character.player.Quiz}.
+ * Casted from Quiz and sent to the GUI.
  */
 public interface IQuiz {
     /**
