@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Handles the quizzes. It loads all the quizzes.
+ */
 class QuizHandler implements Loadable {
 	private List<Quiz> quizes;
 
@@ -18,10 +21,17 @@ class QuizHandler implements Loadable {
 		this.quizes = null;
 	}
 
+	/**
+	 * Gets all the quizzes.
+	 * @return the quizzes
+	 */
 	List<Quiz> getQuizes() {
 		return quizes;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void load() throws IOException {
 		YamlObject parser = new YamlObject(new File("./src/DAL/resource/quizdatabase.yaml"));

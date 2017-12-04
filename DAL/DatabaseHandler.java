@@ -20,14 +20,26 @@ class DatabaseHandler implements Loadable {
 		database = null;
 	}
 
+	/**
+	 * Sets the usable handler given by business layer.
+	 * @param usableHandler
+	 */
 	public void setUsableHandler(UsableHandler usableHandler) {
 		this.usableHandler = usableHandler;
 	}
 
+	/**
+	 * Gets the item at given index from the database.
+	 * @param index
+	 * @return item
+	 */
 	Item getItemById(int index) {
 		return database.get(index);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void load() throws IOException {
 		YamlObject parser = new YamlObject(new File("./src/DAL/resource/itemdatabase.yaml"));
@@ -55,6 +67,12 @@ class DatabaseHandler implements Loadable {
 		}
 	}
 
+	/**
+	 * Gets an item based on the Yaml given.
+	 * Only invokes by {@link DatabaseHandler}.
+	 * @param o the map from Yaml
+	 * @return an item
+	 */
 	private Item getItem(Map<String, Object> o) {
 		return new Item((String) o.get("name"),
 				(String) o.get("description"),
@@ -64,6 +82,12 @@ class DatabaseHandler implements Loadable {
 		);
 	}
 
+	/**
+	 * Gets an component based on the Yaml given.
+	 * Only invokes by {@link DatabaseHandler}.
+	 * @param o the map from Yaml
+	 * @return a component
+	 */
 	private Item getComponent(Map<String, Object> o) {
 		return new ItemComponent((String) o.get("name"),
 				(String) o.get("description"),

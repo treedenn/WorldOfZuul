@@ -10,6 +10,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Handles the planets. It loads the planets.
+ */
 class PlanetHandler implements Loadable {
 	private Map<String, Planet> planets;
 	private Model model;
@@ -20,10 +23,18 @@ class PlanetHandler implements Loadable {
 
 	}
 
+	/**
+	 * Gets the planets as a map.
+	 * Key is planet name and value is the planet object.
+	 * @return the map of planets
+	 */
 	Map<String, Planet> getPlanets() {
 		return planets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void load() throws IOException {
 		Planet cleron, scurn, hebrilles, xehna, gallifrey,
