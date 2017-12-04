@@ -14,8 +14,8 @@ import java.util.List;
 
 public class Map {
 
-    public static double mapWidth = 6000;
-    public static double mapHeight = 6000;
+    public static double mapWidth = 8000;
+    public static double mapHeight = 8000;
 
     private List<Node> children;
     private Group root;
