@@ -33,7 +33,7 @@ public class SpacePirateAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCAction("... Arrr', We will be seeing you again, you landlubber!"),
+            new NPCAction("... Arrr', we will be seeing you again, you landlubber!"),
             new NPCAction("... Arrr', you fool! No one denies my orders!")
         };
     }

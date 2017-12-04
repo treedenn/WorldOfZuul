@@ -11,8 +11,9 @@ public class ProfessorPutricideAction implements NPCActionCollection {
 
     public ProfessorPutricideAction() {
         actions = new INPCAction[] {
-            new NPCAction("Hi there. My name is Professor Putricide!"),
-            new NPCDialogAction("I have a transformation elixir. Do you want it?") {
+            new NPCAction("G'day Rick. It's your old pal, the one and only Professor Putricide!" +
+                    "\nI heard you're in some kind of trouble?"),
+            new NPCDialogAction("I've invented this transformation elixir. Do you want it?") {
                 @Override
                 public void onEndEvent(Player player, NPC npc, Persistent persistent) {
                     super.onEndEvent(player, npc, persistent);
@@ -24,8 +25,8 @@ public class ProfessorPutricideAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCAction("I have placed the elixir in your inventory."),
-            new NPCAction("I hope I will see you again!")
+            new NPCAction("... I have placed the elixir in your inventory."),
+            new NPCAction("... Till we meet again old friend!")
         };
     }
 
