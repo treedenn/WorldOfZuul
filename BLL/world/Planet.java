@@ -1,7 +1,7 @@
 package BLL.world;
 
 import BLL.ACQ.IPlanet;
-import BLL.character.npc.NPC;
+import BLL.entity.npc.NPC;
 import BLL.item.ItemStack;
 import javafx.geometry.Point2D;
 

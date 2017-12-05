@@ -3,7 +3,7 @@ package BLL.ACQ;
 import java.util.Map;
 
 /**
- * Limits the functionality of {@link BLL.character.player.Player}.
+ * Limits the functionality of {@link BLL.entity.player.Player}.
  * Casted from Player and sent to the GUI.
  */
 public interface IPlayer {

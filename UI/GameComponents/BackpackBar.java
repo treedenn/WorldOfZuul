@@ -2,7 +2,6 @@ package UI.GameComponents;
 
 import BLL.ACQ.IInventory;
 import BLL.Game;
-import BLL.character.Inventory;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 

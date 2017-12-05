@@ -1,6 +1,6 @@
 package BLL.ACQ;
 
-import BLL.character.npc.NPC;
+import BLL.entity.npc.NPC;
 
 import java.util.List;
 

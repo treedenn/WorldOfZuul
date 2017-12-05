@@ -3,7 +3,6 @@ package UI.controller;
 import BLL.ACQ.Domain;
 import BLL.ACQ.IInventory;
 import BLL.ACQ.IPlayer;
-import BLL.character.Inventory;
 import UI.SearchTask;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;

@@ -1,13 +1,12 @@
 package BLL.item.usable;
 
-import BLL.ACQ.Usable;
 import BLL.Game;
-import BLL.character.player.Player;
-import BLL.character.player.buff.TransformationBuff;
+import BLL.entity.player.Player;
+import BLL.entity.player.buff.TransformationBuff;
 import BLL.item.Item;
 
 /**
- * This describes the functionality of the Transformation Elixir given by {@link BLL.character.npc.ProfessorPutricide}.
+ * This describes the functionality of the Transformation Elixir given by {@link BLL.entity.npc.ProfessorPutricide}.
  */
 public class UsableTransformationElixir implements Usable {
 	/**

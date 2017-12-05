@@ -133,7 +133,7 @@
     - "3.0"
   answer: 1
 19:
-  question: "A Java character is stored in _____."
+  question: "A Java entity is stored in _____."
   options:
     - "one byte"
     - "two bytes"

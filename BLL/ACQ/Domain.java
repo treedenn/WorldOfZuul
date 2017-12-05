@@ -2,9 +2,9 @@ package BLL.ACQ;
 
 import BLL.Game;
 import BLL.MessageContainer;
-import BLL.character.npc.NPC;
-import BLL.character.player.Player;
-import BLL.character.player.buff.Buff;
+import BLL.entity.npc.NPC;
+import BLL.entity.player.Player;
+import BLL.entity.player.buff.Buff;
 import BLL.item.Item;
 import BLL.world.Planet;
 
@@ -118,7 +118,7 @@ public interface Domain {
 	void decreaseFuelOnMove(int ticksPerSecond);
 
 	/**
-	 * Gets the {@link BLL.character.player.Quiz} object as {@link IQuiz} to limit the functionality in GUI.
+	 * Gets the {@link BLL.entity.player.Quiz} object as {@link IQuiz} to limit the functionality in GUI.
 	 * @return returns the current quiz in play.
 	 */
 	IQuiz getQuiz();
