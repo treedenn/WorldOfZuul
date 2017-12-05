@@ -3,6 +3,7 @@ package UI.GameComponents;
 import BLL.character.npc.NPC;
 import BLL.item.Item;
 import UI.SearchTask;
+import UI.controller.LasseGameController;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 public class PlanetView {
 
+    LasseGameController controller;
     private AnchorPane parent;
     private AnchorPane planetViewWrapper;
     private StackPane planetViewInnerWrapper;
@@ -46,8 +48,10 @@ public class PlanetView {
 
 
 
-    public PlanetView(AnchorPane parent){
+    public PlanetView(AnchorPane parent, LasseGameController controller){
         this.parent = parent;
+        this.controller = controller;
+
     }
 
     public void landOnPlanet(String name, String description){
@@ -146,7 +150,7 @@ public class PlanetView {
         // ADD MOST OUTER VBOX TO STACKPANE (planetViewInnerWrapper)
         planetViewInnerWrapper.getChildren().addAll(vbox);
         vbox.setMaxWidth(1440);
-        vbox.setMinHeight(5000);
+        //vbox.setMinHeight(5000);
         planetViewInnerWrapper.setAlignment(Pos.TOP_CENTER);
 
         // ADD STACKPANE (planetViewInnerWrapper) TO SCROLLPANE
@@ -180,7 +184,7 @@ public class PlanetView {
         planetViewWrapper.setLeftAnchor(scrollPane, 0.0);
         planetViewWrapper.setRightAnchor(scrollPane, 0.0);
         planetViewWrapper.setTopAnchor(scrollPane, 0.0);
-        planetViewWrapper.setBottomAnchor(scrollPane, 0.0);
+        planetViewWrapper.setBottomAnchor(scrollPane, 100.0);
 
 
         parent.getChildren().add(planetViewWrapper);
@@ -193,11 +197,11 @@ public class PlanetView {
         // --------------------------------------------------------------
         // CONTROL IMAGE OPACITY VIA SCROLL POSITION
         scrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
-            image.setOpacity(1 - (newValue.doubleValue()*20));
+            image.setOpacity(1 - (newValue.doubleValue()*10));
         });
 
         // EVENT HANDLER FOR LEAVING PLANET
-        button__leavePlanet.setOnAction(event -> leavePlanet());
+        button__leavePlanet.setOnAction(event -> controller.leavePlanet());
 
         // EVENT HANDLER FOR SEARCHING PLANET
         button__searchPlanet.setOnAction(event -> {
@@ -219,6 +223,7 @@ public class PlanetView {
                     button__searchPlanet.setText("SEARCH PLANET");
                     barSearch.setVisible(false);
                     barSearch.setPrefWidth(0);
+                    planetLists.setMinHeight(500);
 
                     Timeline displayLists = new Timeline();
                     ArrayList<KeyFrame> keyFrames = new ArrayList<>();

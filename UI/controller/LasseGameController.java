@@ -1,7 +1,10 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlayer;
+import BLL.character.npc.NPC;
+import BLL.character.npc.actions.NPCDialogAction;
 import UI.GameComponents.*;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.DoubleProperty;
@@ -97,6 +100,10 @@ public class LasseGameController implements Initializable {
 
     @FXML private Label labelFuel;
 
+    @FXML private Label labelFuelTitle;
+
+    @FXML private Label labelBackpackTitle;
+
     @FXML private ProgressBar barBackpack;
 
     @FXML private Label labelBackpack;
@@ -120,7 +127,6 @@ public class LasseGameController implements Initializable {
         configBackpackBar();
         configHoverLabel();
         configPlanetView();
-        //configDialog();
 
 
         wrapper.setStyle("-fx-background-color: #081519;");
@@ -137,13 +143,46 @@ public class LasseGameController implements Initializable {
         planetCollisions = new boolean[Planet.getPlanets().size()];
 
 
+
+/*
+
+        NPC npc = domain.getPlayer().getCurrentPlanet().getNPCs().get(0);
+
+        INPCAction[] actions = npc.getActions();
+
+        domain.startInteract(npc, 0);
+
+        System.out.println(actions[0].getMessage());
+
+        int i = 0;
+        if(actions[1] instanceof NPCDialogAction){
+            NPCDialogAction a = (NPCDialogAction) actions[1];
+            a.setAnswer(false);
+            domain.endInteract(npc, 1);
+            i = a.getActionId();
+            System.out.println(i);
+        }
+
+        System.out.println(actions[i].getMessage());
+
+
+*/
+
+
         configMiniMap();
+
+        //configDialog();
+        //showDialog();
+
+
+
 
         ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
             //miniMapHandler.maintainRatio(newValue.doubleValue(), stage);
         };
         stage.widthProperty().addListener(stageSizeListener);
         stage.heightProperty().addListener(stageSizeListener);
+
 
 
         // CONSUME SPACE KEYEVENT
@@ -208,10 +247,25 @@ public class LasseGameController implements Initializable {
         }
     }
 
+    public void leavePlanet(){
+        miniMapHandler.show();
+        planetViewHandler.leavePlanet();
+    }
+
     void landOnPlanet(){
+        miniMapHandler.hide();
         planetViewHandler.leavePlanet();
         planetViewHandler.landOnPlanet("Testplanet", "Dette er en test");
     }
+
+    public void showDialog(){
+        //dialogHandler.showDialog();
+        miniMapHandler.hide();
+        fuelHandler.getLabel().setVisible(false);
+        fuelHandler.hide();
+        backpackHandler.hide();
+    }
+
 
     @FXML
     void keyIsReleased(KeyEvent event) {
@@ -302,15 +356,15 @@ public class LasseGameController implements Initializable {
 
     public void configAvatar(){ avatarHandler = new Avatar(avatarImage);}
 
-    public void configFuelBar(){ fuelHandler = new FuelBar(barFuel, labelFuel); }
+    public void configFuelBar(){ fuelHandler = new FuelBar(barFuel, labelFuelTitle, labelFuel); }
 
-    public void configBackpackBar(){ backpackHandler = new BackpackBar(barBackpack, labelBackpack);}
+    public void configBackpackBar(){ backpackHandler = new BackpackBar(barBackpack, labelBackpackTitle, labelBackpack);}
 
     public void configMiniMap(){ miniMapHandler = new MiniMap(miniMapWrapper, innersceneHandler.getMap().mapWidth, innersceneHandler.getMap().mapHeight, innersceneHandler.getPlayer(), innersceneHandler.getMap().getPlanetsOnMap()); }
 
     public void configHoverLabel(){ hoverLabelHandler = new HoverLabel(wrapper); hoverLabelHandler.setup("Press", "SPACE", "to land on planet");}
 
-    public void configPlanetView(){ planetViewHandler = new PlanetView(subsceneWrapper);}
+    public void configPlanetView(){ planetViewHandler = new PlanetView(subsceneWrapper, this);}
 
     public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, stage);}
 

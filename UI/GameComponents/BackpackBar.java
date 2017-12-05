@@ -8,8 +8,8 @@ import javafx.scene.control.ProgressBar;
 
 public class BackpackBar extends Meter{
 
-    public BackpackBar(ProgressBar bar, Label label){
-        super(bar, label);
+    public BackpackBar(ProgressBar bar, Label title, Label label){
+        super(bar, title, label);
     }
 
     // TODO: Lasse, you cannot go directly to the game instance (line 20)

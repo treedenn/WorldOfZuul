@@ -7,8 +7,8 @@ import javafx.scene.control.ProgressBar;
 
 public class FuelBar extends Meter{
 
-    public FuelBar(ProgressBar bar, Label label){
-        super(bar, label);
+    public FuelBar(ProgressBar bar, Label title, Label label){
+        super(bar, title, label);
     }
 
     @Override

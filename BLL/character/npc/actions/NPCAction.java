@@ -14,7 +14,7 @@ public class NPCAction implements INPCAction {
 
 	@Override
 	public String getMessage() {
-		return null;
+		return message;
 	}
 
 	@Override

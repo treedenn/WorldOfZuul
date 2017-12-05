@@ -50,7 +50,11 @@ public class MiniMap {
     }
 
     public void hide(){
+        miniMapWrapper.setVisible(false);
+    }
 
+    public void show(){
+        miniMapWrapper.setVisible(true);
     }
 
     private void addPlanets(){
@@ -76,6 +80,8 @@ public class MiniMap {
         miniMapWrapper.setPrefHeight(width);
         miniMapWrapper.setMinHeight(width);
         miniMapWrapper.setMaxHeight(width);
+        miniMapWrapper.setTranslateX(-16);
+        miniMapWrapper.setTranslateY(16);
         miniMapWrapper.setStyle("-fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 5px; -fx-background-color: linear-gradient(to top,  rgba(0,229, 255, 0.1),  rgba(0,229, 255, 0.05)); -fx-background-radius: 5px;");
         miniMapWrapper.setEffect(new DropShadow());
 

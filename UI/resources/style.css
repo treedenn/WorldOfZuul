@@ -359,6 +359,10 @@ body{
     -fx-background-color: linear-gradient(to top, #121212, rgba(18,18,18,0));
 }
 
+.view__scroll-pane{
+    -fx-border-color: #282828;
+    -fx-border-width: 0 0 1 0;
+}
 .view__scroll-pane .scroll-bar:horizontal, .view__scroll-pane .scroll-bar:vertical{
     -fx-background-color:#181818;
 }

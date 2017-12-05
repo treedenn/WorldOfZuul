@@ -41,11 +41,11 @@ public class Dialog {
         dialogViewInnerWrapper = new StackPane();
         dialogHbox = new HBox();
         NPCrepresentation = new VBox();
-        imagePath = "./UI/resources/img/nps/unoX.png";
+        this.imagePath = imagePath;
         image = new Pane();
         name = new Label();
         dialog = new VBox();
-        NPCMessage = new Label('"' + "Dette er NPC'ens message" + '"');
+        NPCMessage = new Label('"' + "NPCTEST" + '"');
         choicesVBox = new VBox();
         exit = new Button();
         choicesScrollPane = new ScrollPane();
@@ -53,7 +53,7 @@ public class Dialog {
 
 
         NPCrepresentation.getChildren().addAll(image, name);
-        name.setText("UnoX Manager");
+        name.setText("NPCNAME");
         name.setStyle("-fx-text-fill: white; -fx-font-size: 25; -fx-font-family: 'Circular Std Bold';");
         image.setBackground(new Background(new BackgroundImage(new Image(imagePath), null,null,null,BackgroundSize.DEFAULT)));
         image.setMinHeight(200);
