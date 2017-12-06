@@ -32,10 +32,11 @@ public class Planet extends GameObject {
     private Label name;
     private Sphere sphere;
     PhongMaterial texture;
+    IPlanet planet;
 
     public Planet(IPlanet planet, Image diffuseMap){
-
         super(new StackPane());
+        this.planet = planet;
         this.description = planet.getDescription();
         this.planetName = planet.getName();
         planetWrapper = (StackPane) getView();
@@ -73,4 +74,7 @@ public class Planet extends GameObject {
         return planets;
     }
 
+    public IPlanet getPlanet() {
+        return planet;
+    }
 }

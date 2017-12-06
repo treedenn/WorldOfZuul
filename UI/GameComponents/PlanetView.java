@@ -18,6 +18,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class PlanetView {
@@ -44,7 +45,7 @@ public class PlanetView {
 
     }
 
-    public void landOnPlanet(String name, String description){
+    public void landOnPlanet(String name, String description, String imagePath){
         task = null;
 
         planetViewWrapper = new AnchorPane();
@@ -155,6 +156,8 @@ public class PlanetView {
         // ADD GRADIENTOVERLAY OVER IMAGE
         image.getChildren().add(imageGradient);
         image.getStyleClass().add("planet__view");
+        String backgroundImage = "-fx-background-image: url(" + imagePath + ");";
+        image.setStyle(backgroundImage);
         image.setMinHeight(400);
         Stop[] imageGradientStops = {new Stop(0, Color.rgb(18,18,18,1)), new Stop(1, Color.rgb(18,18,18, 0.1))};
         LinearGradient lg = new LinearGradient(0,0,Math.cos(Math.toRadians(90)),Math.sin(Math.toRadians(90)),true, CycleMethod.NO_CYCLE, imageGradientStops);

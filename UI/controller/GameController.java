@@ -2,6 +2,7 @@ package UI.controller;
 
 import BLL.ACQ.Domain;
 import BLL.ACQ.INPCAction;
+import BLL.ACQ.IPlanet;
 import BLL.ACQ.IPlayer;
 import UI.GameComponents.*;
 import javafx.animation.AnimationTimer;
@@ -60,8 +61,10 @@ public class GameController implements Initializable {
     private Dialog dialogHandler;
     private boolean mouseIsOnSubscene;
     private double dt;
+    private boolean colliding;
     private boolean[] planetCollisions;
     boolean playerCollidedWithPlanet;
+    private IPlanet currentPlanet;
 
 
 
@@ -128,7 +131,6 @@ public class GameController implements Initializable {
         configBackpackBar();
         configHoverLabel();
         configPlanetView();
-
 
         wrapper.setStyle("-fx-background-color: #081519;");
 
@@ -227,12 +229,20 @@ public class GameController implements Initializable {
     public void leavePlanet(){
         miniMapHandler.show();
         planetViewHandler.leavePlanet();
+        hoverLabelHandler.show();
     }
 
     void landOnPlanet(){
-        miniMapHandler.hide();
-        planetViewHandler.leavePlanet();
-        planetViewHandler.landOnPlanet("Testplanet", "Dette er en test");
+        if(colliding) {
+            if(domain.movePlayerToPlanet(currentPlanet.getName())){
+                miniMapHandler.hide();
+                planetViewHandler.leavePlanet();
+                String planetImage = currentPlanet.getImage().toURI().toString().replace("\\", "/");
+                planetViewHandler.landOnPlanet(currentPlanet.getName(), currentPlanet.getDescription(), planetImage);
+                hoverLabelHandler.show();
+            }
+            System.out.println("YOU CANNOT LAND ON THIS PLANET U STUPID MOTHERFUCKER");
+        }
     }
 
     public void showDialog(){
@@ -324,6 +334,9 @@ public class GameController implements Initializable {
         for(Planet planet : Planet.getPlanets()) {
             if (planet.isColliding(innersceneHandler.getPlayer())) {
                 planetCollisions[count] = true;
+                if(currentPlanet == null) {
+                    currentPlanet = planet.getPlanet();
+                }
             } else{
                 planetCollisions[count] = false;
             }
@@ -340,10 +353,13 @@ public class GameController implements Initializable {
         }
 
         if(playerCollidedWithPlanet){
+            colliding = true;
             hoverLabelHandler.show();
 
         } else if (!playerCollidedWithPlanet){
             hoverLabelHandler.hide();
+            currentPlanet = null;
+            colliding = false;
         }
 
 
