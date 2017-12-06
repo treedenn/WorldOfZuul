@@ -233,20 +233,21 @@ public class GameController implements Initializable {
     }
 
     void landOnPlanet(){
-        if(colliding) {
-            String planetName = currentPlanet.getName().replace(" ", "");
-            if(domain.movePlayerToPlanet(planetName)) {
-                notificationHandler.loadNotification(domain.getMessageContainer().getMessage());
-                showNotification();
-                miniMapHandler.hide();
-                planetViewHandler.leavePlanet();
-                String planetImage = currentPlanet.getImage().toURI().toString().replace("\\", "/");
-                planetViewHandler.landOnPlanet(currentPlanet.getName(), currentPlanet.getDescription(), planetImage);
-                hoverLabelHandler.show();
-
-            } else {
-                notificationHandler.loadNotification(domain.getMessageContainer().getMessage());
-                showNotification();
+        if(!planetViewHandler.isVisible()) {
+            if (colliding) {
+                String planetName = currentPlanet.getName().replace(" ", "");
+                if (domain.movePlayerToPlanet(planetName)) {
+                    notificationHandler.loadNotification(domain.getMessageContainer().getMessage());
+                    showNotification();
+                    miniMapHandler.hide();
+                    planetViewHandler.leavePlanet();
+                    String planetImage = currentPlanet.getImage().toURI().toString().replace("\\", "/");
+                    planetViewHandler.landOnPlanet(currentPlanet.getName(), currentPlanet.getDescription(), planetImage);
+                    hoverLabelHandler.show();
+                } else {
+                    notificationHandler.loadNotification(domain.getMessageContainer().getMessage());
+                    showNotification();
+                }
             }
         }
     }

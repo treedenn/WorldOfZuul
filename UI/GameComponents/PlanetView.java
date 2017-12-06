@@ -36,6 +36,7 @@ public class PlanetView {
     private ListView<NPC> NPCList;
     HBox listsWrapper;
     private Task task;
+    private boolean isVisible;
 
 
 
@@ -47,6 +48,7 @@ public class PlanetView {
 
     public void landOnPlanet(String name, String description, String imagePath){
         task = null;
+        isVisible = true;
 
         planetViewWrapper = new AnchorPane();
         planetViewInnerWrapper = new StackPane();
@@ -250,6 +252,7 @@ public class PlanetView {
     }
 
     public void leavePlanet(){
+        isVisible = false;
 
         parent.getChildren().remove(planetViewWrapper);
 
@@ -266,4 +269,7 @@ public class PlanetView {
         return divider;
     }
 
+    public boolean isVisible() {
+        return isVisible;
+    }
 }
