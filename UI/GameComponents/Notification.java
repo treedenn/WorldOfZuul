@@ -5,8 +5,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +17,24 @@ public class Notification{
     private Timeline hideTimeline;
     private double standbyPosition;
     private List<KeyFrame> keyFrames;
+    private Label notificationTitle;
+    private Label notificationText;
 
-    public Notification(Node node, double standbyYPosition){
+    public Notification(Node node, Label notificationTitle, Label notificationText, double standbyYPosition){
         this.notification = node;
         notification.setVisible(false);
         this.standbyPosition = standbyYPosition;
+        this.notificationTitle = notificationTitle;
+        this.notificationText = notificationText;
         keyFrames = new ArrayList<>();
         showTimeline = new Timeline();
         hideTimeline = new Timeline();
+        notificationTitle.setText("Space Cruiser:");
         hideNotification();
+    }
+
+    public void loadNotification(String message){
+        notificationText.setText(message);
     }
 
     public void showNotification(double translateY){

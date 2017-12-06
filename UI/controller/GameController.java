@@ -234,14 +234,20 @@ public class GameController implements Initializable {
 
     void landOnPlanet(){
         if(colliding) {
-            if(domain.movePlayerToPlanet(currentPlanet.getName())){
+            String planetName = currentPlanet.getName().replace(" ", "");
+            if(domain.movePlayerToPlanet(planetName)) {
+                notificationHandler.loadNotification(domain.getMessageContainer().getMessage());
+                showNotification();
                 miniMapHandler.hide();
                 planetViewHandler.leavePlanet();
                 String planetImage = currentPlanet.getImage().toURI().toString().replace("\\", "/");
                 planetViewHandler.landOnPlanet(currentPlanet.getName(), currentPlanet.getDescription(), planetImage);
                 hoverLabelHandler.show();
+
+            } else {
+                notificationHandler.loadNotification(domain.getMessageContainer().getMessage());
+                showNotification();
             }
-            System.out.println("YOU CANNOT LAND ON THIS PLANET U STUPID MOTHERFUCKER");
         }
     }
 
@@ -378,7 +384,7 @@ public class GameController implements Initializable {
 
     public void configDrawer(){ drawerHandler = new Drawer(drawer, darkOverlay); }
 
-    public void configNotification(){ notificationHandler = new Notification(notification, stage.getHeight()); }
+    public void configNotification(){ notificationHandler = new Notification(notification, notificationTitle, notificationText, stage.getHeight()); }
 
     public void hideNotification(){ notificationHandler.hideNotification(); }
 

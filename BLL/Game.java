@@ -377,14 +377,14 @@ public class Game implements Domain {
 				message = model.getMessage("player-move-same-planet");
 			} else {
 				if(!canPlayerMove(planet)) {
-					message = replacePlaceHolders(model.getMessage("player-move-unsuccessful"), "{PLANET)", planet.getName());
+					message = replacePlaceHolders(model.getMessage("player-move-unsuccessful"), "{PLANET}", planet.getName());
 				} else {
 					player.setCurrentPlanet(planet);
 					player.decreaseFuel(10);
 					player.getCurrentPlanet().setTemporarySearch(false);
 
 					playerIsMoving = true;
-					message = model.getMessage("player-move-successful");
+					message = replacePlaceHolders(model.getMessage("player-move-successful"), "{PLANET}", planet.getName());
 				}
 			}
 		}
@@ -581,7 +581,6 @@ public class Game implements Domain {
 
 		for(int i = 0; i < strings.length / 2; i++) {
 			sb.insert(0, text.replace(strings[i * 2], strings[i * 2 + 1]).toCharArray());
-			System.out.println(sb.toString());
 		}
 
 		return sb.toString();
