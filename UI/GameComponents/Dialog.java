@@ -1,6 +1,6 @@
 package UI.GameComponents;
 
-import com.sun.javafx.geom.Ellipse2D;
+import UI.controller.GameController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -8,14 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-
-import java.util.ArrayList;
 
 
 public class Dialog {
 
+    private GameController controller;
     private AnchorPane parent;
     private AnchorPane dialogViewWrapper;
     private StackPane dialogViewInnerWrapper;
@@ -32,11 +30,13 @@ public class Dialog {
     private VBox choices;
 
 
-    public Dialog (AnchorPane parent){
+    public Dialog (AnchorPane parent, GameController controller){
         this.parent = parent;
+        this.controller = controller;
+
     }
 
-    public void showDialog(){
+    public void updateDialog(String NPCname, String message, String imagePath){
         dialogViewWrapper = new AnchorPane();
         dialogViewInnerWrapper = new StackPane();
         dialogHbox = new HBox();
@@ -45,7 +45,7 @@ public class Dialog {
         image = new Pane();
         name = new Label();
         dialog = new VBox();
-        NPCMessage = new Label('"' + "NPCTEST" + '"');
+        NPCMessage = new Label('"' + message + '"');
         choicesVBox = new VBox();
         exit = new Button();
         choicesScrollPane = new ScrollPane();
@@ -53,7 +53,7 @@ public class Dialog {
 
 
         NPCrepresentation.getChildren().addAll(image, name);
-        name.setText("NPCNAME");
+        name.setText(NPCname);
         name.setStyle("-fx-text-fill: white; -fx-font-size: 25; -fx-font-family: 'Circular Std Bold';");
         image.setBackground(new Background(new BackgroundImage(new Image(imagePath), null,null,null,BackgroundSize.DEFAULT)));
         image.setMinHeight(200);
@@ -81,6 +81,7 @@ public class Dialog {
         choicesVBox.setSpacing(30);
         exit.setMinWidth(choicesScrollPane.getWidth());
         exit.setText("LEAVE THIS DIALOG");
+        exit.setOnAction(event -> closeDialog());
         exit.getStyleClass().add("button__dialog-exit");
 
         dialog.getChildren().addAll(NPCMessage, choicesVBox);
@@ -114,7 +115,10 @@ public class Dialog {
         parent.setRightAnchor(dialogViewWrapper, 0.0);
         parent.setTopAnchor(dialogViewWrapper, 0.0);
         parent.setBottomAnchor(dialogViewWrapper, 0.0);
+    }
 
+    public void closeDialog(){
+        System.out.println("Clicked");
     }
 
 }

@@ -3,24 +3,14 @@ package UI.GameComponents;
 import BLL.character.npc.NPC;
 import BLL.item.Item;
 import UI.SearchTask;
-import UI.controller.LasseGameController;
+import UI.controller.GameController;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -32,7 +22,7 @@ import java.util.ArrayList;
 
 public class PlanetView {
 
-    LasseGameController controller;
+    GameController controller;
     private AnchorPane parent;
     private AnchorPane planetViewWrapper;
     private StackPane planetViewInnerWrapper;
@@ -48,7 +38,7 @@ public class PlanetView {
 
 
 
-    public PlanetView(AnchorPane parent, LasseGameController controller){
+    public PlanetView(AnchorPane parent, GameController controller){
         this.parent = parent;
         this.controller = controller;
 

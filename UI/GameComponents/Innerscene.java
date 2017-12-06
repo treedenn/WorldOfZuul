@@ -10,8 +10,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.List;
-
 
 public class Innerscene {
 
@@ -19,13 +17,13 @@ public class Innerscene {
     private Camera camera;
     private Player player;
     private Pane rootPane;
-    private Map map;
+    private GameMap map;
 
 
     public Innerscene(SubScene subScene, Stage stage){
         this.subScene = subScene;
         camera = new ParallelCamera();
-        map = new Map();
+        map = new GameMap();
         buildSubscene(stage);
     }
 
@@ -50,7 +48,7 @@ public class Innerscene {
 
         player = new UI.GameComponents.Player(50,50, playerRoot);
         player.setVelocity(new Point2D(0,0));
-        GameObject.addGameObject(player, Map.mapWidth /2, Map.mapHeight /2, map.getRootPane());
+        GameObject.addGameObject(player, GameMap.mapWidth /2, GameMap.mapHeight /2, map.getRootPane());
 
     }
 
@@ -93,7 +91,7 @@ public class Innerscene {
         return subScene;
     }
 
-    public Map getMap() {
+    public GameMap getMap() {
         return map;
     }
 }
