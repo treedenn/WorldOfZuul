@@ -113,6 +113,12 @@ public class Game implements Domain {
 
         // TODO: remove temp statement when testing is done.
         player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
+
+        String m = replacePlaceHolders("HALLO WORLD MY NAME IS {NAME} and I'M FROM {COUNTRY}!", "{NAME}", "Dennis", "{COUNTRY}", "Denmark");
+
+		System.out.println(m);
+
+        //useItem(new ItemStack(model.getItemById(58)));
 	}
 
 	/**
@@ -340,12 +346,12 @@ public class Game implements Domain {
 						player.getCurrentPlanet().addItemStack(is);
 
 						isDropped = true;
-						message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName());
+						message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 					} else {
-						message = replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName());
+						message = replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 					}
 				} else {
-					message = replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName());
+					message = replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 				}
 			}
 		} else {
@@ -373,19 +379,15 @@ public class Game implements Domain {
 		} else {
 			Planet planet = planets.get(planetName);
 
-			if(player.isOnPlanet(planet)) {
-				message = model.getMessage("player-move-same-planet");
+			if(!canPlayerMove(planet)) {
+				message = replacePlaceHolders(model.getMessage("player-move-unsuccessful"), "{PLANET}", planet.getName());
 			} else {
-				if(!canPlayerMove(planet)) {
-					message = replacePlaceHolders(model.getMessage("player-move-unsuccessful"), "{PLANET}", planet.getName());
-				} else {
-					player.setCurrentPlanet(planet);
-					player.decreaseFuel(10);
-					player.getCurrentPlanet().setTemporarySearch(false);
+				player.setCurrentPlanet(planet);
+				player.decreaseFuel(10);
+				player.getCurrentPlanet().setTemporarySearch(false);
 
-					playerIsMoving = true;
-					message = replacePlaceHolders(model.getMessage("player-move-successful"), "{PLANET}", planet.getName());
-				}
+				playerIsMoving = true;
+				message = replacePlaceHolders(model.getMessage("player-move-successful"), "{PLANET}", planet.getName());
 			}
 		}
 
@@ -564,23 +566,30 @@ public class Game implements Domain {
 		messageContainer.setMessage(model.getMessage(key));
 	}
 
-	// {ITEM} {QUANTITY}     replacePlaceHolders(text, "{ITEM}", "5", "{QUANTITY}" "10");
-
 	/**
 	 * Looks inside a string for placeholders and converts them.
 	 * EXAMPLE:
 	 * replacePlaceHolder("Group {X} is {STATE}", "{X}", "24", "{STATE}", "AWESOME!");
+	 * -> Group 24 is AWESOME!
 	 * @param text with the placeholders
 	 * @param strings every first string is the placeholder and the second is the string to replace at the given placeholder
-	 * @return new string
+	 * @return a new string, where the placeholders has been replaced with their corresponding value.
 	 */
 	public String replacePlaceHolders(String text, String ... strings) {
 		if(strings.length % 2 == 1) { return null; }
 
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(text);
 
+		int startIndex;
+		char[] signature, value;
 		for(int i = 0; i < strings.length / 2; i++) {
-			sb.insert(0, text.replace(strings[i * 2], strings[i * 2 + 1]).toCharArray());
+			signature = strings[i * 2].toCharArray();
+			value = strings[i * 2 + 1].toCharArray();
+
+			startIndex = sb.indexOf(String.valueOf(signature));
+
+			sb.delete(startIndex, startIndex + signature.length);
+			sb.insert(startIndex, value);
 		}
 
 		return sb.toString();
@@ -588,6 +597,7 @@ public class Game implements Domain {
 
 	/**
 	 * Checks whether the player is allowed to enter the planet.
+	 * If the planet is not lockable, then it has no restrictions.
 	 * @param planet to see if allowed
 	 * @return true, if player is allowed
 	 */
