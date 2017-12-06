@@ -13,11 +13,11 @@ import java.util.Map;
 
 public interface Domain {
 	/**
-	 * Injects an object of the {@link Persistent} interface.
-	 * In additional it runs a few methods inside the persistent interface immediately.
-	 * @param persistent the object implementing {@link Persistent} interface.
+	 * Injects an object of the {@link PersistenceLayer} interface.
+	 * Additionally it runs a few methods inside the persistenceLayer interface immediately.
+	 * @param persistenceLayer the object implementing {@link PersistenceLayer} interface.
 	 */
-	void injectPersistent(Persistent persistent);
+	void injectPersistenceLayer(PersistenceLayer persistenceLayer);
 
 	/**
 	 * Adds a player to the highscore, sorts the list,
