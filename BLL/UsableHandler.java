@@ -1,6 +1,6 @@
 package BLL;
 
-import BLL.ACQ.Usable;
+import BLL.item.usable.Usable;
 import BLL.item.usable.UsablePortalGun;
 import BLL.item.usable.UsableTransformationElixir;
 

@@ -1,21 +1,13 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlayer;
 import UI.GameComponents.*;
 import javafx.animation.AnimationTimer;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.ListChangeListener;
-import UI.SearchTask;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,22 +17,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Time;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-public class GameController implements Initializable {
+public class LasseGameController implements Initializable {
 
     private Domain domain;
     private IPlayer player;
@@ -112,7 +95,7 @@ public class GameController implements Initializable {
     @FXML private AnchorPane miniMapWrapper;
 
 
-    public GameController(Domain domain) {
+    public LasseGameController(Domain domain) {
         this.domain = domain;
         player = domain.getPlayer();
     }
@@ -145,10 +128,34 @@ public class GameController implements Initializable {
 
 
 
+/*
+
+        NPC npc = domain.getPlayer().getCurrentPlanet().getNPCs().get(0);
+
+        INPCAction[] actions = npc.getActions();
+
+        domain.startInteract(npc, 0);
+
+        System.out.println(actions[0].getMessage());
+
+        int i = 0;
+        if(actions[1] instanceof NPCDialogAction){
+            NPCDialogAction a = (NPCDialogAction) actions[1];
+            a.setAnswer(false);
+            domain.endInteract(npc, 1);
+            i = a.getActionId();
+            System.out.println(i);
+        }
+
+        System.out.println(actions[i].getMessage());
+
+
+*/
+
 
         configMiniMap();
 
-        configDialog();
+        //configDialog();
         //showDialog();
 
 
@@ -238,46 +245,9 @@ public class GameController implements Initializable {
     public void showDialog(){
         //dialogHandler.showDialog();
         miniMapHandler.hide();
+        fuelHandler.getLabel().setVisible(false);
         fuelHandler.hide();
         backpackHandler.hide();
-
-        int actionIndex = 0;
-
-        miniMapHandler.show();
-        fuelHandler.show();
-        backpackHandler.show();
-
-
-
-        /*
-
-
-
-        NPC npc = domain.getPlayer().getCurrentPlanet().getNPCs().get(0);
-
-        INPCAction[] actions = npc.getActions();
-
-        domain.startInteract(npc, 0);
-
-        System.out.println(actions[0].getMessage());
-
-        int i = 0;
-        if(actions[1] instanceof NPCDialogAction){
-            NPCDialogAction a = (NPCDialogAction) actions[1];
-            a.setAnswer(false);
-            domain.endInteract(npc, 1);
-            i = a.getActionId();
-            System.out.println(i);
-        }
-
-        System.out.println(actions[i].getMessage());
-
-
-        dialogHandler.updateDialog(npc.getName(), actions[0].getMessage(), "./UI/resources/img/nps/unoX.png");
-
-*/
-
-
     }
 
 
@@ -382,6 +352,7 @@ public class GameController implements Initializable {
 
     public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, stage);}
 
-    public void configDialog(){ dialogHandler = new Dialog(subsceneWrapper, this);}
+    public void configDialog(){ dialogHandler = new Dialog(subsceneWrapper);}
+
 
 }

@@ -1,9 +1,9 @@
 package BLL.item;
 
 import BLL.ACQ.IItem;
-import BLL.ACQ.Usable;
+import BLL.item.usable.Usable;
 import BLL.Game;
-import BLL.character.player.Player;
+import BLL.entity.player.Player;
 
 /**
  * Any item inside the game derives from Item.

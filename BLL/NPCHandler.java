@@ -1,15 +1,15 @@
 package BLL;
 
-import BLL.character.npc.Blacksmith;
-import BLL.character.npc.ProfessorPutricide;
-import BLL.character.npc.SpacePirate;
-import BLL.character.npc.actions.ProfessorPutricideAction;
-import BLL.character.npc.UnoX;
+import BLL.entity.npc.Blacksmith;
+import BLL.entity.npc.ProfessorPutricide;
+import BLL.entity.npc.SpacePirate;
+import BLL.entity.npc.actions.ProfessorPutricideAction;
+import BLL.entity.npc.UnoX;
 
 /**
  * Handles all the functions to NPCs (No Player Characters) within the game.
  * It contains all the references and all the get methods.
- * In addition it sets the needed {@link BLL.character.npc.actions.NPCActionCollection} to each NPC.
+ * In addition it sets the needed {@link BLL.entity.npc.actions.NPCActionCollection} to each NPC.
  */
 public class NPCHandler {
 	private Blacksmith blacksmith;

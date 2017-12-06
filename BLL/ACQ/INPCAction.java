@@ -1,10 +1,10 @@
 package BLL.ACQ;
 
-import BLL.character.npc.NPC;
-import BLL.character.player.Player;
+import BLL.entity.npc.NPC;
+import BLL.entity.player.Player;
 
 /**
- * Limits and describes the functionality of {@link BLL.character.npc.actions.NPCAction}.
+ * Limits and describes the functionality of {@link BLL.entity.npc.actions.NPCAction}.
  * Casted from NPCAction and sent to the GUI.
  */
 public interface INPCAction {

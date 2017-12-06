@@ -1,8 +1,7 @@
 package BLL.item.usable;
 
-import BLL.ACQ.Usable;
 import BLL.Game;
-import BLL.character.player.Player;
+import BLL.entity.player.Player;
 import BLL.item.Item;
 
 /**

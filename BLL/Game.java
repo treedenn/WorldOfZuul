@@ -1,11 +1,10 @@
 package BLL;
 
 import BLL.ACQ.*;
-import BLL.character.Inventory;
-import BLL.character.npc.Blacksmith;
-import BLL.character.npc.NPC;
-import BLL.character.player.Player;
-import BLL.character.player.buff.Buff;
+import BLL.entity.Inventory;
+import BLL.entity.npc.NPC;
+import BLL.entity.player.Player;
+import BLL.entity.player.buff.Buff;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 import BLL.scoring.Score;
@@ -206,7 +205,7 @@ public class Game implements Domain {
 //			if(!player.getCurrentPlanet().getTempSearched()) {
 //				view.println("You have not searched the planet!");
 //			} else {
-//				if(!blacksmith.samePlanet(player.getCurrentPlanet())) {
+//				if(!blacksmith.isOnPlanet(player.getCurrentPlanet())) {
 //					view.println("The blacksmith is not here.");
 //				} else {
 //                    int trappedInt = trapped ? 1 : 2;
@@ -370,10 +369,10 @@ public class Game implements Domain {
 
 		if(!planets.containsKey(planetName)) {
 			message = model.getMessage("player-move-not-valid");
-		} else if(player.samePlanet(planets.get(planetName))) {
+		} else if(player.isOnPlanet(planets.get(planetName))) {
 			message = model.getMessage("player-move-same-planet");
 		} else {
-			player.go(planetName);
+			player.setCurrentPlanet(planets.get(planetName));
 			player.decreaseFuel(10);
 			player.getCurrentPlanet().setTemporarySearch(false);
 
@@ -556,7 +555,12 @@ public class Game implements Domain {
 		messageContainer.setMessage(model.getMessage(key));
 	}
 
-
+	/**
+	 * Looks inside a string for placeholders and converts them.
+	 * @param text with the placeholders
+	 * @param strings every first string is the placeholder and the second is the string to replace
+	 * @return new string
+	 */
 	public String replacePlaceHolders(String text, String ... strings) {
 		if(strings.length % 2 == 1) { return null; }
 

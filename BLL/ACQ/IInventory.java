@@ -1,6 +1,6 @@
 package BLL.ACQ;
 
-import BLL.character.Inventory;
+import BLL.entity.Inventory;
 
 /**
  * Limits the functionality of {@link Inventory}.

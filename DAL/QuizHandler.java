@@ -1,6 +1,6 @@
 package DAL;
 
-import BLL.character.player.Quiz;
+import BLL.entity.player.Quiz;
 import DAL.ACQ.Loadable;
 import DAL.yaml.YamlObject;
 

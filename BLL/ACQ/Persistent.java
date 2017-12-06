@@ -1,7 +1,7 @@
 package BLL.ACQ;
 
 import BLL.UsableHandler;
-import BLL.character.player.Quiz;
+import BLL.entity.player.Quiz;
 import BLL.item.Item;
 import BLL.scoring.Score;
 import BLL.world.Planet;

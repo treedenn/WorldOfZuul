@@ -1,6 +1,6 @@
 package UI.GameComponents;
 
-import BLL.character.npc.NPC;
+import BLL.entity.npc.NPC;
 import BLL.item.Item;
 import UI.SearchTask;
 import UI.controller.GameController;
