@@ -587,6 +587,11 @@ public class Game implements Domain {
 		return sb.toString();
 	}
 
+	/**
+	 * Checks whether the player is allowed to enter the planet.
+	 * @param planet to see if allowed
+	 * @return true, if player is allowed
+	 */
 	private boolean canPlayerMove(Planet planet) {
 		boolean lockable = planet instanceof Lockable;
 		return !lockable || (lockable && ((BLL.world.Lockable) planet).isUnlocked());
