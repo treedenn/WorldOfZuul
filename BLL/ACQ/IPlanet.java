@@ -2,6 +2,7 @@ package BLL.ACQ;
 
 import BLL.character.npc.NPC;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -67,4 +68,17 @@ public interface IPlanet {
 	 * @return the y-coordinate of the planet
 	 */
 	double getY();
+
+	/**
+	 * Gets a object of type File containing the planet's image
+	 * @return	the file of the planet's image.
+	 */
+	File getImage();
+
+	/**
+	 * Gets a object of type File containing the planet's 2D map
+	 * @return	the file of the planet's 2D map
+	 */
+	File getMap2D();
+
 }

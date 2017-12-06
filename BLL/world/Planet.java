@@ -5,6 +5,7 @@ import BLL.character.npc.NPC;
 import BLL.item.ItemStack;
 import javafx.geometry.Point2D;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -20,6 +21,8 @@ public class Planet implements IPlanet {
     private String name;
     private String description;
     private Point2D coordinates;
+    private File map2D;
+    private File image;
     private boolean[] searched;
     private List<ItemStack> itemList;
     private List<NPC> npcList;
@@ -32,6 +35,13 @@ public class Planet implements IPlanet {
         this.itemList = new ArrayList<>();
         this.npcList = new ArrayList<>();
         this.searched = new boolean[] {false, false};
+    }
+
+    /* expanded constructor for the planet class to include resource paths */
+    public Planet(String name, String description, String imagePath, String map2DPath, double x, double y) {
+        this(name, description, x, y);
+        this.image = new File(imagePath);
+        this.map2D = new File(map2DPath);
     }
 
     /**
@@ -73,6 +83,18 @@ public class Planet implements IPlanet {
     public double getX() {
         return coordinates.getX();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public File getImage(){ return image; }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public File getMap2D(){ return map2D; }
 
     /**
      * {@inheritDoc}
