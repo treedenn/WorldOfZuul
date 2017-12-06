@@ -9,6 +9,7 @@ import BLL.item.Item;
 import BLL.item.ItemStack;
 import BLL.scoring.Score;
 import BLL.scoring.ScoreHandler;
+import BLL.world.Lockable;
 import BLL.world.Planet;
 
 import java.util.*;
@@ -369,15 +370,23 @@ public class Game implements Domain {
 
 		if(!planets.containsKey(planetName)) {
 			message = model.getMessage("player-move-not-valid");
-		} else if(player.isOnPlanet(planets.get(planetName))) {
-			message = model.getMessage("player-move-same-planet");
 		} else {
-			player.setCurrentPlanet(planets.get(planetName));
-			player.decreaseFuel(10);
-			player.getCurrentPlanet().setTemporarySearch(false);
+			Planet planet = planets.get(planetName);
 
-			playerIsMoving = true;
-			message = model.getMessage("player-move-successful");
+			if(player.isOnPlanet(planet)) {
+				message = model.getMessage("player-move-same-planet");
+			} else {
+				if(!canPlayerMove(planet)) {
+					message = model.getMessage("player-move-unsuccessful");
+				} else {
+					player.setCurrentPlanet(planet);
+					player.decreaseFuel(10);
+					player.getCurrentPlanet().setTemporarySearch(false);
+
+					playerIsMoving = true;
+					message = model.getMessage("player-move-successful");
+				}
+			}
 		}
 
 		messageContainer.setMessage(message);
@@ -555,10 +564,14 @@ public class Game implements Domain {
 		messageContainer.setMessage(model.getMessage(key));
 	}
 
+	// {ITEM} {QUANTITY}     replacePlaceHolders(text, "{ITEM}", "5", "{QUANTITY}" "10");
+
 	/**
 	 * Looks inside a string for placeholders and converts them.
+	 * EXAMPLE:
+	 * replacePlaceHolder("Group {X} is {STATE}", "{X}", "24", "{STATE}", "AWESOME!");
 	 * @param text with the placeholders
-	 * @param strings every first string is the placeholder and the second is the string to replace
+	 * @param strings every first string is the placeholder and the second is the string to replace at the given placeholder
 	 * @return new string
 	 */
 	public String replacePlaceHolders(String text, String ... strings) {
@@ -572,6 +585,10 @@ public class Game implements Domain {
 		}
 
 		return sb.toString();
+	}
+
+	private boolean canPlayerMove(Planet planet) {
+		return planet instanceof Lockable && ((BLL.world.Lockable) planet).isUnlocked();
 	}
 
 	/**

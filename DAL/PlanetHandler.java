@@ -1,6 +1,7 @@
 package DAL;
 
 import BLL.item.ItemStack;
+import BLL.world.LockedBlacksmithPlanet;
 import BLL.world.Planet;
 import DAL.ACQ.Loadable;
 
@@ -45,7 +46,7 @@ class PlanetHandler implements Loadable {
 		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!", "./src/DAL/resource/images/planetViews/CleronOr7.jpg", "./src/DAL/resource/images/planet2DMaps/cleron.jpg", 4578, 7000);
 		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.", "./src/DAL/resource/images/planetViews/Scurn 01k.jpg","./src/DAL/resource/images/planet2DMaps/scurn.jpg", 6240, 7313);
 		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.", "./src/DAL/resource/images/planetViews/Hebrilles.png","./src/DAL/resource/images/planet2DMaps/hebrilles.jpg",7100, 5310);
-		xehna = new Planet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", "./src/DAL/resource/images/planetViews/Xehna.jpg","./src/DAL/resource/images/planet2DMaps/xehna.jpg",6580, 3029);
+		xehna = new LockedBlacksmithPlanet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", "./src/DAL/resource/images/planetViews/Xehna.jpg","./src/DAL/resource/images/planet2DMaps/xehna.jpg",6580, 3029);
 		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.", "./src/DAL/resource/images/planetViews/Gallifrey.jpg", "./src/DAL/resource/images/planet2DMaps/gallifrey.jpg",6940, 1288);
 		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.", "./src/DAL/resource/images/planetViews/scaro.jpg","./src/DAL/resource/images/planet2DMaps/skaro.jpg",5116, 1556);
 		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.","./src/DAL/resource/images/planetViews/Orion.jpg", "./src/DAL/resource/images/planet2DMaps/orion.jpg", 3354, 1502);
