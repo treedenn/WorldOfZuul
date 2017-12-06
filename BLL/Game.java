@@ -517,14 +517,6 @@ public class Game implements Domain {
         };
     }
 
-	private boolean allTrue(boolean[] booleans) {
-		for(boolean b : booleans) {
-			if(!b) { return false; }
-		}
-
-		return true;
-	}
-
 	private void gameIsFinished() {
 		StringBuilder sb = new StringBuilder();
 
