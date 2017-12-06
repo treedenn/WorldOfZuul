@@ -77,8 +77,8 @@ public class StartController implements Initializable {
 	}
 
 	private void switchToGameView() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/LasseGame_view.fxml"));
-		LasseGameController controller = new LasseGameController(domain);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/game_view.fxml"));
+		GameController controller = new GameController(domain);
 		controller.setStage((Stage) buttonNewGame.getScene().getWindow());
 		loader.setController(controller);
 
