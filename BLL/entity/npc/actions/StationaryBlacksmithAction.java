@@ -30,6 +30,7 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
 
                     if(answerYes) {
                         player.decreaseFuel(20);
+                        // TODO: initialize the movable Blacksmith, clues and so on..
                     } else {
                         setActionId(3);
                     }

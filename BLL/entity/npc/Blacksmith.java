@@ -5,6 +5,7 @@ import BLL.ACQ.PersistenceLayer;
 import BLL.entity.MovableEntity;
 import BLL.entity.player.Recipe;
 import BLL.item.Item;
+import BLL.item.ItemStack;
 import BLL.world.Planet;
 
 import java.util.Iterator;
@@ -127,12 +128,12 @@ public class Blacksmith extends MovableEntity {
 		final int gears = 14; // 26 -> 40
 		final int cpus = 16; // 40 -> 56
 
-		Item[] requirements = new Item[4];
+		ItemStack[] requirements = new ItemStack[4];
 
-		requirements[0] = model.getItemById((int) (Math.random() * liquids));
-		requirements[1] = model.getItemById((int) (liquids + Math.random() * canisters));
-		requirements[2] = model.getItemById((int) (liquids + canisters + Math.random() * gears));
-		requirements[3] = model.getItemById((int) (liquids + canisters + gears + Math.random() * cpus));
+		requirements[0] = new ItemStack(model.getItemById((int) (Math.random() * liquids)));
+		requirements[1] = new ItemStack(model.getItemById((int) (liquids + Math.random() * canisters)));
+		requirements[2] = new ItemStack(model.getItemById((int) (liquids + canisters + Math.random() * gears)));
+		requirements[3] = new ItemStack(model.getItemById((int) (liquids + canisters + gears + Math.random() * cpus)));
 
 		recipe = new Recipe(requirements);
 

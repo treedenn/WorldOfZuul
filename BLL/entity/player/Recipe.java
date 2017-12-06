@@ -2,14 +2,15 @@ package BLL.entity.player;
 
 import BLL.ACQ.IItemStack;
 import BLL.item.Item;
+import BLL.item.ItemStack;
 
 /**
  * Recipe is the object holding all the requirements for the player to obtain.
  */
 public class Recipe {
-	private Item[] requirements;
+	private ItemStack[] requirements;
 
-	public Recipe(Item[] requirements) {
+	public Recipe(ItemStack[] requirements) {
 		this.requirements = requirements;
 	}
 
@@ -17,7 +18,7 @@ public class Recipe {
 	 * Gets an array of the requirements as {@link Item}.
 	 * @return array of requirements
 	 */
-	public Item[] getRequirements() {
+	public ItemStack[] getRequirements() {
 		return requirements;
 	}
 
@@ -32,7 +33,7 @@ public class Recipe {
 
 		for(int i = 0; i < requirements.length; i++) {
 			for(IItemStack itemStack : itemStacks) {
-				if(requirements[i].getName().equals(itemStack.getIItem().getName())) {
+				if(requirements[i].getItem().getName().equals(itemStack.getIItem().getName())) {
 					containItems[i] = true; break;
 				}
 			}
@@ -47,8 +48,8 @@ public class Recipe {
 	 * @return true, if exists
 	 */
 	public boolean hasItem(Item item) {
-		for(Item requirement : requirements) {
-			if(requirement.getName().equals(item.getName())) {
+		for(ItemStack requirement : requirements) {
+			if(requirement.getItem().getName().equals(item.getName())) {
 				return true;
 			}
 		}

@@ -16,7 +16,6 @@ public class UsableTransformationElixir implements Usable {
 	public boolean use(Item item, Player player, Game game) {
 		// TODO: add transformation buff to player.
 		player.addBuff(new TransformationBuff(0, 60));
-		System.out.println("Transformation Elixir has been used!");
 
 		return true;
 	}

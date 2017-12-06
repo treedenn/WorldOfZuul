@@ -121,8 +121,6 @@ public class StartController extends Controller{
 			System.exit(0);
 		});
 
-		System.out.println(getStage().getStyle());
-
 		getStage().setScene(scene);
 		getStage().centerOnScreen();
 		getStage().setResizable(true);
