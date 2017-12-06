@@ -17,7 +17,7 @@ import java.util.*;
 public class Game implements Domain {
 	private static Game INSTANCE;
 
-	private Persistent model;
+	private PersistenceLayer model;
 	private UsableHandler usableHandler;
 
 	private boolean finished;
@@ -43,8 +43,8 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void injectPersistent(Persistent persistent) {
-		this.model = persistent;
+	public void injectPersistenceLayer(PersistenceLayer persistenceLayer) {
+		this.model = persistenceLayer;
 		this.model.setUsableHandler(usableHandler);
 		this.model.load();
 		init();
@@ -96,7 +96,7 @@ public class Game implements Domain {
 
 	/**
 	 * An initialization of the business layer.
-	 * Is invoked by {@link #injectPersistent(Persistent)} function.
+	 * Is invoked by {@link #injectPersistent(PersistenceLayer)} function.
 	 */
 	private void init() {
 		Map<String, Planet> planetMap = model.getPlanets();

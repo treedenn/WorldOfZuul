@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Describes what the persitent layer has to have.
  */
-public interface Persistent {
+public interface PersistenceLayer {
 	/**
 	 * Business layer will invoke load when it is initialising.
 	 * Load database etc.

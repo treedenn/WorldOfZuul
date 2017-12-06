@@ -1,7 +1,7 @@
 package BLL.entity.npc;
 
 import BLL.ACQ.BlacksmithTraceState;
-import BLL.ACQ.Persistent;
+import BLL.ACQ.PersistenceLayer;
 import BLL.entity.MovableEntity;
 import BLL.entity.player.Recipe;
 import BLL.item.Item;
@@ -119,7 +119,7 @@ public class Blacksmith extends MovableEntity {
 	 * Generates the recipe list based on the item indexes in the database.
 	 * @param model where the item database is
 	 */
-	private void generateRecipeRequirements(Persistent model) {
+	private void generateRecipeRequirements(PersistenceLayer model) {
 		// TODO: Call function when spoken to Blacksmith for the firs time.
 
 		final int liquids = 14; // 0 -> 14

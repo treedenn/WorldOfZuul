@@ -6,7 +6,7 @@
 package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
-import BLL.ACQ.Persistent;
+import BLL.ACQ.PersistenceLayer;
 import BLL.entity.npc.Blacksmith;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
@@ -26,8 +26,8 @@ public class BlacksmithAction implements NPCActionCollection {
             "\nI've heard that you somehow broke your portal gun?"),
             new NPCDialogAction("Would you like to see my recipe for the Portal Gun?") {
                 @Override
-                public void onEndEvent(Player player, NPC npc, Persistent persistent) {
-                    super.onEndEvent(player, npc, persistent);
+                public void onEndEvent(Player player, NPC npc, PersistenceLayer persistenceLayer) {
+                    super.onEndEvent(player, npc, persistenceLayer);
 
                     if(answerYes) {
                         setActionId(3);
@@ -37,8 +37,8 @@ public class BlacksmithAction implements NPCActionCollection {
             new NPCAction("... I hope I will see you again!"),
             new NPCAction("") {
                 @Override
-                public void onStartEvent(Player player, NPC npc, Persistent persistent) {
-                    super.onStartEvent(player, npc, persistent);
+                public void onStartEvent(Player player, NPC npc, PersistenceLayer persistenceLayer) {
+                    super.onStartEvent(player, npc, persistenceLayer);
 
                     if(npc instanceof Blacksmith) {
                         Blacksmith bs = (Blacksmith) npc;
