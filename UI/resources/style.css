@@ -349,7 +349,6 @@ body{
 
 
 .planet__view{
-    -fx-background-image: url("img/planetview/amrifarret.jpg");
     -fx-background-size: 100%;
     -fx-background-position: top center;
     -fx-background-repeat: no-repeat;

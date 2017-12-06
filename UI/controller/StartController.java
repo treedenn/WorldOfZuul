@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -95,6 +96,7 @@ public class StartController implements Initializable {
 
 		stage.setScene(scene);
 		stage.centerOnScreen();
+		stage.getIcons().add(new Image("./UI/resources/img/spaceShip-01.png"));
 	}
 
 
