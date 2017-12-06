@@ -52,6 +52,8 @@ public class BlacksmithAction implements NPCActionCollection {
 
                         boolean[] haveItems = recipe.haveItems(inventory.getContent());
 
+                        ItemStack[] items = recipe.getRequirements();
+
                         if(allTrue(haveItems)) {
                             for(ItemStack itemStack : inventory.getContent()) {
                                 if(itemStack.getItem() instanceof ItemPortalGun) {
@@ -61,13 +63,15 @@ public class BlacksmithAction implements NPCActionCollection {
                                 }
                             }
 
+                            for(ItemStack item : items) {
+                                inventory.remove(item);
+                            }
+
                             message = "Oh, since you had the materials to repair your Portal Gun, I did it.";
                         } else {
-                            Item[] items = recipe.getRequirements();
-
                             StringBuilder sb = new StringBuilder();
-                            for(Item item : items) {
-                                sb.append(item.toString());
+                            for(ItemStack item : items) {
+                                sb.append(item.getItem().toString());
                                 sb.append(System.lineSeparator());
                             }
 

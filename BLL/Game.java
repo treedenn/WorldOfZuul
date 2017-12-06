@@ -114,10 +114,6 @@ public class Game implements Domain {
         // TODO: remove temp statement when testing is done.
         player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
 
-        String m = replacePlaceHolders("HALLO WORLD MY NAME IS {NAME} and I'M FROM {COUNTRY}!", "{NAME}", "Dennis", "{COUNTRY}", "Denmark");
-
-		System.out.println(m);
-
         //useItem(new ItemStack(model.getItemById(58)));
 	}
 
@@ -407,14 +403,14 @@ public class Game implements Domain {
 	 * Add the clues to the planets at random.
 	 */
 	private void addCluesToPlanets(){
-		Item[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
+		ItemStack[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
 		Item[] clues = new Item[8];
 
 		for (int i = 0; i < clues.length; i++) {
 			clues[i] = model.getItemById(56);
 		}
 
-		Item item;
+		ItemStack item;
 		Item clue;
 		String s;
 		String newDescription;
