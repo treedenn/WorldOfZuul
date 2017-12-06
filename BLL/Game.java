@@ -114,7 +114,7 @@ public class Game implements Domain {
         // TODO: remove temp statement when testing is done.
         player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
 
-        //useItem(new ItemStack(model.getItemById(58)));
+        useItem(new ItemStack(model.getItemById(58)));
 	}
 
 	/**
