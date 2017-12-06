@@ -377,7 +377,7 @@ public class Game implements Domain {
 				message = model.getMessage("player-move-same-planet");
 			} else {
 				if(!canPlayerMove(planet)) {
-					message = model.getMessage("player-move-unsuccessful");
+					message = replacePlaceHolders(model.getMessage("player-move-unsuccessful"), "{PLANET)", planet.getName());
 				} else {
 					player.setCurrentPlanet(planet);
 					player.decreaseFuel(10);
