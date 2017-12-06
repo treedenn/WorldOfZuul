@@ -42,18 +42,18 @@ class PlanetHandler implements Loadable {
 
 		/* initializing planets */
 
-		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!", 4578, 7000);
-		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.", 6240, 7313);
-		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.", 7100, 5310);
-		xehna = new Planet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", 6580, 3029);
-		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.", 6940, 1288);
-		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.", 5116, 1556);
-		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.", 3354, 1502);
-		deineax = new Planet("Deineax", "No one knows exactly the origin behind the name of this planet, yet myths say it comes from 'Dennis'.", 1619, 785);
-		uskillion = new Planet("Uskillon", "An extremely hot planet, yet it contains different types of liquids.", 1221, 2628);
-		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...", 1119, 4970);
-		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.", 2041, 6821);
-		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.", 2995, 5600);
+		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!", "./src/DAL/resource/images/planetViews/CleronOr7.jpg", "./src/DAL/resource/images/planet2DMaps/cleron.jpg", 4578, 7000);
+		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.", "./src/DAL/resource/images/planetViews/Scurn 01k.jpg","./src/DAL/resource/images/planet2DMaps/scurn.jpg", 6240, 7313);
+		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.", "./src/DAL/resource/images/planetViews/Hebrilles.png","./src/DAL/resource/images/planet2DMaps/hebrilles.jpg",7100, 5310);
+		xehna = new Planet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", "./src/DAL/resource/images/planetViews/Xehna.jpg","./src/DAL/resource/images/planet2DMaps/xehna.jpg",6580, 3029);
+		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.", "./src/DAL/resource/images/planetViews/Gallifrey.jpg", "./src/DAL/resource/images/planet2DMaps/gallifrey.jpg",6940, 1288);
+		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.", "./src/DAL/resource/images/planetViews/scaro.jpg","./src/DAL/resource/images/planet2DMaps/skaro.jpg",5116, 1556);
+		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.","./src/DAL/resource/images/planetViews/Orion.jpg", "./src/DAL/resource/images/planet2DMaps/orion.jpg", 3354, 1502);
+		deineax = new Planet("Deineax", "No one knows exactly the origin behind the name of this planet, yet myths say it comes from 'Dennis'.", "./src/DAL/resource/images/planetViews/Deinax.jpg", "./src/DAL/resource/images/planet2DMaps/deineax.jpg",1619, 785);
+		uskillion = new Planet("Uskillon", "An extremely hot planet, yet it contains different types of liquids.", "./src/DAL/resource/images/planetViews/Uskillon.jpg", "./src/DAL/resource/images/planet2DMaps/uskillon.jpg",1221, 2628);
+		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...", "./src/DAL/resource/images/planetViews/J8ayrus.jpg", "./src/DAL/resource/images/planet2DMaps/ayrus.jpg",1119, 4970);
+		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.", "./src/DAL/resource/images/planetViews/amrifarret.jpg", "./src/DAL/resource/images/planet2DMaps/amrifarret.jpg",2041, 6821);
+		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.", "./src/DAL/resource/images/planetViews/new earth.jpg", "./src/DAL/resource/images/planet2DMaps/earth.jpg",2995, 5600);
 
 		/* adding items to planets */
 
