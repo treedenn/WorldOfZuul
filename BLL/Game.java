@@ -588,7 +588,8 @@ public class Game implements Domain {
 	}
 
 	private boolean canPlayerMove(Planet planet) {
-		return planet instanceof Lockable && ((BLL.world.Lockable) planet).isUnlocked();
+		boolean lockable = planet instanceof Lockable;
+		return !lockable || (lockable && ((BLL.world.Lockable) planet).isUnlocked());
 	}
 
 	/**
