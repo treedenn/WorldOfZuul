@@ -30,6 +30,9 @@ public class ProfessorPutricideAction implements NPCActionCollection {
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public INPCAction[] getActions() {
         return actions;

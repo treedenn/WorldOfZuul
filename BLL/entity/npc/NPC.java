@@ -27,9 +27,9 @@ public interface NPC {
 
     /**
      * Sets the actions of the NPC.
-     * @param actions object as {@link NPCActionCollection}
+     * @param collection object as {@link NPCActionCollection}
      */
-    void setActions(NPCActionCollection actions);
+    void setActions(NPCActionCollection collection);
 
     //What else?
 }
