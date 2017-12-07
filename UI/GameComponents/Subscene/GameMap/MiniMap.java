@@ -1,11 +1,17 @@
-package UI.GameComponents;
+package UI.GameComponents.Subscene.GameMap;
 
+import BLL.ACQ.IPlanet;
+import UI.GameComponents.InterfaceElement;
+import UI.GameComponents.Planet;
+import UI.GameComponents.Player;
+import UI.controller.GameController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.effect.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,36 +23,33 @@ import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
-public class MiniMap {
+public class MiniMap extends InterfaceElement implements IMap {
 
     Pane miniMapWrapper;
-    java.util.Map<Planet, Point2D> children;
-    double widthReference;
-    double heightReference;
-    Player player;
     Circle playerLocation;
 
-
-    public MiniMap(Pane miniMapWrapper, double widthReference, double heightReference, Player player, Map<Planet, Point2D> children){
-        this.miniMapWrapper = miniMapWrapper;
-        this.children = children;
-        this.player = player;
-        this.widthReference = widthReference;
-        this.heightReference = heightReference;
-
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
+    public MiniMap(Pane parent) {
+        super(parent);
+        miniMapWrapper = new AnchorPane();
         configWrapper();
+        getElement().getChildren().add(miniMapWrapper);
+        addInterfaceElement(parent, getElement());
     }
 
-    public void update(){
-        double scaleRatio = miniMapWrapper.getWidth() / widthReference;
-        double absolutePositionX = player.getView().getTranslateX();
-        double absolutePositionY = player.getView().getTranslateY();
-        double relativePositionX = absolutePositionX * scaleRatio;
-        double relativePositionY = absolutePositionY * scaleRatio;
-
-        playerLocation.setTranslateX(relativePositionX);
-        playerLocation.setTranslateY(relativePositionY);
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void tick() {
+        double scaleRatio = miniMapWrapper.getWidth() / IMap.mapWidth;
+       // double relativePositionX = playerPositionX * scaleRatio;
+       // double relativePositionY = playerPositionY * scaleRatio;
+       // playerLocation.setTranslateX(relativePositionX);
+       // playerLocation.setTranslateY(relativePositionY);
     }
 
     public void hide(){
@@ -57,13 +60,25 @@ public class MiniMap {
         miniMapWrapper.setVisible(true);
     }
 
-    private void addPlanets(){
-        for (Map.Entry<Planet, Point2D> planetPoint2DEntry : children.entrySet()) {
-            double scaleRatio = miniMapWrapper.getPrefWidth() / widthReference;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void layout() {
+
+
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void renderPlanets(Map<String, ? extends IPlanet> planets) {
+        for (IPlanet planet : planets.values()) {
+            double scaleRatio = miniMapWrapper.getPrefWidth() / IMap.mapWidth;
             double radius = 90;
-            double translateX = (planetPoint2DEntry.getValue().getX() * scaleRatio);
-            double translateY = (planetPoint2DEntry.getValue().getY() * scaleRatio);
-            miniMapWrapper.getChildren().add(new Circle(translateX,translateY, radius, Color.rgb(255,255,255)));
+            miniMapWrapper.getChildren().add(new Circle(planet.getX()*scaleRatio, planet.getY()*scaleRatio, radius, Color.rgb(255,255,255)));
         }
     }
 
@@ -88,8 +103,8 @@ public class MiniMap {
         DoubleProperty scaleX = new SimpleDoubleProperty(1.0);
         DoubleProperty scaleY = new SimpleDoubleProperty(1.0);
 
-        scaleX.bind(miniMapWrapper.widthProperty().divide(widthReference));
-        scaleY.bind(miniMapWrapper.heightProperty().divide(heightReference));
+        scaleX.bind(miniMapWrapper.widthProperty().divide(IMap.mapWidth));
+        scaleY.bind(miniMapWrapper.heightProperty().divide(IMap.mapHeight));
 
         miniMapWrapper.getChildren().addListener((ListChangeListener.Change<? extends Node> c) -> {
             while(c.next()){
@@ -102,31 +117,7 @@ public class MiniMap {
             }
         });
 
-        addPlanets();
         addPlayer();
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void maintainRatio(double newValue, Stage stage){
-
     }
 
 }

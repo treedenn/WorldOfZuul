@@ -1,6 +1,11 @@
-package UI.GameComponents;
+package UI.GameComponents.Subscene;
 
 import BLL.ACQ.IPlanet;
+import UI.GameComponents.InterfaceElement;
+import UI.GameComponents.Subscene.GameMap.GameMap;
+import UI.GameComponents.GameObject;
+import UI.GameComponents.Player;
+import com.sun.istack.internal.Nullable;
 import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.effect.DropShadow;
@@ -10,25 +15,52 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.Map;
 
-public class Innerscene {
 
+public class Innerscene extends InterfaceElement {
+
+    /** Subscene to encapsulate and render the 2D game scene */
     private SubScene subScene;
+
+    /** Camera */
     private Camera camera;
     private Player player;
-    private Pane rootPane;
     private GameMap map;
 
 
-    public Innerscene(SubScene subScene, Stage stage){
-        this.subScene = subScene;
-        camera = new ParallelCamera();
+    public Innerscene(Pane parent){
+        super(parent);
         map = new GameMap();
-        buildSubscene(stage);
+        subScene = new SubScene(map.getRoot(), parent.getWidth(), parent.getHeight());
+        addInterfaceElement(parent, new Group(subScene));
+        camera = new ParallelCamera();
+        buildSubscene();
+
     }
 
 
-    private void buildSubscene(Stage stage){
+    @Override
+    public void layout() {
+
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void tick() {
+
+    }
+
+    private void buildSubscene(){
 
         subScene.setRoot(map.getRoot());
 
@@ -49,7 +81,6 @@ public class Innerscene {
         player = new UI.GameComponents.Player(50,50, playerRoot);
         player.setVelocity(new Point2D(0,0));
         GameObject.addGameObject(player, GameMap.mapWidth /2, GameMap.mapHeight /2, map.getRootPane());
-
     }
 
 
@@ -78,8 +109,8 @@ public class Innerscene {
         }
     }
 
-    public void createPlanets(java.util.Map<String, ? extends IPlanet> planets){
-        map.createPlanets(planets);
+    public void renderPlanets(java.util.Map<String, ? extends IPlanet> planets){
+        map.renderPlanets(planets);
     }
 
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.SubScene?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
@@ -13,14 +12,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane fx:id="wrapper" onKeyPressed="#keyIsPressed" onKeyReleased="#keyIsReleased" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="wrapper" onKeyPressed="#keyIsPressed" onKeyReleased="#keyIsReleased" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane fx:id="contentWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -30,7 +28,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane styleClass="launcherNoiseBG">
+            <GridPane fx:id="interfaceGrid" styleClass="launcherNoiseBG">
               <columnConstraints>
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="352.3333435058594" minWidth="10.0" percentWidth="50.0" prefWidth="279.3333435058594" />
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="320.6666564941406" minWidth="10.0" percentWidth="50.0" prefWidth="320.6666564941406" />
@@ -41,15 +39,7 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <AnchorPane fx:id="subsceneWrapper" minHeight="0.0" minWidth="0.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.vgrow="ALWAYS">
-                     <children>
-                        <SubScene fx:id="subScene" fill="#ffffff00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <root>
-                            <Region />
-                          </root>
-                        </SubScene>
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane fx:id="subsceneWrapper" minHeight="0.0" minWidth="0.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.vgrow="ALWAYS" />
                   <AnchorPane fx:id="miniMapWrapper" GridPane.columnIndex="1" />
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="43.0">
                      <children>

@@ -3,10 +3,14 @@ package UI.controller;
 import BLL.ACQ.Domain;
 import BLL.ACQ.IPlanet;
 import UI.GameComponents.*;
+import UI.GameComponents.Subscene.GameMap.IMap;
+import UI.GameComponents.Subscene.GameMap.MiniMap;
+import UI.GameComponents.Subscene.Innerscene;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,7 +33,7 @@ public class GameController extends Controller {
     private Avatar avatarHandler;
     private FuelBar fuelHandler;
     private BackpackBar backpackHandler;
-    private MiniMap miniMapHandler;
+    private InterfaceElement miniMapHandler;
     private HoverLabel hoverLabelHandler;
     private PlanetView planetViewHandler;
     private Dialog dialogHandler;
@@ -55,9 +59,6 @@ public class GameController extends Controller {
 
     /** Most outer node used in {@link Innerscene} */
     @FXML private AnchorPane subsceneWrapper;
-
-    /** Subscene to encapsulate and render the 2D game scene */
-    @FXML private SubScene subScene;
 
     /** Wrapper for the {@link BurgerMenu} */
     @FXML private Button gameMenuButton;
@@ -116,6 +117,9 @@ public class GameController extends Controller {
     /** Most outer node used in {@link MiniMap} */
     @FXML private AnchorPane miniMapWrapper;
 
+    @FXML
+    private GridPane interfaceGrid;
+
     /**
      * Constructor.
      * @param domain reference to domain logic.
@@ -128,7 +132,14 @@ public class GameController extends Controller {
      */
     @Override
     public void initialize() {
-        configInnerscene();
+
+        innersceneHandler = new Innerscene(subsceneWrapper);
+        miniMapHandler = new MiniMap(interfaceGrid);
+        interfaceGrid.setColumnIndex(miniMapHandler.getElement(), interfaceGrid.getColumnConstraints().size()-1);
+        if (miniMapHandler instanceof IMap) ((IMap)miniMapHandler).renderPlanets(getDomain().getPlayer().getPlanets());
+
+        layout(miniMapHandler);
+
         configGameMenuButton();
         configDrawer();
         configNotification();
@@ -141,10 +152,10 @@ public class GameController extends Controller {
         wrapper.setStyle("-fx-background-color: #081519;");
 
 
-        innersceneHandler = new Innerscene(subScene, getStage());
         innersceneHandler.getSubScene().heightProperty().bind(subsceneWrapper.heightProperty());
         innersceneHandler.getSubScene().widthProperty().bind(subsceneWrapper.widthProperty());
-        innersceneHandler.createPlanets(getDomain().getPlayer().getPlanets());
+        innersceneHandler.renderPlanets(getDomain().getPlayer().getPlanets());
+
 
 
         wrapper.requestFocus();
@@ -154,7 +165,7 @@ public class GameController extends Controller {
 
 
 
-        configMiniMap();
+        //configMiniMap();
 
         configDialog();
         //showDialog();
@@ -189,6 +200,14 @@ public class GameController extends Controller {
         timer.start();
 
 
+    }
+
+    /**
+     * Method that invokes the layout method on an element.
+     * @param element object of type {@link InterfaceElement} to be rendered.
+     */
+    private void layout(InterfaceElement element){
+        element.layout();
     }
 
     @FXML
@@ -329,7 +348,10 @@ public class GameController extends Controller {
         innersceneHandler.centerView(innersceneHandler.getPlayer());
         innersceneHandler.keepPlayerInMap();
 
-        miniMapHandler.update();
+        /**
+         * @TODO USE PLAYER COORDINATES FROM BUSINESS LAYER
+         */
+        miniMapHandler.tick();
 
         int count = 0;
         for(Planet planet : Planet.getPlanets()) {
@@ -387,13 +409,13 @@ public class GameController extends Controller {
 
     public void configBackpackBar(){ backpackHandler = new BackpackBar(barBackpack, labelBackpackTitle, labelBackpack);}
 
-    public void configMiniMap(){ miniMapHandler = new MiniMap(miniMapWrapper, innersceneHandler.getMap().mapWidth, innersceneHandler.getMap().mapHeight, innersceneHandler.getPlayer(), innersceneHandler.getMap().getPlanetsOnMap()); }
+    //public void configMiniMap(){ miniMapHandler = new MiniMap(miniMapWrapper, innersceneHandler.getPlayer()); }
 
     public void configHoverLabel(){ hoverLabelHandler = new HoverLabel(wrapper); hoverLabelHandler.setup("Press", "SPACE", "to land on planet");}
 
     public void configPlanetView(){ planetViewHandler = new PlanetView(subsceneWrapper, this);}
 
-    public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, getStage());}
+   // public void configInnerscene(){ innersceneHandler = new Innerscene(subScene);}
 
     public void configDialog(){ dialogHandler = new Dialog(subsceneWrapper, this);}
 
