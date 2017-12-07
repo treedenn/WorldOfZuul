@@ -29,7 +29,7 @@ public class Notification{
         keyFrames = new ArrayList<>();
         showTimeline = new Timeline();
         hideTimeline = new Timeline();
-        notificationTitle.setText("Space Cruiser:");
+        notificationTitle.setText("Spaceship AI:");
         hideNotification();
     }
 
