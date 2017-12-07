@@ -154,6 +154,7 @@ public class GameController extends Controller {
 
 
 
+
         configMiniMap();
 
         configDialog();
@@ -175,6 +176,9 @@ public class GameController extends Controller {
             if(key.getCode() == KeyCode.SPACE){
                 key.consume();
                 landOnPlanet();
+
+                
+
             }
         });
 
@@ -245,7 +249,13 @@ public class GameController extends Controller {
             }
         }
     }
+    public void gameStart(){
 
+        notificationHandler.loadNotification("These hints will show only once so remember them well Rick!\n 1. find the Blacksmith. 2. rep...*error*...");
+        showNotification();
+
+
+    }
     public void showDialog(){
         //dialogHandler.showDialog();
         miniMapHandler.hide();
