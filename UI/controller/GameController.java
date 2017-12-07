@@ -389,7 +389,7 @@ public class GameController extends Controller {
 
     public void hideNotification(){ notificationHandler.hideNotification(); }
 
-    public void showNotification(){ notificationHandler.showNotification(dashBoard.getHeight() - 100);}
+    public void showNotification(){ notificationHandler.showNotification( 200);}
 
     public void configAvatar(){ avatarHandler = new Avatar(avatarImage);}
 
