@@ -1,6 +1,6 @@
 package DAL;
 
-import BLL.ACQ.Persistent;
+import BLL.ACQ.PersistenceLayer;
 import BLL.UsableHandler;
 import BLL.entity.player.Quiz;
 import BLL.item.*;
@@ -16,7 +16,7 @@ import java.util.*;
  * The facade of the Data Access Layer (DLL).
  * **SINGLETON**
  */
-public class Model implements Persistent {
+public class Model implements PersistenceLayer {
 	private static Model INSTANCE;
 
 	private DatabaseHandler dbHandler;

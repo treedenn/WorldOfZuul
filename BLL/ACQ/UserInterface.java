@@ -1,17 +1,15 @@
 package BLL.ACQ;
 
-/**
- * Describes what the user interface (UI) has to have.
- */
 public interface UserInterface {
 	/**
+	 * Injects an objecct of the {@link Domain} interface
 	 * Method to inject a business layer.
-	 * @param domain the layer
+	 * @param domain the business layer object implementing {@link Domain} interface
 	 */
 	void injectDomain(Domain domain);
 
 	/**
-	 * Method to begin the program.
+	 * Starter method to launch the GUI.
 	 */
 	void startApplication();
 }

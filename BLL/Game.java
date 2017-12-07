@@ -17,7 +17,7 @@ import java.util.*;
 public class Game implements Domain {
 	private static Game INSTANCE;
 
-	private Persistent model;
+	private PersistenceLayer model;
 	private UsableHandler usableHandler;
 
 	private boolean finished;
@@ -43,8 +43,8 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void injectPersistent(Persistent persistent) {
-		this.model = persistent;
+	public void injectPersistenceLayer(PersistenceLayer persistenceLayer) {
+		this.model = persistenceLayer;
 		this.model.setUsableHandler(usableHandler);
 		this.model.load();
 		init();
@@ -96,7 +96,7 @@ public class Game implements Domain {
 
 	/**
 	 * An initialization of the business layer.
-	 * Is invoked by {@link #injectPersistent(Persistent)} function.
+	 * Is invoked by {@link #injectPersistent(PersistenceLayer)} function.
 	 */
 	private void init() {
 		Map<String, Planet> planetMap = model.getPlanets();
@@ -114,11 +114,7 @@ public class Game implements Domain {
         // TODO: remove temp statement when testing is done.
         player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
 
-        String m = replacePlaceHolders("HALLO WORLD MY NAME IS {NAME} and I'M FROM {COUNTRY}!", "{NAME}", "Dennis", "{COUNTRY}", "Denmark");
-
-		System.out.println(m);
-
-        //useItem(new ItemStack(model.getItemById(58)));
+        useItem(new ItemStack(model.getItemById(58)));
 	}
 
 	/**
@@ -181,6 +177,14 @@ public class Game implements Domain {
 				player.removeBuff(i);
 			}
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public NPC interaction() {
+		return null;
 	}
 
 	/**
@@ -407,14 +411,14 @@ public class Game implements Domain {
 	 * Add the clues to the planets at random.
 	 */
 	private void addCluesToPlanets(){
-		Item[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
+		ItemStack[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
 		Item[] clues = new Item[8];
 
 		for (int i = 0; i < clues.length; i++) {
 			clues[i] = model.getItemById(56);
 		}
 
-		Item item;
+		ItemStack item;
 		Item clue;
 		String s;
 		String newDescription;
@@ -516,14 +520,6 @@ public class Game implements Domain {
             "--------------",
         };
     }
-
-	private boolean allTrue(boolean[] booleans) {
-		for(boolean b : booleans) {
-			if(!b) { return false; }
-		}
-
-		return true;
-	}
 
 	private void gameIsFinished() {
 		StringBuilder sb = new StringBuilder();

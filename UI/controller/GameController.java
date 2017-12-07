@@ -1,22 +1,12 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
-import BLL.ACQ.IPlayer;
 import UI.GameComponents.*;
 import javafx.animation.AnimationTimer;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.ListChangeListener;
-import UI.SearchTask;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,28 +16,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+/**
+ * The primary controller class for actually playing the game.
+ */
+public class GameController extends Controller {
 
-import java.net.URL;
-import java.sql.Time;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-public class GameController implements Initializable {
-
-    private Domain domain;
-    private IPlayer player;
-    private Stage stage;
-    private Scene scene;
-    private Pane pane;
     private Notification notificationHandler;
     private Drawer drawerHandler;
     private Innerscene innersceneHandler;
@@ -59,69 +33,101 @@ public class GameController implements Initializable {
     private HoverLabel hoverLabelHandler;
     private PlanetView planetViewHandler;
     private Dialog dialogHandler;
-    private boolean mouseIsOnSubscene;
+
+    /** Double value used to keep track of time. dt stands for delta time. */
     private double dt;
-    private boolean colliding;
+
+    /** Boolean array to keep track of individual collisions between objects of type {@link Player} and objects of type {@link Player} */
     private boolean[] planetCollisions;
-    boolean playerCollidedWithPlanet;
+
+    /** Boolean value to keep track of collision between object of type {@link Player} and objects of type {@link Planet} */
+    boolean playerCollidingdWithPlanet;
+
+
     private IPlanet currentPlanet;
 
 
-
+    /** Most outer node in the scene graph */
     @FXML private AnchorPane wrapper;
 
-    @FXML private SubScene subScene;
-
-    @FXML private Button gameMenuButton;
-
-    @FXML private Button exitButton__drawer;
-
-    @FXML private Rectangle gameMenuButton__rectangel1;
-
-    @FXML private Rectangle gameMenuButton__rectangel2;
-
-    @FXML private Rectangle gameMenuButton__rectangel3;
-
-    @FXML private AnchorPane darkOverlay;
-
-    @FXML private GridPane drawer;
-
-    @FXML private AnchorPane notification;
-
-    @FXML private AnchorPane dashBoard;
-
-    @FXML private Label notificationTitle;
-
-    @FXML private Label notificationText;
-
-    @FXML private ImageView avatarImage;
-
+    /** 2nd level wrapper node containing the primary visual elements */
     @FXML private GridPane contentWrapper;
 
+    /** Most outer node used in {@link Innerscene} */
     @FXML private AnchorPane subsceneWrapper;
 
+    /** Subscene to encapsulate and render the 2D game scene */
+    @FXML private SubScene subScene;
+
+    /** Wrapper for the {@link BurgerMenu} */
+    @FXML private Button gameMenuButton;
+
+    /** One third of the animated {@link BurgerMenu} */
+    @FXML private Rectangle gameMenuButton__rectangel1;
+
+    /** One third of the animated {@link BurgerMenu} */
+    @FXML private Rectangle gameMenuButton__rectangel2;
+
+    /** One third of the animated {@link BurgerMenu} */
+    @FXML private Rectangle gameMenuButton__rectangel3;
+
+    /** Button to close the game menu */
+    @FXML private Button exitButton__drawer;
+
+    /** Node with the purpose to dim the background */
+    @FXML private AnchorPane darkOverlay;
+
+    /** Game menu wrapper */
+    @FXML private GridPane drawer;
+
+    /** Wrapper for the contents of {@link Notification} */
+    @FXML private AnchorPane notification;
+
+    /** Wrapper for the {@link Avatar}, objects extending {@link Meter}, etc. */
+    @FXML private AnchorPane dashBoard;
+
+    /** Child node used in {@link Notification} */
+    @FXML private Label notificationTitle;
+
+    /** Child node used in {@link Notification} */
+    @FXML private Label notificationText;
+
+    /** Child node used in {@link Avatar} to hold an image */
+    @FXML private ImageView avatarImage;
+
+    /** GUI component used in object extending {@link Meter} */
     @FXML private ProgressBar barFuel;
 
+    /** GUI component used in object extending {@link Meter} */
     @FXML private Label labelFuel;
 
+    /** GUI component used in object extending {@link Meter} */
     @FXML private Label labelFuelTitle;
 
+    /** GUI component used in object extending {@link Meter} */
     @FXML private Label labelBackpackTitle;
 
+    /** GUI component used in object extending {@link Meter} */
     @FXML private ProgressBar barBackpack;
 
+    /** GUI component used in object extending {@link Meter} */
     @FXML private Label labelBackpack;
 
+    /** Most outer node used in {@link MiniMap} */
     @FXML private AnchorPane miniMapWrapper;
 
-
+    /**
+     * Constructor.
+     * @param domain reference to domain logic.
+     */
     public GameController(Domain domain) {
-        this.domain = domain;
-        player = domain.getPlayer();
+        super(domain);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         configInnerscene();
         configGameMenuButton();
         configDrawer();
@@ -135,10 +141,10 @@ public class GameController implements Initializable {
         wrapper.setStyle("-fx-background-color: #081519;");
 
 
-        innersceneHandler = new Innerscene(subScene, stage);
+        innersceneHandler = new Innerscene(subScene, getStage());
         innersceneHandler.getSubScene().heightProperty().bind(subsceneWrapper.heightProperty());
         innersceneHandler.getSubScene().widthProperty().bind(subsceneWrapper.widthProperty());
-        innersceneHandler.createPlanets(domain.getPlayer().getPlanets());
+        innersceneHandler.createPlanets(getDomain().getPlayer().getPlanets());
 
 
         wrapper.requestFocus();
@@ -159,8 +165,8 @@ public class GameController implements Initializable {
         ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
             //miniMapHandler.maintainRatio(newValue.doubleValue(), stage);
         };
-        stage.widthProperty().addListener(stageSizeListener);
-        stage.heightProperty().addListener(stageSizeListener);
+        getStage().widthProperty().addListener(stageSizeListener);
+        getStage().heightProperty().addListener(stageSizeListener);
 
 
 
@@ -194,20 +200,8 @@ public class GameController implements Initializable {
     @FXML
     void gameMenuButtonHovered(MouseEvent event) { burgerMenuHandler.burgerMenuHover(); }
 
-
     @FXML
     void gameMenuButtonNormal(MouseEvent event) { burgerMenuHandler.burgerMenuNormal();}
-
-
-    @FXML
-    void mouseEntered(MouseEvent event) {
-        mouseIsOnSubscene = true;
-    }
-
-    @FXML
-    void mouseExited(MouseEvent event) {
-        mouseIsOnSubscene = false;
-    }
 
     @FXML
     void keyIsPressed(KeyEvent event) {
@@ -234,10 +228,10 @@ public class GameController implements Initializable {
 
     void landOnPlanet(){
         if(!planetViewHandler.isVisible()) {
-            if (colliding) {
+            if (playerCollidingdWithPlanet) {
                 String planetName = currentPlanet.getName().replace(" ", "");
-                if (domain.movePlayerToPlanet(planetName)) {
-                    notificationHandler.loadNotification(domain.getMessageContainer().getMessage());
+                if (getDomain().movePlayerToPlanet(planetName)) {
+                    notificationHandler.loadNotification(getDomain().getMessageContainer().getMessage());
                     showNotification();
                     miniMapHandler.hide();
                     planetViewHandler.leavePlanet();
@@ -245,7 +239,7 @@ public class GameController implements Initializable {
                     planetViewHandler.landOnPlanet(currentPlanet.getName(), currentPlanet.getDescription(), planetImage);
                     hoverLabelHandler.show();
                 } else {
-                    notificationHandler.loadNotification(domain.getMessageContainer().getMessage());
+                    notificationHandler.loadNotification(getDomain().getMessageContainer().getMessage());
                     showNotification();
                 }
             }
@@ -321,7 +315,7 @@ public class GameController implements Initializable {
 
     private void onUpdate(){
 
-        if (domain.getPlayer().getMorphId() == -1){
+        if (getDomain().getPlayer().getMorphId() == -1){
             avatarHandler.isRick(true);
         } else{
             avatarHandler.isRick(false);
@@ -352,40 +346,36 @@ public class GameController implements Initializable {
 
         for (boolean value : planetCollisions) {
             if(value){
-                playerCollidedWithPlanet = true;
+                playerCollidingdWithPlanet = true;
                 break;
             } else {
-                playerCollidedWithPlanet = false;
+                playerCollidingdWithPlanet = false;
             }
         }
 
-        if(playerCollidedWithPlanet){
-            colliding = true;
+        if(playerCollidingdWithPlanet){
             hoverLabelHandler.show();
 
-        } else if (!playerCollidedWithPlanet){
+        } else if (!playerCollidingdWithPlanet){
             hoverLabelHandler.hide();
             currentPlanet = null;
-            colliding = false;
         }
 
 
 
         if (innersceneHandler.getPlayer().isAccelerate()){
-            domain.decreaseFuelOnMove(60);
+            getDomain().decreaseFuelOnMove(60);
         }
     }
 
 
 
 
-    public void setStage(Stage stage){ this.stage = stage; }
-
     public void configGameMenuButton(){ burgerMenuHandler = new BurgerMenu(gameMenuButton, gameMenuButton__rectangel1, gameMenuButton__rectangel2, gameMenuButton__rectangel3); }
 
     public void configDrawer(){ drawerHandler = new Drawer(drawer, darkOverlay); }
 
-    public void configNotification(){ notificationHandler = new Notification(notification, notificationTitle, notificationText, stage.getHeight()); }
+    public void configNotification(){ notificationHandler = new Notification(notification, notificationTitle, notificationText, getStage().getHeight()); }
 
     public void hideNotification(){ notificationHandler.hideNotification(); }
 
@@ -403,7 +393,7 @@ public class GameController implements Initializable {
 
     public void configPlanetView(){ planetViewHandler = new PlanetView(subsceneWrapper, this);}
 
-    public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, stage);}
+    public void configInnerscene(){ innersceneHandler = new Innerscene(subScene, getStage());}
 
     public void configDialog(){ dialogHandler = new Dialog(subsceneWrapper, this);}
 

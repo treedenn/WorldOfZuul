@@ -2,9 +2,12 @@ package BLL.entity.npc;
 
 import BLL.ACQ.INPCAction;
 import BLL.entity.Entity;
+import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCActionCollection;
 
 public class ProfessorPutricide extends Entity implements NPC {
+    private NPCActionCollection collection;
+
     public ProfessorPutricide(){
         super();
     }
@@ -21,11 +24,11 @@ public class ProfessorPutricide extends Entity implements NPC {
 
     @Override
     public INPCAction[] getActions() {
-        return new INPCAction[0];
+        return collection.getActions();
     }
 
     @Override
-    public void setActions(NPCActionCollection actions) {
-
+    public void setActions(NPCActionCollection collection) {
+        this.collection = collection;
     }
 }

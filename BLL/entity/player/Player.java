@@ -88,6 +88,14 @@ public class Player extends MovableEntity implements IPlayer {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Point2D getCoordinates() {
+		return coordinates;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public double getFuel() {
 		return fuel;
 	}

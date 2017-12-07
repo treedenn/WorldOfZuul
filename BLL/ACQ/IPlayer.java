@@ -1,5 +1,7 @@
 package BLL.ACQ;
 
+import javafx.geometry.Point2D;
+
 import java.util.Map;
 
 /**
@@ -42,6 +44,12 @@ public interface IPlayer {
 	 * @return inventory cased as IInventory.
 	 */
 	IInventory getIInventory();
+
+	/**
+	 * Gets the coordinates of the player as a Point2D object.
+	 * @return coordinates
+	 */
+	Point2D getCoordinates();
 
 	/**
 	 * Gets the morph id of the player.

@@ -20,9 +20,9 @@ public interface INPCAction {
 	 * Must be invoked as the beginning of each action.
 	 * @param player the player invoking the event
 	 * @param npc the npc the action is on
-	 * @param persistent the persistent layer
+	 * @param persistenceLayer the persistenceLayer layer
 	 */
-	void onStartEvent(Player player, NPC npc, Persistent persistent);
+	void onStartEvent(Player player, NPC npc, PersistenceLayer persistenceLayer);
 
 	/**
 	 * EndEvent of the action.
@@ -30,7 +30,7 @@ public interface INPCAction {
 	 * Must be invoked as the end of each action.
 	 * @param player the player invoking the event
 	 * @param npc the npc the action is on
-	 * @param persistent the persistent layer
+	 * @param persistenceLayer the persistenceLayer layer
 	 */
-	void onEndEvent(Player player, NPC npc, Persistent persistent);
+	void onEndEvent(Player player, NPC npc, PersistenceLayer persistenceLayer);
 }
