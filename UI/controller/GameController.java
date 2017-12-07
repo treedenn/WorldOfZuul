@@ -2,13 +2,11 @@ package UI.controller;
 
 import BLL.ACQ.Domain;
 import BLL.ACQ.IPlanet;
-import BLL.ACQ.IPlayer;
 import UI.GameComponents.*;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,14 +17,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * The primary controller class for actually playing the game.
  */
-
 public class GameController extends Controller {
 
     private Notification notificationHandler;
