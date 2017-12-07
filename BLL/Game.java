@@ -183,6 +183,14 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public NPC interaction() {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void startInteract(NPC npc, int actionId) {
 		if(npc != null) {
 			INPCAction[] actions = npc.getActions();

@@ -67,6 +67,15 @@ public interface Domain {
 	void updateBuffs();
 
 	/**
+	 * When an interaction between a NPC and a player have occurred within the business layer,
+	 * this will return the NPC.
+	 * An concrete example would be the pirates. Whenever the player is nearby,
+	 * this will return them.
+	 * @return the npc
+	 */
+	NPC interaction();
+
+	/**
 	 * It triggers the start event of the action inside a specific NPC.
 	 * At every action, the GUI must invoke this function first before doing anything.
 	 * @param npc is the specific NPC for interaction
