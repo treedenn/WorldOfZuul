@@ -4,6 +4,7 @@ import BLL.UsableHandler;
 import BLL.item.*;
 import DAL.ACQ.Loadable;
 import DAL.yaml.YamlObject;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileReader;
@@ -13,10 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 class DatabaseHandler implements Loadable {
+	private YamlObject yamlObject;
 	private List<Item> database;
 	private UsableHandler usableHandler;
 
-	DatabaseHandler() {
+	DatabaseHandler(File file) {
+		this.yamlObject = new YamlObject(file);
 		database = null;
 	}
 
@@ -42,24 +45,22 @@ class DatabaseHandler implements Loadable {
 	 */
 	@Override
 	public void load() throws IOException {
-		YamlObject parser = new YamlObject(new File("./src/DAL/resource/itemdatabase.yaml"));
-
-		Map<Integer, Map<String, Object>> map = parser.getYaml().load(new FileReader(parser.getFile()));
+		Map<Integer, Map<String, Object>> map = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
 
 		if(!map.isEmpty()) {
 			database = new ArrayList<>(map.size());
 
 			Item item;
 
-			for (Map<String, Object> o : map.values()) {
-				switch(ItemType.valueOf((String) o.get("itemType"))) {
-					case DEFAULT: item = getItem(o); break;
-					case COMPONENT: item = getComponent(o); break;
-					default: item = getItem(o);
+			for(Map.Entry<Integer, Map<String, Object>> entry : map.entrySet()) {
+				switch(ItemType.valueOf((String) entry.getValue().get("itemType"))) {
+					case DEFAULT: item = getItem(entry.getKey(), entry.getValue()); break;
+					case COMPONENT: item = getComponent(entry.getKey(), entry.getValue()); break;
+					default: item = getItem(entry.getKey(), entry.getValue());
 				}
 
-				if(o.containsKey("usableId")) {
-					item.setUsable(usableHandler.getUsable((Integer) o.get("usableId")));
+				if(entry.getValue().containsKey("usableId")) {
+					item.setUsable(usableHandler.getUsable((Integer) entry.getValue().get("usableId")));
 				}
 
 				database.add(item);
@@ -73,8 +74,8 @@ class DatabaseHandler implements Loadable {
 	 * @param o the map from Yaml
 	 * @return an item
 	 */
-	private Item getItem(Map<String, Object> o) {
-		return new Item((String) o.get("name"),
+	private Item getItem(int id, Map<String, Object> o) {
+		return new Item(id, (String) o.get("name"),
 				(String) o.get("description"),
 				(double) o.get("weight"),
 				(boolean) o.get("pickupable"),
@@ -88,8 +89,8 @@ class DatabaseHandler implements Loadable {
 	 * @param o the map from Yaml
 	 * @return a component
 	 */
-	private Item getComponent(Map<String, Object> o) {
-		return new ItemComponent((String) o.get("name"),
+	private Item getComponent(int id, Map<String, Object> o) {
+		return new ItemComponent(id, (String) o.get("name"),
 				(String) o.get("description"),
 				(double) o.get("weight"),
 				ComponentType.valueOf((String) o.get("componentType")),

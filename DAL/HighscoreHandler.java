@@ -12,9 +12,11 @@ import java.util.*;
  * Handles the highscore. It saves and loads the highscore.
  */
 class HighscoreHandler implements Savable, Loadable {
+	private YamlObject yamlObject;
 	private List<Score> highscore;
 
-	HighscoreHandler() {
+	HighscoreHandler(File file) {
+		this.yamlObject = new YamlObject(file);
 		this.highscore = null;
 	}
 
@@ -31,9 +33,7 @@ class HighscoreHandler implements Savable, Loadable {
 	 */
 	@Override
 	public void load() throws FileNotFoundException {
-		YamlObject parser = new YamlObject(new File("./src/DAL/resource/highscore.yaml"));
-
-		Map<Integer, Map<String, Object>> map = parser.getYaml().load(new FileReader(parser.getFile()));
+		Map<Integer, Map<String, Object>> map = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
 
 		if(!map.isEmpty()) {
 			highscore = new ArrayList<>();
@@ -55,9 +55,6 @@ class HighscoreHandler implements Savable, Loadable {
 	 */
 	@Override
 	public void save() throws IOException {
-		File file = new File("./src/DAL/resource/highscore.yaml");
-		YamlObject yaml = new YamlObject(file);
-
 		Map<Integer, HashMap<String, Object>> map = new HashMap<>();
 
 		for (int i = 0; i < highscore.size(); i++) {
@@ -69,6 +66,6 @@ class HighscoreHandler implements Savable, Loadable {
 			map.put(i, data);
 		}
 
-		yaml.getYaml().dump(map, new FileWriter(new File("./src/DAL/resource/highscore.yaml")));
+		yamlObject.getYaml().dump(map, new FileWriter(yamlObject.getFile()));
 	}
 }

@@ -15,6 +15,14 @@ public class ScoreHandler implements ScoringConstants {
     }
 
     /**
+     * Gets the start
+     * @return
+     */
+    public long getStartTime() {
+        return startTime;
+    }
+
+    /**
      * Calculates the total amount of points the player received throughout the game.
      * @param totalFuelConsumption the amount of fuel the player has used
      * @return score the player obtained

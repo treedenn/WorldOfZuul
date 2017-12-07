@@ -1,6 +1,7 @@
 package DAL;
 
 import BLL.ACQ.PersistenceLayer;
+import BLL.Game;
 import BLL.UsableHandler;
 import BLL.entity.player.Quiz;
 import BLL.item.*;
@@ -24,13 +25,15 @@ public class Model implements PersistenceLayer {
 	private HighscoreHandler hsHandler;
 	private PlanetHandler plHandler;
 	private MessageHandler msgHandler;
+	private GameStateHandler gsHandler;
 
 	private Model() {
-		dbHandler = new DatabaseHandler();
-		qzHandler = new QuizHandler();
-		hsHandler = new HighscoreHandler();
+		dbHandler = new DatabaseHandler(new File("./src/DAL/resource/itemdatabase.yaml"));
+		qzHandler = new QuizHandler(new File("./src/DAL/resource/quizdatabase.yaml"));
+		hsHandler = new HighscoreHandler(new File("./src/DAL/resource/highscore.yaml"));
+		msgHandler = new MessageHandler(new File("./src/DAL/resource/localization.yaml"));
 		plHandler = new PlanetHandler(this);
-		msgHandler = new MessageHandler();
+		gsHandler = new GameStateHandler(new File("./game-save.yaml"));
 	}
 
 	/**
@@ -128,6 +131,16 @@ public class Model implements PersistenceLayer {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void saveGame(Game gameInstance) throws IOException, NullPointerException {
+		gsHandler.setGameInstance(gameInstance);
+		save(gsHandler);
+	}
+
+	public void loadGame(Game gameInstance) throws IOException, NullPointerException {
+		gsHandler.setGameInstance(gameInstance);
+		load(gsHandler);
 	}
 
 	/**

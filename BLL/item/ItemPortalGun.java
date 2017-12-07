@@ -6,8 +6,8 @@ package BLL.item;
 public class ItemPortalGun extends Item {
 	private boolean broken;
 
-	public ItemPortalGun(String name, String description, double weight, boolean isPickupable, boolean isDropable) {
-		super(name, description, weight, isPickupable, isDropable);
+	public ItemPortalGun(int id, String name, String description, double weight, boolean isPickupable, boolean isDropable) {
+		super(id, name, description, weight, isPickupable, isDropable);
 		this.broken = true;
 	}
 

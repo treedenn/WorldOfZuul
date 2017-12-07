@@ -5,6 +5,13 @@ package BLL.ACQ;
  * Casted from Item and sent to the GUI.
  */
 public interface IItem {
+
+	/**
+	 * Gets the Id of the item.
+	 * @return id
+	 */
+	int getId();
+
 	/**
 	 * Gets the name of the item.
 	 * @return name of item
