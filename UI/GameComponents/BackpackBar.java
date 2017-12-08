@@ -21,6 +21,8 @@ public class BackpackBar extends Meter{
         getBar().progressProperty().setValue(bp.getCurrentCapacity() / bp.getMaxCapacity());
         getLabel().setText(String.format(" [%.1f / %.1f] Kg", bp.getCurrentCapacity(), bp.getMaxCapacity()));
     }
+
+
 }
 
 

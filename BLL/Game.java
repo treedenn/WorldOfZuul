@@ -105,6 +105,7 @@ public class Game implements Domain {
 		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.",0,0);
 		player.setCurrentPlanet(centerUniverse);
 		player.setPlanets(planetMap);
+		player.getInventory().add(new ItemStack(model.getItemById(57), 1));
 		npcHandler.getBlacksmith().setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
 		npcHandler.getBlacksmith().setPlanets(planetMap);
 		npcHandler.getUnoX().setQuizes(model.getQuizes());

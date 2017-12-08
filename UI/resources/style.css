@@ -496,6 +496,65 @@ body{
     -fx-cursor: hand;
 }
 
+.backpackButton--dropButton{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 0;
+    -fx-background-color: #ed2931;
+    -fx-background-radius:  4 0 0 4;
+}
+
+.backpackButton--dropButton:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.backpackButton--dropButton:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.backpackButton--inspectButton{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 0;
+    -fx-background-color: #2979FF;
+}
+
+.backpackButton--inspectButton:hover{
+    -fx-background-color: #448AFF;
+
+}
+
+.backpackButton--inspectButton:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.backpackButton--useButton{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 0;
+    -fx-background-color: #1db954;
+    -fx-background-radius:  0 4 4 0;
+}
+
+.backpackButton--useButton:hover{
+    -fx-background-color: #1ed760;
+}
+
+.backpackButton--useButton:pressed{
+    -fx-background-color: #1db954;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
 
 
 

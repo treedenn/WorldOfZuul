@@ -146,8 +146,7 @@ public class GameController extends Controller implements IGameLoop {
         miniMapHandler.renderPlanets(getDomain().getPlayer().getPlanets());
         layout(miniMapHandler);
 
-        inventoryHandler = new Backpack(wrapper);
-
+        inventoryHandler = new Backpack(wrapper, this);
 
 
 
@@ -200,6 +199,8 @@ public class GameController extends Controller implements IGameLoop {
 
             }
         });
+
+        backpackHandler.getBar().setOnMouseClicked(event -> showBackpack());
 
 
 
@@ -287,6 +288,14 @@ public class GameController extends Controller implements IGameLoop {
         notificationHandler.loadNotification("These hints will show only once so remember them well Rick!\n 1. find the Blacksmith. 2. rep...*error*...");
         showNotification();
 
+    }
+
+
+    public void showBackpack(){
+        inventoryHandler.show();
+    }
+    public void hideBackpack(){
+        inventoryHandler.hide();
     }
 
 
