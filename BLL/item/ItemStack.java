@@ -34,7 +34,7 @@ public final class ItemStack implements IItemStack {
 	 */
 	@Override
 	public IItem getIItem() {
-		return (IItem) getItem();
+		return getItem();
 	}
 
 	/**

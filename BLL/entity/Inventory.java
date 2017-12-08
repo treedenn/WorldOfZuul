@@ -1,5 +1,6 @@
 package BLL.entity;
 
+import BLL.ACQ.IInventory;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 
@@ -7,7 +8,7 @@ import BLL.item.ItemStack;
  * Creating a new inventory, this interface has to be implemented.
  * It describes the general and necessary function to an inventory.
  */
-public interface Inventory {
+public interface Inventory extends IInventory {
 	/**
 	 * Gets the max capacity an inventory can have.
 	 * @return max capacity

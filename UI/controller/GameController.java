@@ -1,23 +1,18 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.IItemStack;
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
 import UI.GameComponents.*;
-import UI.GameComponents.Subscene.GameMap.IMap;
 import UI.GameComponents.Subscene.GameMap.MiniMap;
 import UI.GameComponents.Subscene.Innerscene;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
-import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -148,7 +143,7 @@ public class GameController extends Controller implements IGameLoop {
 
         innersceneHandler = new Innerscene(subsceneWrapper);
         miniMapHandler = new MiniMap(interfaceGrid);
-        interfaceGrid.setColumnIndex(miniMapHandler.getElement(), interfaceGrid.getColumnConstraints().size()-1);
+        GridPane.setColumnIndex(miniMapHandler.getElement(), interfaceGrid.getColumnConstraints().size()-1);
         miniMapHandler.renderPlanets(getDomain().getPlayer().getPlanets());
         layout(miniMapHandler);
 
@@ -331,7 +326,7 @@ public class GameController extends Controller implements IGameLoop {
                 dialogHandler.clear();
                 startInteract(npc, index);
             }
-        } else if(index >= npc.getActions().length){
+        } else{
             dialogHandler.clear();
         }
 

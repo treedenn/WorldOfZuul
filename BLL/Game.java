@@ -289,7 +289,7 @@ public class Game implements Domain {
 
 			if(i.hasUsable()) {
 				i.use(player, this);
-
+				player.getInventory().remove((ItemStack) iis);
 				isUsed = true;
 				message = replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
 			} else {
@@ -587,7 +587,7 @@ public class Game implements Domain {
 	 * @param strings every first string is the placeholder and the second is the string to replace at the given placeholder
 	 * @return a new string, where the placeholders has been replaced with their corresponding value.
 	 */
-	public String replacePlaceHolders(String text, String ... strings) {
+	public static String replacePlaceHolders(String text, String ... strings) {
 		if(strings.length % 2 == 1) { return null; }
 
 		StringBuilder sb = new StringBuilder(text);

@@ -1,8 +1,7 @@
 package UI.GameComponents;
 
+import BLL.ACQ.IItemStack;
 import BLL.entity.npc.NPC;
-import BLL.item.Item;
-import BLL.item.ItemStack;
 import UI.SearchTask;
 import UI.controller.GameController;
 import javafx.animation.Interpolator;
@@ -22,6 +21,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.util.Duration;
+
 import java.util.ArrayList;
 
 public class PlanetView {
@@ -35,23 +35,22 @@ public class PlanetView {
     private Pane imageGradient;
     private VBox vbox;
     StackPane headerWrapper;
-    private ListView<ItemStack> itemList;
+    private ListView<IItemStack> itemList;
     private ListView<NPC> NPCList;
-    private ObservableList<ItemStack> items;
+    private ObservableList<IItemStack> items;
     private ObservableList<NPC> npcs;
     HBox listsWrapper;
     private Task task;
     private boolean isVisible;
 
 
-
-    public PlanetView(AnchorPane parent, GameController controller){
+    public PlanetView(AnchorPane parent, GameController controller) {
         this.parent = parent;
         this.controller = controller;
 
     }
 
-    public void landOnPlanet(String name, String description, String imagePath){
+    public void landOnPlanet(String name, String description, String imagePath) {
         task = null;
         isVisible = true;
 
@@ -121,7 +120,7 @@ public class PlanetView {
         button__searchPlanet.setContentDisplay(ContentDisplay.TEXT_ONLY);
         button__searchPlanet.setGraphic(barSearch);
         HBox listsHeaderBar = new HBox(listsTitle, listHeaderSpacer, button__searchPlanet);
-        listsHeaderBar.setHgrow(listHeaderSpacer, Priority.ALWAYS);
+        HBox.setHgrow(listHeaderSpacer, Priority.ALWAYS);
         listsHeaderBar.setAlignment(Pos.CENTER);
         VBox listsHeader = new VBox(listsHeaderBar, divider());
         listsHeader.setSpacing(10);
@@ -142,7 +141,6 @@ public class PlanetView {
         vbox.setSpacing(30);
 
         // ------------------------------------------------------
-
 
 
         // ADD MOST OUTER VBOX TO STACKPANE (planetViewInnerWrapper)
@@ -166,38 +164,38 @@ public class PlanetView {
         String backgroundImage = "-fx-background-image: url(" + imagePath + ");";
         image.setStyle(backgroundImage);
         image.setMinHeight(400);
-        Stop[] imageGradientStops = {new Stop(0, Color.rgb(18,18,18,1)), new Stop(1, Color.rgb(18,18,18, 0.1))};
-        LinearGradient lg = new LinearGradient(0,0,Math.cos(Math.toRadians(90)),Math.sin(Math.toRadians(90)),true, CycleMethod.NO_CYCLE, imageGradientStops);
-        imageGradient.setBackground(new Background(new BackgroundFill(lg,null,null)));
+        Stop[] imageGradientStops = {new Stop(0, Color.rgb(18, 18, 18, 1)), new Stop(1, Color.rgb(18, 18, 18, 0.1))};
+        LinearGradient lg = new LinearGradient(0, 0, Math.cos(Math.toRadians(90)), Math.sin(Math.toRadians(90)), true, CycleMethod.NO_CYCLE, imageGradientStops);
+        imageGradient.setBackground(new Background(new BackgroundFill(lg, null, null)));
         imageGradient.setRotate(180);
-        image.setLeftAnchor(imageGradient, 0.0);
-        image.setRightAnchor(imageGradient, 0.0);
-        image.setTopAnchor(imageGradient, 0.0);
-        image.setBottomAnchor(imageGradient, 0.0);
+        AnchorPane.setLeftAnchor(imageGradient, 0.0);
+        AnchorPane.setRightAnchor(imageGradient, 0.0);
+        AnchorPane.setTopAnchor(imageGradient, 0.0);
+        AnchorPane.setBottomAnchor(imageGradient, 0.0);
 
 
         // ADD IMAGE AND SCROLLPANE TO MOST OUTER WRAPPER
         planetViewWrapper.getChildren().addAll(image, scrollPane);
         planetViewWrapper.setStyle("-fx-background-color: #181818;");
-        planetViewWrapper.setLeftAnchor(image, 0.0);
-        planetViewWrapper.setRightAnchor(image, 0.0);
-        planetViewWrapper.setLeftAnchor(scrollPane, 0.0);
-        planetViewWrapper.setRightAnchor(scrollPane, 0.0);
-        planetViewWrapper.setTopAnchor(scrollPane, 0.0);
-        planetViewWrapper.setBottomAnchor(scrollPane, 100.0);
+        AnchorPane.setLeftAnchor(image, 0.0);
+        AnchorPane.setRightAnchor(image, 0.0);
+        AnchorPane.setLeftAnchor(scrollPane, 0.0);
+        AnchorPane.setRightAnchor(scrollPane, 0.0);
+        AnchorPane.setTopAnchor(scrollPane, 0.0);
+        AnchorPane.setBottomAnchor(scrollPane, 100.0);
 
 
         parent.getChildren().add(planetViewWrapper);
-        parent.setLeftAnchor(planetViewWrapper, 0.0);
-        parent.setRightAnchor(planetViewWrapper, 0.0);
-        parent.setTopAnchor(planetViewWrapper, 0.0);
-        parent.setBottomAnchor(planetViewWrapper, 0.0);
+        AnchorPane.setLeftAnchor(planetViewWrapper, 0.0);
+        AnchorPane.setRightAnchor(planetViewWrapper, 0.0);
+        AnchorPane.setTopAnchor(planetViewWrapper, 0.0);
+        AnchorPane.setBottomAnchor(planetViewWrapper, 0.0);
 
 
         // --------------------------------------------------------------
         // CONTROL IMAGE OPACITY VIA SCROLL POSITION
         scrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
-            image.setOpacity(1 - (newValue.doubleValue()*10));
+            image.setOpacity(1 - (newValue.doubleValue() * 10));
         });
 
         // EVENT HANDLER FOR LEAVING PLANET
@@ -205,7 +203,7 @@ public class PlanetView {
 
         // EVENT HANDLER FOR THE NPC LIST
         NPCList.setOnMouseClicked(event -> {
-            if(NPCList.getSelectionModel().getSelectedItem() != null) {
+            if (NPCList.getSelectionModel().getSelectedItem() != null) {
                 controller.startInteract(NPCList.getSelectionModel().getSelectedItem(), 0);
             }
         });
@@ -213,18 +211,17 @@ public class PlanetView {
         // EVENT HANDLER FOR SEARCHING PLANET
         button__searchPlanet.setOnAction(event -> {
 
-            if(task == null || !task.isRunning()) {
+            if (task == null || !task.isRunning()) {
                 task = new SearchTask(false);
 
-                barSearch.setPrefWidth(button__searchPlanet.getWidth() * 5.7/10);
+                barSearch.setPrefWidth(button__searchPlanet.getWidth() * 5.7 / 10);
                 barSearch.setVisible(true);
                 button__searchPlanet.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                 button__searchPlanet.setText("");
 
 
-
-                //items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().get);
-
+                items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getIItemStacks());
+                itemList.setItems(items);
 
                 npcs = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getNPCs());
                 NPCList.setItems(npcs);
@@ -266,8 +263,8 @@ public class PlanetView {
                     VBox itemVbox = new VBox(itemListHeader, itemList);
                     VBox NPCVbox = new VBox(NPCListHeader, NPCList);
                     listsWrapper.getChildren().addAll(itemVbox, NPCVbox);
-                    listsWrapper.setHgrow(itemVbox, Priority.ALWAYS);
-                    listsWrapper.setHgrow(NPCVbox, Priority.ALWAYS);
+                    HBox.setHgrow(itemVbox, Priority.ALWAYS);
+                    HBox.setHgrow(NPCVbox, Priority.ALWAYS);
                     itemList.setOpacity(0);
                     NPCList.setOpacity(0);
                     itemList.getStyleClass().add("searchList");
@@ -283,7 +280,7 @@ public class PlanetView {
 
     }
 
-    public void leavePlanet(){
+    public void leavePlanet() {
         isVisible = false;
 
         parent.getChildren().remove(planetViewWrapper);
@@ -293,9 +290,10 @@ public class PlanetView {
 
     /**
      * Returns a new divider for layout purposes
-     * @return  AnchorPane
+     *
+     * @return AnchorPane
      */
-    private AnchorPane divider(){
+    private AnchorPane divider() {
         AnchorPane divider = new AnchorPane();
         divider.setStyle("-fx-border-color: #282828; -fx-border-width: 1 0 0 0;");
         return divider;
@@ -310,17 +308,19 @@ public class PlanetView {
      * Inner class that extends {@link ListCell}, overriding the updateItem method.
      * The updateItem method is called whenever the item in the cell changes.
      */
-    public class NPCFormatCell extends ListCell<NPC>{
+    public class NPCFormatCell extends ListCell<NPC> {
         private ImageView imageView = new ImageView();
-        public NPCFormatCell(){}
+
+        public NPCFormatCell() {
+        }
 
         @Override
         protected void updateItem(NPC item, boolean empty) {
             super.updateItem(item, empty);
-            setText(item == null? " " : item.getName());
-            setTextFill(new Color(1.,1.,1.,1.));
+            setText(item == null ? " " : item.getName());
+            setTextFill(new Color(1., 1., 1., 1.));
 
-            if(item != null){
+            if (item != null) {
                 imageView.setImage(new Image("./DAL/resource/images/npcs/profputri.png"));
                 imageView.setFitHeight(40);
                 imageView.setPreserveRatio(true);

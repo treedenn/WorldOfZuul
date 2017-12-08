@@ -1,12 +1,8 @@
 package UI.GameComponents;
 
-import BLL.ACQ.Domain;
 import UI.controller.GameController;
-import com.sun.istack.internal.Nullable;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
-
-import java.util.Collection;
 
 public abstract class InterfaceElement<T extends Pane> {
 

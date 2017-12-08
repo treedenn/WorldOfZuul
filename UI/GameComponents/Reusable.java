@@ -1,6 +1,5 @@
 package UI.GameComponents;
 
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 public interface Reusable {
