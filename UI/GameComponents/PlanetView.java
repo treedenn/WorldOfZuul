@@ -1,5 +1,6 @@
 package UI.GameComponents;
 
+import BLL.ACQ.IItemStack;
 import BLL.entity.npc.NPC;
 import BLL.item.Item;
 import BLL.item.ItemStack;
@@ -35,9 +36,9 @@ public class PlanetView {
     private Pane imageGradient;
     private VBox vbox;
     StackPane headerWrapper;
-    private ListView<ItemStack> itemList;
+    private ListView<IItemStack> itemList;
     private ListView<NPC> NPCList;
-    private ObservableList<ItemStack> items;
+    private ObservableList<IItemStack> items;
     private ObservableList<NPC> npcs;
     HBox listsWrapper;
     private Task task;
@@ -223,8 +224,8 @@ public class PlanetView {
 
 
 
-                //items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().get);
-
+                items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getIItemStacks());
+                itemList.setItems(items);
 
                 npcs = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getNPCs());
                 NPCList.setItems(npcs);

@@ -113,9 +113,7 @@ public class Backpack extends InterfaceElement {
 
 
         /** Load ListView with items! */
-        items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getIInventory().getContent());
-        inventory.setItems(items);
-        inventory.setCellFactory(param -> {return new InventoryFormatCell();});
+        tick();
         inventory.setOnMouseClicked(event -> {
             if(inventory.getSelectionModel().getSelectedItem() != null){
                 for (Button child : children) {
@@ -137,6 +135,7 @@ public class Backpack extends InterfaceElement {
             IItemStack selectedItem = inventory.getSelectionModel().getSelectedItem();
             if(selectedItem != null){
                 controller.getDomain().getPlayer().getIInventory().remove((ItemStack) selectedItem);
+                tick();
             }
         });
 
@@ -146,6 +145,7 @@ public class Backpack extends InterfaceElement {
                 System.out.println(selectedItem.getIItem().getName());
                 System.out.println(selectedItem.getIItem().getDescription());
                 System.out.println(selectedItem.getIItem().getWeight());
+                tick();
             }
         });
 
@@ -153,6 +153,7 @@ public class Backpack extends InterfaceElement {
             IItemStack selectedItem = inventory.getSelectionModel().getSelectedItem();
             if(selectedItem != null){
                 controller.getDomain().useItem(selectedItem);
+                tick();
             }
         });
 
@@ -163,7 +164,9 @@ public class Backpack extends InterfaceElement {
      */
     @Override
     public void tick() {
-
+        items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getIInventory().getContent());
+        inventory.setItems(items);
+        inventory.setCellFactory(param -> {return new InventoryFormatCell();});
     }
 
     /**

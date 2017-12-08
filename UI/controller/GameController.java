@@ -325,7 +325,7 @@ public class GameController extends Controller implements IGameLoop {
                 dialogHandler.clear();
                 startInteract(npc, index);
             }
-        } else if(index >= npc.getActions().length){
+        } else{
             dialogHandler.clear();
         }
 
