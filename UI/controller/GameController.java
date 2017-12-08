@@ -7,6 +7,8 @@ import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
+import BLL.item.ItemStack;
+import DAL.Model;
 import UI.GameComponents.*;
 import UI.GameComponents.Subscene.GameMap.MiniMap;
 import UI.GameComponents.Subscene.Innerscene;
@@ -261,11 +263,37 @@ public class GameController extends Controller implements IGameLoop {
             innersceneHandler.getPlayer().setAccelerate(true);
         }
         if(event.getCode() == KeyCode.S){
-            System.out.println("-----------------------------------");
-            for (IItemStack iItemStack : getDomain().getPlayer().getCurrentPlanet().getIItemStacks()) {
+
+            /* TODO FIND OUT WHY THIS DOESN'T WORK
+
+            /*
+            getDomain().searchPlanet();
+
+            Model model = Model.getInstance();
+            ItemStack is1 = new ItemStack(model.getItemById(11));
+            ItemStack is2 = new ItemStack(model.getItemById(25));
+            ItemStack is3 = new ItemStack(model.getItemById(37));
+
+
+            System.out.println(getDomain().pickupItem(is1));
+            for (IItemStack iItemStack : getDomain().getPlayer().getIInventory().getIContent()) {
                 System.out.println("Name: " + iItemStack.getIItem().getName() + ". Quantity: " + iItemStack.getQuantity());
             }
-            System.out.println("-----------------------------------");
+            System.out.println("----");
+            getDomain().pickupItem(is2);
+            for (IItemStack iItemStack : getDomain().getPlayer().getIInventory().getIContent()) {
+                System.out.println("Name: " + iItemStack.getIItem().getName() + ". Quantity: " + iItemStack.getQuantity());
+            }
+            System.out.println("----");
+            getDomain().pickupItem(is3);
+            for (IItemStack iItemStack : getDomain().getPlayer().getIInventory().getIContent()) {
+                System.out.println("Name: " + iItemStack.getIItem().getName() + ". Quantity: " + iItemStack.getQuantity());
+            }
+
+           System.out.println("-------------------------------");
+            */
+
+
         }
     }
 
