@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.view.ItemWindows">
+   <children>
+      <GridPane layoutX="116.0" layoutY="95.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <GridPane prefWidth="500.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="ALWAYS" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="ItemWindowTitle" text="Name of item" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="itemWindowExit" mnemonicParsing="false" text="X" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Description:" />
+                  <TextArea fx:id="ItemWindowDescription" prefHeight="200.0" prefWidth="200.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis euismod ligula sem, in dignissim ante lacinia non. Aenean lacus orci, rhoncus vel velit vitae, vulputate tempor risus. Nullam vulputate consequat erat venenatis placerat. Integer non augue sed sapien tempus semper sit amet non urna. Cras convallis neque quis suscipit cursus. Sed a ante enim. Donec pulvinar leo eget laoreet lacinia. Cras porttitor congue vestibulum. Maecenas condimentum ex sed neque sagittis dapibus.&#10;&#10;Aenean sit amet arcu eget urna commodo volutpat nec in magna. Suspendisse volutpat, purus ut eleifend egestas, quam ligula luctus massa, ut consectetur leo sapien ut ante. Ut feugiat orci mauris. Nullam ac efficitur urna. Nunc sit amet libero varius, pretium erat ac, placerat ligula. Aenean lobortis risus eu enim tristique placerat. Fusce ultricies massa eget faucibus blandit. Cras vehicula enim sed sapien tempus, a pulvinar enim gravida. Sed urna diam, vestibulum eget nisl nec, commodo accumsan tellus. Nulla in purus condimentum, hendrerit quam nec, maximus tellus. Maecenas at turpis eget nulla viverra molestie. Maecenas viverra, neque nec interdum viverra, risus orci tristique justo, ut pharetra nulla libero id ex. Maecenas porttitor pretium enim eu tempor. In hac habitasse platea dictumst.&#10;&#10;Suspendisse a rutrum diam. In aliquet, nulla quis commodo suscipit, libero lectus viverra diam, ac tristique sem velit eget metus. Nam id sodales est. Aenean id pretium nulla. Morbi quis lectus faucibus, commodo nibh ac, fringilla metus. Sed sollicitudin lacus sit amet fermentum dapibus. Praesent quis ante elit. Nullam sollicitudin tincidunt erat.&#10;&#10;Morbi condimentum placerat vulputate. Nunc bibendum felis sagittis blandit malesuada. Ut orci metus, ornare quis lectus vel, sagittis euismod velit. Aenean nisl arcu, suscipit at bibendum vel, rutrum scelerisque leo. Aenean euismod erat non ultricies aliquet. Aliquam non velit erat. Proin blandit arcu quis nisl tempus mollis.&#10;&#10;Aliquam scelerisque finibus volutpat. Nulla at justo eget tellus auctor congue. Integer interdum nibh et justo consequat tincidunt. Donec vehicula rhoncus dolor sed euismod. Nulla mattis vel mauris sed laoreet. Nunc pellentesque ultrices tincidunt. Praesent eros leo, placerat et commodo quis, tempor vel neque. Praesent consectetur sem vitae interdum elementum. Praesent dignissim dui ut magna fringilla, et cursus eros suscipit. Nam finibus accumsan nisi quis placerat. Ut a est feugiat, scelerisque diam hendrerit, iaculis arcu." wrapText="true" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </GridPane>
+   </children>
+</AnchorPane>
