@@ -304,6 +304,10 @@
 
 }
 
+.bar__fuel{
+    -fx-cursor: hand;
+}
+
 .bar__fuel .bar{
 
     -fx-padding: 15px 5px 15px 5px;
