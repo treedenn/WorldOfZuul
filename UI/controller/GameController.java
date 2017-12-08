@@ -229,7 +229,10 @@ public class GameController extends Controller implements IGameLoop {
     void displayDrawer(ActionEvent event) { drawerHandler.showDrawer();}
 
     @FXML
-    void closeDrawer(ActionEvent event) { drawerHandler.hideDrawer(); }
+    void closeDrawer(ActionEvent event) {
+        drawerHandler.hideDrawer();
+        hintLabel.setText("");
+    }
 
     @FXML
     void gameMenuButtonHovered(MouseEvent event) { burgerMenuHandler.burgerMenuHover(); }
@@ -417,11 +420,10 @@ public class GameController extends Controller implements IGameLoop {
     }
     @FXML
     void displayHints(ActionEvent event) {
-     
+        hintLabel.setText("1. Find the Blacksmith `Gearhead`\n       -located on one of the nearby planets");
 
-
-        hintLabel.setText("hints");
     }
+
 
     @FXML
     void keyIsReleased(KeyEvent event) {
