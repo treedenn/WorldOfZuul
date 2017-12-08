@@ -68,6 +68,7 @@ public class Dialog implements Reusable{
         name = new Label();
         dialog = new VBox();
         NPCMessage = new Label('"' + message + '"');
+        NPCMessage.setWrapText(true);
         choicesVBox = new VBox();
         exit = new Button();
         choicesScrollPane = new ScrollPane();
@@ -113,26 +114,29 @@ public class Dialog implements Reusable{
             }
         });
 
+
         dialogHbox.getChildren().addAll(NPCrepresentation, dialog);
         dialogHbox.setHgrow(dialog, Priority.ALWAYS);
         dialog.setStyle("-fx-padding: 30px;");
 
         dialogViewInnerWrapper.getChildren().add(dialogHbox);
-        dialogViewInnerWrapper.setAlignment(Pos.TOP_CENTER);
+        dialogViewInnerWrapper.setAlignment(Pos.CENTER);
+        dialogViewInnerWrapper.setStyle("-fx-padding: 50 0 0 0;");
         dialogHbox.setMaxWidth(800);
 
         dialogViewWrapper.getChildren().add(dialogViewInnerWrapper);
         dialogViewWrapper.setLeftAnchor(dialogViewInnerWrapper, 0.0);
         dialogViewWrapper.setRightAnchor(dialogViewInnerWrapper, 0.0);
-        dialogViewWrapper.setTopAnchor(dialogViewInnerWrapper, 0.0);
+        dialogViewWrapper.setTopAnchor(dialogViewInnerWrapper, 80.0);
         dialogViewWrapper.setBottomAnchor(dialogViewInnerWrapper, 0.0);
-        dialogViewWrapper.setStyle("-fx-background-color: rgba(0,0,0,0.5);");
+        dialogViewWrapper.setStyle("-fx-background-color: rgba(0,0,0,0.8);");
 
         parent.getChildren().add(dialogViewWrapper);
         parent.setLeftAnchor(dialogViewWrapper, 0.0);
         parent.setRightAnchor(dialogViewWrapper, 0.0);
         parent.setTopAnchor(dialogViewWrapper, 0.0);
         parent.setBottomAnchor(dialogViewWrapper, 0.0);
+
     }
 
     public void closeDialog(){

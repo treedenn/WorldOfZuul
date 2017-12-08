@@ -1,6 +1,7 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.IItemStack;
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
@@ -42,6 +43,7 @@ public class GameController extends Controller implements IGameLoop {
     private HoverLabel hoverLabelHandler;
     private PlanetView planetViewHandler;
     private Dialog dialogHandler;
+    private Backpack inventoryHandler;
 
     /** Double value used to keep track of time. dt stands for delta time. */
     private double dt;
@@ -142,8 +144,13 @@ public class GameController extends Controller implements IGameLoop {
         miniMapHandler = new MiniMap(interfaceGrid);
         interfaceGrid.setColumnIndex(miniMapHandler.getElement(), interfaceGrid.getColumnConstraints().size()-1);
         miniMapHandler.renderPlanets(getDomain().getPlayer().getPlanets());
-
         layout(miniMapHandler);
+
+        inventoryHandler = new Backpack(wrapper);
+
+
+
+
 
         configGameMenuButton();
         configDrawer();
@@ -245,9 +252,11 @@ public class GameController extends Controller implements IGameLoop {
     }
 
     public void leavePlanet(){
-        miniMapHandler.show();
         planetViewHandler.leavePlanet();
         hoverLabelHandler.show();
+        miniMapHandler.show();
+        fuelHandler.show();
+        backpackHandler.show();
     }
 
     /**
@@ -263,7 +272,7 @@ public class GameController extends Controller implements IGameLoop {
                     planetViewHandler.leavePlanet();
                     String planetImage = currentPlanet.getImage().toURI().toString().replace("\\", "/");
                     planetViewHandler.landOnPlanet(currentPlanet.getName(), currentPlanet.getDescription(), planetImage);
-                    hoverLabelHandler.show();
+                    hoverLabelHandler.hide();
                 } else {
                     notificationHandler.loadNotification(getDomain().getMessageContainer().getMessage());
                     showNotification();
@@ -463,7 +472,9 @@ public class GameController extends Controller implements IGameLoop {
         }
 
         if(playerCollidingdWithPlanet){
-            hoverLabelHandler.show();
+            if(!planetViewHandler.isVisible()) {
+                hoverLabelHandler.show();
+            }
 
         } else if (!playerCollidingdWithPlanet){
             hoverLabelHandler.hide();
