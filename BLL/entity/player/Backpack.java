@@ -1,7 +1,7 @@
 package BLL.entity.player;
 
-import BLL.ACQ.IInventory;
 import BLL.ACQ.IItemStack;
+import BLL.entity.Inventory;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Backpack is an inventory, based on the inventory.
  * It is focused on weight instead of the amount of items inside.
  */
-public class Backpack implements IInventory {
+public class Backpack implements Inventory {
 	private double maxWeightCapacity;
 	private double currentWeightCapacity;
 	private List<ItemStack> items;
@@ -111,21 +111,24 @@ public class Backpack implements IInventory {
 	 */
 	@Override
 	public boolean add(ItemStack itemStack) {
-		if(isBelowMaxCapacity(itemStack)) {
-			int indexExists = findItem(itemStack);
+		if(itemStack.getQuantity() > 0) {
+			if(isBelowMaxCapacity(itemStack)) {
+				int indexExists = findItem(itemStack);
 
-			if(indexExists != -1) {
-				ItemStack existingStack = items.get(indexExists);
+				if(indexExists != -1) {
+					ItemStack existingStack = items.get(indexExists);
 
-				decreaseCurrentCapacity(existingStack.getTotalWeight());
-				existingStack.increaseQuantity(itemStack.getQuantity());
-				increaseCurrentCapacity(existingStack.getTotalWeight());
-			} else {
-				items.add(itemStack);
-				increaseCurrentCapacity(itemStack.getTotalWeight());
+					decreaseCurrentCapacity(existingStack.getTotalWeight());
+					existingStack.increaseQuantity(itemStack.getQuantity());
+
+					increaseCurrentCapacity(existingStack.getTotalWeight());
+				} else {
+					items.add(new ItemStack(itemStack.getItem(), itemStack.getQuantity()));
+					increaseCurrentCapacity(itemStack.getTotalWeight());
+				}
+
+				return true;
 			}
-
-			return true;
 		}
 
 		return false;
@@ -151,30 +154,37 @@ public class Backpack implements IInventory {
 	 */
 	@Override
 	public boolean remove(ItemStack itemStack) {
-		int index = findItem(itemStack.getItem());
+		if(itemStack.getQuantity() > 0) {
+			int index = findItem(itemStack.getItem());
 
-		if(index != -1) {
-			ItemStack existingStack = items.get(index);
+			if(index != -1) {
+				ItemStack existingStack = items.get(index);
 
-			if(existingStack.getQuantity() - itemStack.getQuantity() == 0) {
-				remove(index);
-			} else{
-				existingStack.decreaseQuantity(itemStack.getQuantity());
-				decreaseCurrentCapacity(itemStack.getTotalWeight());
+				if(existingStack.getQuantity() - itemStack.getQuantity() <= 0) {
+					remove(index);
+				} else{
+					existingStack.decreaseQuantity(itemStack.getQuantity());
+					decreaseCurrentCapacity(itemStack.getTotalWeight());
+				}
+
+				return true;
 			}
-
-			return true;
 		}
 
 		return false;
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Removes an ItemStack from the inventory at the given index.
+	 * @param index the index to remove
+	 * @throws ArrayIndexOutOfBoundsException index is not between empty and current
 	 */
-	@Override
 	public void remove(int index) throws ArrayIndexOutOfBoundsException {
-		decreaseCurrentCapacity(items.remove(index).getTotalWeight());
+		if(index >= 0 && index < items.size()) {
+			decreaseCurrentCapacity(items.remove(index).getTotalWeight());
+		} else {
+			throw new ArrayIndexOutOfBoundsException();
+		}
 	}
 
 	/**

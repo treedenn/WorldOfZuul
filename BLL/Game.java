@@ -118,8 +118,7 @@ public class Game implements Domain {
         //npcHandler.getStationaryBlacksmith().setCurrentPlanet();
 
 		System.out.println(planets[11].getName());
-        useItem(new ItemStack(model.getItemById(58)));
-		System.out.println(player.getIInventory().getIContent());
+        //useItem(new ItemStack(model.getItemById(58)));
 		// ---
 
 	}
@@ -288,8 +287,9 @@ public class Game implements Domain {
 			Item i = (Item) iis.getIItem();
 
 			if(i.hasUsable()) {
-				i.use(player, this);
-
+				if(i.use(player, this)) {
+					player.getInventory().remove((ItemStack) iis);
+				}
 				isUsed = true;
 				message = replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
 			} else {
@@ -317,7 +317,7 @@ public class Game implements Domain {
 				if(item.isPickupable()) {
 					Inventory bp = player.getInventory();
 
-					if(bp.add(is)) {
+					if(player.getCurrentPlanet().hasItemStack(is) && bp.add(is)) {
 						player.getCurrentPlanet().removeItemStack(is);
 
 						isPickedUp = true;
@@ -353,7 +353,7 @@ public class Game implements Domain {
 				if(item.isDropable()) {
 					Inventory bp = player.getInventory();
 
-					if(bp.remove(is)) {
+					if(bp.contains(is) && bp.remove(is)) {
 						player.getCurrentPlanet().addItemStack(is);
 
 						isDropped = true;

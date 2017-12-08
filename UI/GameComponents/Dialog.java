@@ -116,7 +116,7 @@ public class Dialog implements Reusable{
 
 
         dialogHbox.getChildren().addAll(NPCrepresentation, dialog);
-        dialogHbox.setHgrow(dialog, Priority.ALWAYS);
+        HBox.setHgrow(dialog, Priority.ALWAYS);
         dialog.setStyle("-fx-padding: 30px;");
 
         dialogViewInnerWrapper.getChildren().add(dialogHbox);
@@ -125,17 +125,17 @@ public class Dialog implements Reusable{
         dialogHbox.setMaxWidth(800);
 
         dialogViewWrapper.getChildren().add(dialogViewInnerWrapper);
-        dialogViewWrapper.setLeftAnchor(dialogViewInnerWrapper, 0.0);
-        dialogViewWrapper.setRightAnchor(dialogViewInnerWrapper, 0.0);
-        dialogViewWrapper.setTopAnchor(dialogViewInnerWrapper, 80.0);
-        dialogViewWrapper.setBottomAnchor(dialogViewInnerWrapper, 0.0);
+        AnchorPane.setLeftAnchor(dialogViewInnerWrapper, 0.0);
+        AnchorPane.setRightAnchor(dialogViewInnerWrapper, 0.0);
+        AnchorPane.setTopAnchor(dialogViewInnerWrapper, 80.0);
+        AnchorPane.setBottomAnchor(dialogViewInnerWrapper, 0.0);
         dialogViewWrapper.setStyle("-fx-background-color: rgba(0,0,0,0.8);");
 
         parent.getChildren().add(dialogViewWrapper);
-        parent.setLeftAnchor(dialogViewWrapper, 0.0);
-        parent.setRightAnchor(dialogViewWrapper, 0.0);
-        parent.setTopAnchor(dialogViewWrapper, 0.0);
-        parent.setBottomAnchor(dialogViewWrapper, 0.0);
+        AnchorPane.setLeftAnchor(dialogViewWrapper, 0.0);
+        AnchorPane.setRightAnchor(dialogViewWrapper, 0.0);
+        AnchorPane.setTopAnchor(dialogViewWrapper, 0.0);
+        AnchorPane.setBottomAnchor(dialogViewWrapper, 0.0);
 
     }
 

@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane fx:id="wrapper" onKeyPressed="#keyIsPressed" onKeyReleased="#keyIsReleased" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="wrapper" onKeyPressed="#keyIsPressed" onKeyReleased="#keyIsReleased" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane fx:id="contentWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -161,6 +161,7 @@
                   <RowConstraints maxHeight="93.0" minHeight="93.0" prefHeight="93.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
+                  <Label fx:id="hintLabel" prefHeight="405.0" prefWidth="309.0" textAlignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="4" />
                   <Button mnemonicParsing="false" styleClass="button__menuBar" text="SAVE AND QUIT" GridPane.rowIndex="2">
                      <effect>
                         <DropShadow blurType="GAUSSIAN" color="#0000002b" height="15.0" offsetY="1.0" radius="7.0" width="15.0" />
@@ -190,6 +191,11 @@
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </padding>
                   </GridPane>
+                  <Button fx:id="hints" mnemonicParsing="false" onAction="#displayHints" prefHeight="50.0" prefWidth="241.0" styleClass="button__menuBar" text="HINTS" GridPane.rowIndex="3">
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" color="#0000002b" height="15.0" offsetY="1.0" radius="7.0" width="15.0" />
+                     </effect>
+                  </Button>
                  
                </children>
             </GridPane>

@@ -190,6 +190,10 @@ public class Planet implements IPlanet {
         return getContent();
     }
 
+    public boolean hasItemStack(ItemStack is) {
+        return itemList.contains(is);
+    }
+
     /**
      * Looks for a specific item stack inside the planet's content.
      * @param itemStack the item stack to look for

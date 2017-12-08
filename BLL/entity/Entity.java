@@ -4,7 +4,6 @@ import BLL.ACQ.IPlanet;
 import BLL.world.Planet;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Entity is a 'living' creature, who can be on a planet.

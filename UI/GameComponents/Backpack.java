@@ -1,7 +1,6 @@
 package UI.GameComponents;
 
 import BLL.ACQ.IItemStack;
-import BLL.item.ItemStack;
 import UI.controller.GameController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +13,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-
-import java.util.List;
 
 public class Backpack extends InterfaceElement {
 
@@ -39,9 +36,7 @@ public class Backpack extends InterfaceElement {
      */
     public Backpack(Pane parent, GameController controller){
         super(parent);
-        System.out.println(controller);
         this.controller = controller;
-        System.out.println(controller);
     }
 
     /**
@@ -66,9 +61,9 @@ public class Backpack extends InterfaceElement {
         backpackTitle.setStyle("-fx-text-fill: white; -fx-font-size: 24; -fx-font-family: 'Circular Std Black';");
 
         buttonGroup.getChildren().addAll(dropButton, inspectButton, useButton);
-        buttonGroup.setHgrow(dropButton, Priority.ALWAYS);
-        buttonGroup.setHgrow(inspectButton, Priority.ALWAYS);
-        buttonGroup.setHgrow(useButton, Priority.ALWAYS);
+        HBox.setHgrow(dropButton, Priority.ALWAYS);
+        HBox.setHgrow(inspectButton, Priority.ALWAYS);
+        HBox.setHgrow(useButton, Priority.ALWAYS);
         dropButton.getStyleClass().add("backpackButton--dropButton");
         inspectButton.getStyleClass().add("backpackButton--inspectButton");
         useButton.getStyleClass().add("backpackButton--useButton");
@@ -76,14 +71,14 @@ public class Backpack extends InterfaceElement {
         for (Button child : children) {
             child.setDisable(true);
         }
-        buttonGroup.widthProperty().addListener((observable, oldValue, newValue) -> {;
+        buttonGroup.widthProperty().addListener((observable, oldValue, newValue) -> {
             for (Button child : children) {
                 child.setPrefWidth(newValue.doubleValue() / 3);
             }
         });
 
         headerHbox.getChildren().addAll(backpackTitle, headerSpacer, exit);
-        headerHbox.setHgrow(headerSpacer, Priority.ALWAYS);
+        HBox.setHgrow(headerSpacer, Priority.ALWAYS);
         SVGPath cross = new SVGPath();
         cross.setContent("M19,6.4L17.6,5L12,10.6L6.4,5L5,6.4l5.6,5.6L5,17.6L6.4,19l5.6-5.6l5.6,5.6l1.4-1.4L13.4,12L19,6.4z");
         cross.setFill(Color.rgb(255,255,255));
@@ -103,10 +98,10 @@ public class Backpack extends InterfaceElement {
         backpackInnerWrapper.setAlignment(Pos.CENTER);
 
         backpackWrapper.getChildren().add(backpackInnerWrapper);
-        backpackWrapper.setLeftAnchor(backpackInnerWrapper, 0.);
-        backpackWrapper.setRightAnchor(backpackInnerWrapper, 0.);
-        backpackWrapper.setTopAnchor(backpackInnerWrapper, 0.);
-        backpackWrapper.setBottomAnchor(backpackInnerWrapper, 0.);
+        AnchorPane.setLeftAnchor(backpackInnerWrapper, 0.);
+        AnchorPane.setRightAnchor(backpackInnerWrapper, 0.);
+        AnchorPane.setTopAnchor(backpackInnerWrapper, 0.);
+        AnchorPane.setBottomAnchor(backpackInnerWrapper, 0.);
 
         getElement().getChildren().add(backpackWrapper);
 
@@ -134,7 +129,7 @@ public class Backpack extends InterfaceElement {
         dropButton.setOnAction(event -> {
             IItemStack selectedItem = inventory.getSelectionModel().getSelectedItem();
             if(selectedItem != null){
-                controller.getDomain().getPlayer().getIInventory().remove((ItemStack) selectedItem);
+                controller.getDomain().dropItem(selectedItem);
                 tick();
             }
         });
@@ -142,9 +137,7 @@ public class Backpack extends InterfaceElement {
         inspectButton.setOnAction(event -> {
             IItemStack selectedItem = inventory.getSelectionModel().getSelectedItem();
             if(selectedItem != null){
-                System.out.println(selectedItem.getIItem().getName());
-                System.out.println(selectedItem.getIItem().getDescription());
-                System.out.println(selectedItem.getIItem().getWeight());
+
                 tick();
             }
         });
@@ -164,7 +157,7 @@ public class Backpack extends InterfaceElement {
      */
     @Override
     public void tick() {
-        items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getIInventory().getContent());
+        items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getIInventory().getIContent());
         inventory.setItems(items);
         inventory.setCellFactory(param -> {return new InventoryFormatCell();});
     }
@@ -178,10 +171,10 @@ public class Backpack extends InterfaceElement {
         //addInterfaceElement(getParent(), getElement());
         getParent().getChildren().add(backpackWrapper);
 
-        ((AnchorPane) getParent()).setLeftAnchor(backpackWrapper, 0.);
-        ((AnchorPane) getParent()).setRightAnchor(backpackWrapper, 0.);
-        ((AnchorPane) getParent()).setTopAnchor(backpackWrapper, 0.);
-        ((AnchorPane) getParent()).setBottomAnchor(backpackWrapper, 0.);
+        AnchorPane.setLeftAnchor(backpackWrapper, 0.);
+        AnchorPane.setRightAnchor(backpackWrapper, 0.);
+        AnchorPane.setTopAnchor(backpackWrapper, 0.);
+        AnchorPane.setBottomAnchor(backpackWrapper, 0.);
     }
 
     /**

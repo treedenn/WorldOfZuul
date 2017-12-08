@@ -5,7 +5,6 @@ import UI.GameComponents.InterfaceElement;
 import UI.GameComponents.Subscene.GameMap.GameMap;
 import UI.GameComponents.GameObject;
 import UI.GameComponents.Player;
-import com.sun.istack.internal.Nullable;
 import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.effect.DropShadow;
@@ -13,9 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-import java.util.Map;
 
 
 public class Innerscene extends InterfaceElement {

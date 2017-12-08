@@ -1,7 +1,6 @@
 package UI;
 
 import BLL.ACQ.Domain;
-import BLL.Game;
 import BLL.ACQ.UserInterface;
 import UI.controller.StartController;
 import javafx.application.Application;

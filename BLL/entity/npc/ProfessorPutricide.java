@@ -2,7 +2,6 @@ package BLL.entity.npc;
 
 import BLL.ACQ.INPCAction;
 import BLL.entity.Entity;
-import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCActionCollection;
 
 public class ProfessorPutricide extends Entity implements NPC {

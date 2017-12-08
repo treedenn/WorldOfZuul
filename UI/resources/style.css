@@ -532,7 +532,6 @@ body{
 
 .backpackButton--inspectButton:hover{
     -fx-background-color: #448AFF;
-
 }
 
 .backpackButton--inspectButton:pressed{
@@ -559,6 +558,26 @@ body{
     -fx-background-color: #1db954;
     -fx-text-fill: rgba(255,255,255,0.8);
 }
+
+.planetViewButton--pickup{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 0;
+    -fx-background-color: #2979FF;
+}
+
+.planetViewButton--pickup:hover{
+    -fx-background-color: #448AFF;
+}
+
+.planetViewButton--pickup:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
 
 
 

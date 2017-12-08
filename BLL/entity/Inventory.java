@@ -1,5 +1,6 @@
 package BLL.entity;
 
+import BLL.ACQ.IInventory;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 
@@ -7,7 +8,7 @@ import BLL.item.ItemStack;
  * Creating a new inventory, this interface has to be implemented.
  * It describes the general and necessary function to an inventory.
  */
-public interface Inventory {
+public interface Inventory extends IInventory {
 	/**
 	 * Gets the max capacity an inventory can have.
 	 * @return max capacity
@@ -41,13 +42,6 @@ public interface Inventory {
 	 * @return true, if successful
 	 */
 	boolean remove(ItemStack itemStack);
-
-	/**
-	 * Removes an ItemStack from the inventory at the given index.
-	 * @param index the index to remove
-	 * @throws ArrayIndexOutOfBoundsException index is not between empty and current
-	 */
-	void remove(int index) throws ArrayIndexOutOfBoundsException;
 
 	/**
 	 * Searches for item within the inventory.

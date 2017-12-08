@@ -2,25 +2,16 @@ package UI.GameComponents.Subscene.GameMap;
 
 import BLL.ACQ.IPlanet;
 import UI.GameComponents.InterfaceElement;
-import UI.GameComponents.Planet;
-import UI.GameComponents.Player;
-import UI.controller.GameController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.effect.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.StrokeType;
-import javafx.stage.Stage;
 
-import java.awt.*;
-import java.util.List;
 import java.util.Map;
 
 public class MiniMap extends InterfaceElement implements IMap {

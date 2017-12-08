@@ -8,16 +8,12 @@ import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
 import UI.GameComponents.*;
-import UI.GameComponents.Subscene.GameMap.IMap;
 import UI.GameComponents.Subscene.GameMap.MiniMap;
 import UI.GameComponents.Subscene.Innerscene;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
-import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -127,6 +123,12 @@ public class GameController extends Controller implements IGameLoop {
     /** GridPane containing the UI  with exception of overlays*/
     @FXML private GridPane interfaceGrid;
 
+    @FXML
+    private Label hintLabel;
+
+    @FXML
+    private Button hints;
+
     /**
      * Constructor.
      * @param domain reference to domain logic.
@@ -142,14 +144,21 @@ public class GameController extends Controller implements IGameLoop {
 
         innersceneHandler = new Innerscene(subsceneWrapper);
         miniMapHandler = new MiniMap(interfaceGrid);
-        interfaceGrid.setColumnIndex(miniMapHandler.getElement(), interfaceGrid.getColumnConstraints().size()-1);
+        GridPane.setColumnIndex(miniMapHandler.getElement(), interfaceGrid.getColumnConstraints().size()-1);
         miniMapHandler.renderPlanets(getDomain().getPlayer().getPlanets());
         layout(miniMapHandler);
 
         inventoryHandler = new Backpack(wrapper, this);
         inventoryHandler.layout();
 
-
+/*
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < getDomain().getPlayer().getIInventory().getIContent().length; j++) {
+                System.out.println(getDomain().getPlayer().getIInventory().getIContent()[j]);
+                getDomain().getPlayer().getIInventory().getIContent()[j] = null;
+            }
+        }
+*/
 
 
         configGameMenuButton();
@@ -228,7 +237,10 @@ public class GameController extends Controller implements IGameLoop {
     void displayDrawer(ActionEvent event) { drawerHandler.showDrawer();}
 
     @FXML
-    void closeDrawer(ActionEvent event) { drawerHandler.hideDrawer(); }
+    void closeDrawer(ActionEvent event) {
+        drawerHandler.hideDrawer();
+        hintLabel.setText("");
+    }
 
     @FXML
     void gameMenuButtonHovered(MouseEvent event) { burgerMenuHandler.burgerMenuHover(); }
@@ -249,7 +261,11 @@ public class GameController extends Controller implements IGameLoop {
             innersceneHandler.getPlayer().setAccelerate(true);
         }
         if(event.getCode() == KeyCode.S){
-
+            System.out.println("-----------------------------------");
+            for (IItemStack iItemStack : getDomain().getPlayer().getCurrentPlanet().getIItemStacks()) {
+                System.out.println("Name: " + iItemStack.getIItem().getName() + ". Quantity: " + iItemStack.getQuantity());
+            }
+            System.out.println("-----------------------------------");
         }
     }
 
@@ -282,19 +298,11 @@ public class GameController extends Controller implements IGameLoop {
             }
         }
     }
-
-
-    public void gameStart(){
-
-        notificationHandler.loadNotification("These hints will show only once so remember them well Rick!\n 1. find the Blacksmith. 2. rep...*error*...");
-        showNotification();
-
-    }
+    
 
 
     public void showBackpack(){
         inventoryHandler.layout();
-        System.out.println(getDomain().getPlayer().getIInventory().getIContent().length);
         inventoryHandler.show();
     }
     public void hideBackpack(){
@@ -414,6 +422,11 @@ public class GameController extends Controller implements IGameLoop {
 
 
     }
+    @FXML
+    void displayHints(ActionEvent event) {
+        hintLabel.setText("1. Find the Blacksmith `Gearhead`\n       -located on one of the nearby planets");
+
+    }
 
 
     @FXML
@@ -529,4 +542,6 @@ public class GameController extends Controller implements IGameLoop {
 
     public void configDialog(){ dialogHandler = new Dialog(subsceneWrapper, this);}
 
+
 }
+
