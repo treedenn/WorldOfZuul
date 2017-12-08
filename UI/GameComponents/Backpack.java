@@ -37,7 +37,12 @@ public class Backpack extends InterfaceElement {
     /**
      * Constructor.
      */
-    public Backpack(Pane parent, GameController controller){super(parent); this.controller = controller;}
+    public Backpack(Pane parent, GameController controller){
+        super(parent);
+        System.out.println(controller);
+        this.controller = controller;
+        System.out.println(controller);
+    }
 
     /**
      * {@inheritDoc}
@@ -107,9 +112,9 @@ public class Backpack extends InterfaceElement {
 
 
 
-        // Load ListView with items!
- //      items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getIInventory().getIContent());
-//       inventory.setItems(items);
+        /** Load ListView with items! */
+        items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getIInventory().getContent());
+        inventory.setItems(items);
         inventory.setCellFactory(param -> {return new InventoryFormatCell();});
         inventory.setOnMouseClicked(event -> {
             if(inventory.getSelectionModel().getSelectedItem() != null){
@@ -184,7 +189,7 @@ public class Backpack extends InterfaceElement {
         if(backpackWrapper.getChildren().size() > 0){
             backpackWrapper.getChildren().clear();
         }
-        parent.getChildren().remove(backpackWrapper);
+        getParent().getChildren().remove(backpackWrapper);
     }
 
 

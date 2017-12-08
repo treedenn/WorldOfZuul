@@ -1,5 +1,6 @@
 package BLL;
 
+import BLL.entity.StationaryBlacksmith;
 import BLL.entity.npc.Blacksmith;
 import BLL.entity.npc.ProfessorPutricide;
 import BLL.entity.npc.SpacePirate;
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
 public class NPCHandler {
 	private Blacksmith blacksmith;
 	private ProfessorPutricide professorPutricide;
+	private StationaryBlacksmith stationaryBlacksmith;
 	private UnoX unoX;
 	private SpacePirate pirate;
 
@@ -29,6 +31,7 @@ public class NPCHandler {
 		unoX.setImage(new File("./DAL/resource/images/npcs/unox.png"));
 		pirate = new SpacePirate();
 		pirate.setImage(new File("./DAL/resource/images/npcs/spacepirate.png"));
+		stationaryBlacksmith = new StationaryBlacksmith();
 
 		initActions();
 	}
@@ -70,5 +73,13 @@ public class NPCHandler {
 	 */
 	public UnoX getUnoX() {
 		return unoX;
+	}
+
+	/**
+	 * Gets the stationary Blacksmith
+	 * @return the stationary Blacksmith
+	 */
+	public StationaryBlacksmith getStationaryBlacksmith() {
+		return stationaryBlacksmith;
 	}
 }

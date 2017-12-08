@@ -221,6 +221,11 @@ public class PlanetView {
                 button__searchPlanet.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                 button__searchPlanet.setText("");
 
+
+
+                //items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().get);
+
+
                 npcs = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getNPCs());
                 NPCList.setItems(npcs);
                 NPCList.setCellFactory(param -> {

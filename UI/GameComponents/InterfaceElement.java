@@ -1,6 +1,7 @@
 package UI.GameComponents;
 
 import BLL.ACQ.Domain;
+import UI.controller.GameController;
 import com.sun.istack.internal.Nullable;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
@@ -8,6 +9,8 @@ import javafx.scene.layout.Pane;
 import java.util.Collection;
 
 public abstract class InterfaceElement<T extends Pane> {
+
+    GameController controller;
 
     /** Reference to the parent of this interface element. Must extend {@link Pane}. */
     T parent;
@@ -24,7 +27,7 @@ public abstract class InterfaceElement<T extends Pane> {
      * Constructor.
      * @param parent Parent of this interface element.
      */
-    public InterfaceElement(T parent){ this.parent = parent; element = new Group(); layout(); }
+    public InterfaceElement(T parent){ this.parent = parent; element = new Group();}
 
     /**
      * Method that encapsulates the necessary layout for the element.

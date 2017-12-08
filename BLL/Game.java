@@ -115,10 +115,13 @@ public class Game implements Domain {
         // TODO: remove temp statement when testing is done.
         player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
         planets[11].getNPCs().add(npcHandler.getProfessorPutricide());
+        //npcHandler.getStationaryBlacksmith().setCurrentPlanet();
 
 		System.out.println(planets[11].getName());
-        useItem(new ItemStack(model.getItemById(58)));
+        //useItem(new ItemStack(model.getItemById(58)));
+		System.out.println(player.getIInventory().getIContent());
 		// ---
+
 	}
 
 	/**
