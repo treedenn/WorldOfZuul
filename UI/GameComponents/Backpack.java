@@ -36,9 +36,7 @@ public class Backpack extends InterfaceElement {
      */
     public Backpack(Pane parent, GameController controller){
         super(parent);
-        System.out.println(controller);
         this.controller = controller;
-        System.out.println(controller);
     }
 
     /**
@@ -139,9 +137,7 @@ public class Backpack extends InterfaceElement {
         inspectButton.setOnAction(event -> {
             IItemStack selectedItem = inventory.getSelectionModel().getSelectedItem();
             if(selectedItem != null){
-                System.out.println(selectedItem.getIItem().getName());
-                System.out.println(selectedItem.getIItem().getDescription());
-                System.out.println(selectedItem.getIItem().getWeight());
+
                 tick();
             }
         });

@@ -119,7 +119,6 @@ public class Game implements Domain {
 
 		System.out.println(planets[11].getName());
         //useItem(new ItemStack(model.getItemById(58)));
-		System.out.println(player.getIInventory().getIContent());
 		// ---
 
 	}
@@ -288,8 +287,9 @@ public class Game implements Domain {
 			Item i = (Item) iis.getIItem();
 
 			if(i.hasUsable()) {
-				i.use(player, this);
-				player.getInventory().remove((ItemStack) iis);
+				if(i.use(player, this)) {
+					player.getInventory().remove((ItemStack) iis);
+				}
 				isUsed = true;
 				message = replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
 			} else {

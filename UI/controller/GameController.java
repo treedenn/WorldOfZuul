@@ -289,7 +289,6 @@ public class GameController extends Controller implements IGameLoop {
 
     public void showBackpack(){
         inventoryHandler.layout();
-        System.out.println(getDomain().getPlayer().getIInventory().getIContent().length);
         inventoryHandler.show();
     }
     public void hideBackpack(){

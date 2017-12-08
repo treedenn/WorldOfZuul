@@ -156,7 +156,7 @@ public class Backpack implements Inventory {
 		if(index != -1) {
 			ItemStack existingStack = items.get(index);
 
-			if(existingStack.getQuantity() - itemStack.getQuantity() == 0) {
+			if(existingStack.getQuantity() - itemStack.getQuantity() <= 0) {
 				remove(index);
 			} else{
 				existingStack.decreaseQuantity(itemStack.getQuantity());
@@ -170,11 +170,16 @@ public class Backpack implements Inventory {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Removes an ItemStack from the inventory at the given index.
+	 * @param index the index to remove
+	 * @throws ArrayIndexOutOfBoundsException index is not between empty and current
 	 */
-	@Override
 	public void remove(int index) throws ArrayIndexOutOfBoundsException {
-		decreaseCurrentCapacity(items.remove(index).getTotalWeight());
+		if(index >= 0 && index < items.size()) {
+			decreaseCurrentCapacity(items.remove(index).getTotalWeight());
+		} else {
+			throw new ArrayIndexOutOfBoundsException();
+		}
 	}
 
 	/**
