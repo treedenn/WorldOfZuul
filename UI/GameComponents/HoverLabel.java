@@ -5,12 +5,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
@@ -58,9 +55,9 @@ public class HoverLabel {
 
         parent.getChildren().add(outerWrapper);
 
-        parent.setLeftAnchor(outerWrapper,100.0);
-        parent.setRightAnchor(outerWrapper,100.0);
-        parent.setTopAnchor(outerWrapper,0.0);
+        AnchorPane.setLeftAnchor(outerWrapper,100.0);
+        AnchorPane.setRightAnchor(outerWrapper,100.0);
+        AnchorPane.setTopAnchor(outerWrapper,0.0);
 
         keyHint.setStyle("-fx-border-color: white; -fx-padding: 2 5 2 5; -fx-border-width: 1; -fx-text-fill: white; -fx-font-family: 'Circular Std Book'; -fx-font-size: 22;");
         actionText.setStyle("-fx-text-fill: white; -fx-font-family: 'Circular Std Book'; -fx-font-size: 22;");

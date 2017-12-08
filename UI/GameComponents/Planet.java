@@ -1,25 +1,15 @@
 package UI.GameComponents;
 
 import BLL.ACQ.IPlanet;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DisplacementMap;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.FloatMap;
-import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.*;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Sphere;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.List;
 
 public class Planet extends GameObject {

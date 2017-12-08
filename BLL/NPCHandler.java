@@ -8,7 +8,6 @@ import BLL.entity.npc.actions.ProfessorPutricideAction;
 import BLL.entity.npc.UnoX;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Handles all the functions to NPCs (No Player Characters) within the game.

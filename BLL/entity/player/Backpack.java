@@ -1,7 +1,7 @@
 package BLL.entity.player;
 
-import BLL.ACQ.IInventory;
 import BLL.ACQ.IItemStack;
+import BLL.entity.Inventory;
 import BLL.item.Item;
 import BLL.item.ItemStack;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Backpack is an inventory, based on the inventory.
  * It is focused on weight instead of the amount of items inside.
  */
-public class Backpack implements IInventory {
+public class Backpack implements Inventory {
 	private double maxWeightCapacity;
 	private double currentWeightCapacity;
 	private List<ItemStack> items;

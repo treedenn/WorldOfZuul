@@ -14,7 +14,7 @@ public abstract class GameObject {
         this.view = view;
     }
 
-    public void update(double dt){};
+    public void update(double dt){}
 
     public void rotateRight(){
         view.setRotate(view.getRotate() + 5);

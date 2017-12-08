@@ -5,7 +5,6 @@ import BLL.ACQ.IPlayer;
 import BLL.entity.Inventory;
 import BLL.entity.MovableEntity;
 import BLL.entity.player.buff.Buff;
-import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +56,7 @@ public class Player extends MovableEntity implements IPlayer {
 	 */
 	@Override
 	public IInventory getIInventory() {
-		return (IInventory) inventory;
+		return inventory;
 	}
 
 	/**

@@ -19,7 +19,11 @@ public class ProfessorPutricideAction implements NPCActionCollection {
                     super.onEndEvent(player, npc, persistenceLayer);
 
                     if(answerYes) {
-                        player.getInventory().add(new ItemStack(persistenceLayer.getItemById(57), 1));
+                        ItemStack is = new ItemStack(persistenceLayer.getItemById(58), 1);
+
+                        if(!player.getInventory().contains(is)) {
+                            player.getInventory().add(is);
+                        }
                     } else {
                         setActionId(3);
                     }

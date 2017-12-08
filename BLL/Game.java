@@ -118,7 +118,7 @@ public class Game implements Domain {
         //npcHandler.getStationaryBlacksmith().setCurrentPlanet();
 
 		System.out.println(planets[11].getName());
-        useItem(new ItemStack(model.getItemById(58)));
+        //useItem(new ItemStack(model.getItemById(58)));
 		System.out.println(player.getIInventory().getIContent());
 		// ---
 
@@ -289,7 +289,7 @@ public class Game implements Domain {
 
 			if(i.hasUsable()) {
 				i.use(player, this);
-
+				player.getInventory().remove((ItemStack) iis);
 				isUsed = true;
 				message = replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
 			} else {
