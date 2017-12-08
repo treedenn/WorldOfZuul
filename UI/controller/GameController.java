@@ -286,14 +286,7 @@ public class GameController extends Controller implements IGameLoop {
             }
         }
     }
-
-
-    public void gameStart(){
-
-        notificationHandler.loadNotification("These hints will show only once so remember them well Rick!\n 1. find the Blacksmith. 2. rep...*error*...");
-        showNotification();
-
-    }
+    
 
 
     public void showBackpack(){
