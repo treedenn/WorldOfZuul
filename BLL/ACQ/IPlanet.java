@@ -1,7 +1,6 @@
 package BLL.ACQ;
 
 import BLL.entity.npc.NPC;
-import BLL.item.ItemStack;
 
 import java.io.File;
 import java.util.List;
@@ -61,7 +60,7 @@ public interface IPlanet {
 	 * Returns a list of items on the planet.
 	 * @return a list of items.
 	 */
-	List<ItemStack> getItemStack();
+	IItemStack[] getIItemStacks();
 
 	/**
 	 * Gets the X-coordinate of the planet.
