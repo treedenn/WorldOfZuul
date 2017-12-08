@@ -229,7 +229,10 @@ public class GameController extends Controller implements IGameLoop {
     void displayDrawer(ActionEvent event) { drawerHandler.showDrawer();}
 
     @FXML
-    void closeDrawer(ActionEvent event) { drawerHandler.hideDrawer(); }
+    void closeDrawer(ActionEvent event) {
+        drawerHandler.hideDrawer();
+        hintLabel.setText("");
+    }
 
     @FXML
     void gameMenuButtonHovered(MouseEvent event) { burgerMenuHandler.burgerMenuHover(); }
@@ -283,14 +286,7 @@ public class GameController extends Controller implements IGameLoop {
             }
         }
     }
-
-
-    public void gameStart(){
-
-        notificationHandler.loadNotification("These hints will show only once so remember them well Rick!\n 1. find the Blacksmith. 2. rep...*error*...");
-        showNotification();
-
-    }
+    
 
 
     public void showBackpack(){
@@ -416,11 +412,10 @@ public class GameController extends Controller implements IGameLoop {
     }
     @FXML
     void displayHints(ActionEvent event) {
-     
+        hintLabel.setText("1. Find the Blacksmith `Gearhead`\n       -located on one of the nearby planets");
 
-
-        hintLabel.setText("hints");
     }
+
 
     @FXML
     void keyIsReleased(KeyEvent event) {

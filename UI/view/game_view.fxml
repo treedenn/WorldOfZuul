@@ -161,12 +161,7 @@
                   <RowConstraints maxHeight="93.0" minHeight="93.0" prefHeight="93.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="hintLabel" prefHeight="405.0" prefWidth="309.0" GridPane.rowIndex="4" GridPane.rowSpan="4" />
-                  <Button fx:id="hints" layoutX="20.0" layoutY="115.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="241.0" styleClass="button__menuBar" text="HINTS" GridPane.rowIndex="3">
-                     <effect>
-                        <DropShadow blurType="GAUSSIAN" color="#0000002b" height="15.0" offsetY="1.0" radius="7.0" width="15.0" />
-                     </effect>
-                  </Button>
+                  <Label fx:id="hintLabel" prefHeight="405.0" prefWidth="309.0" textAlignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="4" />
                   <Button mnemonicParsing="false" styleClass="button__menuBar" text="SAVE AND QUIT" GridPane.rowIndex="2">
                      <effect>
                         <DropShadow blurType="GAUSSIAN" color="#0000002b" height="15.0" offsetY="1.0" radius="7.0" width="15.0" />
@@ -196,6 +191,11 @@
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </padding>
                   </GridPane>
+                  <Button fx:id="hints" mnemonicParsing="false" onAction="#displayHints" prefHeight="50.0" prefWidth="241.0" styleClass="button__menuBar" text="HINTS" GridPane.rowIndex="3">
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" color="#0000002b" height="15.0" offsetY="1.0" radius="7.0" width="15.0" />
+                     </effect>
+                  </Button>
                  
                </children>
             </GridPane>
