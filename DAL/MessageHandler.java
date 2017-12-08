@@ -12,15 +12,19 @@ import java.util.Map;
  * Handles the messages/localization. It loads the localization.
  */
 public class MessageHandler implements Loadable {
+	private YamlObject yamlObject;
 	private Map<String, String> messages;
+
+	MessageHandler(File file) {
+		this.yamlObject = new YamlObject(file);
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void load() throws IOException {
-		YamlObject parser = new YamlObject(new File("./src/DAL/resource/localization.yaml"));
-		messages = parser.getYaml().load(new FileReader(parser.getFile()));
+		messages = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
 	}
 
 	/**

@@ -446,6 +446,15 @@ public class Game implements Domain {
 		}
 	}
 
+	/**
+	 * Gets the ScoreHandler.
+	 * Only invoked by data layer to get the current state of score.
+	 * @return
+	 */
+	public ScoreHandler getScoreHandler() {
+		return scoreHandler;
+	}
+
 	// TODO: Perhaps change boolean to int to get the direct location
 
 	/**

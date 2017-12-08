@@ -9,6 +9,7 @@ import BLL.entity.player.Player;
  * Any item inside the game derives from Item.
  */
 public class Item implements IItem, Cloneable {
+	private int id;
 	private String name;
 	private String description;
 	private ItemType type;
@@ -21,7 +22,7 @@ public class Item implements IItem, Cloneable {
 
 	}
 
-	public Item(String name, String description, ItemType type, double weight, boolean isPickupable, boolean isDropable) {
+	public Item(int id, String name, String description, ItemType type, double weight, boolean isPickupable, boolean isDropable) {
 		this.name = name;
 		this.description = description;
 		this.type = type;
@@ -31,8 +32,16 @@ public class Item implements IItem, Cloneable {
 		this.usable = null;
 	}
 
-	public Item(String name, String description, double weight, boolean isPickupable, boolean isDropable) {
-		this(name, description, ItemType.DEFAULT, weight, isPickupable, isDropable);
+	public Item(int id, String name, String description, double weight, boolean isPickupable, boolean isDropable) {
+		this(id, name, description, ItemType.DEFAULT, weight, isPickupable, isDropable);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getId() {
+		return id;
 	}
 
 	/**

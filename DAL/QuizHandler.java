@@ -15,9 +15,11 @@ import java.util.Map;
  * Handles the quizzes. It loads all the quizzes.
  */
 class QuizHandler implements Loadable {
+	private YamlObject yamlObject;
 	private List<Quiz> quizes;
 
-	QuizHandler() {
+	QuizHandler(File file) {
+		this.yamlObject = new YamlObject(file);
 		this.quizes = null;
 	}
 
@@ -34,9 +36,7 @@ class QuizHandler implements Loadable {
 	 */
 	@Override
 	public void load() throws IOException {
-		YamlObject parser = new YamlObject(new File("./src/DAL/resource/quizdatabase.yaml"));
-
-		Map<Integer, Map<String, Object>> database = parser.getYaml().load(new FileReader(parser.getFile()));
+		Map<Integer, Map<String, Object>> database = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
 
 		if(!database.isEmpty()) {
 			quizes = new ArrayList<>(database.size());
