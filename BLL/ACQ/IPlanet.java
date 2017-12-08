@@ -1,6 +1,7 @@
 package BLL.ACQ;
 
 import BLL.entity.npc.NPC;
+import BLL.item.ItemStack;
 
 import java.io.File;
 import java.util.List;
@@ -54,6 +55,13 @@ public interface IPlanet {
 	 * @return a list of NPC
 	 */
 	List<NPC> getNPCs();
+
+	/** @TODO Dennis, change the folllowing getter method to return {@link BLL.entity.Inventory} ->
+	/**
+	 * Returns a list of items on the planet.
+	 * @return a list of items.
+	 */
+	List<ItemStack> getItemStack();
 
 	/**
 	 * Gets the X-coordinate of the planet.

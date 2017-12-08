@@ -8,10 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 
-public class Dialog {
+public class Dialog implements Reusable{
 
     private GameController controller;
     private AnchorPane parent;
@@ -20,7 +21,7 @@ public class Dialog {
     private HBox dialogHbox;
     private VBox NPCrepresentation;
     private String imagePath;
-    private Pane image;
+    private ImageView image;
     private Label name;
     private VBox dialog;
     private Label NPCMessage;
@@ -36,13 +37,34 @@ public class Dialog {
 
     }
 
+    public void addChoice(boolean dialogAction){
+        choices.getChildren().clear();
+        if(dialogAction){
+            Button yesButton = new Button("Yes");
+            Button noButton = new Button("No");
+            choices.getChildren().addAll(yesButton, noButton);
+            yesButton.setOnAction(event -> controller.setAnswer(true));
+            noButton.setOnAction(event -> controller.setAnswer(false));
+        } else {
+            Button continueButton = new Button("Continue...");
+            choices.getChildren().add(continueButton);
+            continueButton.setOnAction(event -> controller.nextAction());
+        }
+
+        for (Node node : choices.getChildren()) {
+            node.getStyleClass().add("choiceButton");
+        }
+
+    }
+
     public void updateDialog(String NPCname, String message, String imagePath){
+
         dialogViewWrapper = new AnchorPane();
         dialogViewInnerWrapper = new StackPane();
         dialogHbox = new HBox();
         NPCrepresentation = new VBox();
         this.imagePath = imagePath;
-        image = new Pane();
+        image = new ImageView();
         name = new Label();
         dialog = new VBox();
         NPCMessage = new Label('"' + message + '"');
@@ -54,16 +76,12 @@ public class Dialog {
 
         NPCrepresentation.getChildren().addAll(image, name);
         name.setText(NPCname);
+        name.setWrapText(true);
         name.setStyle("-fx-text-fill: white; -fx-font-size: 25; -fx-font-family: 'Circular Std Bold';");
-        image.setBackground(new Background(new BackgroundImage(new Image(imagePath), null,null,null,BackgroundSize.DEFAULT)));
-        image.setMinHeight(200);
-        image.setMinWidth(200);
+        image.setImage(new Image("DAL/resource/images/npcs/profputri.png"));
+        image.setPreserveRatio(true);
+        image.setFitWidth(200);
         NPCrepresentation.setSpacing(30);
-
-        choices.getChildren().addAll(new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"),new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("ANOTHER OPTION"), new Button("A THIRD OPTION"));
-        for (Node node : choices.getChildren()) {
-            node.getStyleClass().add("choiceButton");
-        }
 
         choicesScrollPane.setContent(choices);
         choicesScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -118,7 +136,25 @@ public class Dialog {
     }
 
     public void closeDialog(){
-        System.out.println("Clicked");
+        clear();
     }
 
+
+    @Override
+    public <T extends Pane> void remove(T parent) {
+        parent.getChildren().remove(dialogViewWrapper);
+    }
+
+    @Override
+    public void append(String... content) {
+
+    }
+
+    @Override
+    public void clear() {
+        if(dialogViewWrapper.getChildren().size() > 0) {
+            dialogViewWrapper.getChildren().clear();
+        }
+        parent.getChildren().remove(dialogViewWrapper);
+    }
 }

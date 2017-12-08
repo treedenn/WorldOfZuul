@@ -1,7 +1,11 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
+import BLL.entity.npc.NPC;
+import BLL.entity.npc.actions.NPCAction;
+import BLL.entity.npc.actions.NPCDialogAction;
 import UI.GameComponents.*;
 import UI.GameComponents.Subscene.GameMap.IMap;
 import UI.GameComponents.Subscene.GameMap.MiniMap;
@@ -10,6 +14,7 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
@@ -24,7 +29,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * The primary controller class for actually playing the game.
  */
-public class GameController extends Controller {
+public class GameController extends Controller implements IGameLoop {
 
     private Notification notificationHandler;
     private Drawer drawerHandler;
@@ -33,7 +38,7 @@ public class GameController extends Controller {
     private Avatar avatarHandler;
     private FuelBar fuelHandler;
     private BackpackBar backpackHandler;
-    private InterfaceElement miniMapHandler;
+    private MiniMap miniMapHandler;
     private HoverLabel hoverLabelHandler;
     private PlanetView planetViewHandler;
     private Dialog dialogHandler;
@@ -117,8 +122,8 @@ public class GameController extends Controller {
     /** Most outer node used in {@link MiniMap} */
     @FXML private AnchorPane miniMapWrapper;
 
-    @FXML
-    private GridPane interfaceGrid;
+    /** GridPane containing the UI  with exception of overlays*/
+    @FXML private GridPane interfaceGrid;
 
     /**
      * Constructor.
@@ -136,7 +141,7 @@ public class GameController extends Controller {
         innersceneHandler = new Innerscene(subsceneWrapper);
         miniMapHandler = new MiniMap(interfaceGrid);
         interfaceGrid.setColumnIndex(miniMapHandler.getElement(), interfaceGrid.getColumnConstraints().size()-1);
-        if (miniMapHandler instanceof IMap) ((IMap)miniMapHandler).renderPlanets(getDomain().getPlayer().getPlanets());
+        miniMapHandler.renderPlanets(getDomain().getPlayer().getPlanets());
 
         layout(miniMapHandler);
 
@@ -161,16 +166,11 @@ public class GameController extends Controller {
         wrapper.requestFocus();
 
         planetCollisions = new boolean[Planet.getPlanets().size()];
-
-
-
-
         //configMiniMap();
 
        // configMiniMap();
 
         configDialog();
-        //showDialog();
 
 
 
@@ -199,7 +199,7 @@ public class GameController extends Controller {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                onUpdate();
+                tick();
             }
         };
         timer.start();
@@ -250,11 +250,13 @@ public class GameController extends Controller {
         hoverLabelHandler.show();
     }
 
-    void landOnPlanet(){
+    /**
+     * {@inheritDoc}
+     */
+    public void landOnPlanet(){
         if(!planetViewHandler.isVisible()) {
             if (playerCollidingdWithPlanet) {
-                String planetName = currentPlanet.getName().replace(" ", "");
-                if (getDomain().movePlayerToPlanet(planetName)) {
+                if (getDomain().movePlayerToPlanet(currentPlanet.getName().replace(" ", ""))) {
                     notificationHandler.loadNotification(getDomain().getMessageContainer().getMessage());
                     showNotification();
                     miniMapHandler.hide();
@@ -269,32 +271,104 @@ public class GameController extends Controller {
             }
         }
     }
+
+
     public void gameStart(){
 
         notificationHandler.loadNotification("These hints will show only once so remember them well Rick!\n 1. find the Blacksmith. 2. rep...*error*...");
         showNotification();
 
+    }
+
+
+    NPC npc;
+    int index;
+    NPCDialogAction currentDialogAction;
+
+    public void setAnswer(boolean answerYes){
+        if(answerYes){
+            currentDialogAction.setAnswer(true);
+        } else{
+            currentDialogAction.setAnswer(false);
+        }
+
+        getDomain().endInteract(npc, index);
+
+        if(index < npc.getActions().length - 1){
+            if(index == currentDialogAction.getActionId()) {
+                index++;
+                dialogHandler.clear();
+                startInteract(npc, index);
+            } else {
+                index = currentDialogAction.getActionId();
+                dialogHandler.clear();
+                startInteract(npc, index);
+            }
+        } else if(index >= npc.getActions().length){
+            dialogHandler.clear();
+        }
 
     }
-    public void showDialog(){
-        //dialogHandler.showDialog();
+
+    public void nextAction(){
+        getDomain().endInteract(npc, index);
+
+        if(index < npc.getActions().length - 1){
+            index++;
+            dialogHandler.clear();
+            startInteract(npc, index);
+        } else if(index >= npc.getActions().length - 1){
+            dialogHandler.clear();
+        }
+    }
+
+    public void startInteract(NPC npc, int index){
         miniMapHandler.hide();
         fuelHandler.hide();
         backpackHandler.hide();
+        this.npc = npc;
+        this.index = index;
 
-        int actionIndex = 0;
+        INPCAction[] actions = npc.getActions();
 
-        miniMapHandler.show();
-        fuelHandler.show();
-        backpackHandler.show();
+        if(actions[index] instanceof NPCDialogAction){
+            currentDialogAction = (NPCDialogAction) actions[index];
+            getDomain().startInteract(npc, index);
+
+            dialogHandler.updateDialog(npc.getName(), currentDialogAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
+            dialogHandler.addChoice(true);
+
+            getDomain().endInteract(npc, index);
+        } else {
+            NPCAction action = (NPCAction) actions[index];
+            dialogHandler.updateDialog(npc.getName(), action.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
+            dialogHandler.addChoice(false);
+
+        }
+
+
+
+
+
+
+
 
 
 
         /*
+        if(actions[index].getMessage() != null){
+            dialogHandler.updateDialog(npc.getName(), actions[i].getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
+        }*/
 
 
 
-        NPC npc = domain.getPlayer().getCurrentPlanet().getNPCs().get(0);
+
+
+        //miniMapHandler.show();
+        //fuelHandler.show();
+        //backpackHandler.show();
+
+/*
 
         INPCAction[] actions = npc.getActions();
 
@@ -315,7 +389,6 @@ public class GameController extends Controller {
 
 
         dialogHandler.updateDialog(npc.getName(), actions[0].getMessage(), "./UI/resources/img/nps/unoX.png");
-
 */
 
 
@@ -340,10 +413,12 @@ public class GameController extends Controller {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void tick() {
 
-
-
-    private void onUpdate(){
 
         if (getDomain().getPlayer().getMorphId() == -1){
             avatarHandler.isRick(true);
@@ -359,10 +434,11 @@ public class GameController extends Controller {
         innersceneHandler.centerView(innersceneHandler.getPlayer());
         innersceneHandler.keepPlayerInMap();
 
-        /**
-         * @TODO USE PLAYER COORDINATES FROM BUSINESS LAYER
-         */
-        miniMapHandler.tick();
+
+        getDomain().getPlayer().setCoordX(innersceneHandler.getPlayer().getView().getTranslateX());
+        getDomain().getPlayer().setCoordY(innersceneHandler.getPlayer().getView().getTranslateY());
+
+        miniMapHandler.update(getDomain().getPlayer().getCoordX(), getDomain().getPlayer().getCoordY());
 
         int count = 0;
         for(Planet planet : Planet.getPlanets()) {
@@ -399,8 +475,8 @@ public class GameController extends Controller {
         if (innersceneHandler.getPlayer().isAccelerate()){
             getDomain().decreaseFuelOnMove(60);
         }
-    }
 
+    }
 
 
 

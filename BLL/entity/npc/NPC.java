@@ -3,6 +3,8 @@ package BLL.entity.npc;
 import BLL.ACQ.INPCAction;
 import BLL.entity.npc.actions.NPCActionCollection;
 
+import java.io.File;
+
 /**
  * Describes the fundamentals an NPC need.
  */
@@ -12,6 +14,11 @@ public interface NPC {
      * @return name of NPC
      */
     String getName();
+
+    /**
+     * Gets the iamge of the NPC
+     */
+    File getImage();
 
     /**
      * Returns whether the NPC is good or bad.

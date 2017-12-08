@@ -2,23 +2,26 @@ package UI.GameComponents;
 
 import BLL.entity.npc.NPC;
 import BLL.item.Item;
+import BLL.item.ItemStack;
 import UI.SearchTask;
 import UI.controller.GameController;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.util.Duration;
-
-import java.io.File;
 import java.util.ArrayList;
 
 public class PlanetView {
@@ -32,8 +35,10 @@ public class PlanetView {
     private Pane imageGradient;
     private VBox vbox;
     StackPane headerWrapper;
-    private ListView<Item> itemList;
+    private ListView<ItemStack> itemList;
     private ListView<NPC> NPCList;
+    private ObservableList<ItemStack> items;
+    private ObservableList<NPC> npcs;
     HBox listsWrapper;
     private Task task;
     private boolean isVisible;
@@ -198,6 +203,13 @@ public class PlanetView {
         // EVENT HANDLER FOR LEAVING PLANET
         button__leavePlanet.setOnAction(event -> controller.leavePlanet());
 
+        // EVENT HANDLER FOR THE NPC LIST
+        NPCList.setOnMouseClicked(event -> {
+            if(NPCList.getSelectionModel().getSelectedItem() != null) {
+                controller.startInteract(NPCList.getSelectionModel().getSelectedItem(), 0);
+            }
+        });
+
         // EVENT HANDLER FOR SEARCHING PLANET
         button__searchPlanet.setOnAction(event -> {
 
@@ -209,6 +221,13 @@ public class PlanetView {
                 button__searchPlanet.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                 button__searchPlanet.setText("");
 
+                npcs = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getNPCs());
+                NPCList.setItems(npcs);
+                NPCList.setCellFactory(param -> {
+                    return new NPCFormatCell();
+                });
+
+
                 // player.getCurrentPlanet().getPermSearched()
                 Thread th = new Thread(task);
 
@@ -219,6 +238,7 @@ public class PlanetView {
                     barSearch.setVisible(false);
                     barSearch.setPrefWidth(0);
                     planetLists.setMinHeight(500);
+
 
                     Timeline displayLists = new Timeline();
                     ArrayList<KeyFrame> keyFrames = new ArrayList<>();
@@ -233,9 +253,16 @@ public class PlanetView {
                     displayLists.getKeyFrames().addAll(keyFrames);
 
                     listsWrapper.getChildren().clear();
-                    listsWrapper.getChildren().addAll(itemList, NPCList);
-                    listsWrapper.setHgrow(itemList, Priority.ALWAYS);
-                    listsWrapper.setHgrow(NPCList, Priority.ALWAYS);
+                    Label itemListHeader = new Label("Items");
+                    Label NPCListHeader = new Label("Characters");
+                    itemListHeader.setStyle("-fx-text-fill: white; -fx-font-size: 16; -fx-font-family: 'Circular Std Medium';");
+                    NPCListHeader.setStyle("-fx-text-fill: white; -fx-font-size: 16; -fx-font-family: 'Circular Std Medium';");
+
+                    VBox itemVbox = new VBox(itemListHeader, itemList);
+                    VBox NPCVbox = new VBox(NPCListHeader, NPCList);
+                    listsWrapper.getChildren().addAll(itemVbox, NPCVbox);
+                    listsWrapper.setHgrow(itemVbox, Priority.ALWAYS);
+                    listsWrapper.setHgrow(NPCVbox, Priority.ALWAYS);
                     itemList.setOpacity(0);
                     NPCList.setOpacity(0);
                     itemList.getStyleClass().add("searchList");
@@ -272,4 +299,30 @@ public class PlanetView {
     public boolean isVisible() {
         return isVisible;
     }
+
+
+    /**
+     * Inner class that extends {@link ListCell}, overriding the updateItem method.
+     * The updateItem method is called whenever the item in the cell changes.
+     */
+    public class NPCFormatCell extends ListCell<NPC>{
+        private ImageView imageView = new ImageView();
+        public NPCFormatCell(){}
+
+        @Override
+        protected void updateItem(NPC item, boolean empty) {
+            super.updateItem(item, empty);
+            setText(item == null? " " : item.getName());
+            setTextFill(new Color(1.,1.,1.,1.));
+
+            if(item != null){
+                imageView.setImage(new Image("./DAL/resource/images/npcs/profputri.png"));
+                imageView.setFitHeight(40);
+                imageView.setPreserveRatio(true);
+                setGraphic(imageView);
+            }
+
+        }
+    }
+
 }

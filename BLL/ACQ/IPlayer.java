@@ -46,10 +46,27 @@ public interface IPlayer {
 	IInventory getIInventory();
 
 	/**
-	 * Gets the coordinates of the player as a Point2D object.
-	 * @return coordinates
+	 * Gets the X coordinate for the player.
+	 * @return	X coordinate by type double
 	 */
-	Point2D getCoordinates();
+	double getCoordX();
+
+	/**
+	 * Sets the X coordinate for the player.
+	 */
+	void setCoordX(double coordX);
+
+	/**
+	 * Gets the Y coordinate for the player
+	 * @return	Y coordinate by type double
+	 */
+	double getCoordY();
+
+	/**
+	 * Sets the Y coordinate for the player
+	 */
+	void setCoordY(double coordY);
+
 
 	/**
 	 * Gets the morph id of the player.

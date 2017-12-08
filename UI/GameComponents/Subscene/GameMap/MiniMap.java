@@ -27,6 +27,7 @@ public class MiniMap extends InterfaceElement implements IMap {
 
     Pane miniMapWrapper;
     Circle playerLocation;
+    double scaleRatio;
 
     /**
      * Constructor.
@@ -45,11 +46,13 @@ public class MiniMap extends InterfaceElement implements IMap {
      */
     @Override
     public void tick() {
-        double scaleRatio = miniMapWrapper.getWidth() / IMap.mapWidth;
-       // double relativePositionX = playerPositionX * scaleRatio;
-       // double relativePositionY = playerPositionY * scaleRatio;
-       // playerLocation.setTranslateX(relativePositionX);
-       // playerLocation.setTranslateY(relativePositionY);
+
+    }
+
+    public void update(double coordX, double coordY){
+        scaleRatio = miniMapWrapper.getWidth() / IMap.mapWidth;
+        playerLocation.setTranslateX(coordX * scaleRatio);
+        playerLocation.setTranslateY(coordY * scaleRatio);
     }
 
     public void hide(){

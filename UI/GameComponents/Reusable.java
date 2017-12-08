@@ -1,6 +1,7 @@
 package UI.GameComponents;
 
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 public interface Reusable {
 
@@ -8,7 +9,7 @@ public interface Reusable {
      * Method to remove component from scene graph
      * @param parent the most outer node in a component
      */
-    void remove(Node parent);
+    <T extends Pane> void remove(T parent);
 
     /**
      * Method to load content into element.

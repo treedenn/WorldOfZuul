@@ -182,6 +182,14 @@ public class Planet implements IPlanet {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ItemStack> getItemStack() {
+        return null;
+    }
+
+    /**
      * Looks for a specific item stack inside the planet's content.
      * @param itemStack the item stack to look for
      * @return the index where it is located

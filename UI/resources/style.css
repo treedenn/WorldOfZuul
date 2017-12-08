@@ -477,6 +477,25 @@ body{
 }
 
 
+.list-cell{
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-font-size: 20;
+    -fx-font-family: 'Circular Std Book';
+    -fx-background-color: transparent;
+}
+
+.list-cell:selected{
+    -fx-background-color: #333333;
+    -fx-text-fill: #448AFF;
+}
+
+.list-cell:hover{
+    -fx-background-color: #282828;
+    -fx-cursor: hand;
+}
+
+
 
 
 

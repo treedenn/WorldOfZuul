@@ -6,6 +6,9 @@ import BLL.entity.npc.SpacePirate;
 import BLL.entity.npc.actions.ProfessorPutricideAction;
 import BLL.entity.npc.UnoX;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 /**
  * Handles all the functions to NPCs (No Player Characters) within the game.
  * It contains all the references and all the get methods.
@@ -19,9 +22,13 @@ public class NPCHandler {
 
 	NPCHandler() {
 		blacksmith = new Blacksmith();
+		blacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
 		professorPutricide = new ProfessorPutricide();
+		professorPutricide.setImage(new File("./DAL/resource/images/npcs/profputri.png"));
 		unoX = new UnoX();
+		unoX.setImage(new File("./DAL/resource/images/npcs/unox.png"));
 		pirate = new SpacePirate();
+		pirate.setImage(new File("./DAL/resource/images/npcs/spacepirate.png"));
 
 		initActions();
 	}

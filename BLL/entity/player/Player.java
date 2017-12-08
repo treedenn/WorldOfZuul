@@ -18,7 +18,8 @@ import java.util.List;
 public class Player extends MovableEntity implements IPlayer {
 	private Inventory inventory;
 	private List<Buff> buffs;
-	private Point2D coordinates;
+	private double coordX;
+	private double coordY;
 	private double fuel;
 	private int totalFuelConsumption;
 	private final int MAX_FUEL;
@@ -28,7 +29,8 @@ public class Player extends MovableEntity implements IPlayer {
 		super(null, null);
 		this.inventory = new Backpack(6);
 		this.buffs = new ArrayList<>();
-		this.coordinates = new Point2D(0, 0);
+		this.coordX = 0;
+		this.coordY = 0;
 		this.fuel = 100;
 		this.MAX_FUEL = (int) fuel;
 		this.morphId = -1;
@@ -88,8 +90,32 @@ public class Player extends MovableEntity implements IPlayer {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Point2D getCoordinates() {
-		return coordinates;
+	public double getCoordX() {
+		return coordX;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setCoordX(double coordX) {
+		this.coordX = coordX;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public double getCoordY() {
+		return coordY;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setCoordY(double coordY) {
+		this.coordY = coordY;
 	}
 
 	/**

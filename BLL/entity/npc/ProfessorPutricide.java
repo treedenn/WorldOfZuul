@@ -31,4 +31,5 @@ public class ProfessorPutricide extends Entity implements NPC {
     public void setActions(NPCActionCollection collection) {
         this.collection = collection;
     }
+
 }

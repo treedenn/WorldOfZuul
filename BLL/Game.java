@@ -96,7 +96,7 @@ public class Game implements Domain {
 
 	/**
 	 * An initialization of the business layer.
-	 * Is invoked by {@link #injectPersistent(PersistenceLayer)} function.
+	 * Is invoked by {@link #injectPersistenceLayer(PersistenceLayer)} function.
 	 */
 	private void init() {
 		Map<String, Planet> planetMap = model.getPlanets();
@@ -113,8 +113,11 @@ public class Game implements Domain {
 
         // TODO: remove temp statement when testing is done.
         player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
+        planets[11].getNPCs().add(npcHandler.getProfessorPutricide());
 
+		System.out.println(planets[11].getName());
         useItem(new ItemStack(model.getItemById(58)));
+		// ---
 	}
 
 	/**

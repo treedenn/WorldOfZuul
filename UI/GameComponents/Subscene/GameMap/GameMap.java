@@ -90,8 +90,7 @@ public class GameMap extends InterfaceElement implements IMap {
      */
     public void renderPlanets(Map<String, ? extends IPlanet> planets){
         for (IPlanet planet : planets.values()) {
-            String map2DPath = planet.getMap2D().toURI().toString().replace("\\", "/");
-            Planet newUIPlanet = new UI.GameComponents.Planet(planet, new Image(map2DPath));
+            Planet newUIPlanet = new UI.GameComponents.Planet(planet, new Image(planet.getMap2D().toURI().toString().replace("\\", "/")));
             Point2D coordinates = new Point2D(planet.getX(), planet.getY());
             GameObject.addGameObject(newUIPlanet, coordinates.getX(), coordinates.getY(), rootPane);
         }
