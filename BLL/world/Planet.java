@@ -1,5 +1,6 @@
 package BLL.world;
 
+import BLL.ACQ.IItemStack;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.item.ItemStack;
@@ -185,8 +186,8 @@ public class Planet implements IPlanet {
      * {@inheritDoc}
      */
     @Override
-    public List<ItemStack> getItemStack() {
-        return null;
+    public IItemStack[] getIItemStacks() {
+        return getContent();
     }
 
     /**
