@@ -122,6 +122,12 @@ public class GameController extends Controller implements IGameLoop {
     /** GridPane containing the UI  with exception of overlays*/
     @FXML private GridPane interfaceGrid;
 
+    @FXML
+    private Label hintLabel;
+
+    @FXML
+    private Button hints;
+
     /**
      * Constructor.
      * @param domain reference to domain logic.
@@ -408,7 +414,13 @@ public class GameController extends Controller implements IGameLoop {
 
 
     }
+    @FXML
+    void displayHints(ActionEvent event) {
+     
 
+
+        hintLabel.setText("hints");
+    }
 
     @FXML
     void keyIsReleased(KeyEvent event) {
@@ -523,4 +535,6 @@ public class GameController extends Controller implements IGameLoop {
 
     public void configDialog(){ dialogHandler = new Dialog(subsceneWrapper, this);}
 
+
 }
+
