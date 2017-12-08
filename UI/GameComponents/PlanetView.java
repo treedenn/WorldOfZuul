@@ -35,6 +35,7 @@ public class PlanetView {
     private Pane imageGradient;
     private VBox vbox;
     StackPane headerWrapper;
+    private Button pickupButton;
     private ListView<IItemStack> itemList;
     private ListView<NPC> NPCList;
     private ObservableList<IItemStack> items;
@@ -62,6 +63,7 @@ public class PlanetView {
         imageGradient = new Pane();
         vbox = new VBox();
         scrollPane = new ScrollPane();
+        pickupButton = new Button();
         itemList = new ListView<>();
         NPCList = new ListView<>();
         listsWrapper = new HBox();
@@ -208,6 +210,22 @@ public class PlanetView {
             }
         });
 
+        // EVENT HANDLER FOR THE NPC LIST
+        itemList.setOnMouseClicked(event -> {
+            if (itemList.getSelectionModel().getSelectedItem() != null) {
+                pickupButton.setDisable(false);
+            } else{
+                pickupButton.setDisable(true);
+            }
+        });
+
+        pickupButton.setOnAction(event ->  {
+            IItemStack selectedItem = itemList.getSelectionModel().getSelectedItem();
+            if(selectedItem != null){
+                controller.getDomain().pickupItem(selectedItem);
+            }
+        });
+
         // EVENT HANDLER FOR SEARCHING PLANET
         button__searchPlanet.setOnAction(event -> {
 
@@ -218,6 +236,9 @@ public class PlanetView {
                 barSearch.setVisible(true);
                 button__searchPlanet.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                 button__searchPlanet.setText("");
+
+
+                controller.getDomain().searchPlanet();
 
 
                 items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getIItemStacks());
@@ -241,7 +262,6 @@ public class PlanetView {
                     barSearch.setPrefWidth(0);
                     planetLists.setMinHeight(500);
 
-
                     Timeline displayLists = new Timeline();
                     ArrayList<KeyFrame> keyFrames = new ArrayList<>();
                     keyFrames.add(new KeyFrame(Duration.millis(0), new KeyValue(itemList.opacityProperty(), 0, Interpolator.EASE_BOTH)));
@@ -260,7 +280,11 @@ public class PlanetView {
                     itemListHeader.setStyle("-fx-text-fill: white; -fx-font-size: 16; -fx-font-family: 'Circular Std Medium';");
                     NPCListHeader.setStyle("-fx-text-fill: white; -fx-font-size: 16; -fx-font-family: 'Circular Std Medium';");
 
-                    VBox itemVbox = new VBox(itemListHeader, itemList);
+                    pickupButton.setText("Pickup");
+                    pickupButton.getStyleClass().add("planetViewButton--pickup");
+                    pickupButton.setDisable(true);
+
+                    VBox itemVbox = new VBox(itemListHeader, itemList, pickupButton);
                     VBox NPCVbox = new VBox(NPCListHeader, NPCList);
                     listsWrapper.getChildren().addAll(itemVbox, NPCVbox);
                     HBox.setHgrow(itemVbox, Priority.ALWAYS);

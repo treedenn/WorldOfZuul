@@ -44,13 +44,6 @@ public interface Inventory extends IInventory {
 	boolean remove(ItemStack itemStack);
 
 	/**
-	 * Removes an ItemStack from the inventory at the given index.
-	 * @param index the index to remove
-	 * @throws ArrayIndexOutOfBoundsException index is not between empty and current
-	 */
-	void remove(int index) throws ArrayIndexOutOfBoundsException;
-
-	/**
 	 * Searches for item within the inventory.
 	 * @param item item to check for
 	 * @return true, item exists
