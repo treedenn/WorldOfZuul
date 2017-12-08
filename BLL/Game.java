@@ -309,30 +309,28 @@ public class Game implements Domain {
 		boolean isPickedUp = false;
 		String message = null;
 
-		if(iis.getQuantity() != 0) {
-			if(player.getCurrentPlanet().getPermSearched()) {
-				if(iis instanceof ItemStack) {
-					ItemStack is = (ItemStack) iis;
-					Item item = is.getItem();
+		if(player.getCurrentPlanet().getPermSearched()) {
+			if(iis instanceof ItemStack) {
+				ItemStack is = (ItemStack) iis;
+				Item item = is.getItem();
 
-					if(item.isPickupable()) {
-						Inventory bp = player.getInventory();
+				if(item.isPickupable()) {
+					Inventory bp = player.getInventory();
 
-						if(player.getCurrentPlanet().hasItemStack(is) && bp.add(is)) {
-							player.getCurrentPlanet().removeItemStack(is);
+					if(player.getCurrentPlanet().hasItemStack(is) && bp.add(is)) {
+						player.getCurrentPlanet().removeItemStack(is);
 
-							isPickedUp = true;
-							message = replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
-						} else {
-							message = replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
-						}
+						isPickedUp = true;
+						message = replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
 					} else {
-						message = replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
+						message = replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
 					}
+				} else {
+					message = replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
 				}
-			} else {
-				message = model.getMessage("planet-search-require");
 			}
+		} else {
+			message = model.getMessage("planet-search-require");
 		}
 
 		messageContainer.setMessage(message);
@@ -347,30 +345,28 @@ public class Game implements Domain {
 		boolean isDropped = false;
 		String message = null;
 
-		if(iis.getQuantity() != 0) {
-			if(player.getCurrentPlanet().getPermSearched()) {
-				if(iis instanceof ItemStack) {
-					ItemStack is = (ItemStack) iis;
-					Item item = is.getItem();
+		if(player.getCurrentPlanet().getPermSearched()) {
+			if(iis instanceof ItemStack) {
+				ItemStack is = (ItemStack) iis;
+				Item item = is.getItem();
 
-					if(item.isDropable()) {
-						Inventory bp = player.getInventory();
+				if(item.isDropable()) {
+					Inventory bp = player.getInventory();
 
-						if(bp.contains(is) && bp.remove(is)) {
-							player.getCurrentPlanet().addItemStack(is);
+					if(bp.contains(is) && bp.remove(is)) {
+						player.getCurrentPlanet().addItemStack(is);
 
-							isDropped = true;
-							message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
-						} else {
-							message = replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
-						}
+						isDropped = true;
+						message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 					} else {
-						message = replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+						message = replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 					}
+				} else {
+					message = replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 				}
-			} else {
-				message = model.getMessage("planet-search-require");
 			}
+		} else {
+			message = model.getMessage("planet-search-require");
 		}
 
 		messageContainer.setMessage(message);

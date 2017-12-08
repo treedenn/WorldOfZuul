@@ -111,21 +111,24 @@ public class Backpack implements Inventory {
 	 */
 	@Override
 	public boolean add(ItemStack itemStack) {
-		if(isBelowMaxCapacity(itemStack)) {
-			int indexExists = findItem(itemStack);
+		if(itemStack.getQuantity() > 0) {
+			if(isBelowMaxCapacity(itemStack)) {
+				int indexExists = findItem(itemStack);
 
-			if(indexExists != -1) {
-				ItemStack existingStack = items.get(indexExists);
+				if(indexExists != -1) {
+					ItemStack existingStack = items.get(indexExists);
 
-				decreaseCurrentCapacity(existingStack.getTotalWeight());
-				existingStack.increaseQuantity(itemStack.getQuantity());
-				increaseCurrentCapacity(existingStack.getTotalWeight());
-			} else {
-				items.add(itemStack);
-				increaseCurrentCapacity(itemStack.getTotalWeight());
+					decreaseCurrentCapacity(existingStack.getTotalWeight());
+					existingStack.increaseQuantity(itemStack.getQuantity());
+
+					increaseCurrentCapacity(existingStack.getTotalWeight());
+				} else {
+					items.add(new ItemStack(itemStack.getItem(), itemStack.getQuantity()));
+					increaseCurrentCapacity(itemStack.getTotalWeight());
+				}
+
+				return true;
 			}
-
-			return true;
 		}
 
 		return false;
@@ -151,19 +154,21 @@ public class Backpack implements Inventory {
 	 */
 	@Override
 	public boolean remove(ItemStack itemStack) {
-		int index = findItem(itemStack.getItem());
+		if(itemStack.getQuantity() > 0) {
+			int index = findItem(itemStack.getItem());
 
-		if(index != -1) {
-			ItemStack existingStack = items.get(index);
+			if(index != -1) {
+				ItemStack existingStack = items.get(index);
 
-			if(existingStack.getQuantity() - itemStack.getQuantity() <= 0) {
-				remove(index);
-			} else{
-				existingStack.decreaseQuantity(itemStack.getQuantity());
-				decreaseCurrentCapacity(itemStack.getTotalWeight());
+				if(existingStack.getQuantity() - itemStack.getQuantity() <= 0) {
+					remove(index);
+				} else{
+					existingStack.decreaseQuantity(itemStack.getQuantity());
+					decreaseCurrentCapacity(itemStack.getTotalWeight());
+				}
+
+				return true;
 			}
-
-			return true;
 		}
 
 		return false;
