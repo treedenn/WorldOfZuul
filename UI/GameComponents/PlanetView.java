@@ -223,6 +223,7 @@ public class PlanetView {
             IItemStack selectedItem = itemList.getSelectionModel().getSelectedItem();
             if(selectedItem != null){
                 controller.getDomain().pickupItem(selectedItem);
+                tickLists();
             }
         });
 
@@ -241,14 +242,8 @@ public class PlanetView {
                 controller.getDomain().searchPlanet();
 
 
-                items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getIItemStacks());
-                itemList.setItems(items);
 
-                npcs = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getNPCs());
-                NPCList.setItems(npcs);
-                NPCList.setCellFactory(param -> {
-                    return new NPCFormatCell();
-                });
+                tickLists();
 
 
                 // player.getCurrentPlanet().getPermSearched()
@@ -325,6 +320,18 @@ public class PlanetView {
 
     public boolean isVisible() {
         return isVisible;
+    }
+
+
+    public void tickLists(){
+        items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getIItemStacks());
+        itemList.setItems(items);
+
+        npcs = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getNPCs());
+        NPCList.setItems(npcs);
+        NPCList.setCellFactory(param -> {
+            return new NPCFormatCell();
+        });
     }
 
 

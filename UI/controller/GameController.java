@@ -1,6 +1,7 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.IItemStack;
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
@@ -150,7 +151,14 @@ public class GameController extends Controller implements IGameLoop {
         inventoryHandler = new Backpack(wrapper, this);
         inventoryHandler.layout();
 
-
+/*
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < getDomain().getPlayer().getIInventory().getIContent().length; j++) {
+                System.out.println(getDomain().getPlayer().getIInventory().getIContent()[j]);
+                getDomain().getPlayer().getIInventory().getIContent()[j] = null;
+            }
+        }
+*/
 
 
         configGameMenuButton();
@@ -253,7 +261,11 @@ public class GameController extends Controller implements IGameLoop {
             innersceneHandler.getPlayer().setAccelerate(true);
         }
         if(event.getCode() == KeyCode.S){
-
+            System.out.println("-----------------------------------");
+            for (IItemStack iItemStack : getDomain().getPlayer().getCurrentPlanet().getIItemStacks()) {
+                System.out.println("Name: " + iItemStack.getIItem().getName() + ". Quantity: " + iItemStack.getQuantity());
+            }
+            System.out.println("-----------------------------------");
         }
     }
 
