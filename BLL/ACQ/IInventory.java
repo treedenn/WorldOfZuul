@@ -8,17 +8,20 @@ import BLL.entity.Inventory;
  */
 public interface IInventory {
 	/**
-	 * {@inheritDoc}
+	 * Gets the max capacity an inventory can have.
+	 * @return max capacity
 	 */
 	double getMaxCapacity();
 
 	/**
-	 * {@inheritDoc}
+	 * Returns the current capacity the inventory has.
+	 * @return current capacity
 	 */
 	double getCurrentCapacity();
 
 	/**
-	 * {@inheritDoc}
+	 * Gets all the content inside inventory.
+	 * @return all the content inside inventory
 	 */
 	IItemStack[] getIContent();
 }

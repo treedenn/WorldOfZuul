@@ -10,18 +10,6 @@ import BLL.item.ItemStack;
  */
 public interface Inventory extends IInventory {
 	/**
-	 * Gets the max capacity an inventory can have.
-	 * @return max capacity
-	 */
-	double getMaxCapacity();
-
-	/**
-	 * Returns the current capacity the inventory has.
-	 * @return current capacity
-	 */
-	double getCurrentCapacity();
-
-	/**
 	 * Adds ItemStack to the inventory.
 	 * @param itemStack the itemstack to add
 	 * @return true, if successful

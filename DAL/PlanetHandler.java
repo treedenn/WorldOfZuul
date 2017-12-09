@@ -1,5 +1,6 @@
 package DAL;
 
+import BLL.entity.Inventory;
 import BLL.item.ItemStack;
 import BLL.world.LockedBlacksmithPlanet;
 import BLL.world.Planet;
@@ -58,73 +59,86 @@ class PlanetHandler implements Loadable {
 
 		/* adding items to planets */
 
-		cleron.addItemStack(new ItemStack(model.getItemById(0)));
-		cleron.addItemStack(new ItemStack(model.getItemById(14)));
-		cleron.addItemStack(new ItemStack(model.getItemById(26)));
-		cleron.addItemStack(new ItemStack(model.getItemById(40)));
-		cleron.addItemStack(new ItemStack(model.getItemById(39)));
+		Inventory cleronInv = (Inventory) cleron.getInventory();
+		Inventory scurnInv = (Inventory) scurn.getInventory();
+		Inventory hebrillesInv = (Inventory) hebrilles.getInventory();
+		Inventory xehnaInv = (Inventory) xehna.getInventory();
+		Inventory gallifreyInv = (Inventory) gallifrey.getInventory();
+		Inventory skaroInv = (Inventory) skaro.getInventory();
+		Inventory orionInv = (Inventory) orion.getInventory();
+		Inventory deineaxInv = (Inventory) deineax.getInventory();
+		Inventory uskillionInv = (Inventory) uskillion.getInventory();
+		Inventory ayrusInv = (Inventory) ayrus.getInventory();
+		Inventory amritInv = (Inventory) amrit.getInventory();
+		Inventory earthInv = (Inventory) earth.getInventory();
 
-		scurn.addItemStack(new ItemStack(model.getItemById(1)));
-		scurn.addItemStack(new ItemStack(model.getItemById(15)));
-		scurn.addItemStack(new ItemStack(model.getItemById(27)));
-		scurn.addItemStack(new ItemStack(model.getItemById(41)));
-		scurn.addItemStack(new ItemStack(model.getItemById(54)));
+		cleronInv.add(new ItemStack(model.getItemById(0)));
+		cleronInv.add(new ItemStack(model.getItemById(14)));
+		cleronInv.add(new ItemStack(model.getItemById(26)));
+		cleronInv.add(new ItemStack(model.getItemById(40)));
+		cleronInv.add(new ItemStack(model.getItemById(39)));
 
-		hebrilles.addItemStack(new ItemStack(model.getItemById(2)));
-		hebrilles.addItemStack(new ItemStack(model.getItemById(16)));
-		hebrilles.addItemStack(new ItemStack(model.getItemById(28)));
-		hebrilles.addItemStack(new ItemStack(model.getItemById(42)));
-		hebrilles.addItemStack(new ItemStack(model.getItemById(55)));
+		scurnInv.add(new ItemStack(model.getItemById(1)));
+		scurnInv.add(new ItemStack(model.getItemById(15)));
+		scurnInv.add(new ItemStack(model.getItemById(27)));
+		scurnInv.add(new ItemStack(model.getItemById(41)));
+		scurnInv.add(new ItemStack(model.getItemById(54)));
 
-		xehna.addItemStack(new ItemStack(model.getItemById(3)));
-		xehna.addItemStack(new ItemStack(model.getItemById(17)));
-		xehna.addItemStack(new ItemStack(model.getItemById(29)));
-		xehna.addItemStack(new ItemStack(model.getItemById(43)));
-		xehna.addItemStack(new ItemStack(model.getItemById(53)));
+		hebrillesInv.add(new ItemStack(model.getItemById(2)));
+		hebrillesInv.add(new ItemStack(model.getItemById(16)));
+		hebrillesInv.add(new ItemStack(model.getItemById(28)));
+		hebrillesInv.add(new ItemStack(model.getItemById(42)));
+		hebrillesInv.add(new ItemStack(model.getItemById(55)));
 
-		gallifrey.addItemStack(new ItemStack(model.getItemById(4)));
-		gallifrey.addItemStack(new ItemStack(model.getItemById(18)));
-		gallifrey.addItemStack(new ItemStack(model.getItemById(30)));
-		gallifrey.addItemStack(new ItemStack(model.getItemById(44)));
+		xehnaInv.add(new ItemStack(model.getItemById(3)));
+		xehnaInv.add(new ItemStack(model.getItemById(17)));
+		xehnaInv.add(new ItemStack(model.getItemById(29)));
+		xehnaInv.add(new ItemStack(model.getItemById(43)));
+		xehnaInv.add(new ItemStack(model.getItemById(53)));
 
-		skaro.addItemStack(new ItemStack(model.getItemById(5)));
-		skaro.addItemStack(new ItemStack(model.getItemById(19)));
-		skaro.addItemStack(new ItemStack(model.getItemById(31)));
-		skaro.addItemStack(new ItemStack(model.getItemById(45)));
+		gallifreyInv.add(new ItemStack(model.getItemById(4)));
+		gallifreyInv.add(new ItemStack(model.getItemById(18)));
+		gallifreyInv.add(new ItemStack(model.getItemById(30)));
+		gallifreyInv.add(new ItemStack(model.getItemById(44)));
 
-		orion.addItemStack(new ItemStack(model.getItemById(6)));
-		orion.addItemStack(new ItemStack(model.getItemById(20)));
-		orion.addItemStack(new ItemStack(model.getItemById(32)));
-		orion.addItemStack(new ItemStack(model.getItemById(46)));
+		skaroInv.add(new ItemStack(model.getItemById(5)));
+		skaroInv.add(new ItemStack(model.getItemById(19)));
+		skaroInv.add(new ItemStack(model.getItemById(31)));
+		skaroInv.add(new ItemStack(model.getItemById(45)));
 
-		deineax.addItemStack(new ItemStack(model.getItemById(7)));
-		deineax.addItemStack(new ItemStack(model.getItemById(21)));
-		deineax.addItemStack(new ItemStack(model.getItemById(33)));
-		deineax.addItemStack(new ItemStack(model.getItemById(47)));
+		orionInv.add(new ItemStack(model.getItemById(6)));
+		orionInv.add(new ItemStack(model.getItemById(20)));
+		orionInv.add(new ItemStack(model.getItemById(32)));
+		orionInv.add(new ItemStack(model.getItemById(46)));
 
-		uskillion.addItemStack(new ItemStack(model.getItemById(8)));
-		uskillion.addItemStack(new ItemStack(model.getItemById(22)));
-		uskillion.addItemStack(new ItemStack(model.getItemById(34)));
-		uskillion.addItemStack(new ItemStack(model.getItemById(48)));
+		deineaxInv.add(new ItemStack(model.getItemById(7)));
+		deineaxInv.add(new ItemStack(model.getItemById(21)));
+		deineaxInv.add(new ItemStack(model.getItemById(33)));
+		deineaxInv.add(new ItemStack(model.getItemById(47)));
 
-		ayrus.addItemStack(new ItemStack(model.getItemById(9)));
-		ayrus.addItemStack(new ItemStack(model.getItemById(23)));
-		ayrus.addItemStack(new ItemStack(model.getItemById(35)));
-		ayrus.addItemStack(new ItemStack(model.getItemById(49)));
-		ayrus.addItemStack(new ItemStack(model.getItemById(13)));
+		uskillionInv.add(new ItemStack(model.getItemById(8)));
+		uskillionInv.add(new ItemStack(model.getItemById(22)));
+		uskillionInv.add(new ItemStack(model.getItemById(34)));
+		uskillionInv.add(new ItemStack(model.getItemById(48)));
 
-		amrit.addItemStack(new ItemStack(model.getItemById(10)));
-		amrit.addItemStack(new ItemStack(model.getItemById(24)));
-		amrit.addItemStack(new ItemStack(model.getItemById(36)));
-		amrit.addItemStack(new ItemStack(model.getItemById(50)));
-		amrit.addItemStack(new ItemStack(model.getItemById(12)));
+		ayrusInv.add(new ItemStack(model.getItemById(9)));
+		ayrusInv.add(new ItemStack(model.getItemById(23)));
+		ayrusInv.add(new ItemStack(model.getItemById(35)));
+		ayrusInv.add(new ItemStack(model.getItemById(49)));
+		ayrusInv.add(new ItemStack(model.getItemById(13)));
 
-		earth.addItemStack(new ItemStack(model.getItemById(11)));
-		earth.addItemStack(new ItemStack(model.getItemById(25)));
-		earth.addItemStack(new ItemStack(model.getItemById(37)));
-		earth.addItemStack(new ItemStack(model.getItemById(51)));
-		earth.addItemStack(new ItemStack(model.getItemById(52)));
-		earth.addItemStack(new ItemStack(model.getItemById(38)));
+		amritInv.add(new ItemStack(model.getItemById(10)));
+		amritInv.add(new ItemStack(model.getItemById(24)));
+		amritInv.add(new ItemStack(model.getItemById(36)));
+		amritInv.add(new ItemStack(model.getItemById(50)));
+		amritInv.add(new ItemStack(model.getItemById(12)));
+
+		earthInv.add(new ItemStack(model.getItemById(11)));
+		earthInv.add(new ItemStack(model.getItemById(25)));
+		earthInv.add(new ItemStack(model.getItemById(37)));
+		earthInv.add(new ItemStack(model.getItemById(51)));
+		earthInv.add(new ItemStack(model.getItemById(52)));
+		earthInv.add(new ItemStack(model.getItemById(38)));
 
 		/* shuffle the planets and put it inside a map */
 

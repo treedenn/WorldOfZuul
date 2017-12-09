@@ -55,12 +55,11 @@ public interface IPlanet {
 	 */
 	List<NPC> getNPCs();
 
-	/** @TODO Dennis, change the folllowing getter method to return {@link BLL.entity.Inventory} ->
 	/**
-	 * Returns a list of items on the planet.
-	 * @return a list of items.
+	 * Gets the inventory of the planet.
+	 * @return the inventory
 	 */
-	IItemStack[] getIItemStacks();
+	IInventory getInventory();
 
 	/**
 	 * Gets the X-coordinate of the planet.

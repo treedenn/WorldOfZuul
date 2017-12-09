@@ -1,8 +1,11 @@
 package BLL.world;
 
+import BLL.ACQ.IInventory;
 import BLL.ACQ.IItemStack;
 import BLL.ACQ.IPlanet;
+import BLL.entity.Inventory;
 import BLL.entity.npc.NPC;
+import BLL.entity.player.Backpack;
 import BLL.item.ItemStack;
 import javafx.geometry.Point2D;
 
@@ -25,7 +28,7 @@ public class Planet implements IPlanet {
     private File map2D;
     private File image;
     private boolean[] searched;
-    private List<ItemStack> itemList;
+    private Inventory inventory;
     private List<NPC> npcList;
 
     /* constructor for the planet class */
@@ -33,7 +36,7 @@ public class Planet implements IPlanet {
         this.name = name;
         this.description = description;
         this.coordinates = new Point2D(x, y);
-        this.itemList = new ArrayList<>();
+        this.inventory = new Backpack(10000);
         this.npcList = new ArrayList<>();
         this.searched = new boolean[] {false, false};
     }
@@ -143,35 +146,11 @@ public class Planet implements IPlanet {
 	}
 
     /**
-     * Adds the argument (item stack) to the planet.
-     * @param itemStack the item stack to add
+     * {@inheritDoc}
      */
-    public void addItemStack(ItemStack itemStack) {
-        itemList.add(itemStack);
-    }
-
-    /**
-     * Removes the argument (item stack) from the planet.
-     * @param itemStack the item stack to remove
-     */
-    public void removeItemStack(ItemStack itemStack) {
-        int index = findItem(itemStack);
-
-        ItemStack is = itemList.get(index);
-
-        is.decreaseQuantity(itemStack.getQuantity());
-
-        if(is.getQuantity() == 0) {
-            itemList.remove(index);
-        }
-    }
-
-    /**
-     * Gets the content of the planet in an array of {@link ItemStack}.
-     * @return the content of the planet
-     */
-    public ItemStack[] getContent() {
-    	return itemList.toArray(new ItemStack[itemList.size()]);
+    @Override
+    public IInventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -180,40 +159,5 @@ public class Planet implements IPlanet {
     @Override
     public List<NPC> getNPCs() {
         return npcList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public IItemStack[] getIItemStacks() {
-        return getContent();
-    }
-
-    public boolean hasItemStack(ItemStack is) {
-        for(ItemStack itemStack : itemList) {
-            if(itemStack.getItem().equals(is.getItem())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Looks for a specific item stack inside the planet's content.
-     * @param itemStack the item stack to look for
-     * @return the index where it is located
-     */
-    private int findItem(ItemStack itemStack) {
-        for(int i = 0; i < itemList.size(); i++) {
-            ItemStack existingStack = itemList.get(i);
-
-            if(existingStack.getItem().equals(itemStack.getItem())) {
-                return i;
-            }
-        }
-
-        return -1;
     }
 }

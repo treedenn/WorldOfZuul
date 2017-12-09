@@ -1,17 +1,22 @@
 package BLL;
 
 import BLL.ACQ.*;
+import BLL.ACQ.data.IPlanetData;
+import BLL.ACQ.data.IPlayerData;
+import BLL.ACQ.data.IWorldData;
 import BLL.entity.Inventory;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
 import BLL.entity.player.buff.Buff;
 import BLL.item.Item;
+import BLL.item.ItemPortalGun;
 import BLL.item.ItemStack;
 import BLL.scoring.Score;
 import BLL.scoring.ScoreHandler;
 import BLL.world.Lockable;
 import BLL.world.Planet;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Game implements Domain {
@@ -120,7 +125,6 @@ public class Game implements Domain {
 		System.out.println(planets[11].getName());
         //useItem(new ItemStack(model.getItemById(58)));
 		// ---
-
 	}
 
 	/**
@@ -315,10 +319,11 @@ public class Game implements Domain {
 				Item item = is.getItem();
 
 				if(item.isPickupable()) {
-					Inventory bp = player.getInventory();
+					Inventory playerInv = player.getInventory();
+					Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
 
-					if(player.getCurrentPlanet().hasItemStack(is) && bp.add(is)) {
-						player.getCurrentPlanet().removeItemStack(is);
+					if(planetInv.contains(is) && playerInv.add(is)) {
+						planetInv.remove(is);
 
 						isPickedUp = true;
 						message = replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
@@ -351,10 +356,11 @@ public class Game implements Domain {
 				Item item = is.getItem();
 
 				if(item.isDropable()) {
-					Inventory bp = player.getInventory();
+					Inventory playerInv = player.getInventory();
+					Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
 
-					if(bp.contains(is) && bp.remove(is)) {
-						player.getCurrentPlanet().addItemStack(is);
+					if(playerInv.contains(is) && playerInv.remove(is)) {
+						planetInv.add(is);
 
 						isDropped = true;
 						message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
@@ -445,8 +451,9 @@ public class Game implements Domain {
 
 		List<Planet> planetsList = new ArrayList<>(player.getPlanets().values());
 		Collections.shuffle(planetsList);
+
 		for (int i = 0; i < clues.length; i++) {
-			planetsList.get(i).addItemStack(new ItemStack(clues[i]));
+			((Inventory) planetsList.get(i).getInventory()).add(new ItemStack(clues[i]));
 		}
 	}
 
@@ -499,6 +506,59 @@ public class Game implements Domain {
 	@Override
 	public List<IScore> getHighscore() {
 		return new ArrayList<>(model.getHighscore());
+	}
+
+	@Override
+	public boolean save() {
+		IWorldData worldData = model.getWorldData();
+		IPlayerData playerData = model.getPlayerData();
+		IPlanetData planetData = model.getPlanetData();
+
+		// WORLD
+
+		worldData.setTimeElapsed(scoreHandler.calculateTimeElapsed());
+
+		for(ItemStack is : player.getInventory().getContent()) {
+			if(is.getItem() instanceof ItemPortalGun) {
+				ItemPortalGun pg = (ItemPortalGun) is.getItem();
+				worldData.setPortalGunBroken(pg.isBroken());
+				break;
+			}
+		}
+
+		// PLAYER
+
+		playerData.setBuffs(player.getBuffs());
+		playerData.setCurrentPlanet(player.getCurrentPlanet().getName());
+		playerData.setInventory(player.getInventory());
+		playerData.setFuel(player.getFuel());
+		playerData.setFuelConsumption(player.getTotalFuelConsumption());
+
+		// PLANET
+
+		for(Planet p : player.getPlanets().values()) {
+			planetData.addData(p.getX(), p.getY(), (Inventory) p.getInventory());
+		}
+
+		try {
+			model.saveGame();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean load() {
+
+		try {
+			model.loadGame();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 
 	/* function to print a welcome message */
