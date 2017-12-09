@@ -264,9 +264,11 @@ public class GameController extends Controller implements IGameLoop {
         }
         if(event.getCode() == KeyCode.S){
 
-            /* TODO FIND OUT WHY THIS DOESN'T WORK
+            // TODO: FIND OUT WHY THIS DOESN'T WORK
+            // IT WORKS NOW!
 
-            /*
+            getDomain().movePlayerToPlanet("newearth");
+
             getDomain().searchPlanet();
 
             Model model = Model.getInstance();
@@ -291,9 +293,6 @@ public class GameController extends Controller implements IGameLoop {
             }
 
            System.out.println("-------------------------------");
-            */
-
-
         }
     }
 

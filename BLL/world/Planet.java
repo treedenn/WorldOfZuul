@@ -191,7 +191,13 @@ public class Planet implements IPlanet {
     }
 
     public boolean hasItemStack(ItemStack is) {
-        return itemList.contains(is);
+        for(ItemStack itemStack : itemList) {
+            if(itemStack.getItem().equals(is.getItem())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
