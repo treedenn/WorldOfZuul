@@ -1,6 +1,9 @@
 package DAL;
 
 import BLL.ACQ.PersistenceLayer;
+import BLL.ACQ.data.IPlanetData;
+import BLL.ACQ.data.IPlayerData;
+import BLL.ACQ.data.IWorldData;
 import BLL.Game;
 import BLL.UsableHandler;
 import BLL.entity.player.Quiz;
@@ -54,6 +57,21 @@ public class Model implements PersistenceLayer {
 	@Override
 	public void setUsableHandler(UsableHandler handler) {
 		dbHandler.setUsableHandler(handler);
+	}
+
+	@Override
+	public IWorldData getWorldData() {
+		return gsHandler.getWorldData();
+	}
+
+	@Override
+	public IPlayerData getPlayerData() {
+		return gsHandler.getPlayerData();
+	}
+
+	@Override
+	public IPlanetData getPlanetData() {
+		return gsHandler.getPlanetData();
 	}
 
 	/**
@@ -133,13 +151,11 @@ public class Model implements PersistenceLayer {
 		}
 	}
 
-	public void saveGame(Game gameInstance) throws IOException, NullPointerException {
-		gsHandler.setGameInstance(gameInstance);
+	public void saveGame() throws IOException {
 		save(gsHandler);
 	}
 
-	public void loadGame(Game gameInstance) throws IOException, NullPointerException {
-		gsHandler.setGameInstance(gameInstance);
+	public void loadGame() throws IOException {
 		load(gsHandler);
 	}
 

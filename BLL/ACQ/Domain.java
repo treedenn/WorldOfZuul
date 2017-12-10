@@ -145,4 +145,8 @@ public interface Domain {
 	 * @return the message container
 	 */
 	MessageContainer getMessageContainer();
+
+	boolean save();
+
+	boolean load();
 }

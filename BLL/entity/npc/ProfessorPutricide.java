@@ -12,6 +12,11 @@ public class ProfessorPutricide extends Entity implements NPC {
     }
 
     @Override
+    public int getId() {
+        return 2;
+    }
+
+    @Override
     public String getName() {
         return "Professor Putricide";
     }

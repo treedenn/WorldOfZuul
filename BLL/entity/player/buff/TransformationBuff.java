@@ -5,17 +5,23 @@ import BLL.entity.player.Player;
 /**
  * It describes the Transformation Buff.
  */
-public class TransformationBuff implements Buff {
+public class TransformationBuff implements Buff, Expirable {
 	private int morphId;
-	private int duration;
 	private long startDuration;
 	private long endDuration;
 
 	public TransformationBuff(int morphId, int duration) {
 		this.morphId = morphId;
-		this.duration = duration;
 		this.startDuration = System.currentTimeMillis();
 		this.endDuration = startDuration + duration * 1000;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getId() {
+		return 0;
 	}
 
 	/**
@@ -49,6 +55,23 @@ public class TransformationBuff implements Buff {
 	 */
 	@Override
 	public boolean isExpired() {
-		return System.currentTimeMillis() >= endDuration;
+		return getDuration() <= 0;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public long getDuration() {
+		return endDuration - System.currentTimeMillis();
+	}
+
+	/**
+	 * Used to make it unique in a set list.
+	 * @return the id
+	 */
+	@Override
+	public int hashCode() {
+		return getId();
 	}
 }

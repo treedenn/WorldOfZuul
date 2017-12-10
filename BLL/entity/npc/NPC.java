@@ -10,6 +10,12 @@ import java.io.File;
  */
 public interface NPC {
     /**
+     * Gets the id of the NPC.
+     * @return id
+     */
+    int getId();
+
+    /**
      * Gets the name of the NPC.
      * @return name of NPC
      */

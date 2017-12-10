@@ -23,6 +23,7 @@ public class Item implements IItem, Cloneable {
 	}
 
 	public Item(int id, String name, String description, ItemType type, double weight, boolean isPickupable, boolean isDropable) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.type = type;
@@ -32,7 +33,7 @@ public class Item implements IItem, Cloneable {
 		this.usable = null;
 	}
 
-	public Item(int id, String name, String description, double weight, boolean isPickupable, boolean isDropable) {
+	public Item(Integer id, String name, String description, double weight, boolean isPickupable, boolean isDropable) {
 		this(id, name, description, ItemType.DEFAULT, weight, isPickupable, isDropable);
 	}
 

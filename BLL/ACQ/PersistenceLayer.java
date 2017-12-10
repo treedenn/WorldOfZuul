@@ -1,11 +1,15 @@
 package BLL.ACQ;
 
+import BLL.ACQ.data.IPlanetData;
+import BLL.ACQ.data.IPlayerData;
+import BLL.ACQ.data.IWorldData;
 import BLL.UsableHandler;
 import BLL.entity.player.Quiz;
 import BLL.item.Item;
 import BLL.scoring.Score;
 import BLL.world.Planet;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +17,13 @@ import java.util.Map;
  * Describes what the persitent layer has to have.
  */
 public interface PersistenceLayer {
+
+	IWorldData getWorldData();
+
+	IPlayerData getPlayerData();
+
+	IPlanetData getPlanetData();
+
 	/**
 	 * Business layer will invoke load when it is initialising.
 	 * Load database etc.
@@ -61,4 +72,7 @@ public interface PersistenceLayer {
 	 * @return the message of the key
 	 */
 	String getMessage(String key);
+
+	void saveGame() throws IOException;
+	void loadGame() throws IOException;
 }

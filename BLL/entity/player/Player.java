@@ -7,7 +7,9 @@ import BLL.entity.MovableEntity;
 import BLL.entity.player.buff.Buff;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Identifies a Player in the game.
@@ -16,7 +18,7 @@ import java.util.List;
  */
 public class Player extends MovableEntity implements IPlayer {
 	private Inventory inventory;
-	private List<Buff> buffs;
+	private Set<Buff> buffs;
 	private double coordX;
 	private double coordY;
 	private double fuel;
@@ -27,7 +29,7 @@ public class Player extends MovableEntity implements IPlayer {
 	public Player() {
 		super(null, null);
 		this.inventory = new Backpack(6);
-		this.buffs = new ArrayList<>();
+		this.buffs = new HashSet<>();
 		this.coordX = 0;
 		this.coordY = 0;
 		this.fuel = 100;
@@ -63,7 +65,7 @@ public class Player extends MovableEntity implements IPlayer {
 	 * Returns a list of buffs/objects implementing the {@link Buff} interface.
 	 * @return List of {@link Buff}
 	 */
-	public List<Buff> getBuffs() {
+	public Set<Buff> getBuffs() {
 		return buffs;
 	}
 
@@ -78,11 +80,11 @@ public class Player extends MovableEntity implements IPlayer {
 
 	/**
 	 * Use to remove a buff from buff list with an index, specifying which buff.
-	 * @param index index in the list of buffs.
+	 * @param buff the buff to remove
 	 */
-	public void removeBuff(int index) {
-		Buff buff = buffs.remove(index);
+	public void removeBuff(Buff buff) {
 		buff.onEnd(this);
+		buffs.remove(buff);
 	}
 
 	/**

@@ -7,6 +7,13 @@ import BLL.entity.player.Player;
  * It also describes the requirements for a buff, what a buff must contain.
  */
 public interface Buff {
+
+	/**
+	 * A unique id given to each buff.
+	 * @return id
+	 */
+	int getId();
+
 	/**
 	 * When applying/adding the buff to the player, this action will be invoked.
 	 * @param player getting the buff
@@ -28,7 +35,6 @@ public interface Buff {
 	/**
 	 * Checks if the buff has expired.
 	 * This function also contains how the buff should be removed (e.g. by time etc).
-	 * @param player getting the buff
 	 */
 	boolean isExpired();
 }

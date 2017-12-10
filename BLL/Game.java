@@ -8,6 +8,7 @@ import BLL.entity.Inventory;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
 import BLL.entity.player.buff.Buff;
+import BLL.entity.player.buff.Expirable;
 import BLL.item.Item;
 import BLL.item.ItemPortalGun;
 import BLL.item.ItemStack;
@@ -123,8 +124,10 @@ public class Game implements Domain {
         //npcHandler.getStationaryBlacksmith().setCurrentPlanet();
 
 		System.out.println(planets[11].getName());
-        //useItem(new ItemStack(model.getItemById(58)));
+        useItem(new ItemStack(model.getItemById(58)));
 		// ---
+
+		save();
 	}
 
 	/**
@@ -175,16 +178,11 @@ public class Game implements Domain {
 	 */
 	@Override
 	public void updateBuffs() {
-		List<Buff> buffs = player.getBuffs();
-
-		Buff buff;
-		for(int i = 0; i < buffs.size(); i++) {
-			buff = buffs.get(i);
-
+		for(Buff buff : player.getBuffs()) {
 			buff.onGameTick(player);
 
 			if(buff.isExpired()) {
-				player.removeBuff(i);
+				player.removeBuff(buff);
 			}
 		}
 	}
@@ -526,18 +524,62 @@ public class Game implements Domain {
 			}
 		}
 
+		if(npcHandler.getBlacksmith().getRecipe() != null) {
+			worldData.setRequirements(npcHandler.getBlacksmith().getRecipe().getRequirements());
+		}
+
 		// PLAYER
 
-		playerData.setBuffs(player.getBuffs());
+		Map<Integer, Long> buffs = new HashMap<>();
+
+		long duration;
+		for(Buff buff : player.getBuffs()) {
+			if(buff instanceof Expirable) {
+				duration = ((Expirable) buff).getDuration();
+			} else {
+				duration = -1;
+			}
+
+			buffs.put(buff.getId(), duration);
+		}
+
 		playerData.setCurrentPlanet(player.getCurrentPlanet().getName());
-		playerData.setInventory(player.getInventory());
+		playerData.setX(player.getCoordX());
+		playerData.setY(player.getCoordY());
+		playerData.setBuffs(buffs);
+		playerData.setInventory(player.getInventory().getContent());
 		playerData.setFuel(player.getFuel());
 		playerData.setFuelConsumption(player.getTotalFuelConsumption());
 
 		// PLANET
 
-		for(Planet p : player.getPlanets().values()) {
-			planetData.addData(p.getX(), p.getY(), (Inventory) p.getInventory());
+		List<Integer> NPCIds;
+		if(planetData.size() == player.getPlanets().size()) {
+			int i = 0;
+			for(Planet p : player.getPlanets().values()) {
+				NPCIds = new ArrayList<>();
+
+				for(NPC npc : p.getNPCs()) {
+					NPCIds.add(npc.getId());
+				}
+
+				planetData.setName(i, p.getName());
+				planetData.setX(i, p.getX());
+				planetData.setY(i, p.getY());
+				planetData.setNPCs(i, NPCIds);
+				planetData.setInventory(i, ((Inventory) p.getInventory()).getContent());
+				i++;
+			}
+		} else {
+			for(Planet p : player.getPlanets().values()) {
+				NPCIds = new ArrayList<>();
+
+				for(NPC npc : p.getNPCs()) {
+					NPCIds.add(npc.getId());
+				}
+
+				planetData.addData(p.getName(), p.getX(), p.getY(), NPCIds, ((Inventory) p.getInventory()).getContent());
+			}
 		}
 
 		try {

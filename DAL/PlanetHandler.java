@@ -142,7 +142,7 @@ class PlanetHandler implements Loadable {
 
 		/* shuffle the planets and put it inside a map */
 
-		Planet[] planets = new Planet[]{
+		Planet[] planets = new Planet[] {
 				cleron, scurn, hebrilles, xehna, gallifrey, skaro, orion,
 				deineax, uskillion, ayrus, amrit, earth
 		};

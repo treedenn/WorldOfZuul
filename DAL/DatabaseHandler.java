@@ -50,12 +50,15 @@ class DatabaseHandler implements Loadable {
 			database = new ArrayList<>(map.size());
 
 			Item item;
+			int id;
 
 			for(Map.Entry<Integer, Map<String, Object>> entry : map.entrySet()) {
+				id = entry.getKey();
+
 				switch(ItemType.valueOf((String) entry.getValue().get("itemType"))) {
-					case DEFAULT: item = getItem(entry.getKey(), entry.getValue()); break;
-					case COMPONENT: item = getComponent(entry.getKey(), entry.getValue()); break;
-					default: item = getItem(entry.getKey(), entry.getValue());
+					case DEFAULT: item = getItem(id, entry.getValue()); break;
+					case COMPONENT: item = getComponent(id, entry.getValue()); break;
+					default: item = getItem(id, entry.getValue());
 				}
 
 				if(entry.getValue().containsKey("usableId")) {
@@ -74,7 +77,8 @@ class DatabaseHandler implements Loadable {
 	 * @return an item
 	 */
 	private Item getItem(int id, Map<String, Object> o) {
-		return new Item(id, (String) o.get("name"),
+		return new Item(id,
+				(String) o.get("name"),
 				(String) o.get("description"),
 				(double) o.get("weight"),
 				(boolean) o.get("pickupable"),

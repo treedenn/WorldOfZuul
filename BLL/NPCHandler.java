@@ -1,11 +1,8 @@
 package BLL;
 
 import BLL.entity.StationaryBlacksmith;
-import BLL.entity.npc.Blacksmith;
-import BLL.entity.npc.ProfessorPutricide;
-import BLL.entity.npc.SpacePirate;
+import BLL.entity.npc.*;
 import BLL.entity.npc.actions.ProfessorPutricideAction;
-import BLL.entity.npc.UnoX;
 
 import java.io.File;
 
@@ -80,5 +77,15 @@ public class NPCHandler {
 	 */
 	public StationaryBlacksmith getStationaryBlacksmith() {
 		return stationaryBlacksmith;
+	}
+
+	public NPC getNPCById(int index) {
+		switch(index) {
+			case 0: return blacksmith;
+			case 1: return professorPutricide;
+			case 2: return stationaryBlacksmith;
+			case 3: return pirate;
+			default: return null;
+		}
 	}
 }

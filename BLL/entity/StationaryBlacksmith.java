@@ -10,6 +10,11 @@ import BLL.entity.npc.actions.NPCActionCollection;
 public class StationaryBlacksmith extends Entity implements NPC {
 	private NPCActionCollection collection;
 
+	@Override
+	public int getId() {
+		return 1;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

@@ -324,9 +324,6 @@ public class PlanetView {
 
 
     public void tickLists(){
-        for(IItemStack iItemStack : controller.getDomain().getPlayer().getCurrentPlanet().getInventory().getIContent()) {
-            System.out.println(iItemStack.getIItem().getName());
-        }
         items = FXCollections.observableArrayList(controller.getDomain().getPlayer().getCurrentPlanet().getInventory().getIContent());
         itemList.setItems(items);
 

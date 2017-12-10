@@ -24,6 +24,19 @@ public class SpacePirate extends Entity implements NPC {
     }
 
     @Override
+    public int getId() {
+        return 3;
+    }
+
+    @Override
+    public String getName() {
+        return "Space Pirate";
+    }
+
+    @Override
+    public boolean isGood() { return false; }
+
+    @Override
     public INPCAction[] getActions() {
         return null;
     }
@@ -32,12 +45,4 @@ public class SpacePirate extends Entity implements NPC {
     public void setActions(NPCActionCollection actions) {
 
     }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public boolean isGood() { return false; }
 }

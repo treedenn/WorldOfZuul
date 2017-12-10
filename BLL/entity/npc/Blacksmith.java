@@ -1,19 +1,24 @@
 package BLL.entity.npc;
 
 import BLL.ACQ.BlacksmithTraceState;
+import BLL.ACQ.INPCAction;
 import BLL.ACQ.PersistenceLayer;
 import BLL.entity.MovableEntity;
+import BLL.entity.npc.actions.NPCActionCollection;
 import BLL.entity.player.Recipe;
 import BLL.item.ItemStack;
 import BLL.world.Planet;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Blacksmith extends MovableEntity {
+public class Blacksmith extends MovableEntity implements NPC {
 	private Recipe recipe;
 	private String[] visitedPlanets;
+
+	private NPCActionCollection collection;
 
 	public Blacksmith() {
 		recipe = null;
@@ -24,7 +29,32 @@ public class Blacksmith extends MovableEntity {
 		super(currentPlanet, planets);
 	}
 
-    public String[] getBlacksmithMsg() {
+	@Override
+	public int getId() {
+		return 1;
+	}
+
+	@Override
+	public String getName() {
+		return "Blacksmith";
+	}
+
+	@Override
+	public boolean isGood() {
+		return true;
+	}
+
+	@Override
+	public INPCAction[] getActions() {
+		return collection.getActions();
+	}
+
+	@Override
+	public void setActions(NPCActionCollection collection) {
+		this.collection = collection;
+	}
+
+	public String[] getBlacksmithMsg() {
         return new String[] {
             "[Blacksmith]: My dear Rick!",
             "It's already time to return the favor?",
@@ -33,7 +63,7 @@ public class Blacksmith extends MovableEntity {
             "--------------",
         };
     }
-    
+
     public String[] getLockedMsg() {
         return new String[] {
             "[BlackSmith]: Hello Fellow, I'm the blacksmith, name's Gearhead!",
