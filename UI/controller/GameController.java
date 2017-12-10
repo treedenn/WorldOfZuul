@@ -7,6 +7,7 @@ import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
+import BLL.entity.npc.actions.NPCJumpAction;
 import BLL.item.ItemStack;
 import DAL.Model;
 import UI.GameComponents.*;
@@ -351,7 +352,7 @@ public class GameController extends Controller implements IGameLoop {
         getDomain().endInteract(npc, index);
 
         if(index < npc.getActions().length - 1){
-            if(index == currentDialogAction.getActionId()) {
+            if(index == -1) {
                 index++;
                 dialogHandler.clear();
                 startInteract(npc, index);
@@ -370,7 +371,17 @@ public class GameController extends Controller implements IGameLoop {
         getDomain().endInteract(npc, index);
 
         if(index < npc.getActions().length - 1){
-            index++;
+            if(npc.getActions()[index] instanceof NPCJumpAction) {
+                NPCJumpAction action = ((NPCJumpAction) npc.getActions()[index]);
+
+                if(action.getActionId() >= 0) {
+                    index = action.getActionId();
+                } else {
+                    index++;
+                }
+            } else {
+                index++;
+            }
             dialogHandler.clear();
             startInteract(npc, index);
         } else if(index >= npc.getActions().length - 1){

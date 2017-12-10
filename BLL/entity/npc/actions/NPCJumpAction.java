@@ -16,7 +16,11 @@ public abstract class NPCJumpAction extends NPCAction {
 		return actionId;
 	}
 
-	void setActionId(int actionId) {
+	protected void setActionId(int actionId) {
 		this.actionId = actionId;
+	}
+
+	public void resetActionId() {
+		this.actionId = -1;
 	}
 }

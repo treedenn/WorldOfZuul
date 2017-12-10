@@ -7,6 +7,7 @@ package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.PersistenceLayer;
+import BLL.Game;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
 
@@ -22,8 +23,10 @@ public class SpacePirateAction implements NPCActionCollection {
             new NPCAction("You have been intercepted and captured by space pirates!"),
             new NPCDialogAction("Would you like to pay the ransom to them in order to proceed on your voyage?") {
                 @Override
-                public void onEndEvent(Player player, NPC npc, PersistenceLayer persistenceLayer) {
-                    super.onEndEvent(player, npc, persistenceLayer);
+                public void onEndEvent(NPC npc, Game game) {
+                    super.onEndEvent(npc, game);
+
+                    Player player = (Player) game.getPlayer();
 
                     if(answerYes) {
                         player.decreaseFuel(10);

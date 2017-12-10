@@ -352,7 +352,9 @@ public class PlanetView {
             setTextFill(new Color(1., 1., 1., 1.));
 
             if (item != null) {
-                imageView.setImage(new Image("./DAL/resource/images/npcs/profputri.png"));
+                if(item.getImage() != null) {
+                    imageView.setImage(new Image(item.getImage().getPath()));
+                }
                 imageView.setFitHeight(40);
                 imageView.setPreserveRatio(true);
                 setGraphic(imageView);

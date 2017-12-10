@@ -7,6 +7,7 @@ package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.PersistenceLayer;
+import BLL.Game;
 import BLL.entity.Inventory;
 import BLL.entity.npc.Blacksmith;
 import BLL.entity.npc.NPC;
@@ -29,22 +30,23 @@ public class BlacksmithAction implements NPCActionCollection {
             "\nI've heard that you somehow broke your portal gun?"),
             new NPCDialogAction("Would you like to see my recipe for the Portal Gun?") {
                 @Override
-                public void onEndEvent(Player player, NPC npc, PersistenceLayer persistenceLayer) {
-                    super.onEndEvent(player, npc, persistenceLayer);
+                public void onEndEvent(NPC npc, Game game) {
+                    super.onEndEvent(npc, game);
 
-                    if(answerYes) {
+                    if(!answerYes) {
                         setActionId(3);
                     }
                 }
             },
-            new NPCAction("... I hope I will see you again!"),
             new NPCAction("") {
                 @Override
-                public void onStartEvent(Player player, NPC npc, PersistenceLayer persistenceLayer) {
-                    super.onStartEvent(player, npc, persistenceLayer);
+                public void onStartEvent(NPC npc, Game game) {
+                    super.onStartEvent(npc, game);
 
                     if(npc instanceof Blacksmith) {
                         Blacksmith bs = (Blacksmith) npc;
+
+                        Player player = (Player) game.getPlayer();
 
                         Inventory inventory = player.getInventory();
                         Recipe recipe = bs.getRecipe();
@@ -78,7 +80,8 @@ public class BlacksmithAction implements NPCActionCollection {
                         }
                     }
                 }
-            }
+            },
+            new NPCAction("... I hope I will see you again!")
         };
     }
 

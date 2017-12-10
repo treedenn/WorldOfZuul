@@ -7,6 +7,8 @@ package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.PersistenceLayer;
+import BLL.Game;
+import BLL.entity.Entity;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
 
@@ -25,12 +27,16 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
             "\nPlease spare me some fuel, I will be in your debt and do anything in return!"),
             new NPCDialogAction("Would you like to help Gearhead?") {
                 @Override
-                public void onEndEvent(Player player, NPC npc, PersistenceLayer persistenceLayer) {
-                    super.onEndEvent(player, npc, persistenceLayer);
+                public void onEndEvent(NPC npc, Game game) {
+                    super.onEndEvent(npc, game);
+
+                    Player player = (Player) game.getPlayer();
 
                     if(answerYes) {
                         player.decreaseFuel(20);
                         // TODO: initialize the movable Blacksmith, clues and so on..
+                        //((Entity) npc).getCurrentPlanet().getNPCs().remove(npc);
+                        //((Entity) npc).setCurrentPlanet(null);
                     } else {
                         setActionId(3);
                     }

@@ -7,6 +7,7 @@ package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.PersistenceLayer;
+import BLL.Game;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.UnoX;
 import BLL.entity.player.Player;
@@ -17,18 +18,17 @@ import BLL.entity.player.Player;
  */
 public class UnoXAction implements NPCActionCollection {
     private INPCAction[] actions;
-    UnoX unox;
     
     public UnoXAction() {
         actions = new INPCAction[] {
             new NPCAction("Before leaving you make a quick stop at the local gas station Uno-X"),
             new NPCDialogAction("Would you like to play a small quiz in order to win some gas for your ship?") {
                 @Override
-                public void onEndEvent(Player player, NPC npc, PersistenceLayer persistenceLayer) {
-                    super.onEndEvent(player, npc, persistenceLayer);
+                public void onEndEvent(NPC npc, Game game) {
+                    super.onEndEvent(npc, game);
 
                     if(answerYes) {
-                        unox.pickRandomQuiz();
+                        ((UnoX) npc).pickRandomQuiz();
                     }
                 }
             },

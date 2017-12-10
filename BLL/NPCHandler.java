@@ -2,7 +2,10 @@ package BLL;
 
 import BLL.entity.StationaryBlacksmith;
 import BLL.entity.npc.*;
+import BLL.entity.npc.actions.BlacksmithAction;
 import BLL.entity.npc.actions.ProfessorPutricideAction;
+import BLL.entity.npc.actions.SpacePirateAction;
+import BLL.entity.npc.actions.StationaryBlacksmithAction;
 
 import java.io.File;
 
@@ -28,6 +31,7 @@ public class NPCHandler {
 		pirate = new SpacePirate();
 		pirate.setImage(new File("./DAL/resource/images/npcs/spacepirate.png"));
 		stationaryBlacksmith = new StationaryBlacksmith();
+		stationaryBlacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
 
 		initActions();
 	}
@@ -37,6 +41,9 @@ public class NPCHandler {
 	 */
 	private void initActions() {
 		professorPutricide.setActions(new ProfessorPutricideAction());
+		stationaryBlacksmith.setActions(new StationaryBlacksmithAction());
+		blacksmith.setActions(new BlacksmithAction());
+		pirate.setActions(new SpacePirateAction());
 	}
 
 	/**

@@ -6,6 +6,7 @@ import BLL.ACQ.data.IPlayerData;
 import BLL.ACQ.data.IWorldData;
 import BLL.entity.Inventory;
 import BLL.entity.npc.NPC;
+import BLL.entity.npc.actions.NPCJumpAction;
 import BLL.entity.player.Player;
 import BLL.entity.player.buff.Buff;
 import BLL.item.Item;
@@ -42,6 +43,10 @@ public class Game implements Domain {
 		gameWon = false;
 		player = new Player();
 		messageContainer = new MessageContainer();
+	}
+
+	public PersistenceLayer getModel() {
+		return model;
 	}
 
 	/**
@@ -117,12 +122,30 @@ public class Game implements Domain {
 		//addCluesToPlanets();
         trapped = true;
 
-        // TODO: remove temp statement when testing is done.
-        player.getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
-        planets[11].getNPCs().add(npcHandler.getProfessorPutricide());
-        //npcHandler.getStationaryBlacksmith().setCurrentPlanet();
+        // Adds the Stationary Blacksmith to Xehna, the locked planet.
+		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
+		planetMap.get("xehna").getNPCs().add(npcHandler.getStationaryBlacksmith());
 
-		System.out.println(planets[11].getName());
+		boolean professorAdded = false;
+		int rand;
+
+		do {
+			rand = (int) (Math.random() * 12);
+
+			if(!planets[rand].getName().equalsIgnoreCase("xehna")) {
+				planets[rand].getNPCs().add(npcHandler.getProfessorPutricide());
+				professorAdded = true;
+			}
+		} while(!professorAdded);
+
+        // TODO: remove these statements when game is finishing.
+		// These statements are used to debug the game.
+
+		// Adds the professor to a random location.
+        planetMap.get("newearth").getNPCs().add(npcHandler.getProfessorPutricide());
+		npcHandler.getProfessorPutricide().setCurrentPlanet(planetMap.get("newearth"));
+		System.out.println("Professor is on " + npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
+
         useItem(new ItemStack(model.getItemById(58)));
 		// ---
 
@@ -201,7 +224,12 @@ public class Game implements Domain {
 	public void startInteract(NPC npc, int actionId) {
 		if(npc != null) {
 			INPCAction[] actions = npc.getActions();
-			actions[actionId].onStartEvent(player, npc, model);
+
+			if(actions[actionId] instanceof NPCJumpAction) {
+				((NPCJumpAction) actions[actionId]).resetActionId();
+			}
+
+			actions[actionId].onStartEvent(npc, this);
 		}
 	}
 
@@ -212,7 +240,12 @@ public class Game implements Domain {
 	public void endInteract(NPC npc, int actionId) {
 		if(npc != null) {
 			INPCAction[] actions = npc.getActions();
-			actions[actionId].onEndEvent(player, npc, model);
+
+//			if(actions[actionId] instanceof NPCJumpAction) {
+//				System.out.println(((NPCJumpAction) actions[actionId]).getActionId());
+//			}
+
+			actions[actionId].onEndEvent(npc, this);
 		}
 
 
@@ -399,6 +432,8 @@ public class Game implements Domain {
 				player.setCurrentPlanet(planet);
 				player.decreaseFuel(10);
 				player.getCurrentPlanet().setTemporarySearch(false);
+
+
 
 				playerIsMoving = true;
 				message = replacePlaceHolders(model.getMessage("player-move-successful"), "{PLANET}", planet.getName());
