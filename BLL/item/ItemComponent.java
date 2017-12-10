@@ -45,6 +45,6 @@ public class ItemComponent extends Item {
 
 	@Override
 	public String toString() {
-		return getComponentType().name() + ": " + getName() + " " + Game.replacePlaceHolders(getDescription(),"{state}", getState().name(), "{color}", getColor().name());
+		return String.format("%s [%s]: %s", getName(), getComponentType(), Game.replacePlaceHolders(getDescription(),"{{state}}", getState().name().toLowerCase(), "{{color}}", getColor().name().toLowerCase()));
 	}
 }
