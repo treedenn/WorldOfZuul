@@ -8,7 +8,6 @@ import BLL.entity.Inventory;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
 import BLL.entity.player.buff.Buff;
-import BLL.entity.player.buff.Expirable;
 import BLL.item.Item;
 import BLL.item.ItemPortalGun;
 import BLL.item.ItemStack;
@@ -25,23 +24,23 @@ public class Game implements Domain {
 
 	private PersistenceLayer model;
 	private UsableHandler usableHandler;
+	private ScoreHandler scoreHandler;
+	private NPCHandler npcHandler;
 
 	private boolean finished;
 	private boolean gameWon;
     private boolean trapped;
 	private Player player;
-	private NPCHandler npcHandler;
-	private ScoreHandler scoreHandler;
 	private MessageContainer messageContainer;
 
 	private Game() {
 		usableHandler = new UsableHandler();
+		npcHandler = new NPCHandler();
+		scoreHandler = new ScoreHandler();
 
 		finished = false;
 		gameWon = false;
 		player = new Player();
-		npcHandler = new NPCHandler();
-		scoreHandler = new ScoreHandler();
 		messageContainer = new MessageContainer();
 	}
 
@@ -530,23 +529,10 @@ public class Game implements Domain {
 
 		// PLAYER
 
-		Map<Integer, Long> buffs = new HashMap<>();
-
-		long duration;
-		for(Buff buff : player.getBuffs()) {
-			if(buff instanceof Expirable) {
-				duration = ((Expirable) buff).getDuration();
-			} else {
-				duration = -1;
-			}
-
-			buffs.put(buff.getId(), duration);
-		}
-
 		playerData.setCurrentPlanet(player.getCurrentPlanet().getName());
 		playerData.setX(player.getCoordX());
 		playerData.setY(player.getCoordY());
-		playerData.setBuffs(buffs);
+		playerData.setBuffs(player.getBuffs());
 		playerData.setInventory(player.getInventory().getContent());
 		playerData.setFuel(player.getFuel());
 		playerData.setFuelConsumption(player.getTotalFuelConsumption());

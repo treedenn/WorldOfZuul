@@ -1,21 +1,21 @@
 package DAL.data;
 
 import BLL.ACQ.data.IPlayerData;
-import BLL.entity.Inventory;
 import BLL.entity.player.buff.Buff;
 import BLL.item.ItemStack;
+import DAL.BuffUtility;
 import DAL.GameStateHandler;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PlayerData implements IPlayerData {
 	private String currentPlanet;
 	private double x;
 	private double y;
 	private ItemStack[] itemStacks;
-	private Map<Integer, Long> buffs;
+	private Set<Buff> buffs;
 	private double fuel;
 	private int fuelConsumption;
 
@@ -60,12 +60,12 @@ public class PlayerData implements IPlayerData {
 	}
 
 	@Override
-	public Map<Integer, Long> getBuffs() {
+	public Set<Buff> getBuffs() {
 		return buffs;
 	}
 
 	@Override
-	public void setBuffs(Map<Integer, Long> buffs) {
+	public void setBuffs(Set<Buff> buffs) {
 		this.buffs = buffs;
 	}
 
@@ -92,11 +92,16 @@ public class PlayerData implements IPlayerData {
 	public Map<String, Object> getPlayerMap() {
 		Map<String, Object> playerMap = new HashMap<>();
 
+		Map<Integer, Object> buffMap = new HashMap<>();
+		for(Buff buff : buffs) {
+			buffMap.put(buff.getId(), BuffUtility.getBuffInformation(buff));
+		}
+
 		playerMap.put("current-planet", currentPlanet);
 		playerMap.put("x-coordinate", x);
 		playerMap.put("y-coordinate", y);
 		playerMap.put("inventory", GameStateHandler.turnInventoryToMap(itemStacks));
-		playerMap.put("buffs", buffs);
+		playerMap.put("buffs", buffMap);
 		playerMap.put("fuel", fuel);
 		playerMap.put("fuel-consumption", fuelConsumption);
 

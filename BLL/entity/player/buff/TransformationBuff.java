@@ -10,8 +10,42 @@ public class TransformationBuff implements Buff, Expirable {
 	private long startDuration;
 	private long endDuration;
 
-	public TransformationBuff(int morphId, int duration) {
+	/**
+	 * Empty transformation buff.
+	 * Morph id and duration can be set.
+	 */
+	public TransformationBuff() {
+	}
+
+	/**
+	 * Constructs a new transformation buff with a morph id and duration.
+	 * @param morphId id of morph
+	 * @param duration in milliseconds
+	 */
+	public TransformationBuff(int morphId, long duration) {
 		this.morphId = morphId;
+		this.startDuration = System.currentTimeMillis();
+		this.endDuration = startDuration + duration;
+	}
+
+	public int getMorphId() {
+		return morphId;
+	}
+
+	/**
+	 * Sets the morph id.
+	 * @param morphId
+	 */
+	public void setMorphId(int morphId) {
+		this.morphId = morphId;
+	}
+
+	/**
+	 * Sets the duration.
+	 * The value has to be in milliseconds.
+	 * @param duration
+	 */
+	public void setDuration(long duration) {
 		this.startDuration = System.currentTimeMillis();
 		this.endDuration = startDuration + duration * 1000;
 	}

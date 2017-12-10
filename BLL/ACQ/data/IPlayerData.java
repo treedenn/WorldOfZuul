@@ -6,6 +6,7 @@ import BLL.item.ItemStack;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface IPlayerData {
 	String getCurrentPlanet();
@@ -20,8 +21,8 @@ public interface IPlayerData {
 	ItemStack[] getInventory();
 	void setInventory(ItemStack[] itemStacks);
 
-	Map<Integer, Long> getBuffs();
-	void setBuffs(Map<Integer, Long> buffs);
+	Set<Buff> getBuffs();
+	void setBuffs(Set<Buff> buffs);
 
 	double getFuel();
 	void setFuel(double fuel);
