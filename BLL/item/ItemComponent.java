@@ -10,8 +10,8 @@ public class ItemComponent extends Item {
 	private Color color;
 	private State state;
 
-	public ItemComponent(int id, String name, String description, double weight, ComponentType componentType, Color color, State state) {
-		super(id, name, description, ItemType.COMPONENT, weight, true, true);
+	public ItemComponent(int id, String name, String description, double weight, boolean isPickupable, boolean isDropable, ComponentType componentType, Color color, State state) {
+		super(id, name, description, ItemType.COMPONENT, weight, isPickupable, isDropable);
 		this.componentType = componentType;
 		this.color = color;
 		this.state = state;

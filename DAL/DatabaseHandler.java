@@ -97,6 +97,8 @@ class DatabaseHandler implements Loadable {
 		return new ItemComponent(id, (String) o.get("name"),
 				(String) o.get("description"),
 				(double) o.get("weight"),
+				(boolean) o.get("pickupable"),
+				(boolean) o.get("dropable"),
 				ComponentType.valueOf((String) o.get("componentType")),
 				Color.valueOf((String) o.get("color")),
 				State.valueOf((String) o.get("state"))
@@ -113,6 +115,8 @@ class DatabaseHandler implements Loadable {
 		return new ItemClue(id, (String) o.get("name"),
 				(String) o.get("description"),
 				(double) o.get("weight"),
+				(boolean) o.get("pickupable"),
+				(boolean) o.get("dropable"),
 				ComponentType.valueOf((String) o.get("componentType")),
 				Color.valueOf((String) o.get("color")),
 				State.valueOf((String) o.get("state"))

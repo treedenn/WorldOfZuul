@@ -265,35 +265,6 @@ public class GameController extends Controller implements IGameLoop {
         }
         if(event.getCode() == KeyCode.S){
 
-            // TODO: FIND OUT WHY THIS DOESN'T WORK
-            // IT WORKS NOW!
-
-            getDomain().movePlayerToPlanet("newearth");
-
-            getDomain().searchPlanet();
-
-            Model model = Model.getInstance();
-            ItemStack is1 = new ItemStack(model.getItemById(11));
-            ItemStack is2 = new ItemStack(model.getItemById(25));
-            ItemStack is3 = new ItemStack(model.getItemById(37));
-
-
-            System.out.println(getDomain().pickupItem(is1));
-            for (IItemStack iItemStack : getDomain().getPlayer().getIInventory().getIContent()) {
-                System.out.println("Name: " + iItemStack.getIItem().getName() + ". Quantity: " + iItemStack.getQuantity());
-            }
-            System.out.println("----");
-            getDomain().pickupItem(is2);
-            for (IItemStack iItemStack : getDomain().getPlayer().getIInventory().getIContent()) {
-                System.out.println("Name: " + iItemStack.getIItem().getName() + ". Quantity: " + iItemStack.getQuantity());
-            }
-            System.out.println("----");
-            getDomain().pickupItem(is3);
-            for (IItemStack iItemStack : getDomain().getPlayer().getIInventory().getIContent()) {
-                System.out.println("Name: " + iItemStack.getIItem().getName() + ". Quantity: " + iItemStack.getQuantity());
-            }
-
-           System.out.println("-------------------------------");
         }
     }
 
@@ -326,8 +297,10 @@ public class GameController extends Controller implements IGameLoop {
             }
         }
     }
-    
 
+    public void tickPlanetView(){
+        planetViewHandler.tickLists();
+    }
 
     public void showBackpack(){
         inventoryHandler.layout();
@@ -352,36 +325,21 @@ public class GameController extends Controller implements IGameLoop {
         getDomain().endInteract(npc, index);
 
         if(index < npc.getActions().length - 1){
-            if(index == ((NPCDialogAction) currentAction).getActionId()) {
-                index++;
-                dialogHandler.clear();
-                startInteract(npc, index);
-            } else {
-                index = ((NPCDialogAction) currentAction).getActionId();
-                dialogHandler.clear();
-                startInteract(npc, index);
-            }
+            index = ((NPCDialogAction) currentAction).getActionId() == -1 ? ++index : ((NPCDialogAction) currentAction).getActionId();
+            dialogHandler.clear();
+            startInteract(npc, index);
         } else{
+            // TERMINATE INTERACTION
             dialogHandler.clear();
         }
+
+        planetViewHandler.tickLists();
 
     }
 
     public void nextAction(){
         getDomain().endInteract(npc, index);
-
         if(index < npc.getActions().length - 1){
-            if(npc.getActions()[index] instanceof NPCJumpAction) {
-                NPCJumpAction action = ((NPCJumpAction) npc.getActions()[index]);
-
-                if(action.getActionId() >= 0) {
-                    index = action.getActionId();
-                } else {
-                    index++;
-                }
-            } else {
-                index++;
-            }
             index++;
             dialogHandler.clear();
             startInteract(npc, index);
@@ -394,6 +352,7 @@ public class GameController extends Controller implements IGameLoop {
         miniMapHandler.hide();
         fuelHandler.hide();
         backpackHandler.hide();
+
         this.npc = npc;
         this.index = index;
 
