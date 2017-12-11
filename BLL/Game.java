@@ -107,10 +107,10 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * An initialization of the business layer.
-	 * Is invoked by {@link #injectPersistenceLayer(PersistenceLayer)} function.
+	 * {@inheritDoc}
 	 */
-	private void init() {
+	@Override
+	public void init() {
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 

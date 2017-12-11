@@ -20,6 +20,12 @@ public interface Domain {
 	void injectPersistenceLayer(PersistenceLayer persistenceLayer);
 
 	/**
+	 * An initialization of the business layer.
+	 * Is invoked by {@link #injectPersistenceLayer(PersistenceLayer)} function.
+	 */
+	void init();
+
+	/**
 	 * Adds a player to the highscore, sorts the list,
 	 * removes the 'unused' one and saves the highscore.
 	 * @param playerName the name of the player
