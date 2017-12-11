@@ -340,24 +340,24 @@ public class GameController extends Controller implements IGameLoop {
 
     NPC npc;
     int index;
-    NPCDialogAction currentDialogAction;
+    NPCAction currentAction;
 
     public void setAnswer(boolean answerYes){
         if(answerYes){
-            currentDialogAction.setAnswer(true);
+            ((NPCDialogAction) currentAction).setAnswer(true);
         } else{
-            currentDialogAction.setAnswer(false);
+            ((NPCDialogAction) currentAction).setAnswer(false);
         }
 
         getDomain().endInteract(npc, index);
 
         if(index < npc.getActions().length - 1){
-            if(index == currentDialogAction.getActionId()) {
+            if(index == ((NPCDialogAction) currentAction).getActionId()) {
                 index++;
                 dialogHandler.clear();
                 startInteract(npc, index);
             } else {
-                index = currentDialogAction.getActionId();
+                index = ((NPCDialogAction) currentAction).getActionId();
                 dialogHandler.clear();
                 startInteract(npc, index);
             }
@@ -371,17 +371,17 @@ public class GameController extends Controller implements IGameLoop {
         getDomain().endInteract(npc, index);
 
         if(index < npc.getActions().length - 1){
-//            if(npc.getActions()[index] instanceof NPCJumpAction) {
-//                NPCJumpAction action = ((NPCJumpAction) npc.getActions()[index]);
-//
-//                if(action.getActionId() >= 0) {
-//                    index = action.getActionId();
-//                } else {
-//                    index++;
-//                }
-//            } else {
-//                index++;
-//            }
+            if(npc.getActions()[index] instanceof NPCJumpAction) {
+                NPCJumpAction action = ((NPCJumpAction) npc.getActions()[index]);
+
+                if(action.getActionId() >= 0) {
+                    index = action.getActionId();
+                } else {
+                    index++;
+                }
+            } else {
+                index++;
+            }
             index++;
             dialogHandler.clear();
             startInteract(npc, index);
@@ -399,68 +399,22 @@ public class GameController extends Controller implements IGameLoop {
 
         INPCAction[] actions = npc.getActions();
 
+        getDomain().startInteract(npc, index);
+
         if(actions[index] instanceof NPCDialogAction){
-            currentDialogAction = (NPCDialogAction) actions[index];
-            getDomain().startInteract(npc, index);
-
-            dialogHandler.updateDialog(npc.getName(), currentDialogAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
+            currentAction = (NPCDialogAction) actions[index];
+            dialogHandler.updateDialog(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
             dialogHandler.addChoice(true);
-
-            getDomain().endInteract(npc, index);
         } else {
-            NPCAction action = (NPCAction) actions[index];
-            dialogHandler.updateDialog(npc.getName(), action.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
+            currentAction = (NPCAction) actions[index];
+            dialogHandler.updateDialog(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
             dialogHandler.addChoice(false);
-
         }
-
-
-
-
-
-
-
-
-
-
-        /*
-        if(actions[index].getMessage() != null){
-            dialogHandler.updateDialog(npc.getName(), actions[i].getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
-        }*/
-
-
-
-
-
-        //miniMapHandler.show();
-        //fuelHandler.show();
-        //backpackHandler.show();
-
-/*
-
-        INPCAction[] actions = npc.getActions();
-
-        domain.startInteract(npc, 0);
-
-        System.out.println(actions[0].getMessage());
-
-        int i = 0;
-        if(actions[1] instanceof NPCDialogAction){
-            NPCDialogAction a = (NPCDialogAction) actions[1];
-            a.setAnswer(false);
-            domain.endInteract(npc, 1);
-            i = a.getActionId();
-            System.out.println(i);
-        }
-
-        System.out.println(actions[i].getMessage());
-
-
-        dialogHandler.updateDialog(npc.getName(), actions[0].getMessage(), "./UI/resources/img/nps/unoX.png");
-*/
-
 
     }
+
+
+
     @FXML
     void displayHints(ActionEvent event) {
         hintLabel.setText("1. Find the Blacksmith `Gearhead`\n       -located on one of the nearby planets");

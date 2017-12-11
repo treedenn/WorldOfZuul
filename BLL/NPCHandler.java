@@ -23,15 +23,15 @@ public class NPCHandler {
 
 	NPCHandler() {
 		blacksmith = new Blacksmith();
-		blacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
+		blacksmith.setImage(new File("/DAL/resource/images/npcs/gearhead.png"));
 		professorPutricide = new ProfessorPutricide();
-		professorPutricide.setImage(new File("./DAL/resource/images/npcs/profputri.png"));
+		professorPutricide.setImage(new File("/DAL/resource/images/npcs/profputri.png"));
 		unoX = new UnoX();
-		unoX.setImage(new File("./DAL/resource/images/npcs/unox.png"));
+		unoX.setImage(new File("/DAL/resource/images/npcs/unox.png"));
 		pirate = new SpacePirate();
-		pirate.setImage(new File("./DAL/resource/images/npcs/spacepirate.png"));
+		pirate.setImage(new File("/DAL/resource/images/npcs/spacepirate.png"));
 		stationaryBlacksmith = new StationaryBlacksmith();
-		stationaryBlacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
+		stationaryBlacksmith.setImage(new File("/DAL/resource/images/npcs/gearhead.png"));
 
 		initActions();
 	}
