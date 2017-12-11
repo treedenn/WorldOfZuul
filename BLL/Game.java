@@ -259,66 +259,6 @@ public class Game implements Domain {
 			INPCAction[] actions = npc.getActions();
 			actions[actionId].onEndEvent(npc, this);
 		}
-
-
-//
-//					if(command.hasArguments()) {
-//			view.println("Interact does not need any arguments.");
-//		} else {
-//			if(!player.getCurrentPlanet().getTempSearched()) {
-//				view.println("You have not searched the planet!");
-//			} else {
-//				if(!blacksmith.isOnPlanet(player.getCurrentPlanet())) {
-//					view.println("The blacksmith is not here.");
-//				} else {
-//                    int trappedInt = trapped ? 1 : 2;
-//                    switch(trappedInt) {
-//                        case 1:
-//                            view.println(blacksmith.getLockedMsg());
-//                            if(blacksmith.hasAccepted(view.getParser().getQuizOfferAnswer())) {
-//                                player.decreaseFuel(10);
-//                                view.println("You chose to help Gearhead! Fuel has decreased by 10!");
-//                                trapped = false;
-//                            }
-//                            view.getParser().resetReader();
-//                            break;
-//                        case 2:
-//                            view.println(blacksmith.getBlacksmithMsg());
-//                            Recipe recipe = blacksmith.getRecipe();
-//                            Item[] items = recipe.getRequirements();
-//	                        ItemStack[] content = player.getInventory().getContent();
-//                            boolean[] containItems = recipe.haveItems(content);
-//
-//                            for(int i = 0; i < items.length; i++) {
-//                                view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX ");
-//                            }
-//
-//                            if(allTrue(containItems)) {
-//                                // TODO: remove items from the players backpack
-//	                            // TODO: change portal gun to be repaired
-//                                view.println("");
-//                                view.println("Portalgun has been repaired!");
-//                            }
-//                            break;
-//                    }*/
-//                    view.println(lockedBlacksmith.getBlacksmithMsg());
-//					Recipe recipe = lockedBlacksmith.getRecipe();
-//					Item[] items = recipe.getRequirements();
-//					boolean[] containItems = recipe.haveItems(player.getInventory().getContent());
-//
-//					for(int i = 0; i < items.length; i++) {
-//						view.println((containItems[i] ? "[\u2713] " : "[\u2715] ") + "XXXXXXXX " + items[i].getComponentType().name());
-//					}
-//
-//					if(allTrue(containItems)) {
-//						// TODO: remove items from the players backpack
-//						view.println("");
-//						view.println("Portalgun has been repaired!");
-//						player.getInventory().getItemPortalGun().repair();
-////					}
-//				}
-//			}
-//		}
 	}
 
 	/**
