@@ -55,7 +55,6 @@ public class Game implements Domain {
 		this.model = persistenceLayer;
 		this.model.setUsableHandler(usableHandler);
 		this.model.load();
-		init();
 	}
 
 	public NPCHandler getNpcHandler() {

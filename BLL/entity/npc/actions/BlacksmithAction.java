@@ -13,6 +13,7 @@ import BLL.entity.npc.Blacksmith;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
 import BLL.entity.player.Recipe;
+import BLL.item.ItemComponent;
 import BLL.item.ItemPortalGun;
 import BLL.item.ItemStack;
 
@@ -38,7 +39,9 @@ public class BlacksmithAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCAction("") {
+            new NPCAction("My tinker tools show what you already have, not what you need..." +
+                    "I have heard rumours that clues are around the universe!" +
+                    "\nThe recipe is:") {
                 @Override
                 public void onStartEvent(NPC npc, Game game) {
                     super.onStartEvent(npc, game);
@@ -71,14 +74,23 @@ public class BlacksmithAction implements NPCActionCollection {
                             message = "Oh, since you had the materials to repair your Portal Gun, I did it.";
                         } else {
                             StringBuilder sb = new StringBuilder();
+
+                            String text;
+                            ItemComponent itemComponent;
                             for(ItemStack item : items) {
-                                sb.append(item.getItem().toString());
+                                itemComponent = (ItemComponent) item.getItem();
+
+                                if(player.getInventory().contains(item)) {
+                                    text = String.format("[\u2713] %s [%s]", itemComponent.getName(), itemComponent.getComponentType().name());
+                                } else {
+                                    text = String.format("[\u2715] %s [%s]", "XXXXXXXXXX", itemComponent.getComponentType().name());
+                                }
+
                                 sb.append(System.lineSeparator());
+                                sb.append(text);
                             }
 
-                            sb.delete(sb.length() - 1, sb.length());
-
-                            message = sb.toString();
+                            message += sb.toString();
                         }
                     }
                 }

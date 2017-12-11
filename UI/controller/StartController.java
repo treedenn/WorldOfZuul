@@ -103,6 +103,8 @@ public class StartController extends Controller{
 	 * @throws IOException
 	 */
 	private void switchToGameView() throws IOException {
+		getDomain().init();
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/game_view.fxml"));
 		GameController controller = new GameController(getDomain());
 		controller.setStage(buttonNewGame);
