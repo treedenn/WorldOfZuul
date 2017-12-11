@@ -243,9 +243,11 @@ public class Game implements Domain {
 		if(npc != null) {
 			INPCAction[] actions = npc.getActions();
 
-//			if(actions[actionId] instanceof NPCJumpAction) {
-//				System.out.println(((NPCJumpAction) actions[actionId]).getActionId());
-//			}
+			if(actions[actionId] instanceof NPCJumpAction) {
+				System.out.println("END:" + ((NPCJumpAction) actions[actionId]).getActionId());
+			} else {
+                System.out.println("END ACTION");
+            }
 
 			actions[actionId].onEndEvent(npc, this);
 		}

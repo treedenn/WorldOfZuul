@@ -32,7 +32,7 @@ public class ProfessorPutricideAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCAction("... I have placed the elixir in your inventory."),
+            new NPCTerminateAction("... I have placed the elixir in your inventory!"),
             new NPCAction("... Till we meet again old friend!")
         };
     }

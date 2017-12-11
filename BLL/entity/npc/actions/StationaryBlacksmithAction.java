@@ -26,7 +26,7 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
             new NPCAction("Hello Fellow, I'm the blacksmith, name's Gearhead!" +
             "\nDear adventurer, I believe our meeting is Fate!" +
             "\nI ran out of fuel and is now stranded on this planet ..." +
-            "\nPlease spare me some fuel, I will be in your debt and do anything in return!"),
+            "\nPlease spare me some fuel, and I will forever be in your debt!"),
             new NPCDialogAction("Would you like to help Gearhead?") {
                 @Override
                 public void onEndEvent(NPC npc, Game game) {
@@ -53,7 +53,7 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCAction("... I hope I will see you again!"),
+            new NPCTerminateAction("... Thank you Rick! I hope I will see you again!"),
             new NPCAction("... Maybe next time then?")
         };
     }

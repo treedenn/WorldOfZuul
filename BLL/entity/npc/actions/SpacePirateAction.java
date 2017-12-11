@@ -20,8 +20,9 @@ public class SpacePirateAction implements NPCActionCollection {
 
     public SpacePirateAction() {
         actions = new INPCAction[] {
-            new NPCAction("You have been intercepted and captured by space pirates!"),
-            new NPCDialogAction("Would you like to pay the ransom to them in order to proceed on your voyage?") {
+            new NPCAction("[You have been intercepted and captured by spacepirates!]" +
+                    "\nAll hand hoay! It's your lucky day lassie - you are now prisoner of my pirate crew!"),
+            new NPCDialogAction("Would you like to pay a ransom in order to proceed your voyage?") {
                 @Override
                 public void onEndEvent(NPC npc, Game game) {
                     super.onEndEvent(npc, game);
@@ -36,7 +37,7 @@ public class SpacePirateAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCAction("... Arrr', we will be seeing you again, you landlubber!"),
+            new NPCTerminateAction("... Arrr', we will be seeing you again, you landlubber!"),
             new NPCAction("... Arrr', you fool! No one denies my orders!")
         };
     }

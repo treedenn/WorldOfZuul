@@ -406,7 +406,7 @@ public class GameController extends Controller implements IGameLoop {
             dialogHandler.updateDialog(npc.getName(), currentDialogAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
             dialogHandler.addChoice(true);
 
-            getDomain().endInteract(npc, index);
+            //getDomain().endInteract(npc, index);
         } else {
             NPCAction action = (NPCAction) actions[index];
             dialogHandler.updateDialog(npc.getName(), action.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
