@@ -256,6 +256,7 @@ public class PlanetView {
                     barSearch.setVisible(false);
                     barSearch.setPrefWidth(0);
                     planetLists.setMinHeight(500);
+                    controller.checkMessageContainer();
 
                     Timeline displayLists = new Timeline();
                     ArrayList<KeyFrame> keyFrames = new ArrayList<>();
@@ -278,12 +279,18 @@ public class PlanetView {
                     pickupButton.setText("Pickup");
                     pickupButton.getStyleClass().add("planetViewButton--pickup");
                     pickupButton.setDisable(true);
+                    Region itemListHeaderSpacer = new Region();
+                    HBox itemListHeaderHBox = new HBox();
+                    itemListHeaderHBox.getChildren().addAll(itemListHeader, itemListHeaderSpacer, pickupButton);
+                    itemListHeaderHBox.setHgrow(itemListHeaderSpacer, Priority.ALWAYS);
+                    itemListHeaderHBox.setAlignment(Pos.CENTER);
 
-                    VBox itemVbox = new VBox(itemListHeader, itemList, pickupButton);
+                    VBox itemVbox = new VBox(itemListHeaderHBox, itemList);
                     VBox NPCVbox = new VBox(NPCListHeader, NPCList);
                     listsWrapper.getChildren().addAll(itemVbox, NPCVbox);
                     HBox.setHgrow(itemVbox, Priority.ALWAYS);
                     HBox.setHgrow(NPCVbox, Priority.ALWAYS);
+                    listsWrapper.setSpacing(25);
                     itemList.setOpacity(0);
                     NPCList.setOpacity(0);
                     itemList.getStyleClass().add("searchList");

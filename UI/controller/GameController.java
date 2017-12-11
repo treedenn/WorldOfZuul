@@ -5,15 +5,17 @@ import BLL.ACQ.IItemStack;
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
-import BLL.entity.npc.actions.NPCAction;
-import BLL.entity.npc.actions.NPCDialogAction;
-import BLL.entity.npc.actions.NPCJumpAction;
-import BLL.entity.npc.actions.NPCTerminateAction;
+import BLL.entity.npc.SpacePirate;
+import BLL.entity.npc.UnoX;
+import BLL.entity.npc.actions.*;
 import BLL.item.ItemStack;
 import DAL.Model;
 import UI.GameComponents.*;
+import UI.GameComponents.Dialog;
 import UI.GameComponents.Subscene.GameMap.MiniMap;
 import UI.GameComponents.Subscene.Innerscene;
+import com.sun.javafx.robot.FXRobot;
+import com.sun.javafx.robot.FXRobotFactory;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -27,6 +29,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
+
 /**
  * The primary controller class for actually playing the game.
  */
@@ -54,6 +57,8 @@ public class GameController extends Controller implements IGameLoop {
     /** Boolean value to keep track of collision between object of type {@link Player} and objects of type {@link Planet} */
     boolean playerCollidingdWithPlanet;
 
+    /** Boolean value to control whether the player can use the keyboard to controls to move or not */
+    boolean freeToMove = true;
 
     private IPlanet currentPlanet;
 
@@ -254,18 +259,20 @@ public class GameController extends Controller implements IGameLoop {
 
     @FXML
     void keyIsPressed(KeyEvent event) {
-        if(event.getCode() == KeyCode.A){
-            innersceneHandler.getPlayer().setLeft(true);
-        }
-        if(event.getCode() == KeyCode.D){
-            innersceneHandler.getPlayer().setRight(true);
-        }
-        if(event.getCode() == KeyCode.W){
-            innersceneHandler.getPlayer().setDecelerate(false);
-            innersceneHandler.getPlayer().setAccelerate(true);
-        }
-        if(event.getCode() == KeyCode.S){
+        if(freeToMove){
+            if(event.getCode() == KeyCode.A){
+                innersceneHandler.getPlayer().setLeft(true);
+            }
+            if(event.getCode() == KeyCode.D){
+                innersceneHandler.getPlayer().setRight(true);
+            }
+            if(event.getCode() == KeyCode.W){
+                innersceneHandler.getPlayer().setDecelerate(false);
+                innersceneHandler.getPlayer().setAccelerate(true);
+            }
+            if(event.getCode() == KeyCode.S){
 
+            }
         }
     }
 
@@ -275,6 +282,7 @@ public class GameController extends Controller implements IGameLoop {
         miniMapHandler.show();
         fuelHandler.show();
         backpackHandler.show();
+        freeToMove = true;
     }
 
     /**
@@ -283,18 +291,15 @@ public class GameController extends Controller implements IGameLoop {
     public void landOnPlanet(){
         if(!planetViewHandler.isVisible()) {
             if (playerCollidingdWithPlanet) {
+                disableMovement();
                 if (getDomain().movePlayerToPlanet(currentPlanet.getName().replace(" ", ""))) {
-                    notificationHandler.loadNotification(getDomain().getMessageContainer().getMessage());
-                    showNotification();
                     miniMapHandler.hide();
                     planetViewHandler.leavePlanet();
                     String planetImage = currentPlanet.getImage().toURI().toString().replace("\\", "/");
                     planetViewHandler.landOnPlanet(currentPlanet.getName(), currentPlanet.getDescription(), planetImage);
                     hoverLabelHandler.hide();
-                } else {
-                    notificationHandler.loadNotification(getDomain().getMessageContainer().getMessage());
-                    showNotification();
                 }
+                checkMessageContainer();
             }
         }
     }
@@ -316,15 +321,22 @@ public class GameController extends Controller implements IGameLoop {
     int index;
     NPCAction currentAction;
 
+    public void setQuizAnswer(int i){
+        NPCQuizAction quizAction = (NPCQuizAction) currentAction;
+        quizAction.setAnswer(i);
+        getDomain().endInteract(npc, index);
+        checkMessageContainer();
+        nextAction();
+    }
+
     public void setAnswer(boolean answerYes){
         if(answerYes){
             ((NPCDialogAction) currentAction).setAnswer(true);
         } else{
             ((NPCDialogAction) currentAction).setAnswer(false);
         }
-
         getDomain().endInteract(npc, index);
-
+        checkMessageContainer();
         if(index < npc.getActions().length - 1){
             index = ((NPCDialogAction) currentAction).getActionId() == -1 ? ++index : ((NPCDialogAction) currentAction).getActionId();
             dialogHandler.clear();
@@ -332,29 +344,33 @@ public class GameController extends Controller implements IGameLoop {
         } else{
             // TERMINATE INTERACTION
             dialogHandler.clear();
+            enableMovement();
+            showDashboard();
         }
 
         planetViewHandler.tickLists();
-
     }
 
     public void nextAction(){
         getDomain().endInteract(npc, index);
         if(currentAction instanceof NPCTerminateAction){
             dialogHandler.clear();
+            enableMovement();
+            showDashboard();
         } else if(index < npc.getActions().length - 1){
             index++;
             dialogHandler.clear();
             startInteract(npc, index);
         } else if(index >= npc.getActions().length - 1){
             dialogHandler.clear();
+            enableMovement();
+            showDashboard();
         }
     }
 
     public void startInteract(NPC npc, int index){
-        miniMapHandler.hide();
-        fuelHandler.hide();
-        backpackHandler.hide();
+        hideDashboard();
+        disableMovement();
 
         this.npc = npc;
         this.index = index;
@@ -366,11 +382,11 @@ public class GameController extends Controller implements IGameLoop {
         if(actions[index] instanceof NPCDialogAction){
             currentAction = (NPCDialogAction) actions[index];
             dialogHandler.updateDialog(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
-            dialogHandler.addChoice(true);
+            dialogHandler.addChoice(currentAction);
         } else {
             currentAction = (NPCAction) actions[index];
             dialogHandler.updateDialog(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
-            dialogHandler.addChoice(false);
+            dialogHandler.addChoice(currentAction);
         }
 
     }
@@ -410,6 +426,8 @@ public class GameController extends Controller implements IGameLoop {
      */
     @Override
     public void tick() {
+
+        getDomain().updateBuffs();
 
         npcInteraction = getDomain().interaction();
         if(npcInteraction != null){startInteract(npcInteraction, 0);}
@@ -475,6 +493,56 @@ public class GameController extends Controller implements IGameLoop {
 
     }
 
+    /**
+     * Leave dialog
+     */
+    public void leaveDialog(){
+        enableMovement();
+    }
+
+    /**
+     * Method to show UI components that make up the dashboard.
+     */
+    public void showDashboard(){
+        miniMapHandler.show();
+        fuelHandler.show();
+        backpackHandler.show();
+    }
+
+    /**
+     * Method to hide UI components that make up the dashboard.
+     */
+    public void hideDashboard(){
+        miniMapHandler.hide();
+        fuelHandler.hide();
+        backpackHandler.hide();
+    }
+
+    /**
+     * Method to disable player movement.
+     */
+    public void disableMovement(){
+        FXRobot r = FXRobotFactory.createRobot(getStage().getScene());
+        r.keyRelease(KeyCode.W);
+        r.keyRelease(KeyCode.A);
+        r.keyRelease(KeyCode.S);
+        r.keyRelease(KeyCode.D);
+        freeToMove = false;
+    }
+
+    /**
+     * Method to enable player movement.
+     */
+    public void enableMovement(){
+        freeToMove = true;
+    }
+
+    public void checkMessageContainer(){
+        if(getDomain().getMessageContainer().hasMessage()){
+            notificationHandler.loadNotification(getDomain().getMessageContainer().getMessage());
+            showNotification();
+        }
+    }
 
 
     public void configGameMenuButton(){ burgerMenuHandler = new BurgerMenu(gameMenuButton, gameMenuButton__rectangel1, gameMenuButton__rectangel2, gameMenuButton__rectangel3); }

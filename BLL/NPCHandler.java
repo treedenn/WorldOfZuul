@@ -2,10 +2,7 @@ package BLL;
 
 import BLL.entity.StationaryBlacksmith;
 import BLL.entity.npc.*;
-import BLL.entity.npc.actions.BlacksmithAction;
-import BLL.entity.npc.actions.ProfessorPutricideAction;
-import BLL.entity.npc.actions.SpacePirateAction;
-import BLL.entity.npc.actions.StationaryBlacksmithAction;
+import BLL.entity.npc.actions.*;
 
 import java.io.File;
 
@@ -44,6 +41,7 @@ public class NPCHandler {
 		stationaryBlacksmith.setActions(new StationaryBlacksmithAction());
 		blacksmith.setActions(new BlacksmithAction());
 		pirate.setActions(new SpacePirateAction());
+		unoX.setActions(new UnoXAction());
 	}
 
 	/**

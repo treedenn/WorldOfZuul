@@ -29,7 +29,6 @@ public class Backpack extends InterfaceElement {
     private HBox buttonGroup;
     private Button dropButton;
     private Button useButton;
-    private Button inspectButton;
 
     /**
      * Constructor.
@@ -55,17 +54,15 @@ public class Backpack extends InterfaceElement {
         buttonGroup = new HBox();
         dropButton = new Button("Drop");
         useButton = new Button("Use");
-        inspectButton = new Button("Inspect");
 
         inventory.setStyle("-fx-background-color: transparent; -fx-border-color: #282828;");
         backpackTitle.setStyle("-fx-text-fill: white; -fx-font-size: 24; -fx-font-family: 'Circular Std Black';");
 
-        buttonGroup.getChildren().addAll(dropButton, inspectButton, useButton);
+        buttonGroup.getChildren().addAll(dropButton, useButton);
+        buttonGroup.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(dropButton, Priority.ALWAYS);
-        HBox.setHgrow(inspectButton, Priority.ALWAYS);
         HBox.setHgrow(useButton, Priority.ALWAYS);
         dropButton.getStyleClass().add("backpackButton--dropButton");
-        inspectButton.getStyleClass().add("backpackButton--inspectButton");
         useButton.getStyleClass().add("backpackButton--useButton");
         ObservableList<Button> children = (ObservableList)buttonGroup.getChildren();
         for (Button child : children) {
@@ -134,14 +131,6 @@ public class Backpack extends InterfaceElement {
             }
         });
 
-        inspectButton.setOnAction(event -> {
-            IItemStack selectedItem = inventory.getSelectionModel().getSelectedItem();
-            if(selectedItem != null){
-
-                tick();
-            }
-        });
-
         useButton.setOnAction(event -> {
             IItemStack selectedItem = inventory.getSelectionModel().getSelectedItem();
             if(selectedItem != null){
@@ -199,7 +188,7 @@ public class Backpack extends InterfaceElement {
         @Override
         protected void updateItem(IItemStack itemStack, boolean empty) {
             super.updateItem(itemStack, empty);
-            setText(itemStack == null? " " : itemStack.getIItem().getName());
+            setText(itemStack == null? " " : itemStack.toString());
             setTextFill(new Color(1.,1.,1.,1.));
 
             if(itemStack != null){

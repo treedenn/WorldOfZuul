@@ -19,6 +19,8 @@ public class NPCQuizAction extends NPCAction {
         answer = index;
     }
 
+    public int possibleAnswers(){ return uno.getCurrentQuiz().getOptions().length; }
+
     @Override
     public void onStartEvent(NPC npc, Game game) {
         super.onStartEvent(npc, game);
@@ -27,13 +29,10 @@ public class NPCQuizAction extends NPCAction {
         Quiz quiz = ((UnoX) npc).getCurrentQuiz();
         StringBuilder sb = new StringBuilder(quiz.getQuestion());
         for (int i = 0; i < quiz.getOptions().length; i++) {
-            sb.append(String.valueOf(i) + ". ");
-            sb.append(quiz.getOptions()[i]);
             sb.append(System.lineSeparator());
+            sb.append(String.valueOf(i + 1) + ". ");
+            sb.append(quiz.getOptions()[i]);
         }
-
-        sb.delete(sb.length() - 1, sb.length());
-
         message = sb.toString();
     }
 
@@ -44,9 +43,11 @@ public class NPCQuizAction extends NPCAction {
         uno = (UnoX) npc;
         Player player = (Player) game.getPlayer();
         if(uno.isAnswerCorrect(answer)) {
-            player.increaseFuel(40);
+            player.increaseFuel(50);
+            game.setMessageToContainer("Correct answer! Your fuel has been increased by 50.");
         } else {
             player.decreaseFuel(10);
+            game.setMessageToContainer("Wrong answer! Your fuel has been decreased by 10.");
         }
     }
 }

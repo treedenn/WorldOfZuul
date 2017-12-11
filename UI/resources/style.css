@@ -561,11 +561,11 @@ body{
 
 .planetViewButton--pickup{
     -fx-font-family: "Circular Std Bold";
-    -fx-background-radius: 0;
+    -fx-background-radius: 4;
     -fx-border-color: transparent;
-    -fx-font-size: 14px;
+    -fx-font-size: 18px;
     -fx-text-fill: white;
-    -fx-padding: 8px 0;
+    -fx-padding: 8px 20px;
     -fx-background-color: #2979FF;
 }
 
