@@ -125,8 +125,8 @@ public class Game implements Domain {
 		npcHandler.getPirate().setCurrentPlanet(planetMap.get("newearth"));
 		planetMap.get("newearth").getNPCs().add(npcHandler.getPirate());
         // Adds the Stationary Blacksmith to Xehna, the locked planet.
-		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
-		planetMap.get("xehna").getNPCs().add(npcHandler.getStationaryBlacksmith());
+		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("newearth"));
+		planetMap.get("newearth").getNPCs().add(npcHandler.getStationaryBlacksmith());
 
 /*
 		boolean professorAdded = false;
@@ -143,6 +143,7 @@ public class Game implements Domain {
 */
         // TODO: remove these statements when game is finishing.
 		// These statements are used to debug the game.
+
 
 		// Adds the professor to a random location.
         planetMap.get("newearth").getNPCs().add(npcHandler.getProfessorPutricide());
@@ -219,7 +220,7 @@ public class Game implements Domain {
 	public NPC interaction() {
 
 		SpacePirate pirate = npcHandler.getPirate();
-		System.out.println(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY()));
+		//System.out.println(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY()));
 
 		if(pirate.canAttack()) {
 			if(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY() - player.getCoordY()) < 500) {

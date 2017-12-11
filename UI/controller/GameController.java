@@ -402,13 +402,17 @@ public class GameController extends Controller implements IGameLoop {
         }
     }
 
+
+    NPC npcInteraction;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void tick() {
 
-        if(getDomain().interaction() != null){startInteract(getDomain().interaction(), 0);}
+        npcInteraction = getDomain().interaction();
+        if(npcInteraction != null){startInteract(npcInteraction, 0);}
 
 
         if (getDomain().getPlayer().getMorphId() == -1){

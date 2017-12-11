@@ -59,6 +59,7 @@ class DatabaseHandler implements Loadable {
 					case DEFAULT: item = getItem(id, entry.getValue()); break;
 					case COMPONENT: item = getComponent(id, entry.getValue()); break;
 					case CLUE: item = getClue(id, entry.getValue()); break;
+					case PORTALGUN: item = getPortalGun(id, entry.getValue()); break;
 					default: item = getItem(id, entry.getValue());
 				}
 
@@ -122,4 +123,20 @@ class DatabaseHandler implements Loadable {
 				State.valueOf((String) o.get("state"))
 		);
 	}
+
+	/**
+	 * Gets an item of type {@link ItemPortalGun}.
+	 * Only invoked by {@link DatabaseHandler}.
+	 * @param o the map from Yaml
+	 * @return a PortalGun
+	 */
+	private Item getPortalGun(int id, Map<String, Object> o) {
+		return new ItemPortalGun(id, (String) o.get("name"),
+				(String) o.get("description"),
+				(double) o.get("weight"),
+				(boolean) o.get("pickupable"),
+				(boolean) o.get("dropable")
+		);
+	}
+
 }

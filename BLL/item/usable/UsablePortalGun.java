@@ -20,7 +20,6 @@ public class UsablePortalGun implements Usable {
 			if(!pg.isBroken()) {
 				game.setGameWon(true);
 				game.setFinished(true);
-
 				return true;
 			}
 		}

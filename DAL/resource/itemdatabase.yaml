@@ -572,7 +572,7 @@
 57:
   name: "Portal Gun"
   description: "Powerful Tool!"
-  itemType: DEFAULT
+  itemType: PORTALGUN
   pickupable: false
   dropable: false
   weight: 0.0
