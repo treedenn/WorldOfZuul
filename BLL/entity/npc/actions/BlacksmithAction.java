@@ -83,8 +83,7 @@ public class BlacksmithAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCTerminateAction(""),
-            new NPCAction("... I hope I will see you again!")
+            new NPCTerminateAction("... I hope I will see you again!")
         };
     }
 

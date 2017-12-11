@@ -1,5 +1,8 @@
 package UI.GameComponents;
 
+import BLL.entity.npc.actions.NPCAction;
+import BLL.entity.npc.actions.NPCDialogAction;
+import BLL.entity.npc.actions.NPCQuizAction;
 import UI.controller.GameController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -37,14 +40,23 @@ public class Dialog implements Reusable{
 
     }
 
-    public void addChoice(boolean dialogAction){
+    public void addChoice(NPCAction action){
         choices.getChildren().clear();
-        if(dialogAction){
+        if(action instanceof NPCDialogAction){
             Button yesButton = new Button("Yes");
             Button noButton = new Button("No");
             choices.getChildren().addAll(yesButton, noButton);
             yesButton.setOnAction(event -> controller.setAnswer(true));
             noButton.setOnAction(event -> controller.setAnswer(false));
+        } else if (action instanceof NPCQuizAction){
+            NPCQuizAction quizAction = (NPCQuizAction) action;
+            Button[] options = new Button[quizAction.possibleAnswers()];
+            for (int i = 0; i < options.length; i++) {
+                options[i] = new Button(String.valueOf(i + 1));
+                int finalI = i;
+                options[i].setOnAction(event -> controller.setQuizAnswer(finalI + 1));
+            }
+            choices.getChildren().addAll(options);
         } else {
             Button continueButton = new Button("Continue...");
             choices.getChildren().add(continueButton);

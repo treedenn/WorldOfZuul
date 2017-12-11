@@ -1,11 +1,17 @@
 package BLL.entity.npc;
 
+import BLL.ACQ.INPCAction;
+import BLL.ACQ.IPlanet;
+import BLL.entity.Entity;
+import BLL.entity.npc.actions.NPCActionCollection;
 import BLL.entity.player.Quiz;
+import BLL.world.Planet;
 
 import java.io.File;
 import java.util.*;
 
-public class UnoX {
+public class UnoX extends Entity implements NPC{
+    private NPCActionCollection collection;
     private List<Quiz> quizes;
     private Quiz currentQuiz;
     private File image;
@@ -42,4 +48,30 @@ public class UnoX {
      * @param image	the file of the UnoX's image
      */
     public void setImage(File image) { this.image = image;}
+
+    @Override
+    public int getId() {
+        return 3;
+    }
+
+    @Override
+    public String getName() {
+        return "UnoX Station Manager";
+    }
+
+    @Override
+    public boolean isGood() {
+        return true;
+    }
+
+    @Override
+    public INPCAction[] getActions() {
+        return collection.getActions();
+    }
+
+    @Override
+    public void setActions(NPCActionCollection collection) {
+        this.collection = collection;
+    }
+
 }
