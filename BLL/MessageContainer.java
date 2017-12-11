@@ -17,7 +17,7 @@ public class MessageContainer {
 	 * @return true, if message is available
 	 */
 	public boolean hasMessage() {
-		return message == null || message.isEmpty();
+		return message != null && !message.isEmpty();
 	}
 
 	/***

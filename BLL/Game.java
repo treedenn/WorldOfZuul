@@ -704,13 +704,11 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Sets a message from a key to the {@link MessageContainer}.
+	 * Sets a message to the {@link MessageContainer}.
 	 * Invoked by components within the business layer.
-	 * @param key a signature/key from the localization database.
+	 * @param message a message..
 	 */
-	public void setMessageToContainer(String key) {
-		messageContainer.setMessage(model.getMessage(key));
-	}
+	public void setMessageToContainer(String message) {messageContainer.setMessage(message);}
 
 	/**
 	 * Looks inside a string for placeholders and converts them.

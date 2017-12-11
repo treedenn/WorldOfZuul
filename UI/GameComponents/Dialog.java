@@ -140,6 +140,8 @@ public class Dialog implements Reusable{
     }
 
     public void closeDialog(){
+        controller.showDashboard();
+        controller.enableMovement();
         clear();
     }
 

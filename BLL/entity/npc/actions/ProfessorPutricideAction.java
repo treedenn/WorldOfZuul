@@ -27,6 +27,9 @@ public class ProfessorPutricideAction implements NPCActionCollection {
                         if(!player.getInventory().contains(is)) {
                             player.getInventory().add(is);
                         }
+
+                        game.setMessageToContainer(is.getItem().getName() + " has been added to your backpack");
+
                     } else {
                         setActionId(3);
                     }

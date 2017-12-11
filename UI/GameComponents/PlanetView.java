@@ -256,6 +256,7 @@ public class PlanetView {
                     barSearch.setVisible(false);
                     barSearch.setPrefWidth(0);
                     planetLists.setMinHeight(500);
+                    controller.checkMessageContainer();
 
                     Timeline displayLists = new Timeline();
                     ArrayList<KeyFrame> keyFrames = new ArrayList<>();
