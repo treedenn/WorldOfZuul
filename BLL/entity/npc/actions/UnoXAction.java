@@ -30,9 +30,12 @@ public class UnoXAction implements NPCActionCollection {
 
                     if(answerYes) {
                         ((UnoX) npc).pickRandomQuiz();
+                    } else {
+                        setActionId(3);
                     }
                 }
             },
+            new NPCQuizAction(""),
             new NPCTerminateAction("... C'ya next time!")
         };
     }

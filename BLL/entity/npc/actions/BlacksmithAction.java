@@ -76,6 +76,8 @@ public class BlacksmithAction implements NPCActionCollection {
                                 sb.append(System.lineSeparator());
                             }
 
+                            sb.delete(sb.length() - 1, sb.length());
+
                             message = sb.toString();
                         }
                     }
