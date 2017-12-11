@@ -149,7 +149,7 @@ public class Game implements Domain {
 		npcHandler.getProfessorPutricide().setCurrentPlanet(planetMap.get("newearth"));
 		System.out.println("Professor is on " + npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
 
-        useItem(new ItemStack(model.getItemById(58)));
+       // useItem(new ItemStack(model.getItemById(58)));
 		// ---
 
 		save();
@@ -219,8 +219,9 @@ public class Game implements Domain {
 	public NPC interaction() {
 
 		SpacePirate pirate = npcHandler.getPirate();
-
+		System.out.println(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY()));
 		if(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY() - player.getCoordY()) < 500) {
+
 			return pirate;
 		}
 

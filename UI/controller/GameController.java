@@ -408,8 +408,6 @@ public class GameController extends Controller implements IGameLoop {
     @Override
     public void tick() {
 
-        System.out.println("X: " + getDomain().getPlayer().getCoordX() + "  Y: " + getDomain().getPlayer().getCoordY());
-
         if(getDomain().interaction() != null){startInteract(getDomain().interaction(), 0);}
 
 

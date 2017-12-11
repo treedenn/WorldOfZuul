@@ -20,7 +20,7 @@ public class Avatar{
 
     Timer timer;
 
-    private boolean isRick;
+    private boolean isRick, wasRickBefore;
 
 
     public Avatar(ImageView imageView){
@@ -64,8 +64,14 @@ public class Avatar{
         }
     }
 
+    /**
+     *
+     * @param rick
+     */
     public void isRick(boolean rick) {
+        wasRickBefore = isRick ? true : false;
         isRick = rick;
+        if(isRick != wasRickBefore){ changeAvatarIMG();}
     }
 
 }
