@@ -58,6 +58,7 @@ class DatabaseHandler implements Loadable {
 				switch(ItemType.valueOf((String) entry.getValue().get("itemType"))) {
 					case DEFAULT: item = getItem(id, entry.getValue()); break;
 					case COMPONENT: item = getComponent(id, entry.getValue()); break;
+					case CLUE: item = getClue(id, entry.getValue()); break;
 					default: item = getItem(id, entry.getValue());
 				}
 
@@ -94,6 +95,22 @@ class DatabaseHandler implements Loadable {
 	 */
 	private Item getComponent(int id, Map<String, Object> o) {
 		return new ItemComponent(id, (String) o.get("name"),
+				(String) o.get("description"),
+				(double) o.get("weight"),
+				ComponentType.valueOf((String) o.get("componentType")),
+				Color.valueOf((String) o.get("color")),
+				State.valueOf((String) o.get("state"))
+		);
+	}
+
+	/**
+	 * Gets a clue based on the Yaml given.
+	 * Only invokes by {@link DatabaseHandler}.
+	 * @param o the map from Yaml
+	 * @return a no-use clue
+	 */
+	private Item getClue(int id, Map<String, Object> o) {
+		return new ItemClue(id, (String) o.get("name"),
 				(String) o.get("description"),
 				(double) o.get("weight"),
 				ComponentType.valueOf((String) o.get("componentType")),

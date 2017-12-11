@@ -9,9 +9,7 @@ import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCJumpAction;
 import BLL.entity.player.Player;
 import BLL.entity.player.buff.Buff;
-import BLL.item.Item;
-import BLL.item.ItemPortalGun;
-import BLL.item.ItemStack;
+import BLL.item.*;
 import BLL.scoring.Score;
 import BLL.scoring.ScoreHandler;
 import BLL.world.Lockable;
@@ -58,6 +56,10 @@ public class Game implements Domain {
 		this.model.setUsableHandler(usableHandler);
 		this.model.load();
 		init();
+	}
+
+	public NPCHandler getNpcHandler() {
+		return npcHandler;
 	}
 
 	/**
@@ -455,29 +457,30 @@ public class Game implements Domain {
 	/**
 	 * Add the clues to the planets at random.
 	 */
-	private void addCluesToPlanets(){
+	public void addCluesToPlanets(){
 		ItemStack[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
-		Item[] clues = new Item[8];
+		ItemClue[] clues = new ItemClue[8];
 
 		for (int i = 0; i < clues.length; i++) {
-			clues[i] = model.getItemById(56);
+			clues[i] = (ItemClue) model.getItemById(59);
 		}
 
-		ItemStack item;
-		Item clue;
+		ItemComponent component;
 		String s;
 		String newDescription;
 
 		for (int i = 0; i < items.length; i++) {
-			item = items[i];
-			for (int j = i * 2; j < i * 2 + 2; j++) {
-				clue = clues[j];
-//				clue.setColor(item.getColor());
-//				clue.setState(item.getState());
-//				clue.setComponentType(item.getComponentType());
-				s = j % 2 == 0 ? "{{color}}" : "{{state}}";
-				newDescription = clue.getDescription().replace("{{clue}}", s);
-				clue.setDescription(newDescription);
+			if(items[i].getItem() instanceof ItemComponent) {
+				component = (ItemComponent) items[i].getItem();
+
+				for (int j = i * 2; j < i * 2 + 2; j++) {
+					clues[j].setColor(component.getColor());
+					clues[j].setState(component.getState());
+					clues[j].setComponentType(component.getComponentType());
+					s = j % 2 == 0 ? "{{color}}" : "{{state}}";
+					newDescription = replacePlaceHolders(clues[j].getDescription(), "{{clues}}", s);
+					clues[j].setDescription(newDescription);
+				}
 			}
 		}
 
@@ -722,6 +725,8 @@ public class Game implements Domain {
 			value = strings[i * 2 + 1].toCharArray();
 
 			startIndex = sb.indexOf(String.valueOf(signature));
+
+			if(startIndex == -1) { continue; }
 
 			sb.delete(startIndex, startIndex + signature.length);
 			sb.insert(startIndex, value);

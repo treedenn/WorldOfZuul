@@ -352,7 +352,7 @@ public class GameController extends Controller implements IGameLoop {
         getDomain().endInteract(npc, index);
 
         if(index < npc.getActions().length - 1){
-            if(index == -1) {
+            if(index == currentDialogAction.getActionId()) {
                 index++;
                 dialogHandler.clear();
                 startInteract(npc, index);
@@ -371,17 +371,18 @@ public class GameController extends Controller implements IGameLoop {
         getDomain().endInteract(npc, index);
 
         if(index < npc.getActions().length - 1){
-            if(npc.getActions()[index] instanceof NPCJumpAction) {
-                NPCJumpAction action = ((NPCJumpAction) npc.getActions()[index]);
-
-                if(action.getActionId() >= 0) {
-                    index = action.getActionId();
-                } else {
-                    index++;
-                }
-            } else {
-                index++;
-            }
+//            if(npc.getActions()[index] instanceof NPCJumpAction) {
+//                NPCJumpAction action = ((NPCJumpAction) npc.getActions()[index]);
+//
+//                if(action.getActionId() >= 0) {
+//                    index = action.getActionId();
+//                } else {
+//                    index++;
+//                }
+//            } else {
+//                index++;
+//            }
+            index++;
             dialogHandler.clear();
             startInteract(npc, index);
         } else if(index >= npc.getActions().length - 1){

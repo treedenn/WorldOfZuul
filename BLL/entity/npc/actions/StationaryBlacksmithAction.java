@@ -9,8 +9,10 @@ import BLL.ACQ.INPCAction;
 import BLL.ACQ.PersistenceLayer;
 import BLL.Game;
 import BLL.entity.Entity;
+import BLL.entity.npc.Blacksmith;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
+import BLL.world.Planet;
 
 /**
  *
@@ -34,9 +36,18 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
 
                     if(answerYes) {
                         player.decreaseFuel(20);
-                        // TODO: initialize the movable Blacksmith, clues and so on..
-                        //((Entity) npc).getCurrentPlanet().getNPCs().remove(npc);
-                        //((Entity) npc).setCurrentPlanet(null);
+
+                        ((Entity) npc).getCurrentPlanet().getNPCs().remove(npc);
+                        ((Entity) npc).setCurrentPlanet(null);
+
+                        Planet planet = (Planet) game.getPlayerPlanets().get("newearth");
+                        Blacksmith blacksmith = game.getNpcHandler().getBlacksmith();
+
+                        blacksmith.setCurrentPlanet(planet);
+                        planet.getNPCs().add(blacksmith);
+
+                        blacksmith.generateRecipeRequirements(game.getModel());
+                        game.addCluesToPlanets();
                     } else {
                         setActionId(3);
                     }

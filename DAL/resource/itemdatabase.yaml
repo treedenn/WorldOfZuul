@@ -549,7 +549,6 @@
   componentType: CPU
   color: WHITE
   state: CHILL
-
 55:
   name: "CSP M2X1V"
   description: "This item is {{color}} and {{state}}."
@@ -560,7 +559,6 @@
   componentType: CPU
   color: GREEN
   state: LUMINESCENT
-
 56:
   name: "CSP M2X1V"
   description: "This item is {{color}} and {{state}}."
@@ -587,3 +585,13 @@
   dropable: false
   weight: 0.0
   usableId: 1
+59:
+  name: "Clue"
+  description: "The clue contains the information: {{clues}}"
+  itemType: CLUE
+  pickupable: false
+  dropable: false
+  weight: 1.0
+  componentType: NONE
+  color: WHITE
+  state: NORMAL

@@ -149,7 +149,7 @@ public class Blacksmith extends MovableEntity implements NPC {
 	 * Generates the recipe list based on the item indexes in the database.
 	 * @param model where the item database is
 	 */
-	private void generateRecipeRequirements(PersistenceLayer model) {
+	public void generateRecipeRequirements(PersistenceLayer model) {
 		// TODO: Call function when spoken to Blacksmith for the firs time.
 
 		final int liquids = 14; // 0 -> 14
