@@ -7,10 +7,7 @@ import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.SpacePirate;
 import BLL.entity.npc.UnoX;
-import BLL.entity.npc.actions.NPCAction;
-import BLL.entity.npc.actions.NPCDialogAction;
-import BLL.entity.npc.actions.NPCJumpAction;
-import BLL.entity.npc.actions.NPCTerminateAction;
+import BLL.entity.npc.actions.*;
 import BLL.item.ItemStack;
 import DAL.Model;
 import UI.GameComponents.*;
@@ -293,8 +290,8 @@ public class GameController extends Controller implements IGameLoop {
      */
     public void landOnPlanet(){
         if(!planetViewHandler.isVisible()) {
-            disableMovement();
             if (playerCollidingdWithPlanet) {
+                disableMovement();
                 if (getDomain().movePlayerToPlanet(currentPlanet.getName().replace(" ", ""))) {
                     miniMapHandler.hide();
                     planetViewHandler.leavePlanet();
@@ -324,6 +321,14 @@ public class GameController extends Controller implements IGameLoop {
     int index;
     NPCAction currentAction;
 
+    public void setQuizAnswer(int i){
+        NPCQuizAction quizAction = (NPCQuizAction) currentAction;
+        quizAction.setAnswer(i);
+        getDomain().endInteract(npc, index);
+        checkMessageContainer();
+        nextAction();
+    }
+
     public void setAnswer(boolean answerYes){
         if(answerYes){
             ((NPCDialogAction) currentAction).setAnswer(true);
@@ -332,8 +337,6 @@ public class GameController extends Controller implements IGameLoop {
         }
         getDomain().endInteract(npc, index);
         checkMessageContainer();
-
-
         if(index < npc.getActions().length - 1){
             index = ((NPCDialogAction) currentAction).getActionId() == -1 ? ++index : ((NPCDialogAction) currentAction).getActionId();
             dialogHandler.clear();
@@ -346,7 +349,6 @@ public class GameController extends Controller implements IGameLoop {
         }
 
         planetViewHandler.tickLists();
-
     }
 
     public void nextAction(){
@@ -380,11 +382,11 @@ public class GameController extends Controller implements IGameLoop {
         if(actions[index] instanceof NPCDialogAction){
             currentAction = (NPCDialogAction) actions[index];
             dialogHandler.updateDialog(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
-            dialogHandler.addChoice(true);
+            dialogHandler.addChoice(currentAction);
         } else {
             currentAction = (NPCAction) actions[index];
             dialogHandler.updateDialog(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
-            dialogHandler.addChoice(false);
+            dialogHandler.addChoice(currentAction);
         }
 
     }
