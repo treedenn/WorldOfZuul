@@ -128,6 +128,9 @@ public class Game implements Domain {
 		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("newearth"));
 		planetMap.get("newearth").getNPCs().add(npcHandler.getStationaryBlacksmith());
 
+		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
+		planetMap.get("newearth").getNPCs().add(npcHandler.getUnoX());
+
 /*
 		boolean professorAdded = false;
 		int rand;
