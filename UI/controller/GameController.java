@@ -8,6 +8,7 @@ import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
 import BLL.entity.npc.actions.NPCJumpAction;
+import BLL.entity.npc.actions.NPCTerminateAction;
 import BLL.item.ItemStack;
 import DAL.Model;
 import UI.GameComponents.*;
@@ -339,7 +340,9 @@ public class GameController extends Controller implements IGameLoop {
 
     public void nextAction(){
         getDomain().endInteract(npc, index);
-        if(index < npc.getActions().length - 1){
+        if(currentAction instanceof NPCTerminateAction){
+            dialogHandler.clear();
+        } else if(index < npc.getActions().length - 1){
             index++;
             dialogHandler.clear();
             startInteract(npc, index);
@@ -404,6 +407,10 @@ public class GameController extends Controller implements IGameLoop {
      */
     @Override
     public void tick() {
+
+        System.out.println("X: " + getDomain().getPlayer().getCoordX() + "  Y: " + getDomain().getPlayer().getCoordY());
+
+        if(getDomain().interaction() != null){startInteract(getDomain().interaction(), 0);}
 
 
         if (getDomain().getPlayer().getMorphId() == -1){

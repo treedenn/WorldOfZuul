@@ -3,8 +3,10 @@ package BLL.entity.npc;
 import BLL.ACQ.INPCAction;
 import BLL.entity.Entity;
 import BLL.entity.npc.actions.NPCActionCollection;
+import BLL.world.Planet;
 
 public class SpacePirate extends Entity implements NPC {
+    private NPCActionCollection collection;
 
     public SpacePirate() {
 
@@ -38,11 +40,11 @@ public class SpacePirate extends Entity implements NPC {
 
     @Override
     public INPCAction[] getActions() {
-        return null;
+        return collection.getActions();
     }
 
     @Override
     public void setActions(NPCActionCollection actions) {
-
+        collection = actions;
     }
 }

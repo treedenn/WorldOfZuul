@@ -28,7 +28,6 @@ public class Game implements Domain {
 
 	private boolean finished;
 	private boolean gameWon;
-    private boolean trapped;
 	private Player player;
 	private MessageContainer messageContainer;
 
@@ -121,13 +120,14 @@ public class Game implements Domain {
 		npcHandler.getBlacksmith().setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
 		npcHandler.getBlacksmith().setPlanets(planetMap);
 		npcHandler.getUnoX().setQuizes(model.getQuizes());
-		//addCluesToPlanets();
-        trapped = true;
 
+		npcHandler.getPirate().setCurrentPlanet(planetMap.get("newearth"));
+		planetMap.get("newearth").getNPCs().add(npcHandler.getPirate());
         // Adds the Stationary Blacksmith to Xehna, the locked planet.
 		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
 		planetMap.get("xehna").getNPCs().add(npcHandler.getStationaryBlacksmith());
 
+/*
 		boolean professorAdded = false;
 		int rand;
 
@@ -139,7 +139,7 @@ public class Game implements Domain {
 				professorAdded = true;
 			}
 		} while(!professorAdded);
-
+*/
         // TODO: remove these statements when game is finishing.
 		// These statements are used to debug the game.
 
@@ -242,13 +242,6 @@ public class Game implements Domain {
 	public void endInteract(NPC npc, int actionId) {
 		if(npc != null) {
 			INPCAction[] actions = npc.getActions();
-
-			if(actions[actionId] instanceof NPCJumpAction) {
-				System.out.println("END:" + ((NPCJumpAction) actions[actionId]).getActionId());
-			} else {
-                System.out.println("END ACTION");
-            }
-
 			actions[actionId].onEndEvent(npc, this);
 		}
 
