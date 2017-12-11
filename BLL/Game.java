@@ -220,8 +220,11 @@ public class Game implements Domain {
 
 		SpacePirate pirate = npcHandler.getPirate();
 
-		if(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY() - player.getCoordY()) < 500) {
-			return pirate;
+		if(pirate.canAttack()) {
+			if(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY() - player.getCoordY()) < 500) {
+				pirate.attack();
+				return pirate;
+			}
 		}
 
 		return null;

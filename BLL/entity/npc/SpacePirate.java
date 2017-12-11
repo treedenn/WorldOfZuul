@@ -1,28 +1,23 @@
 package BLL.entity.npc;
 
 import BLL.ACQ.INPCAction;
-import BLL.entity.Entity;
+import BLL.entity.MovableEntity;
 import BLL.entity.npc.actions.NPCActionCollection;
-import BLL.world.Planet;
 
-public class SpacePirate extends Entity implements NPC {
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class SpacePirate extends MovableEntity implements NPC {
     private NPCActionCollection collection;
 
-    public SpacePirate() {
+    private boolean canAttack;
 
+    public SpacePirate() {
+        canAttack = true;
     }
 
-    public String[] getPirateMsg() {
-        //TODO implement x,y coordiantes to initiate get piratemsg
-        return new String[]{
-
-                "you have been intercepted and captured by space pirates",
-                "Would you like to pay the ransom to them in order to proceed on your voyage?",
-                "Answer Y/N"
-
-
-        };
-
+    public boolean canAttack() {
+        return canAttack;
     }
 
     @Override
@@ -46,5 +41,21 @@ public class SpacePirate extends Entity implements NPC {
     @Override
     public void setActions(NPCActionCollection actions) {
         collection = actions;
+    }
+
+    public void attack() {
+        canAttack = false;
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                canAttack = true;
+            }
+        }, 300000); // 300 seconds
+    }
+
+    @Override
+    public void move() {
+
     }
 }
