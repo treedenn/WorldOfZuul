@@ -6,6 +6,7 @@ import BLL.ACQ.data.IPlayerData;
 import BLL.ACQ.data.IWorldData;
 import BLL.entity.Inventory;
 import BLL.entity.npc.NPC;
+import BLL.entity.npc.SpacePirate;
 import BLL.entity.npc.actions.NPCJumpAction;
 import BLL.entity.player.Player;
 import BLL.entity.player.buff.Buff;
@@ -216,6 +217,13 @@ public class Game implements Domain {
 	 */
 	@Override
 	public NPC interaction() {
+
+		SpacePirate pirate = npcHandler.getPirate();
+
+		if(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY() - player.getCoordY()) < 500) {
+			return pirate;
+		}
+
 		return null;
 	}
 
