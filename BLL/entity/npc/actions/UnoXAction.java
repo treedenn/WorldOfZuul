@@ -21,7 +21,8 @@ public class UnoXAction implements NPCActionCollection {
     
     public UnoXAction() {
         actions = new INPCAction[] {
-            new NPCAction("Before leaving you make a quick stop at the local gas station Uno-X"),
+            new NPCAction("Oy matey, I guess you need some gas, aye?" +
+                    "\nYou'll just need to pass me test lad!"),
             new NPCDialogAction("Would you like to play a small quiz in order to win some gas for your ship?") {
                 @Override
                 public void onEndEvent(NPC npc, Game game) {
@@ -32,7 +33,7 @@ public class UnoXAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCAction("... Till we meet again!")
+            new NPCTerminateAction("... C'ya next time!")
         };
     }
 

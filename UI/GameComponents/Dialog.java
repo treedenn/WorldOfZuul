@@ -79,7 +79,7 @@ public class Dialog implements Reusable{
         name.setText(NPCname);
         name.setWrapText(true);
         name.setStyle("-fx-text-fill: white; -fx-font-size: 25; -fx-font-family: 'Circular Std Bold';");
-        image.setImage(new Image(imagePath));
+        image.setImage(new Image("DAL/resource/images/npcs/profputri.png"));
         image.setPreserveRatio(true);
         image.setFitWidth(200);
         NPCrepresentation.setSpacing(30);

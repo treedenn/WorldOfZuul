@@ -34,7 +34,7 @@ public class BlacksmithAction implements NPCActionCollection {
                     super.onEndEvent(npc, game);
 
                     if(!answerYes) {
-                        setActionId(3);
+                        setActionId(4);
                     }
                 }
             },
@@ -81,6 +81,7 @@ public class BlacksmithAction implements NPCActionCollection {
                     }
                 }
             },
+            new NPCTerminateAction(""),
             new NPCAction("... I hope I will see you again!")
         };
     }
