@@ -15,7 +15,6 @@ public class FuelBar extends Meter{
     public void update() {
         IPlayer player = Game.getInstance().getPlayer();
         getBar().progressProperty().setValue(player.getFuel() / player.getMaxFuel());
-        getLabel().setText(String.format(" [%.2f / %d] %%", player.getFuel(), player.getMaxFuel()));
-
+        getLabel().setText(String.format(" %.2f %% ", player.getFuel()/player.getMaxFuel()*100));
     }
 }
