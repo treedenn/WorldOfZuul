@@ -1,4 +1,4 @@
-package UI.GameComponents;
+package UI.gamecomponents;
 
 import BLL.ACQ.IInventory;
 import BLL.Game;

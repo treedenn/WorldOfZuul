@@ -1,4 +1,4 @@
-package UI.GameComponents;
+package UI.gamecomponents;
 
 import BLL.ACQ.IItemStack;
 import BLL.entity.npc.NPC;

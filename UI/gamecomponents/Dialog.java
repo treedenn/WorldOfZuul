@@ -1,4 +1,4 @@
-package UI.GameComponents;
+package UI.gamecomponents;
 
 import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;

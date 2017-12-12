@@ -1,4 +1,4 @@
-package UI.GameComponents;
+package UI.gamecomponents;
 
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;

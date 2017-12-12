@@ -1,4 +1,4 @@
-package UI.GameComponents;
+package UI.gamecomponents;
 
 import BLL.ACQ.IPlanet;
 import javafx.scene.Group;

@@ -1,4 +1,4 @@
-package UI.GameComponents;
+package UI.gamecomponents;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
