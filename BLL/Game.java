@@ -528,6 +528,8 @@ public class Game implements Domain {
 			playerData.setCurrentPlanet(null);
 		}
 
+		// TODO: Remove clues from saving/loading and replant them when the game restarts
+
 		playerData.setX(player.getCoordX());
 		playerData.setY(player.getCoordY());
 		playerData.setBuffs(player.getBuffs());
