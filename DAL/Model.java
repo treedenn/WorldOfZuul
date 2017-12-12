@@ -36,7 +36,11 @@ public class Model implements PersistenceLayer {
 		hsHandler = new HighscoreHandler(new File("./src/DAL/resource/highscore.yaml"));
 		msgHandler = new MessageHandler(new File("./src/DAL/resource/localization.yaml"));
 		plHandler = new PlanetHandler(this);
-		gsHandler = new GameStateHandler(new File("./game-save.yaml"));
+		gsHandler = new GameStateHandler(this, new File("./game-save.yaml"));
+	}
+
+	public GameStateHandler getGameStateHandler() {
+		return gsHandler;
 	}
 
 	/**
@@ -151,10 +155,20 @@ public class Model implements PersistenceLayer {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws IOException
+	 */
+	@Override
 	public void saveGame() throws IOException {
 		save(gsHandler);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @throws IOException
+	 */
+	@Override
 	public void loadGame() throws IOException {
 		load(gsHandler);
 	}

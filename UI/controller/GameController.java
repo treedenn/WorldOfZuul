@@ -257,7 +257,7 @@ public class GameController extends Controller implements IGameLoop {
     @FXML
     void saveAndQuit(ActionEvent event) {
         // TODO: Implement save and quit here!
-        System.out.println("Implement save and quit here!");
+        getDomain().save();
     }
 
     @FXML

@@ -4,11 +4,14 @@ import BLL.ACQ.*;
 import BLL.ACQ.data.IPlanetData;
 import BLL.ACQ.data.IPlayerData;
 import BLL.ACQ.data.IWorldData;
+import BLL.entity.Entity;
 import BLL.entity.Inventory;
+import BLL.entity.MovableEntity;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.SpacePirate;
 import BLL.entity.npc.actions.NPCJumpAction;
 import BLL.entity.player.Player;
+import BLL.entity.player.Recipe;
 import BLL.entity.player.buff.Buff;
 import BLL.item.*;
 import BLL.scoring.Score;
@@ -113,8 +116,6 @@ public class Game implements Domain {
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
-		Planet centerUniverse = new Planet("Center of the Universe", "This is not exactly the center, since a black hole exists in the center of every Universe.",0,0);
-		player.setCurrentPlanet(centerUniverse);
 		player.setPlanets(planetMap);
 		player.getInventory().add(new ItemStack(model.getItemById(57), 1));
 		npcHandler.getBlacksmith().setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
@@ -154,8 +155,6 @@ public class Game implements Domain {
 
        // useItem(new ItemStack(model.getItemById(58)));
 		// ---
-
-		save();
 	}
 
 	/**
@@ -295,29 +294,33 @@ public class Game implements Domain {
 		boolean isPickedUp = false;
 		String message = null;
 
-		if(player.getCurrentPlanet().getPermSearched()) {
-			if(iis instanceof ItemStack) {
-				ItemStack is = (ItemStack) iis;
-				Item item = is.getItem();
+		if(player.getCurrentPlanet() != null) {
+			if(player.getCurrentPlanet().getPermSearched()) {
+				if(iis instanceof ItemStack) {
+					ItemStack is = (ItemStack) iis;
+					Item item = is.getItem();
 
-				if(item.isPickupable()) {
-					Inventory playerInv = player.getInventory();
-					Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
+					if(item.isPickupable()) {
+						Inventory playerInv = player.getInventory();
+						Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
 
-					if(planetInv.contains(is) && playerInv.add(is)) {
-						planetInv.remove(is);
+						if(planetInv.contains(is) && playerInv.add(is)) {
+							planetInv.remove(is);
 
-						isPickedUp = true;
-						message = replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
+							isPickedUp = true;
+							message = replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
+						} else {
+							message = replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
+						}
 					} else {
-						message = replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
+						message = replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
 					}
-				} else {
-					message = replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
 				}
+			} else {
+				message = model.getMessage("planet-search-require");
 			}
 		} else {
-			message = model.getMessage("planet-search-require");
+			message = model.getMessage("player-deep-space");
 		}
 
 		messageContainer.setMessage(message);
@@ -332,29 +335,33 @@ public class Game implements Domain {
 		boolean isDropped = false;
 		String message = null;
 
-		if(player.getCurrentPlanet().getPermSearched()) {
-			if(iis instanceof ItemStack) {
-				ItemStack is = (ItemStack) iis;
-				Item item = is.getItem();
+		if(player.getCurrentPlanet() != null) {
+			if(player.getCurrentPlanet().getPermSearched()) {
+				if(iis instanceof ItemStack) {
+					ItemStack is = (ItemStack) iis;
+					Item item = is.getItem();
 
-				if(item.isDropable()) {
-					Inventory playerInv = player.getInventory();
-					Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
+					if(item.isDropable()) {
+						Inventory playerInv = player.getInventory();
+						Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
 
-					if(playerInv.contains(is) && playerInv.remove(is)) {
-						planetInv.add(is);
+						if(playerInv.contains(is) && playerInv.remove(is)) {
+							planetInv.add(is);
 
-						isDropped = true;
-						message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+							isDropped = true;
+							message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+						} else {
+							message = replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+						}
 					} else {
-						message = replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+						message = replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 					}
-				} else {
-					message = replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 				}
+			} else {
+				message = model.getMessage("player-deep-space");
 			}
 		} else {
-			message = model.getMessage("planet-search-require");
+
 		}
 
 		messageContainer.setMessage(message);
@@ -384,8 +391,6 @@ public class Game implements Domain {
 				player.setCurrentPlanet(planet);
 				player.decreaseFuel(10);
 				player.getCurrentPlanet().setTemporarySearch(false);
-
-
 
 				playerIsMoving = true;
 				message = replacePlaceHolders(model.getMessage("player-move-successful"), "{PLANET}", planet.getName());
@@ -517,7 +522,12 @@ public class Game implements Domain {
 
 		// PLAYER
 
-		playerData.setCurrentPlanet(player.getCurrentPlanet().getName());
+		if(player.getCurrentPlanet() != null) {
+			playerData.setCurrentPlanet(player.getCurrentPlanet().getName().replace(" ", ""));
+		} else {
+			playerData.setCurrentPlanet(null);
+		}
+
 		playerData.setX(player.getCoordX());
 		playerData.setY(player.getCoordY());
 		playerData.setBuffs(player.getBuffs());
@@ -528,31 +538,25 @@ public class Game implements Domain {
 		// PLANET
 
 		List<Integer> NPCIds;
-		if(planetData.size() == player.getPlanets().size()) {
-			int i = 0;
-			for(Planet p : player.getPlanets().values()) {
-				NPCIds = new ArrayList<>();
+		int i = 0;
+		for(Map.Entry<String, Planet> entry : player.getPlanets().entrySet()) {
+			Planet p = entry.getValue();
 
-				for(NPC npc : p.getNPCs()) {
-					NPCIds.add(npc.getId());
-				}
+			NPCIds = new ArrayList<>();
 
-				planetData.setName(i, p.getName());
+			for(NPC npc : p.getNPCs()) {
+				NPCIds.add(npc.getId());
+			}
+
+			if(planetData.size() == player.getPlanets().size()) {
+				planetData.setName(i, entry.getKey());
 				planetData.setX(i, p.getX());
 				planetData.setY(i, p.getY());
 				planetData.setNPCs(i, NPCIds);
 				planetData.setInventory(i, ((Inventory) p.getInventory()).getContent());
 				i++;
-			}
-		} else {
-			for(Planet p : player.getPlanets().values()) {
-				NPCIds = new ArrayList<>();
-
-				for(NPC npc : p.getNPCs()) {
-					NPCIds.add(npc.getId());
-				}
-
-				planetData.addData(p.getName(), p.getX(), p.getY(), NPCIds, ((Inventory) p.getInventory()).getContent());
+			} else {
+				planetData.addData(entry.getKey(), p.getX(), p.getY(), NPCIds, ((Inventory) p.getInventory()).getContent());
 			}
 		}
 
@@ -570,6 +574,72 @@ public class Game implements Domain {
 
 		try {
 			model.loadGame();
+			player.setPlanets(model.getPlanets());
+			npcHandler.getUnoX().setQuizes(model.getQuizes());
+
+			IWorldData worldData = model.getWorldData();
+			IPlayerData playerData = model.getPlayerData();
+			IPlanetData planetData = model.getPlanetData();
+
+			// WORLD
+
+			scoreHandler.setStartTimeOffset(worldData.getTimeElapsed());
+
+			for(ItemStack is : player.getInventory().getContent()) {
+				if(is.getItem() instanceof ItemPortalGun) {
+					ItemPortalGun pg = (ItemPortalGun) is.getItem();
+					if(!worldData.isPortalGunBroken()) {
+						pg.repair();
+					}
+					break;
+				}
+			}
+
+			if(worldData.getRequirements() != null) {
+				npcHandler.getBlacksmith().setRecipe(new Recipe(worldData.getRequirements()));
+			}
+
+			// PLAYER
+
+			player.getInventory().clear();
+			player.loadPlayer(playerData);
+
+			// PLANETS
+
+			Map<String, Planet> planetMap = new LinkedHashMap<>();
+
+			Planet planet;
+			Inventory inventory;
+			NPC npc;
+
+			for(int i = 0; i < planetData.size(); i++) {
+				planet = player.getPlanets().get(planetData.getName(i));
+				planet.setCoordinates(planetData.getX(i), planetData.getY(i));
+				inventory = ((Inventory) planet.getInventory());
+				inventory.clear();
+
+				for(int j = 0; j < planetData.getInventory(i).length; j++) {
+					inventory.add(planetData.getInventory(i)[j]);
+				}
+
+				planet.getNPCs().clear();
+
+				for(Integer id : planetData.getNPCIds(i)) {
+					npc = npcHandler.getNPCById(id);
+					planet.getNPCs().add(npc);
+
+					if(npc instanceof MovableEntity) {
+						((MovableEntity) npc).setPlanets(planetMap);
+						((MovableEntity) npc).setCurrentPlanet(planet);
+					} else if(npc instanceof Entity) {
+						((Entity) npc).setCurrentPlanet(planet);
+					}
+				}
+
+				planetMap.put(planetData.getName(i), planet);
+			}
+
+			player.setPlanets(planetMap);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -600,7 +670,7 @@ public class Game implements Domain {
                             "",
         };
     }
-        
+
     private String[] hintMessage() {
         return new String[] {
             "OBJECTIVE:",

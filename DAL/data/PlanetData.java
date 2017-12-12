@@ -3,6 +3,7 @@ package DAL.data;
 import BLL.ACQ.data.IPlanetData;
 import BLL.item.ItemStack;
 import DAL.GameStateHandler;
+import DAL.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,13 +11,17 @@ import java.util.List;
 import java.util.Map;
 
 public class PlanetData implements IPlanetData {
+	private Model model;
+
 	private List<String> name;
 	private List<Double> x;
 	private List<Double> y;
 	private List<List<Integer>> npcIds;
 	private List<ItemStack[]> itemStacks;
 
-	public PlanetData() {
+	public PlanetData(Model model) {
+		this.model = model;
+
 		name = new ArrayList<>();
 		x = new ArrayList<>();
 		y = new ArrayList<>();
@@ -124,7 +129,7 @@ public class PlanetData implements IPlanetData {
 		this.itemStacks.set(index, itemStacks);
 	}
 
-	public Map<Integer, Object> getPlanetMap() {
+	public Map<Integer, Object> save() {
 		Map<Integer, Object> planetMap = new HashMap<>();
 
 		for(int i = 0; i < name.size(); i++) {
@@ -134,6 +139,12 @@ public class PlanetData implements IPlanetData {
 		return planetMap;
 	}
 
+	public void load(Map<Integer, Object> map) {
+		for(Map.Entry<Integer, Object> entry : map.entrySet()) {
+			turnMapToAddPlanet((Map<String, Object>) entry.getValue());
+		}
+	}
+
 	private Map<String, Object> turnPlanetToMap(int index) {
 		Map<String, Object> map = new HashMap<>();
 
@@ -141,8 +152,16 @@ public class PlanetData implements IPlanetData {
 		map.put("x-coordinate", x.get(index));
 		map.put("y-coordinate", y.get(index));
 		map.put("npcs", npcIds.get(index));
-		map.put("inventory", GameStateHandler.turnInventoryToMap(itemStacks.get(index)));
+		map.put("inventory", model.getGameStateHandler().turnInventoryToMap(itemStacks.get(index)));
 
 		return map;
+	}
+
+	private void turnMapToAddPlanet(Map<String, Object> map) {
+		this.name.add((String) map.get("name"));
+		this.x.add((Double) map.get("x-coordinate"));
+		this.y.add((Double) map.get("y-coordinate"));
+		this.npcIds.add((List<Integer>) map.get("npcs"));
+		this.itemStacks.add(model.getGameStateHandler().turnMapToInventory((Map<Integer, Object>) map.get("inventory")));
 	}
 }

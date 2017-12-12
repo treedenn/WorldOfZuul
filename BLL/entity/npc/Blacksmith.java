@@ -31,7 +31,7 @@ public class Blacksmith extends MovableEntity implements NPC {
 
 	@Override
 	public int getId() {
-		return 1;
+		return 0;
 	}
 
 	@Override
@@ -80,6 +80,14 @@ public class Blacksmith extends MovableEntity implements NPC {
 	 */
 	public Recipe getRecipe() {
 		return recipe;
+	}
+
+	/**
+	 * Sets the recipe of the Blacksmith.
+	 * @param recipe
+	 */
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 	}
 
 	/**

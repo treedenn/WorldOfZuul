@@ -10,7 +10,6 @@ public interface IPlanetData {
 
 	String getName(int index);
 	void setName(int index, String name);
-
 	double getX(int index);
 	void setX(int index, double x);
 
