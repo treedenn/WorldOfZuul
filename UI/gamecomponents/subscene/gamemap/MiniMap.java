@@ -1,7 +1,7 @@
-package UI.GameComponents.subscene.GameMap;
+package UI.gamecomponents.subscene.gamemap;
 
 import BLL.ACQ.IPlanet;
-import UI.GameComponents.InterfaceElement;
+import UI.gamecomponents.InterfaceElement;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;

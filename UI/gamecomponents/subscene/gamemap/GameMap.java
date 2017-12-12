@@ -1,10 +1,10 @@
-package UI.GameComponents.subscene.GameMap;
+package UI.gamecomponents.subscene.gamemap;
 
 import BLL.ACQ.IPlanet;
-import UI.GameComponents.GameObject;
-import UI.GameComponents.InterfaceElement;
-import UI.GameComponents.Planet;
-import UI.GameComponents.Star;
+import UI.gamecomponents.GameObject;
+import UI.gamecomponents.InterfaceElement;
+import UI.gamecomponents.Planet;
+import UI.gamecomponents.Star;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -89,7 +89,7 @@ public class GameMap extends InterfaceElement implements IMap {
      */
     public void renderPlanets(Map<String, ? extends IPlanet> planets){
         for (IPlanet planet : planets.values()) {
-            Planet newUIPlanet = new UI.GameComponents.Planet(planet, new Image(planet.getMap2D().toURI().toString().replace("\\", "/")));
+            Planet newUIPlanet = new UI.gamecomponents.Planet(planet, new Image(planet.getMap2D().toURI().toString().replace("\\", "/")));
             Point2D coordinates = new Point2D(planet.getX(), planet.getY());
             GameObject.addGameObject(newUIPlanet, coordinates.getX(), coordinates.getY(), rootPane);
         }
