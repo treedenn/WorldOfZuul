@@ -578,6 +578,16 @@ body{
     -fx-text-fill: rgba(255,255,255,0.8);
 }
 
+.button__help{
+    -fx-background-color: transparent;
+}
+
+.controlsH1{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 60;
+    -fx-text-fill: white;
+}
+
 
 
 

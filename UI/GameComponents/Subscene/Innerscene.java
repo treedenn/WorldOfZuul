@@ -1,8 +1,8 @@
-package UI.GameComponents.Subscene;
+package UI.GameComponents.subscene;
 
 import BLL.ACQ.IPlanet;
 import UI.GameComponents.InterfaceElement;
-import UI.GameComponents.Subscene.GameMap.GameMap;
+import UI.GameComponents.subscene.GameMap.GameMap;
 import UI.GameComponents.GameObject;
 import UI.GameComponents.Player;
 import javafx.geometry.Point2D;
@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 
 public class Innerscene extends InterfaceElement {
 
-    /** Subscene to encapsulate and render the 2D game scene */
+    /** subscene to encapsulate and render the 2D game scene */
     private SubScene subScene;
 
     /** Camera */

@@ -1,12 +1,13 @@
 package UI.GameComponents;
 
-import UI.controller.GameController;
+import UI.controller.Controller;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 
 public abstract class InterfaceElement<T extends Pane> {
 
-    GameController controller;
+    /** Reference to the primary controller object of type {@link Controller}. */
+    Controller controller;
 
     /** Reference to the parent of this interface element. Must extend {@link Pane}. */
     T parent;

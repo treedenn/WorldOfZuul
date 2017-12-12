@@ -54,6 +54,16 @@ public class StartController extends Controller{
 	}
 
 	/**
+	 * Method to handle continuation of game.
+	 * @param event the event fired by the button.
+	 */
+	@FXML
+	void continueGame(ActionEvent event) {
+		// TODO: Implement continue game here!
+		System.out.println("Implement continue game here!");
+	}
+
+	/**
 	 * Method to handle the start of a new game.
 	 * @param event	hooked by the {@link FXMLLoader}
 	 */

@@ -16,8 +16,7 @@ public class JavaFX extends Application implements UserInterface {
 
 	/**
 	 * Loads the initial scene and controller and shows the window
-	 * @param primaryStage
-	 * @throws Exception
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -28,8 +27,6 @@ public class JavaFX extends Application implements UserInterface {
 		AnchorPane pane = loader.load();
 		primaryStage.setScene(new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight()));
 		primaryStage.setTitle("Rick's Adventure The Game// Gruppe 24");
-		primaryStage.setResizable(false);
-
 		primaryStage.show();
 	}
 

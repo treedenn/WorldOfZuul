@@ -14,12 +14,12 @@ public abstract class Controller {
 
     /**
      * Constructor.
-     * @param domain reference to the reference to domain logic (Business Logic Layer (BLL)).
+     * @param domain reference to the domain logic (Business Logic Layer (BLL)).
      */
     public Controller(Domain domain) {this.domain = domain;}
 
     /**
-     * Method to be called by the {@link javafx.fxml.FXMLLoader} after root element is completely processed
+     * Method to be called by the {@link javafx.fxml.FXMLLoader} after root element is completely processed.
      */
     public abstract void initialize();
 

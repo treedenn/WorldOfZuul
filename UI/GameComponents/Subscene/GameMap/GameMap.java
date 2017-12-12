@@ -1,4 +1,4 @@
-package UI.GameComponents.Subscene.GameMap;
+package UI.GameComponents.subscene.GameMap;
 
 import BLL.ACQ.IPlanet;
 import UI.GameComponents.GameObject;

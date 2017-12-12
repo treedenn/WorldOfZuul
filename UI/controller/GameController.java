@@ -1,19 +1,14 @@
 package UI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.IItemStack;
 import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
-import BLL.entity.npc.SpacePirate;
-import BLL.entity.npc.UnoX;
 import BLL.entity.npc.actions.*;
-import BLL.item.ItemStack;
-import DAL.Model;
 import UI.GameComponents.*;
 import UI.GameComponents.Dialog;
-import UI.GameComponents.Subscene.GameMap.MiniMap;
-import UI.GameComponents.Subscene.Innerscene;
+import UI.GameComponents.subscene.GameMap.MiniMap;
+import UI.GameComponents.subscene.Innerscene;
 import com.sun.javafx.robot.FXRobot;
 import com.sun.javafx.robot.FXRobotFactory;
 import javafx.animation.AnimationTimer;
@@ -34,6 +29,7 @@ import javafx.scene.shape.Rectangle;
  * The primary controller class for actually playing the game.
  */
 public class GameController extends Controller implements IGameLoop {
+
 
     private Notification notificationHandler;
     private Drawer drawerHandler;
@@ -132,11 +128,13 @@ public class GameController extends Controller implements IGameLoop {
     /** GridPane containing the UI  with exception of overlays*/
     @FXML private GridPane interfaceGrid;
 
-    @FXML
-    private Label hintLabel;
+    /** Button used to toggle fullscreen mode.*/
+    @FXML private Button fullscreenButton;
 
-    @FXML
-    private Button hints;
+    @FXML private Button helpButton;
+
+    @FXML private AnchorPane guideOverlay;
+
 
     /**
      * Constructor.
@@ -168,7 +166,6 @@ public class GameController extends Controller implements IGameLoop {
             }
         }
 */
-
 
         configGameMenuButton();
         configDrawer();
@@ -248,7 +245,6 @@ public class GameController extends Controller implements IGameLoop {
     @FXML
     void closeDrawer(ActionEvent event) {
         drawerHandler.hideDrawer();
-        hintLabel.setText("");
     }
 
     @FXML
@@ -256,6 +252,24 @@ public class GameController extends Controller implements IGameLoop {
 
     @FXML
     void gameMenuButtonNormal(MouseEvent event) { burgerMenuHandler.burgerMenuNormal();}
+
+
+    @FXML
+    void saveAndQuit(ActionEvent event) {
+        // TODO: Implement save and quit here!
+        System.out.println("Implement save and quit here!");
+    }
+
+    @FXML
+    void displayGuide(ActionEvent event) {
+        guideOverlay.setVisible(true);
+    }
+
+    @FXML
+    void closeHelp(ActionEvent event) {
+        guideOverlay.setVisible(false);
+    }
+
 
     @FXML
     void keyIsPressed(KeyEvent event) {
@@ -393,10 +407,11 @@ public class GameController extends Controller implements IGameLoop {
 
 
 
-    @FXML
-    void displayHints(ActionEvent event) {
-        hintLabel.setText("1. Find the Blacksmith `Gearhead`\n       -located on one of the nearby planets");
 
+    @FXML
+    void toggleFullscreen(ActionEvent event) {
+        getStage().setFullScreen(!getStage().isFullScreen());
+        fullscreenButton.setText(getStage().isFullScreen() ? "WINDOWED" : "FULLSCREEN");
     }
 
 
