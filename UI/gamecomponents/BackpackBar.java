@@ -1,30 +1,23 @@
 package UI.gamecomponents;
 
+import BLL.ACQ.Domain;
 import BLL.ACQ.IInventory;
 import BLL.Game;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
-public class BackpackBar extends Meter{
+public class BackpackBar extends Meter {
 
-    public BackpackBar(ProgressBar bar, Label title, Label label){
-        super(bar, title, label);
+    public BackpackBar(Domain domain, ProgressBar bar, Label title, Label label) {
+        super(domain, bar, title, label);
     }
-
-    // TODO: Lasse, you cannot go directly to the game instance (line 20)
-
-    // TODO: Dennis, this is not my work but still needs to be fixed (line 20)
 
     @Override
     public void update() {
-        IInventory bp = Game.getInstance().getPlayer().getIInventory();
+        IInventory bp = getDomain().getPlayer().getIInventory();
         getBar().progressProperty().setValue(bp.getCurrentCapacity() / bp.getMaxCapacity());
         getLabel().setText(String.format(" [%.1f / %.1f] Kg", bp.getCurrentCapacity(), bp.getMaxCapacity()));
     }
-
-
-
-
 }
 
 

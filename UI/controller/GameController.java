@@ -572,9 +572,9 @@ public class GameController extends Controller implements IGameLoop {
 
     public void configAvatar(){ avatarHandler = new Avatar(avatarImage);}
 
-    public void configFuelBar(){ fuelHandler = new FuelBar(barFuel, labelFuelTitle, labelFuel); }
+    public void configFuelBar(){ fuelHandler = new FuelBar(getDomain(), barFuel, labelFuelTitle, labelFuel); }
 
-    public void configBackpackBar(){ backpackHandler = new BackpackBar(barBackpack, labelBackpackTitle, labelBackpack);}
+    public void configBackpackBar(){ backpackHandler = new BackpackBar(getDomain(), barBackpack, labelBackpackTitle, labelBackpack);}
 
     //public void configMiniMap(){ miniMapHandler = new MiniMap(miniMapWrapper, innersceneHandler.getPlayer()); }
 
