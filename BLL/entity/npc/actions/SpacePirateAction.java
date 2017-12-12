@@ -31,8 +31,10 @@ public class SpacePirateAction implements NPCActionCollection {
 
                     if(answerYes) {
                         player.decreaseFuel(10);
+                        game.setMessageToContainer("Fuel has been decreased by 10.");
                     } else {
                         player.decreaseFuel(20);
+                        game.setMessageToContainer("Fuel has been decreased by 20.");
                         setActionId(3);
                     }
                 }
