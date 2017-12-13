@@ -13,8 +13,8 @@ public class ProfessorPutricideAction implements NPCActionCollection {
     public ProfessorPutricideAction() {
         actions = new INPCAction[] {
             new NPCAction("G'day Rick. It's your old pal, the one and only Professor Putricide!" +
-                    "\nI heard you're in some kind of trouble?"),
-            new NPCDialogAction("I've invented this transformation elixir. Do you want it?") {
+                    "I heard you're in some kind of trouble?"),
+            new NPCDialogAction("I have invented this *hih* transformation elixir. Do you want it?") {
                 @Override
                 public void onEndEvent(NPC npc, Game game) {
                     super.onEndEvent(npc, game);
@@ -29,14 +29,15 @@ public class ProfessorPutricideAction implements NPCActionCollection {
                         }
 
                         game.setMessageToContainer(is.getItem().getName() + " has been added to your backpack");
-
                     } else {
                         setActionId(3);
                     }
                 }
             },
-            new NPCTerminateAction("... I have placed the elixir in your inventory!"),
-            new NPCAction("... Till we meet again old friend!")
+            new NPCTerminateAction("I have placed the elixir in your inventory!" +
+                    "\n*blob* I nearly forgot! I recently met Gearhead (The Blacksmith), your buddy, he might still be on Xehna!" +
+                    "\n... What made him go there? .. I *hih* .. forgot."),
+            new NPCAction("... Till we meet *hih* again old friend!")
         };
     }
 

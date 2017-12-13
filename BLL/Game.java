@@ -136,12 +136,12 @@ public class Game implements Domain {
 //		npcHandler.getBlacksmith().setPlanets(planetMap);
 
 		// Adds the pirate to a random planet
-		// npcHandler.getPirate().setPlanets(planetMap);
+//		npcHandler.getPirate().setPlanets(planetMap);
 //		npcHandler.getPirate().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-		// npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
+//		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
 
 		// Adds the UnoX to a random planet
-//		npcHandler.getUnoX().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
+//		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
 //		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
 
 		// Adds the UnoX to a random planet
@@ -199,7 +199,7 @@ public class Game implements Domain {
 	@Override
 	public boolean searchPlanet() {
 		boolean isSearching = false;
-		String message;
+		String message = null;
 
 		Planet currentPlanet = player.getCurrentPlanet();
 
@@ -213,7 +213,9 @@ public class Game implements Domain {
 
 				String bsKey = npcHandler.getBlacksmith().getVisitState(currentPlanet.getName()).getKey();
 
-				message = model.getMessage(bsKey);
+				if(npcHandler.getBlacksmith().getCurrentPlanet() != null) {
+					message = model.getMessage(bsKey);
+				}
 			}
 		} else {
 			message = model.getMessage("player-deep-space");
