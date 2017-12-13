@@ -6,6 +6,7 @@ import BLL.ACQ.data.IPlayerData;
 import BLL.ACQ.data.IWorldData;
 import BLL.entity.Entity;
 import BLL.entity.Inventory;
+import BLL.entity.Movable;
 import BLL.entity.MovableEntity;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.SpacePirate;
@@ -121,6 +122,8 @@ public class Game implements Domain {
 		player.setPlanets(planetMap);
 		player.getInventory().add(new ItemStack(model.getItemById(57), 1));
 
+		npcHandler.getPirate().setPlanets(planetMap);
+
 		// Sets the quizes to UnoX
 		npcHandler.getUnoX().setQuizes(model.getQuizes());
 
@@ -233,9 +236,7 @@ public class Game implements Domain {
 	 */
 	@Override
 	public NPC interaction() {
-
 		SpacePirate pirate = npcHandler.getPirate();
-		//System.out.println(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY()));
 
 		if(pirate.canAttack()) {
 			if(Math.hypot(pirate.getCurrentPlanet().getX() - player.getCoordX(), pirate.getCurrentPlanet().getY() - player.getCoordY()) < 500) {
@@ -405,6 +406,21 @@ public class Game implements Domain {
 				player.setCurrentPlanet(planet);
 				player.decreaseFuel(10);
 				player.getCurrentPlanet().setTemporarySearch(false);
+
+				Iterator<Planet> planetIterator = planets.values().iterator();
+				while(planetIterator.hasNext()) {
+					Planet value = planetIterator.next();
+					Iterator<NPC> npcIterator = value.getNPCs().iterator();
+
+					while(npcIterator.hasNext()) {
+						NPC npc = npcIterator.next();
+
+						if(npc instanceof Movable) {
+							Movable movable = (Movable) npc;
+							movable.move();
+						}
+					}
+				}
 
 				playerIsMoving = true;
 				message = GameUtility.replacePlaceHolders(model.getMessage("player-move-successful"), "{PLANET}", planet.getName());
