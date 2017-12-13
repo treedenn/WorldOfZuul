@@ -1,4 +1,4 @@
-package UI.gameComponents;
+package UI.gamecomponents;
 
 import UI.controller.Controller;
 import javafx.scene.Group;
