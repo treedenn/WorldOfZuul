@@ -2,16 +2,13 @@ package BLL.entity.player;
 
 import BLL.ACQ.IInventory;
 import BLL.ACQ.IPlayer;
-import BLL.ACQ.data.IPlanetData;
 import BLL.ACQ.data.IPlayerData;
 import BLL.entity.Inventory;
 import BLL.entity.MovableEntity;
 import BLL.entity.player.buff.Buff;
 import BLL.item.ItemStack;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -202,9 +199,6 @@ public class Player extends MovableEntity implements IPlayer {
 		this.morphId = morphId;
 	}
 
-	@Override
-	public void move() {}
-
 	public void loadPlayer(IPlayerData data) {
 		if(data.getCurrentPlanet() != null) {
 			if(getPlanets().containsKey(data.getCurrentPlanet())) {
@@ -223,4 +217,13 @@ public class Player extends MovableEntity implements IPlayer {
 		setFuel(data.getFuel());
 		totalFuelConsumption = data.getFuelConsumption();
 	}
+
+	@Override
+	public void move() {}
+
+	@Override
+	public boolean canMove() { return false; }
+
+	@Override
+	public void setMove(boolean canMove) {}
 }
