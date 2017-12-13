@@ -11,4 +11,7 @@ public interface IWorldData {
 
 	ItemStack[] getRequirements();
 	void setRequirements(ItemStack[] requirements);
+
+	String[] getBlacksmithTraces();
+	void setBlacksmthTraces(String[] traces);
 }

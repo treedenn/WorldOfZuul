@@ -88,6 +88,18 @@ public class Blacksmith extends MovableEntity implements NPC {
 		this.recipe = recipe;
 	}
 
+	public String[] getVisitedPlanets() {
+		return visitedPlanets;
+	}
+
+	public void setVisitedPlanets(String[] traces) {
+		this.visitedPlanets = traces;
+	}
+
+	public void addTrace(String name) {
+		visitedPlanets[0] = name.toLowerCase();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -111,18 +123,12 @@ public class Blacksmith extends MovableEntity implements NPC {
 				setCurrentPlanet(planet);
 				getCurrentPlanet().getNPCs().add(this);
 
-				System.out.println(planet.getName());
-
 				pushTraces();
-				addTrace(getCurrentPlanet().getName());
+				addTrace(getCurrentPlanet().getName().toLowerCase().replace(" ", ""));
 
 				break;
 			}
 		}
-	}
-
-	public void addTrace(String name) {
-		visitedPlanets[0] = name.toLowerCase();
 	}
 
 	/**
@@ -147,7 +153,7 @@ public class Blacksmith extends MovableEntity implements NPC {
 
 		for(int i = 0; i < visitedPlanets.length; i++) {
 			if(visitedPlanets[i] != null) {
-				if(visitedPlanets[i].equals(planetName.toLowerCase())) {
+				if(visitedPlanets[i].equals(planetName.toLowerCase().replace(" ", ""))) {
 					traceIndex = i;
 					break;
 				}

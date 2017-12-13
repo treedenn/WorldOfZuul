@@ -2,10 +2,10 @@ package DAL.data;
 
 import BLL.ACQ.data.IWorldData;
 import BLL.item.ItemStack;
-import DAL.GameStateHandler;
 import DAL.Model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class WorldData implements IWorldData {
@@ -13,6 +13,7 @@ public class WorldData implements IWorldData {
 
 	private long timeElapsed;
 	private boolean portalGunBroken;
+	private String[] traces;
 	private ItemStack[] requirements;
 
 	public WorldData(Model model) {
@@ -42,6 +43,16 @@ public class WorldData implements IWorldData {
 	}
 
 	@Override
+	public String[] getBlacksmithTraces() {
+		return traces;
+	}
+
+	@Override
+	public void setBlacksmthTraces(String[] traces) {
+		this.traces = traces;
+	}
+
+	@Override
 	public ItemStack[] getRequirements() {
 		return requirements;
 	}
@@ -56,6 +67,7 @@ public class WorldData implements IWorldData {
 
 		if(requirements != null) {
 			worldMap.put("requirements", model.getGameStateHandler().turnInventoryToMap(requirements));
+			worldMap.put("bs-traces", traces);
 		}
 
 		worldMap.put("time-elapsed", timeElapsed);
@@ -67,6 +79,8 @@ public class WorldData implements IWorldData {
 	public void load(Map<String, Object> map) {
 		if(map.containsKey("requirements")) {
 			this.requirements = model.getGameStateHandler().turnMapToInventory((Map<Integer, Object>) map.get("requirements"));
+			List<String> stringList = (List<String>) map.get("bs-traces");
+			this.traces = stringList.toArray(new String[stringList.size()]);
 		}
 
 		this.timeElapsed = (int) map.get("time-elapsed");

@@ -203,16 +203,20 @@ public class Game implements Domain {
 
 		Planet currentPlanet = player.getCurrentPlanet();
 
-		if(currentPlanet.getTempSearched()) {
-			message = model.getMessage("planet-search-already");
+		if(currentPlanet != null) {
+			if(currentPlanet.getTempSearched()) {
+				message = model.getMessage("planet-search-already");
+			} else {
+				player.getCurrentPlanet().setPermanentSearch(true);
+				player.getCurrentPlanet().setTemporarySearch(true);
+				isSearching = true;
+
+				String bsKey = npcHandler.getBlacksmith().getVisitState(currentPlanet.getName()).getKey();
+
+				message = model.getMessage(bsKey);
+			}
 		} else {
-			player.getCurrentPlanet().setPermanentSearch(true);
-			player.getCurrentPlanet().setTemporarySearch(true);
-			isSearching = true;
-
-			String bsKey = npcHandler.getBlacksmith().getVisitState(currentPlanet.getName()).getKey();
-
-			message = model.getMessage(bsKey);
+			message = model.getMessage("player-deep-space");
 		}
 
 		messageContainer.setMessage(message);
@@ -555,6 +559,7 @@ public class Game implements Domain {
 
 		if(npcHandler.getBlacksmith().getRecipe() != null) {
 			worldData.setRequirements(npcHandler.getBlacksmith().getRecipe().getRequirements());
+			worldData.setBlacksmthTraces(npcHandler.getBlacksmith().getVisitedPlanets());
 		}
 
 		// PLAYER
@@ -636,6 +641,7 @@ public class Game implements Domain {
 
 			if(worldData.getRequirements() != null) {
 				npcHandler.getBlacksmith().setRecipe(new Recipe(worldData.getRequirements()));
+				npcHandler.getBlacksmith().setVisitedPlanets(worldData.getBlacksmithTraces());
 			}
 
 			// PLAYER
