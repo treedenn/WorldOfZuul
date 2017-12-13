@@ -1,0 +1,17 @@
+
+/* BUTTONS */
+
+.button__help{
+    -fx-background-color: transparent;
+}
+
+.button__help:hover{
+    -fx-scale-x: 107%;
+    -fx-scale-y: 107%;
+}
+
+.button__help:pressed{
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
+    -fx-opacity: 0.8;
+}
