@@ -1,4 +1,4 @@
-package UI.gameComponents;
+package UI.gamecomponents;
 
 import BLL.ACQ.Domain;
 import javafx.scene.control.Label;
