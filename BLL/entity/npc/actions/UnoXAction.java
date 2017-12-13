@@ -13,12 +13,14 @@ import BLL.entity.npc.UnoX;
 import BLL.entity.player.Player;
 
 /**
- *
- * @author lalal
+ * Describes the actions of the {@link UnoX}.
  */
 public class UnoXAction implements NPCActionCollection {
     private INPCAction[] actions;
-    
+
+    /**
+     * Instantiates a new UnoX action.
+     */
     public UnoXAction() {
         actions = new INPCAction[] {
             new NPCAction("Oy matey, I guess you need some gas, aye?" +
@@ -40,9 +42,11 @@ public class UnoXAction implements NPCActionCollection {
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public INPCAction[] getActions() {
         return actions;
     }
-    
 }

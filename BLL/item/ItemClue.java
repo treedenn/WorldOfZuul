@@ -60,6 +60,10 @@ public class ItemClue extends Item {
 		this.state = state;
 	}
 
+	/**
+	 * Returns a string based on the state of the object.
+	 * @return {@link #getName()} of [{@link #getComponentType()}]: {@link #getDescription()}
+	 */
 	@Override
 	public String toString() {
 		return String.format("%s of [%s]: %s", getName(), getComponentType(), GameUtility.replacePlaceHolders(getDescription(),"{{state}}", getState().name().toLowerCase(), "{{color}}", getColor().name().toLowerCase()));
