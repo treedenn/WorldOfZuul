@@ -1,11 +1,6 @@
 package DAL;
 
-import BLL.Game;
-import BLL.entity.Inventory;
-import BLL.item.Item;
 import BLL.item.ItemStack;
-import BLL.item.ItemType;
-import BLL.world.Planet;
 import DAL.ACQ.Loadable;
 import DAL.ACQ.Savable;
 import DAL.data.PlanetData;
@@ -17,7 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +27,11 @@ public class GameStateHandler implements Loadable, Savable {
 	private PlayerData playerData;
 	private PlanetData planetData;
 
+	/**
+	 * Instantiates the GameState handler.
+	 * @param model persistent layer
+	 * @param file location of save/load file
+	 */
 	GameStateHandler(Model model, File file) {
 		this.model = model;
 		this.yamlObject = new YamlObject(file);
@@ -42,18 +41,37 @@ public class GameStateHandler implements Loadable, Savable {
 		planetData = new PlanetData(model);
 	}
 
+	/**
+	 * Gets the WorldData object.
+	 * @return WorldData object.
+	 */
 	WorldData getWorldData() {
 		return worldData;
 	}
 
+	/**
+	 * Gets the PlayerData object.
+	 * @return PlayerData object.
+	 */
 	PlayerData getPlayerData() {
 		return playerData;
 	}
 
+	/**
+	 * Gets the PlanetData object.
+	 * @return PlanetData object.
+	 */
 	PlanetData getPlanetData() {
 		return planetData;
 	}
 
+	public boolean loadingFileExists() {
+		return yamlObject.getFile().exists();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void load() throws IOException {
 		Map<String, Map<?, ?>> map = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
@@ -69,6 +87,9 @@ public class GameStateHandler implements Loadable, Savable {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void save() throws IOException {
 		Map<String, Map<?, ?>> map = new HashMap<>();
@@ -80,6 +101,12 @@ public class GameStateHandler implements Loadable, Savable {
 		yamlObject.getYaml().dump(map, new FileWriter(yamlObject.getFile()));
 	}
 
+	/**
+	 * Turns content of a inventory to a map.
+	 * Deconstruction method: {@link #turnMapToInventory(Map)}.
+	 * @param itemStacks any content of inventory
+	 * @return a map, key as item id and value as quantity
+	 */
 	public Map<Integer, Object> turnInventoryToMap(ItemStack[] itemStacks) {
 		Map<Integer, Object> map = new HashMap<>();
 
@@ -90,6 +117,12 @@ public class GameStateHandler implements Loadable, Savable {
 		return map;
 	}
 
+	/**
+	 * An deconstruction method for {@link #turnInventoryToMap(ItemStack[])}.
+	 * Reverses the operation.
+	 * @param map any map from construction method
+	 * @return the content
+	 */
 	public ItemStack[] turnMapToInventory(Map<Integer, Object> map) {
 		ItemStack[] inventory = new ItemStack[map.size()];
 

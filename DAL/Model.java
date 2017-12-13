@@ -30,6 +30,9 @@ public class Model implements PersistenceLayer {
 	private MessageHandler msgHandler;
 	private GameStateHandler gsHandler;
 
+	/**
+	 * Instantiates the model and all of it handles.
+	 */
 	private Model() {
 		dbHandler = new DatabaseHandler(new File("./src/DAL/resource/itemdatabase.yaml"));
 		qzHandler = new QuizHandler(new File("./src/DAL/resource/quizdatabase.yaml"));
@@ -39,6 +42,10 @@ public class Model implements PersistenceLayer {
 		gsHandler = new GameStateHandler(this, new File("./game-save.yaml"));
 	}
 
+	/**
+	 * Gets the GameState handler.
+	 * @return handler of game states
+	 */
 	public GameStateHandler getGameStateHandler() {
 		return gsHandler;
 	}
@@ -157,7 +164,6 @@ public class Model implements PersistenceLayer {
 
 	/**
 	 * {@inheritDoc}
-	 * @throws IOException
 	 */
 	@Override
 	public void saveGame() throws IOException {
@@ -166,11 +172,18 @@ public class Model implements PersistenceLayer {
 
 	/**
 	 * {@inheritDoc}
-	 * @throws IOException
 	 */
 	@Override
 	public void loadGame() throws IOException {
 		load(gsHandler);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean hasLoadingFile() {
+		return gsHandler.loadingFileExists();
 	}
 
 	/**

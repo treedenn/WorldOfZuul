@@ -571,8 +571,6 @@ public class Game implements Domain {
 			playerData.setCurrentPlanet(null);
 		}
 
-		// TODO: Remove clues from saving/loading and replant them when the game restarts
-
 		playerData.setX(player.getCoordX());
 		playerData.setY(player.getCoordY());
 		playerData.setBuffs(player.getBuffs());
@@ -690,11 +688,18 @@ public class Game implements Domain {
 
 			player.setPlanets(planetMap);
 			npcHandler.getBlacksmith().setPlanets(planetMap);
+
+			return true;
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean hasLoadingFile() {
+		return model.hasLoadingFile();
 	}
 
 	// TODO: Will this function ever be used?
