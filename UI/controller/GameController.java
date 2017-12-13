@@ -259,6 +259,7 @@ public class GameController extends Controller implements IGameLoop{
     void saveAndQuit(ActionEvent event) {
         getDomain().save();
         Platform.exit();
+        System.exit(0);
     }
 
     @FXML
