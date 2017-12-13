@@ -592,15 +592,17 @@ public class Game implements Domain {
 				NPCIds.add(npc.getId());
 			}
 
+			ItemStack[] content = GameUtility.removeCluesFromContent(((Inventory) p.getInventory()).getContent());
+
 			if(planetData.size() == player.getPlanets().size()) {
 				planetData.setName(i, entry.getKey());
 				planetData.setX(i, p.getX());
 				planetData.setY(i, p.getY());
 				planetData.setNPCs(i, NPCIds);
-				planetData.setInventory(i, ((Inventory) p.getInventory()).getContent());
+				planetData.setInventory(i, content);
 				i++;
 			} else {
-				planetData.addData(entry.getKey(), p.getX(), p.getY(), NPCIds, ((Inventory) p.getInventory()).getContent());
+				planetData.addData(entry.getKey(), p.getX(), p.getY(), NPCIds, content);
 			}
 		}
 
@@ -624,25 +626,6 @@ public class Game implements Domain {
 			IWorldData worldData = model.getWorldData();
 			IPlayerData playerData = model.getPlayerData();
 			IPlanetData planetData = model.getPlanetData();
-
-			// WORLD
-
-			scoreHandler.setStartTimeOffset(worldData.getTimeElapsed());
-
-			for(ItemStack is : player.getInventory().getContent()) {
-				if(is.getItem() instanceof ItemPortalGun) {
-					ItemPortalGun pg = (ItemPortalGun) is.getItem();
-					if(!worldData.isPortalGunBroken()) {
-						pg.repair();
-					}
-					break;
-				}
-			}
-
-			if(worldData.getRequirements() != null) {
-				npcHandler.getBlacksmith().setRecipe(new Recipe(worldData.getRequirements()));
-				npcHandler.getBlacksmith().setVisitedPlanets(worldData.getBlacksmithTraces());
-			}
 
 			// PLAYER
 
@@ -686,6 +669,26 @@ public class Game implements Domain {
 
 			player.setPlanets(planetMap);
 			npcHandler.getBlacksmith().setPlanets(planetMap);
+
+			// WORLD
+
+			scoreHandler.setStartTimeOffset(worldData.getTimeElapsed());
+
+			for(ItemStack is : player.getInventory().getContent()) {
+				if(is.getItem() instanceof ItemPortalGun) {
+					ItemPortalGun pg = (ItemPortalGun) is.getItem();
+					if(!worldData.isPortalGunBroken()) {
+						pg.repair();
+					}
+					break;
+				}
+			}
+
+			if(worldData.getRequirements() != null) {
+				npcHandler.getBlacksmith().setRecipe(new Recipe(worldData.getRequirements()));
+				addCluesToPlanets();
+				npcHandler.getBlacksmith().setVisitedPlanets(worldData.getBlacksmithTraces());
+			}
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
