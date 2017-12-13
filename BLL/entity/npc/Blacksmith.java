@@ -124,7 +124,7 @@ public class Blacksmith extends MovableEntity implements NPC {
 				getCurrentPlanet().getNPCs().add(this);
 
 				pushTraces();
-				addTrace(getCurrentPlanet().getName().toLowerCase().replace(" ", ""));
+				addTrace(getCurrentPlanet().getName().toLowerCase());
 
 				break;
 			}
@@ -153,7 +153,7 @@ public class Blacksmith extends MovableEntity implements NPC {
 
 		for(int i = 0; i < visitedPlanets.length; i++) {
 			if(visitedPlanets[i] != null) {
-				if(visitedPlanets[i].equals(planetName.toLowerCase().replace(" ", ""))) {
+				if(visitedPlanets[i].equals(planetName.toLowerCase())) {
 					traceIndex = i;
 					break;
 				}
