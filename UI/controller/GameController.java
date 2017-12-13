@@ -9,11 +9,15 @@ import UI.GameComponents.*;
 import UI.GameComponents.Dialog;
 import UI.GameComponents.subscene.GameMap.MiniMap;
 import UI.GameComponents.subscene.Innerscene;
+import UI.planetView.IObservable;
+import UI.planetView.IObserver;
+import UI.planetView.PlanetViewController;
 import com.sun.javafx.robot.FXRobot;
 import com.sun.javafx.robot.FXRobotFactory;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,7 +32,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * The primary controller class for actually playing the game.
  */
-public class GameController extends Controller implements IGameLoop {
+public class GameController extends Controller implements IGameLoop{
 
 
     private Notification notificationHandler;
@@ -148,6 +152,7 @@ public class GameController extends Controller implements IGameLoop {
      */
     @Override
     public void initialize() {
+
 
         innersceneHandler = new Innerscene(subsceneWrapper);
         miniMapHandler = new MiniMap(interfaceGrid);
@@ -585,7 +590,6 @@ public class GameController extends Controller implements IGameLoop {
    // public void configInnerscene(){ innersceneHandler = new Innerscene(subScene);}
 
     public void configDialog(){ dialogHandler = new Dialog(subsceneWrapper, this);}
-
 
 }
 

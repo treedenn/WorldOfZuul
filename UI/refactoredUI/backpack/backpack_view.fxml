@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+
+<StackPane prefHeight="500.0" prefWidth="460.0" styleClass="backpack__outerWrapper" stylesheets="@backpack.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.refactoredUI.backpack.Backpack">
+   <children>
+      <VBox maxHeight="500.0" maxWidth="460.0" spacing="15.0" styleClass="backpack__wrapper">
+         <children>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label styleClass="backpack__title" text="Backpack" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#closeBackpack" styleClass="backpack__button--exit">
+                     <graphic>
+                        <SVGPath content="M19,6.4L17.6,5L12,10.6L6.4,5L5,6.4l5.6,5.6L5,17.6L6.4,19l5.6-5.6l5.6,5.6l1.4-1.4L13.4,12L19,6.4z" fill="WHITE" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <ListView fx:id="backpackItemList" prefHeight="200.0" prefWidth="200.0" styleClass="backpack__listView" VBox.vgrow="ALWAYS" />
+            <HBox>
+               <children>
+                  <Button fx:id="dropButton" disable="true" mnemonicParsing="false" onAction="#drop" text="Drop">
+                     <styleClass>
+                        <String fx:value="backpack__button--red" />
+                        <String fx:value="backpack__button" />
+                     </styleClass>
+                  </Button>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="useButton" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#use" text="Use">
+                     <styleClass>
+                        <String fx:value="backpack__button--blue" />
+                        <String fx:value="backpack__button" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

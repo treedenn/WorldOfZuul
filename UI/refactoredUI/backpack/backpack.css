@@ -1,0 +1,108 @@
+.backpack__outerWrapper{
+    -fx-background-color: transparent;
+}
+
+.backpack__wrapper{
+    -fx-background-color: #181818;
+    -fx-background-radius: 8;
+    -fx-padding: 16;
+}
+
+.backpack__title{
+    -fx-text-fill: #fff;
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 30;
+}
+
+/* Listview */
+.backpack__listView{
+    -fx-background-color: transparent;
+}
+
+.backpack__listView .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.backpack__listView .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.backpack__listView .scroll-bar:vertical .thumb{
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0em;
+}
+
+.backpack__listView .list-cell{
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-font-size: 20;
+    -fx-font-family: 'Circular Std Book';
+    -fx-background-color: transparent;
+}
+
+.backpack__listView .list-cell:selected{
+    -fx-background-color: #333333;
+    -fx-text-fill: #448AFF;
+}
+
+.backpack__listView .list-cell:hover{
+    -fx-background-color: #282828;
+    -fx-cursor: hand;
+}
+
+
+/* BUTTONS */
+.backpack__button--exit{
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+
+.backpack__button--exit:hover{
+    -fx-scale-x: 107%;
+    -fx-scale-y: 107%;
+}
+
+.backpack__button--exit:pressed{
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
+    -fx-opacity: 0.8;
+}
+
+.backpack__button{
+    -fx-cursor: hand;
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 4;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 20px;
+}
+
+.backpack__button--blue{
+    -fx-background-color: #2979FF;
+}
+
+.backpack__button--blue:hover{
+    -fx-background-color: #448AFF;
+}
+
+backpack__button--blue:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.backpack__button--red{
+    -fx-background-color: #ed2931;
+}
+
+.backpack__button--red:hover{
+    -fx-background-color: #f95a3e;
+}
+
+backpack__button--red:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
