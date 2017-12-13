@@ -5,10 +5,9 @@ import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.*;
-import UI.gamecomponents.*;
-import UI.gamecomponents.Dialog;
-import UI.gamecomponents.subscene.gamemap.MiniMap;
-import UI.gamecomponents.subscene.Innerscene;
+import UI.gameComponents.*;
+import UI.gameComponents.subscene.Innerscene;
+import UI.gameComponents.subscene.gamemap.MiniMap;
 import com.sun.javafx.robot.FXRobot;
 import com.sun.javafx.robot.FXRobotFactory;
 import javafx.animation.AnimationTimer;
@@ -28,7 +27,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * The primary controller class for actually playing the game.
  */
-public class GameController extends Controller implements IGameLoop {
+public class GameController extends Controller implements IGameLoop{
 
 
     private Notification notificationHandler;
@@ -148,6 +147,7 @@ public class GameController extends Controller implements IGameLoop {
      */
     @Override
     public void initialize() {
+
 
         innersceneHandler = new Innerscene(subsceneWrapper);
         miniMapHandler = new MiniMap(interfaceGrid);
@@ -585,7 +585,6 @@ public class GameController extends Controller implements IGameLoop {
    // public void configInnerscene(){ innersceneHandler = new Innerscene(subScene);}
 
     public void configDialog(){ dialogHandler = new Dialog(subsceneWrapper, this);}
-
 
 }
 

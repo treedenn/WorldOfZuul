@@ -1,4 +1,4 @@
-package UI.gamecomponents;
+package UI.gameComponents;
 
 public abstract class AppendableElement implements Reusable {
 

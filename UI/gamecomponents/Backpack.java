@@ -1,4 +1,4 @@
-package UI.gamecomponents;
+package UI.gameComponents;
 
 import BLL.ACQ.IItemStack;
 import UI.controller.GameController;
@@ -197,6 +197,4 @@ public class Backpack extends InterfaceElement {
 
         }
     }
-
-
 }

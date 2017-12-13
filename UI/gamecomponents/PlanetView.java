@@ -1,4 +1,4 @@
-package UI.gamecomponents;
+package UI.gameComponents;
 
 import BLL.ACQ.IItemStack;
 import BLL.entity.npc.NPC;
@@ -11,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -84,7 +85,7 @@ public class PlanetView {
         Button button__leavePlanet = new Button();
         button__leavePlanet.setText("LEAVE PLANET");
         button__leavePlanet.getStyleClass().add("button__leavePlanet");
-        button__leavePlanet.setOnAction(event -> {
+        button__leavePlanet.setOnAction((ActionEvent event) -> {
             leavePlanet();
         });
 
