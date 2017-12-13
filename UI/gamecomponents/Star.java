@@ -1,6 +1,6 @@
-package UI.gameComponents;
+package UI.gamecomponents;
 
-import UI.gameComponents.subscene.gamemap.GameMap;
+import UI.gamecomponents.subscene.gamemap.GameMap;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;

@@ -1,4 +1,4 @@
-package UI.gameComponents.subscene.gamemap;
+package UI.gamecomponents.subscene.gamemap;
 
 import BLL.ACQ.IPlanet;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package UI.gameComponents;
+package UI.gamecomponents;
 
 
 import javafx.scene.image.Image;
