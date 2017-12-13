@@ -101,20 +101,28 @@ public class Blacksmith extends MovableEntity implements NPC {
 			if(iterator.next() == getCurrentPlanet()) {
 				getCurrentPlanet().getNPCs().remove(this);
 
+				Planet planet;
 				if(iterator.hasNext()) {
-					setCurrentPlanet(iterator.next());
+					planet = iterator.next();
 				} else {
-					setCurrentPlanet(map.values().iterator().next());
+					planet = map.values().iterator().next();
 				}
 
+				setCurrentPlanet(planet);
 				getCurrentPlanet().getNPCs().add(this);
 
+				System.out.println(planet.getName());
+
 				pushTraces();
-				visitedPlanets[0] = getCurrentPlanet().getName().toLowerCase();
+				addTrace(getCurrentPlanet().getName());
 
 				break;
 			}
 		}
+	}
+
+	public void addTrace(String name) {
+		visitedPlanets[0] = name.toLowerCase();
 	}
 
 	/**

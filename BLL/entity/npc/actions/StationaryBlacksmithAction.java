@@ -44,6 +44,7 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
                         Blacksmith blacksmith = game.getNpcHandler().getBlacksmith();
 
                         blacksmith.setCurrentPlanet(planet);
+                        blacksmith.addTrace(planet.getName());
                         planet.getNPCs().add(blacksmith);
 
                         blacksmith.generateRecipeRequirements(game.getModel());

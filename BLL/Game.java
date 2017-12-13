@@ -409,13 +409,24 @@ public class Game implements Domain {
 				player.decreaseFuel(10);
 				player.getCurrentPlanet().setTemporarySearch(false);
 
+				List<Movable> movedNPC = new ArrayList<>();
+
 				for(Planet value : planets.values()) {
 					for(NPC npc : new ArrayList<>(value.getNPCs())) {
 						if(npc instanceof Movable) {
 							Movable movable = (Movable) npc;
-							movable.move();
+
+							if(movable.canMove()) {
+								movable.move();
+								movable.setMove(false);
+								movedNPC.add(movable);
+							}
 						}
 					}
+				}
+
+				for(Movable movable : movedNPC) {
+					movable.setMove(true);
 				}
 
 				playerIsMoving = true;
