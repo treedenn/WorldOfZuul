@@ -59,7 +59,7 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
-                        <Button mnemonicParsing="false" onAction="#continueGame" text="CONTINUE GAME">
+                        <Button fx:id="buttonContinueGame" mnemonicParsing="false" onAction="#continueGame" text="CONTINUE GAME">
                            <styleClass>
                               <String fx:value="start-view-button" />
                               <String fx:value="startViewButton__continue--green" />
