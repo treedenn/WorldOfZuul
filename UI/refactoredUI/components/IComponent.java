@@ -8,8 +8,6 @@ import java.io.IOException;
 
 public interface IComponent extends Initializable {
 
-     void tick();
-
      Parent getView();
 
 }

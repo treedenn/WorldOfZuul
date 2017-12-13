@@ -3,6 +3,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="root" onKeyPressed="#keyIsPressed" onKeyReleased="#keyIsReleased" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.refactoredUI.game.GameController">
-
+<AnchorPane fx:id="root" onKeyPressed="#keyIsPressed" onKeyReleased="#keyIsReleased" prefHeight="660.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="main" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="menu" prefHeight="50.0" prefWidth="50.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0" />
+      <AnchorPane fx:id="map" layoutX="26.0" layoutY="26.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0" />
+      <AnchorPane fx:id="bottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   </children>
 </AnchorPane>
