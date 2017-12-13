@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="wrapper" onKeyPressed="#keyIsPressed" onKeyReleased="#keyIsReleased" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="wrapper" onKeyPressed="#keyIsPressed" onKeyReleased="#keyIsReleased" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane fx:id="contentWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1010.0" stylesheets="@../resources/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -234,6 +234,7 @@
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
                               <GridPane alignment="CENTER">
@@ -254,9 +255,10 @@
                                        <rowConstraints>
                                           <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label fx:id="notificationText" styleClass="notification__text" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum dictum lacus, ac porttitor tortor dapibus eget. Pellentesque ut metus nulla. Curabitur odio erat, eleifend nec dapibus non, vestibulum vel nisi. Integer nec risus id elit blandit malesuada. Cras posuere consequat rhoncus. Vestibulum hendrerit egestas lectus vel mollis. Vivamus accumsan nisi risus, ut ultricies tortor lacinia sit amet. Integer vitae feugiat justo, scelerisque euismod augue. Donec tempor tortor et urna molestie porttitor." wrapText="true" GridPane.rowIndex="1" />
+                                          <Label fx:id="notificationText" minHeight="-Infinity" prefHeight="67.0" prefWidth="288.0" styleClass="notification__text" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum dictum lacus, ac porttitor tortor dapibus eget. Pellentesque ut metus nulla. Curabitur odio erat, eleifend nec dapibus non, vestibulum vel nisi. Integer nec risus id elit blandit malesuada. Cras posuere consequat rhoncus. Vestibulum hendrerit egestas lectus vel mollis. Vivamus accumsan nisi risus, ut ultricies tortor lacinia sit amet. Integer vitae feugiat justo, scelerisque euismod augue. Donec tempor tortor et urna molestie porttitor." wrapText="true" GridPane.rowIndex="1" GridPane.rowSpan="2" />
                                           <Label fx:id="notificationTitle" styleClass="notification__title" text="Whoops!" />
                                        </children>
                                        <padding>
