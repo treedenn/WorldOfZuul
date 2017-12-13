@@ -6,8 +6,6 @@ import BLL.entity.MovableEntity;
 import BLL.entity.npc.actions.NPCActionCollection;
 import BLL.world.Planet;
 
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -67,21 +65,9 @@ public class SpacePirate extends MovableEntity implements NPC {
         if(moveCounter == 3) {
             moveCounter = 0;
 
-            Iterator<NPC> iterator = getCurrentPlanet().getNPCs().iterator();
-
-            // TODO: LOOKS AT THIS BULLSHIT>>>>>>>>>>>>LADMJKASDJAS LJLK
-//            while(iterator.hasNext()) {
-//                NPC npc = iterator.next();
-//
-//                if(npc instanceof SpacePirate) {
-//                    iterator.remove();
-//                }
-//            }
-
+            getCurrentPlanet().getNPCs().remove(this);
             setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(getPlanets().values().toArray(new Planet[getPlanets().size()])));
             getCurrentPlanet().getNPCs().add(this);
-
-            System.out.println("Pirate: " + getCurrentPlanet().getName());
         }
     }
 }

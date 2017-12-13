@@ -122,7 +122,7 @@ public class Game implements Domain {
 		player.setPlanets(planetMap);
 		player.getInventory().add(new ItemStack(model.getItemById(57), 1));
 
-		npcHandler.getPirate().setPlanets(planetMap);
+		npcHandler.getBlacksmith().setPlanets(planetMap);
 
 		// Sets the quizes to UnoX
 		npcHandler.getUnoX().setQuizes(model.getQuizes());
@@ -136,8 +136,9 @@ public class Game implements Domain {
 //		npcHandler.getBlacksmith().setPlanets(planetMap);
 
 		// Adds the pirate to a random planet
+		// npcHandler.getPirate().setPlanets(planetMap);
 //		npcHandler.getPirate().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-//		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
+		// npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
 
 		// Adds the UnoX to a random planet
 //		npcHandler.getUnoX().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
@@ -156,7 +157,8 @@ public class Game implements Domain {
 		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("newearth"));
 		npcHandler.getStationaryBlacksmith().getCurrentPlanet().getNPCs().add(npcHandler.getStationaryBlacksmith());
 
-		// Adds the pirate to a random planet
+		// Adds the pirate to a random
+		npcHandler.getPirate().setPlanets(planetMap);
 		npcHandler.getPirate().setCurrentPlanet(planetMap.get("newearth"));
 		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
 
@@ -407,14 +409,8 @@ public class Game implements Domain {
 				player.decreaseFuel(10);
 				player.getCurrentPlanet().setTemporarySearch(false);
 
-				Iterator<Planet> planetIterator = planets.values().iterator();
-				while(planetIterator.hasNext()) {
-					Planet value = planetIterator.next();
-					Iterator<NPC> npcIterator = value.getNPCs().iterator();
-
-					while(npcIterator.hasNext()) {
-						NPC npc = npcIterator.next();
-
+				for(Planet value : planets.values()) {
+					for(NPC npc : new ArrayList<>(value.getNPCs())) {
 						if(npc instanceof Movable) {
 							Movable movable = (Movable) npc;
 							movable.move();
@@ -672,6 +668,7 @@ public class Game implements Domain {
 			}
 
 			player.setPlanets(planetMap);
+			npcHandler.getBlacksmith().setPlanets(planetMap);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

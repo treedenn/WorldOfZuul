@@ -6,7 +6,6 @@
 package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
-import BLL.ACQ.PersistenceLayer;
 import BLL.Game;
 import BLL.entity.Inventory;
 import BLL.entity.npc.Blacksmith;
@@ -26,7 +25,7 @@ public class BlacksmithAction implements NPCActionCollection {
 
     public BlacksmithAction() {
         actions = new INPCAction[] {
-            new NPCDialogAction("My dear Rick!" +
+            new NPCDialogAction("MNy dear Rick!" +
             "\nIt's already time to return the favor?" +
             "\nI've heard that you somehow broke your portal gun?"),
             new NPCDialogAction("Would you like to see my recipe for the Portal Gun?") {

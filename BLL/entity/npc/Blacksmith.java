@@ -9,9 +9,7 @@ import BLL.entity.player.Recipe;
 import BLL.item.ItemStack;
 import BLL.world.Planet;
 
-import java.io.File;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Blacksmith extends MovableEntity implements NPC {
@@ -95,17 +93,21 @@ public class Blacksmith extends MovableEntity implements NPC {
 	 */
 	@Override
 	public void move() {
-		LinkedHashMap<String, Planet> map = (LinkedHashMap<String, Planet>) getPlanets();
+		Map<String, Planet> map = getPlanets();
 
 		Iterator<Planet> iterator = map.values().iterator();
 
 		while(iterator.hasNext()) {
 			if(iterator.next() == getCurrentPlanet()) {
+				getCurrentPlanet().getNPCs().remove(this);
+
 				if(iterator.hasNext()) {
 					setCurrentPlanet(iterator.next());
 				} else {
 					setCurrentPlanet(map.values().iterator().next());
 				}
+
+				getCurrentPlanet().getNPCs().add(this);
 
 				pushTraces();
 				visitedPlanets[0] = getCurrentPlanet().getName().toLowerCase();

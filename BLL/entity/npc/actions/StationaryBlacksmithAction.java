@@ -6,7 +6,6 @@
 package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
-import BLL.ACQ.PersistenceLayer;
 import BLL.Game;
 import BLL.entity.Entity;
 import BLL.entity.npc.Blacksmith;
