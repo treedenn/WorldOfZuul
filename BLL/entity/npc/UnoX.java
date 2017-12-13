@@ -51,7 +51,7 @@ public class UnoX extends Entity implements NPC{
 
     @Override
     public int getId() {
-        return 3;
+        return 4;
     }
 
     @Override

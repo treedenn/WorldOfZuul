@@ -1,6 +1,6 @@
 package BLL.item;
 
-import BLL.Game;
+import BLL.GameUtility;
 
 public class ItemClue extends Item {
 	private ComponentType componentType;
@@ -16,12 +16,16 @@ public class ItemClue extends Item {
 
 	/**
 	 * Gets the type of the component, declared by the enum {@link ComponentType}.
-	 * @return
+	 * @return the component type of the clue
 	 */
 	public ComponentType getComponentType() {
 		return componentType;
 	}
 
+	/**
+	 * Sets the type of the clue/component.
+	 * @param componentType described by an enum
+	 */
 	public void setComponentType(ComponentType componentType) {
 		this.componentType = componentType;
 	}
@@ -29,7 +33,7 @@ public class ItemClue extends Item {
 	/**
 	 * Gets the color of the component.
 	 * {@link Color} is homemade.
-	 * @return
+	 * @return the color of the clue
 	 */
 	public Color getColor() {
 		return color;
@@ -48,12 +52,16 @@ public class ItemClue extends Item {
 		return state;
 	}
 
+	/**
+	 * Sets the state of the clue.
+	 * @param state limited by enum
+	 */
 	public void setState(State state) {
 		this.state = state;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%s of [%s]: %s", getName(), getComponentType(), Game.replacePlaceHolders(getDescription(),"{{state}}", getState().name().toLowerCase(), "{{color}}", getColor().name().toLowerCase()));
+		return String.format("%s of [%s]: %s", getName(), getComponentType(), GameUtility.replacePlaceHolders(getDescription(),"{{state}}", getState().name().toLowerCase(), "{{color}}", getColor().name().toLowerCase()));
 	}
 }

@@ -1,10 +1,10 @@
-package UI.GameComponents.subscene;
+package UI.gameComponents.subscene;
 
 import BLL.ACQ.IPlanet;
-import UI.GameComponents.InterfaceElement;
-import UI.GameComponents.subscene.GameMap.GameMap;
-import UI.GameComponents.GameObject;
-import UI.GameComponents.Player;
+import UI.gameComponents.InterfaceElement;
+import UI.gameComponents.subscene.gamemap.GameMap;
+import UI.gameComponents.GameObject;
+import UI.gameComponents.Player;
 import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.effect.DropShadow;
@@ -74,7 +74,7 @@ public class Innerscene extends InterfaceElement {
         playerRoot.setEffect(new DropShadow(20,0,0,Color.rgb(0,0,0,0.3)));
         playerRoot.setCenterShape(true);
 
-        player = new UI.GameComponents.Player(50,50, playerRoot);
+        player = new UI.gameComponents.Player(50,50, playerRoot);
         player.setVelocity(new Point2D(0,0));
         GameObject.addGameObject(player, GameMap.mapWidth /2, GameMap.mapHeight /2, map.getRootPane());
     }

@@ -60,7 +60,12 @@ public class StartController extends Controller{
 	@FXML
 	void continueGame(ActionEvent event) {
 		// TODO: Implement continue game here!
-		System.out.println("Implement continue game here!");
+		try {
+			getDomain().load();
+			switchToGameView();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -70,6 +75,7 @@ public class StartController extends Controller{
 	@FXML
 	void handleNewGameAction(ActionEvent event) {
 		try {
+			getDomain().init();
 			switchToGameView();
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -113,8 +119,6 @@ public class StartController extends Controller{
 	 * @throws IOException
 	 */
 	private void switchToGameView() throws IOException {
-		getDomain().init();
-
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/game_view.fxml"));
 		GameController controller = new GameController(getDomain());
 		controller.setStage(buttonNewGame);

@@ -5,19 +5,14 @@ import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.*;
-import UI.GameComponents.*;
-import UI.GameComponents.Dialog;
-import UI.GameComponents.subscene.GameMap.MiniMap;
-import UI.GameComponents.subscene.Innerscene;
-import UI.planetView.IObservable;
-import UI.planetView.IObserver;
-import UI.planetView.PlanetViewController;
+import UI.gameComponents.*;
+import UI.gameComponents.subscene.Innerscene;
+import UI.gameComponents.subscene.gamemap.MiniMap;
 import com.sun.javafx.robot.FXRobot;
 import com.sun.javafx.robot.FXRobotFactory;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -262,7 +257,7 @@ public class GameController extends Controller implements IGameLoop{
     @FXML
     void saveAndQuit(ActionEvent event) {
         // TODO: Implement save and quit here!
-        System.out.println("Implement save and quit here!");
+        getDomain().save();
     }
 
     @FXML
@@ -577,9 +572,9 @@ public class GameController extends Controller implements IGameLoop{
 
     public void configAvatar(){ avatarHandler = new Avatar(avatarImage);}
 
-    public void configFuelBar(){ fuelHandler = new FuelBar(barFuel, labelFuelTitle, labelFuel); }
+    public void configFuelBar(){ fuelHandler = new FuelBar(getDomain(), barFuel, labelFuelTitle, labelFuel); }
 
-    public void configBackpackBar(){ backpackHandler = new BackpackBar(barBackpack, labelBackpackTitle, labelBackpack);}
+    public void configBackpackBar(){ backpackHandler = new BackpackBar(getDomain(), barBackpack, labelBackpackTitle, labelBackpack);}
 
     //public void configMiniMap(){ miniMapHandler = new MiniMap(miniMapWrapper, innersceneHandler.getPlayer()); }
 

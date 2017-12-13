@@ -5,6 +5,7 @@ import BLL.item.ItemStack;
 import BLL.world.LockedBlacksmithPlanet;
 import BLL.world.Planet;
 import DAL.ACQ.Loadable;
+import javafx.geometry.Point2D;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -44,18 +45,18 @@ class PlanetHandler implements Loadable {
 
 		/* initializing planets */
 
-		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!", "./src/DAL/resource/images/planetViews/CleronOr7.jpg", "./src/DAL/resource/images/planet2DMaps/cleron.jpg", 4578, 7000);
-		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.", "./src/DAL/resource/images/planetViews/Scurn 01k.jpg","./src/DAL/resource/images/planet2DMaps/scurn.jpg", 6240, 7313);
-		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.", "./src/DAL/resource/images/planetViews/Hebrilles.png","./src/DAL/resource/images/planet2DMaps/hebrilles.jpg",7100, 5310);
-		xehna = new LockedBlacksmithPlanet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", "./src/DAL/resource/images/planetViews/Xehna.jpg","./src/DAL/resource/images/planet2DMaps/xehna.jpg",6580, 3029);
-		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.", "./src/DAL/resource/images/planetViews/Gallifrey.jpg", "./src/DAL/resource/images/planet2DMaps/gallifrey.jpg",6940, 1288);
-		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.", "./src/DAL/resource/images/planetViews/scaro.jpg","./src/DAL/resource/images/planet2DMaps/skaro.jpg",5116, 1556);
-		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.","./src/DAL/resource/images/planetViews/Orion.jpg", "./src/DAL/resource/images/planet2DMaps/orion.jpg", 3354, 1502);
-		deineax = new Planet("Deineax", "No one knows exactly the origin behind the name of this planet, yet myths say it comes from 'Dennis'.", "./src/DAL/resource/images/planetViews/Deinax.jpg", "./src/DAL/resource/images/planet2DMaps/deineax.jpg",1619, 785);
-		uskillion = new Planet("Uskillon", "An extremely hot planet, yet it contains different types of liquids.", "./src/DAL/resource/images/planetViews/Uskillon.jpg", "./src/DAL/resource/images/planet2DMaps/uskillon.jpg",1221, 2628);
-		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...", "./src/DAL/resource/images/planetViews/J8ayrus.jpg", "./src/DAL/resource/images/planet2DMaps/ayrus.jpg",1119, 4970);
-		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.", "./src/DAL/resource/images/planetViews/amrifarret.jpg", "./src/DAL/resource/images/planet2DMaps/amrifarret.jpg",2041, 6821);
-		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.", "./src/DAL/resource/images/planetViews/new earth.jpg", "./src/DAL/resource/images/planet2DMaps/earth.jpg",2995, 5600);
+		cleron = new Planet("Cleron OR7", "A blue and orange gas planet. A beautiful view!", "./src/DAL/resource/images/planetViews/CleronOr7.jpg", "./src/DAL/resource/images/planet2DMaps/cleron.jpg", 0, 0);
+		scurn = new Planet("Scurn 01K", "Uninhabitable planet, however it's possible to be on the planet with a suit.", "./src/DAL/resource/images/planetViews/Scurn 01k.jpg","./src/DAL/resource/images/planet2DMaps/scurn.jpg", 0, 0);
+		hebrilles = new Planet("Hebrilles", "Beneath the atmosphere, a beautiful crystallized sea can be seen.", "./src/DAL/resource/images/planetViews/Hebrilles.png","./src/DAL/resource/images/planet2DMaps/hebrilles.jpg",0, 0);
+		xehna = new LockedBlacksmithPlanet("Xehna", "Home planet and populated by female amazons. The name comes from the Warrior Princess, Xena.", "./src/DAL/resource/images/planetViews/Xehna.jpg","./src/DAL/resource/images/planet2DMaps/xehna.jpg",0, 0);
+		gallifrey = new Planet("Gallifrey", "Home planet of the almost extinct species, Time Lords, except the last one, Doctor Who.", "./src/DAL/resource/images/planetViews/Gallifrey.jpg", "./src/DAL/resource/images/planet2DMaps/gallifrey.jpg",0, 0);
+		skaro = new Planet("Skaro", "A terrifying planet, conquered by the destroyers named Daleks.", "./src/DAL/resource/images/planetViews/scaro.jpg","./src/DAL/resource/images/planet2DMaps/skaro.jpg",0, 0);
+		orion = new Planet("Orion", "The planet is originally from the constellation called Orion's Belt. It travelled into our Solar System.","./src/DAL/resource/images/planetViews/Orion.jpg", "./src/DAL/resource/images/planet2DMaps/orion.jpg", 0, 0);
+		deineax = new Planet("Deineax", "No one knows exactly the origin behind the name of this planet, yet myths say it comes from 'Dennis'.", "./src/DAL/resource/images/planetViews/Deinax.jpg", "./src/DAL/resource/images/planet2DMaps/deineax.jpg",0, 0);
+		uskillion = new Planet("Uskillon", "An extremely hot planet, yet it contains different types of liquids.", "./src/DAL/resource/images/planetViews/Uskillon.jpg", "./src/DAL/resource/images/planet2DMaps/uskillon.jpg",0, 0);
+		ayrus = new Planet("J8 Ayrus Z420", "No one knows what this planet contains. Secrets...", "./src/DAL/resource/images/planetViews/J8ayrus.jpg", "./src/DAL/resource/images/planet2DMaps/ayrus.jpg",0, 0);
+		amrit = new Planet("Amrif Arret", "A habitable planet, covered with Mother Nature. Backwards, it is Terra Firma hence the content.", "./src/DAL/resource/images/planetViews/amrifarret.jpg", "./src/DAL/resource/images/planet2DMaps/amrifarret.jpg",0, 0);
+		earth = new Planet("New Earth", "Humans tried to repopulate another planet and named it New Earth. You destroyed the original Earth, before it happened.", "./src/DAL/resource/images/planetViews/new earth.jpg", "./src/DAL/resource/images/planet2DMaps/earth.jpg",0, 0);
 
 		/* adding items to planets */
 
@@ -140,19 +141,30 @@ class PlanetHandler implements Loadable {
 		earthInv.add(new ItemStack(model.getItemById(52)));
 		earthInv.add(new ItemStack(model.getItemById(38)));
 
-		/* shuffle the planets and put it inside a map */
+		/* shuffle the planets */
 
 		Planet[] planets = new Planet[] {
 				cleron, scurn, hebrilles, xehna, gallifrey, skaro, orion,
 				deineax, uskillion, ayrus, amrit, earth
 		};
 
+		// TODO: Comment this statement to disable planet shuffle.
 		Collections.shuffle(Arrays.asList(planets));
+
+		/* the shuffled planets with random positions */
+
+		Point2D[] points = new Point2D[] {
+				new Point2D(4578, 7000), new Point2D(6240, 7313), new Point2D(7100, 5310),
+				new Point2D(6580, 3029), new Point2D(6940, 1288), new Point2D(5116, 1556),
+				new Point2D(3354, 1502), new Point2D(1619, 785), new Point2D(1221, 2628),
+				new Point2D(1119, 4970), new Point2D(2041, 6821), new Point2D(2995, 5600),
+		};
 
 		this.planets = new LinkedHashMap<>();
 
-		for (Planet planet : planets) {
-			this.planets.put(planet.getName().replaceAll(" ", "").toLowerCase(), planet);
+		for(int i = 0; i < planets.length; i++) {
+			planets[i].setCoordinates(points[i].getX(), points[i].getY());
+			this.planets.put(planets[i].getName().replaceAll(" ", "").toLowerCase(), planets[i]);
 		}
 	}
 }

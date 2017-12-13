@@ -1,6 +1,7 @@
-package BLL.entity;
+package BLL.entity.npc;
 
 import BLL.ACQ.INPCAction;
+import BLL.entity.Entity;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCActionCollection;
 

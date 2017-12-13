@@ -1,6 +1,6 @@
 package BLL.item;
 
-import BLL.Game;
+import BLL.GameUtility;
 
 /**
  * This defines the functionality of Components within the game.
@@ -45,6 +45,6 @@ public class ItemComponent extends Item {
 
 	@Override
 	public String toString() {
-		return String.format("%s [%s]: %s", getName(), getComponentType(), Game.replacePlaceHolders(getDescription(),"{{state}}", getState().name().toLowerCase(), "{{color}}", getColor().name().toLowerCase()));
+		return String.format("%s [%s]: %s", getName(), getComponentType(), GameUtility.replacePlaceHolders(getDescription(),"{{state}}", getState().name().toLowerCase(), "{{color}}", getColor().name().toLowerCase()));
 	}
 }

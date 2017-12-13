@@ -81,6 +81,15 @@ public class Planet implements IPlanet {
     }
 
     /**
+     * Sets the coordinates of a planet.
+     * @param x coordinate for x direction
+     * @param y coordinate for y direction
+     */
+    public void setCoordinates(double x, double y) {
+        this.coordinates = new Point2D(x, y);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

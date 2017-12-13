@@ -22,6 +22,10 @@ public class ScoreHandler implements ScoringConstants {
         return startTime;
     }
 
+    public void setStartTimeOffset(long offset) {
+        this.startTime = startTime - offset;
+    }
+
     /**
      * Calculates the total amount of points the player received throughout the game.
      * @param totalFuelConsumption the amount of fuel the player has used

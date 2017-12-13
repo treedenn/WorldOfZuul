@@ -71,6 +71,11 @@ public interface Inventory extends IInventory {
 	ItemStack setItemStack(int index, ItemStack item) throws ArrayIndexOutOfBoundsException;
 
 	/**
+	 * Clears the inventory.
+	 */
+	void clear();
+
+	/**
 	 * Gets all the content inside inventory.
 	 * @return all the content inside inventory
 	 */

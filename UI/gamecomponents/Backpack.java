@@ -1,4 +1,4 @@
-package UI.GameComponents;
+package UI.gameComponents;
 
 import BLL.ACQ.IItemStack;
 import UI.controller.GameController;

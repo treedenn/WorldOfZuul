@@ -231,6 +231,15 @@ public class Backpack implements Inventory {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void clear() {
+		items.clear();
+		currentWeightCapacity = 0;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public ItemStack[] getContent() {
 		return items.toArray(new ItemStack[items.size()]);
 	}

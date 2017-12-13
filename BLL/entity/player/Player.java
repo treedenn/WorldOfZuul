@@ -2,9 +2,12 @@ package BLL.entity.player;
 
 import BLL.ACQ.IInventory;
 import BLL.ACQ.IPlayer;
+import BLL.ACQ.data.IPlanetData;
+import BLL.ACQ.data.IPlayerData;
 import BLL.entity.Inventory;
 import BLL.entity.MovableEntity;
 import BLL.entity.player.buff.Buff;
+import BLL.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -67,6 +70,16 @@ public class Player extends MovableEntity implements IPlayer {
 	 */
 	public Set<Buff> getBuffs() {
 		return buffs;
+	}
+
+	/**
+	 * Sets the buffs.
+	 * @param buffs a set of any buffs
+	 */
+	public void setBuffs(Set<Buff> buffs) {
+		for(Buff buff : buffs) {
+			addBuff(buff);
+		}
 	}
 
 	/**
@@ -191,4 +204,23 @@ public class Player extends MovableEntity implements IPlayer {
 
 	@Override
 	public void move() {}
+
+	public void loadPlayer(IPlayerData data) {
+		if(data.getCurrentPlanet() != null) {
+			if(getPlanets().containsKey(data.getCurrentPlanet())) {
+				setCurrentPlanet(getPlanets().get(data.getCurrentPlanet()));
+			}
+		}
+
+		setCoordX(data.getX());
+		setCoordY(data.getY());
+		setBuffs(data.getBuffs());
+
+		for(ItemStack itemStack : data.getInventory()) {
+			getInventory().add(itemStack);
+		}
+
+		setFuel(data.getFuel());
+		totalFuelConsumption = data.getFuelConsumption();
+	}
 }
