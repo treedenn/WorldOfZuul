@@ -113,47 +113,61 @@ public class Game implements Domain {
 	 */
 	@Override
 	public void init() {
+		// Obtains the planet data from the persistent layer
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
 
+		// Sets the possible planets to the player and adds the portal gun
 		player.setPlanets(planetMap);
 		player.getInventory().add(new ItemStack(model.getItemById(57), 1));
-		npcHandler.getBlacksmith().setCurrentPlanet(planets[(int) (Math.random() * planets.length)]);
-		npcHandler.getBlacksmith().setPlanets(planetMap);
+
+		// Sets the quizes to UnoX
 		npcHandler.getUnoX().setQuizes(model.getQuizes());
 
-		npcHandler.getPirate().setCurrentPlanet(planetMap.get("newearth"));
-		planetMap.get("newearth").getNPCs().add(npcHandler.getPirate());
-        // Adds the Stationary Blacksmith to Xehna, the locked planet.
-		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("newearth"));
-		planetMap.get("newearth").getNPCs().add(npcHandler.getStationaryBlacksmith());
+		// Adds the Stationary Blacksmith to Xehna, the locked planet.
+//		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
+//		npcHandler.getStationaryBlacksmith().getCurrentPlanet().getNPCs().add(npcHandler.getStationaryBlacksmith());
 
-		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
-		planetMap.get("newearth").getNPCs().add(npcHandler.getUnoX());
+		// Adds the Blacksmith
+//		npcHandler.getBlacksmith().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
+//		npcHandler.getBlacksmith().setPlanets(planetMap);
 
-/*
-		boolean professorAdded = false;
-		int rand;
+		// Adds the pirate to a random planet
+//		npcHandler.getPirate().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
+//		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
 
-		do {
-			rand = (int) (Math.random() * 12);
+		// Adds the UnoX to a random planet
+//		npcHandler.getUnoX().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
+//		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
 
-			if(!planets[rand].getName().equalsIgnoreCase("xehna")) {
-				planets[rand].getNPCs().add(npcHandler.getProfessorPutricide());
-				professorAdded = true;
-			}
-		} while(!professorAdded);
-*/
+		// Adds the UnoX to a random planet
+//		npcHandler.getProfessorPutricide().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
+//		npcHandler.getProfessorPutricide().getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
+
+
+		/* DEBUG MODE */
         // TODO: remove these statements when game is finishing.
 		// These statements are used to debug the game.
 
+		// Adds the Stationary Blacksmith to Xehna, the locked planet.
+		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getStationaryBlacksmith().getCurrentPlanet().getNPCs().add(npcHandler.getStationaryBlacksmith());
 
-		// Adds the professor to a random location.
-        planetMap.get("newearth").getNPCs().add(npcHandler.getProfessorPutricide());
+		// Adds the pirate to a random planet
+		npcHandler.getPirate().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
+
+		// Adds the UnoX to a random planet
+		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
+
+		// Adds the UnoX to a random planet
 		npcHandler.getProfessorPutricide().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getProfessorPutricide().getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
+
 		System.out.println("Professor is on " + npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
 
-       // useItem(new ItemStack(model.getItemById(58)));
+        // useItem(new ItemStack(model.getItemById(58)));
 		// ---
 	}
 
@@ -276,9 +290,9 @@ public class Game implements Domain {
 					player.getInventory().remove((ItemStack) iis);
 				}
 				isUsed = true;
-				message = replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
+				message = GameUtility.replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
 			} else {
-				message = replacePlaceHolders(model.getMessage("item-use-not-usable"), "{ITEM}", i.getName());
+				message = GameUtility.replacePlaceHolders(model.getMessage("item-use-not-usable"), "{ITEM}", i.getName());
 			}
 		}
 
@@ -308,12 +322,12 @@ public class Game implements Domain {
 							planetInv.remove(is);
 
 							isPickedUp = true;
-							message = replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
+							message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
 						} else {
-							message = replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
+							message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
 						}
 					} else {
-						message = replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
+						message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
 					}
 				}
 			} else {
@@ -349,12 +363,12 @@ public class Game implements Domain {
 							planetInv.add(is);
 
 							isDropped = true;
-							message = replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+							message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 						} else {
-							message = replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+							message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 						}
 					} else {
-						message = replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+						message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 					}
 				}
 			} else {
@@ -386,14 +400,14 @@ public class Game implements Domain {
 			Planet planet = planets.get(planetName);
 
 			if(!canPlayerMove(planet)) {
-				message = replacePlaceHolders(model.getMessage("player-move-unsuccessful"), "{PLANET}", planet.getName());
+				message = GameUtility.replacePlaceHolders(model.getMessage("player-move-unsuccessful"), "{PLANET}", planet.getName());
 			} else {
 				player.setCurrentPlanet(planet);
 				player.decreaseFuel(10);
 				player.getCurrentPlanet().setTemporarySearch(false);
 
 				playerIsMoving = true;
-				message = replacePlaceHolders(model.getMessage("player-move-successful"), "{PLANET}", planet.getName());
+				message = GameUtility.replacePlaceHolders(model.getMessage("player-move-successful"), "{PLANET}", planet.getName());
 			}
 		}
 
@@ -433,7 +447,7 @@ public class Game implements Domain {
 					clues[j].setState(component.getState());
 					clues[j].setComponentType(component.getComponentType());
 					s = j % 2 == 0 ? "{{color}}" : "{{state}}";
-					newDescription = replacePlaceHolders(clues[j].getDescription(), "{{clues}}", s);
+					newDescription = GameUtility.replacePlaceHolders(clues[j].getDescription(), "{{clues}}", s);
 					clues[j].setDescription(newDescription);
 				}
 			}
@@ -450,7 +464,7 @@ public class Game implements Domain {
 	/**
 	 * Gets the ScoreHandler.
 	 * Only invoked by data layer to get the current state of score.
-	 * @return
+	 * @return the score handler
 	 */
 	public ScoreHandler getScoreHandler() {
 		return scoreHandler;
@@ -723,37 +737,6 @@ public class Game implements Domain {
 	 * @param message a message..
 	 */
 	public void setMessageToContainer(String message) {messageContainer.setMessage(message);}
-
-	/**
-	 * Looks inside a string for placeholders and converts them.
-	 * EXAMPLE:
-	 * replacePlaceHolder("Group {X} is {STATE}", "{X}", "24", "{STATE}", "AWESOME!");
-	 * -> Group 24 is AWESOME!
-	 * @param text with the placeholders
-	 * @param strings every first string is the placeholder and the second is the string to replace at the given placeholder
-	 * @return a new string, where the placeholders has been replaced with their corresponding value.
-	 */
-	public static String replacePlaceHolders(String text, String ... strings) {
-		if(strings.length % 2 == 1) { return null; }
-
-		StringBuilder sb = new StringBuilder(text);
-
-		int startIndex;
-		char[] signature, value;
-		for(int i = 0; i < strings.length / 2; i++) {
-			signature = strings[i * 2].toCharArray();
-			value = strings[i * 2 + 1].toCharArray();
-
-			startIndex = sb.indexOf(String.valueOf(signature));
-
-			if(startIndex == -1) { continue; }
-
-			sb.delete(startIndex, startIndex + signature.length);
-			sb.insert(startIndex, value);
-		}
-
-		return sb.toString();
-	}
 
 	/**
 	 * Checks whether the player is allowed to enter the planet.
