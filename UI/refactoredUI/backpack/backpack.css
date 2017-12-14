@@ -1,21 +1,29 @@
 .backpack__outerWrapper{
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(0,0,0,.49);
 }
 
 .backpack__wrapper{
     -fx-background-color: #181818;
-    -fx-background-radius: 8;
-    -fx-padding: 16;
+    -fx-background-radius: 3;
+}
+
+.backpack__header{
+    -fx-background-radius: 3 3 0 0;
+    -fx-background-color: #282828;
+    -fx-padding: 12 16;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #333333;
 }
 
 .backpack__title{
     -fx-text-fill: #fff;
-    -fx-font-family: "Circular Std Black";
-    -fx-font-size: 30;
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 18;
 }
 
 /* Listview */
 .backpack__listView{
+    -fx-padding: 0 16 0 16;
     -fx-background-color: transparent;
 }
 
@@ -54,6 +62,11 @@
 
 
 /* BUTTONS */
+
+.backpack__buttonGroup{
+    -fx-padding: 16;
+}
+
 .backpack__button--exit{
     -fx-cursor: hand;
     -fx-background-color: transparent;

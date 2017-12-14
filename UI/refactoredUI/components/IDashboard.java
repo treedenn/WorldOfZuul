@@ -21,4 +21,26 @@ public interface IDashboard extends IComponent {
      */
     void onHelp(IEventListener<?> listener);
 
+
+    // Methods
+    /**
+     * Accessor method for the avatar component.
+     * @return  the avatar component.
+     */
+    IAvatar getAvatar();
+
+    /**
+     * Method to set the value of the fuel progress bar.
+     * @param value the value to be set.
+     * @param textualValue the textual value to be set.
+     */
+    void setFuelValue(double value, String textualValue);
+
+    /**
+     * Method to set the value of the backpack progress bar.
+     * @param value the value to be set.
+     * @param textualValue the textual value to be set.
+     */
+    void setBackpackValue(double value, String textualValue);
+
 }

@@ -601,6 +601,7 @@ public class Game implements Domain {
 				i++;
 			} else {
 				planetData.addData(entry.getKey(), p.getX(), p.getY(), NPCIds, ((Inventory) p.getInventory()).getContent());
+
 			}
 		}
 

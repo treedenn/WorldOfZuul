@@ -29,10 +29,10 @@ public class Innerscene extends InterfaceElement {
         super(parent);
         map = new GameMap();
         subScene = new SubScene(map.getRoot(), parent.getWidth(), parent.getHeight());
+        System.out.println(subScene.getWidth());
         addInterfaceElement(parent, new Group(subScene));
         camera = new ParallelCamera();
         buildSubscene();
-
     }
 
 
@@ -81,7 +81,6 @@ public class Innerscene extends InterfaceElement {
 
 
     public void centerView(GameObject o) {
-
         camera.setTranslateX((o.getView().getTranslateX()) - (subScene.getWidth()/2) + player.getWidth()/2);
         camera.setTranslateY((o.getView().getTranslateY()) - (subScene.getHeight()/2) + player.getHeight()/2);
 

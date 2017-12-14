@@ -1,0 +1,33 @@
+.legend{
+    -fx-font-family: "Circular Std Medium";
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+}
+
+.value{
+    -fx-font-family: "Circular Std Bold";
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+}
+
+.meter .bar{
+    -fx-padding: 15px 5px 15px 5px;
+    -fx-box-color: white;
+    -fx-background-radius: 40px 40px 40px 40px;
+    -fx-background-color: linear-gradient(to right, blue 0, cadetblue);
+}
+
+.meter > .track{
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-radius: 500;
+    -fx-text-box-border: #282828;
+    -fx-control-inner-background: #181818;
+}
+
+.meter--red .bar{
+    -fx-background-color: linear-gradient(to right,#ed2931 0,#f95a3e);
+}
+
+.meter--green .bar{
+    -fx-background-color: linear-gradient(to right,#1db954 0,#1ed760);
+}

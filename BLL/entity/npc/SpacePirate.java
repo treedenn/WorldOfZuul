@@ -31,7 +31,7 @@ public class SpacePirate extends MovableEntity implements NPC {
 
     @Override
     public String getName() {
-        return "Space Pirate";
+        return "GameMap Pirate";
     }
 
     @Override

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+
+<AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="280.0" stylesheets="@drawer.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.refactoredUI.drawer.Drawer">
+   <children>
+      <VBox spacing="20.0" styleClass="drawer__wrapper" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="49.18" offsetY="2.0" radius="31.130000000000003" width="77.34" />
+         </effect>
+         <children>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Button alignment="BASELINE_LEFT" contentDisplay="GRAPHIC_ONLY" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#close" prefHeight="40.0" prefWidth="40.0" styleClass="drawer__button--exit">
+                     <graphic>
+                        <SVGPath content="M19,6.4L17.6,5L12,10.6L6.4,5L5,6.4l5.6,5.6L5,17.6L6.4,19l5.6-5.6l5.6,5.6l1.4-1.4L13.4,12L19,6.4z" fill="WHITE" />
+                     </graphic>
+                  </Button>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label styleClass="drawer__title" text="Menu" textFill="WHITE" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Region maxWidth="-Infinity" prefWidth="40.0" />
+               </children>
+            </HBox>
+            <VBox alignment="TOP_CENTER" spacing="15.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#saveAndQuit" styleClass="drawer__button" text="SAVE AND QUIT">
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" color="#0000002b" height="15.0" offsetY="1.0" radius="7.0" width="15.0" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="toggleFullscreenButton" mnemonicParsing="false" onAction="#toggleFullscreen" styleClass="drawer__button" text="FULLSCREEN">
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" color="#0000002b" height="15.0" offsetY="1.0" radius="7.0" width="15.0" />
+                     </effect>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

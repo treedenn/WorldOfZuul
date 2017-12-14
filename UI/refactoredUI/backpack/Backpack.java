@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
@@ -25,6 +26,9 @@ public class Backpack extends Component implements IBackpack{
     private List<IEventListener<?>> closeSubscribers = new ArrayList<>();
     private ObservableList<IItemStack> inventory;
     private IItemStack selectedItem;
+
+    @FXML
+    private StackPane backpackOuterWrapper;
 
     @FXML
     private ListView<IItemStack> backpackItemList;

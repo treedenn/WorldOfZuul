@@ -22,8 +22,9 @@ public class JavaFX extends Application implements UserInterface {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		// TODO: LASSE ARBEJDER HER
 		//FXMLLoader loader = new FXMLLoader(getClass().getResource("refactoredUI/game/game_view.fxml"));
-		//GameController controller = new GameController(Game.getInstance());
+		//GameController controller = new GameController(Game.getInstance(), primaryStage);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("view/start_view.fxml"));
 		StartController controller = new StartController(Game.getInstance());
 		controller.setStage(primaryStage);
