@@ -4,7 +4,6 @@ import BLL.ACQ.PersistenceLayer;
 import BLL.ACQ.data.IPlanetData;
 import BLL.ACQ.data.IPlayerData;
 import BLL.ACQ.data.IWorldData;
-import BLL.Game;
 import BLL.UsableHandler;
 import BLL.entity.player.Quiz;
 import BLL.item.*;
@@ -31,7 +30,7 @@ public class Model implements PersistenceLayer {
 	private GameStateHandler gsHandler;
 
 	/**
-	 * Instantiates the model and all of it handles.
+	 * Constructs the model and all of it handles.
 	 */
 	private Model() {
 		dbHandler = new DatabaseHandler(new File("./src/DAL/resource/itemdatabase.yaml"));
@@ -70,16 +69,25 @@ public class Model implements PersistenceLayer {
 		dbHandler.setUsableHandler(handler);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IWorldData getWorldData() {
 		return gsHandler.getWorldData();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IPlayerData getPlayerData() {
 		return gsHandler.getPlayerData();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IPlanetData getPlanetData() {
 		return gsHandler.getPlanetData();
@@ -90,7 +98,7 @@ public class Model implements PersistenceLayer {
 	 */
 	@Override
 	public List<Quiz> getQuizes() {
-		return qzHandler.getQuizes();
+		return qzHandler.getQuizzes();
 	}
 
 	/**
@@ -139,30 +147,6 @@ public class Model implements PersistenceLayer {
 	}
 
 	/**
-	 * Calls the load function from the {@link Loadable} interface.
-	 * @param object to load
-	 */
-	private void load(Loadable object) {
-		try {
-			object.load();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Calls the save function from the {@link Savable} interface.
-	 * @param object to save
-	 */
-	private void save(Savable object) {
-		try {
-			object.save();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -184,6 +168,30 @@ public class Model implements PersistenceLayer {
 	@Override
 	public boolean hasLoadingFile() {
 		return gsHandler.loadingFileExists();
+	}
+
+	/**
+	 * Calls the load function from the {@link Loadable} interface.
+	 * @param object to load
+	 */
+	private void load(Loadable object) {
+		try {
+			object.load();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Calls the save function from the {@link Savable} interface.
+	 * @param object to save
+	 */
+	private void save(Savable object) {
+		try {
+			object.save();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

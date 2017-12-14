@@ -23,6 +23,10 @@ import BLL.world.Planet;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The facade of the Business Layer (BLL).
+ * **SINGLETON**
+ */
 public class Game implements Domain {
 	private static Game INSTANCE;
 
@@ -37,6 +41,9 @@ public class Game implements Domain {
 	private Player player;
 	private MessageContainer messageContainer;
 
+	/**
+	 * Constructs a new Game.
+	 */
 	private Game() {
 		usableHandler = new UsableHandler();
 		npcHandler = new NPCHandler();
@@ -48,6 +55,10 @@ public class Game implements Domain {
 		messageContainer = new MessageContainer();
 	}
 
+	/**
+	 * Gets the Persistent Layer.
+	 * @return persistent layer
+	 */
 	public PersistenceLayer getModel() {
 		return model;
 	}
@@ -64,7 +75,7 @@ public class Game implements Domain {
 
 	/**
 	 * Gets the seed of the game.
-	 * @return
+	 * @return the game seed
 	 */
 	public int getWorldSeed() {
 		return worldSeed;
@@ -72,7 +83,7 @@ public class Game implements Domain {
 
 	/**
 	 * Returns the NPC handler.
-	 * @return
+	 * @return the npc handler
 	 */
 	public NPCHandler getNpcHandler() {
 		return npcHandler;
@@ -182,8 +193,6 @@ public class Game implements Domain {
 		return !lockable || (lockable && ((BLL.world.Lockable) planet).isUnlocked());
 	}
 
-
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -203,7 +212,7 @@ public class Game implements Domain {
 		npcHandler.getBlacksmith().setPlanets(planetMap);
 
 		// Sets the quizes to UnoX
-		npcHandler.getUnoX().setQuizes(model.getQuizes());
+		npcHandler.getUnoX().setQuizzes(model.getQuizes());
 
 		// Adds the Stationary Blacksmith to Xehna, the locked planet.
 //		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
@@ -532,7 +541,7 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Add the clues to the planets at random.
+	 * Add the clues to the planets through the world seed.
 	 */
 	public void addCluesToPlanets(){
 		ItemStack[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
@@ -696,7 +705,7 @@ public class Game implements Domain {
 		try {
 			model.loadGame();
 			player.setPlanets(model.getPlanets());
-			npcHandler.getUnoX().setQuizes(model.getQuizes());
+			npcHandler.getUnoX().setQuizzes(model.getQuizes());
 
 			IWorldData worldData = model.getWorldData();
 			IPlayerData playerData = model.getPlayerData();
@@ -772,6 +781,9 @@ public class Game implements Domain {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean hasLoadingFile() {
 		return model.hasLoadingFile();

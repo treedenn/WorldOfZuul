@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Handles the save/load mechanism the game can do.
+ * Handles the save/load mechanism the game has to do.
  */
 public class GameStateHandler implements Loadable, Savable {
 	private Model model;

@@ -15,6 +15,10 @@ class HighscoreHandler implements Savable, Loadable {
 	private YamlObject yamlObject;
 	private List<Score> highscore;
 
+	/**
+	 * Constructs a Highscore handler.
+	 * @param file the location of the highscore file
+	 */
 	HighscoreHandler(File file) {
 		this.yamlObject = new YamlObject(file);
 		this.highscore = null;

@@ -12,41 +12,69 @@ import BLL.world.Planet;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Contains all the functionality of the Blacksmith NPC.
+ * The Blacksmith is the NPC player has to find to begin his journey.
+ * He is the one that allows the player to win, since he can repair his portal gun.
+ */
 public class Blacksmith extends MovableEntity implements NPC {
 	private Recipe recipe;
 	private String[] visitedPlanets;
 
 	private NPCActionCollection collection;
 
+	/**
+	 * Constructs a new Blacksmith.
+	 */
 	public Blacksmith() {
 		recipe = null;
 		visitedPlanets = new String[4]; // used for traces
 	}
 
+	/**
+	 * Constructs a new Blacksmith.
+	 * @param currentPlanet startPlanet
+	 * @param planets planets to move on
+	 */
 	public Blacksmith(Planet currentPlanet, Map<String, Planet> planets) {
 		super(currentPlanet, planets);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getId() {
 		return 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getName() {
 		return "Blacksmith";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isGood() {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public INPCAction[] getActions() {
 		return collection.getActions();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setActions(NPCActionCollection collection) {
 		this.collection = collection;
@@ -68,15 +96,29 @@ public class Blacksmith extends MovableEntity implements NPC {
 		this.recipe = recipe;
 	}
 
+	/**
+	 * Gets the name of the planets, the Blacksmith has visited.
+	 * The order of the planets goes from current to recently to last.
+	 * @return a string of planet names
+	 */
 	public String[] getVisitedPlanets() {
 		return visitedPlanets;
 	}
 
+	/**
+	 * Sets the traces of the Blacksmith manually.
+	 * @param traces visited planets
+	 */
 	public void setVisitedPlanets(String[] traces) {
 		this.visitedPlanets = traces;
 	}
 
+	/**
+	 * Pushes the traces one step further, then adds the new trace.
+	 * @param name planet name
+	 */
 	public void addTrace(String name) {
+		pushTraces();
 		visitedPlanets[0] = name.toLowerCase();
 	}
 
@@ -103,7 +145,6 @@ public class Blacksmith extends MovableEntity implements NPC {
 				setCurrentPlanet(planet);
 				getCurrentPlanet().getNPCs().add(this);
 
-				pushTraces();
 				addTrace(getCurrentPlanet().getName().toLowerCase());
 
 				break;
@@ -114,6 +155,7 @@ public class Blacksmith extends MovableEntity implements NPC {
 	/**
 	 * Pushes/overwrites the traces by 1 in the positive direction.
 	 * 0 -> 1 -> 2 -> 3
+	 * Trace 3 will disappear.
 	 */
 	private void pushTraces() {
 		for(int i = visitedPlanets.length - 1; i > 0; i--) {
@@ -151,11 +193,9 @@ public class Blacksmith extends MovableEntity implements NPC {
 
 	/**
 	 * Generates the recipe list based on the item indexes in the database.
-	 * @param model where the item database is
+	 * @param model the persistence layer
 	 */
 	public void generateRecipeRequirements(PersistenceLayer model) {
-		// TODO: Call function when spoken to Blacksmith for the firs time.
-
 		final int liquids = 14; // 0 -> 14
 		final int canisters = 12; // 14 -> 26
 		final int gears = 14; // 26 -> 40
@@ -169,11 +209,5 @@ public class Blacksmith extends MovableEntity implements NPC {
 		requirements[3] = new ItemStack(model.getItemById((int) (liquids + canisters + gears + Math.random() * cpus)));
 
 		recipe = new Recipe(requirements);
-
-//		requirements[0] = Model.getItemById(0);
-//		requirements[1] = Model.getItemById(liquids);
-//		requirements[2] = Model.getItemById(liquids + canisters);
-//		requirements[3] = Model.getItemById(liquids + canisters + gears);
-
 	}
 }

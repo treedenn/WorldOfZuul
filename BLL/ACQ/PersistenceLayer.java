@@ -14,14 +14,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Describes what the persitent layer has to have.
+ * Describes what the persitent layer has to have,
+ * before business layer can function properly.
  */
 public interface PersistenceLayer {
-
+	/**
+	 * Gets the IWorldData object to save/load data.
+	 * @return IWorldData object
+	 */
 	IWorldData getWorldData();
 
+	/**
+	 * Gets the IPlayerData object to save/load data.
+	 * @return IPlayerData object
+	 */
 	IPlayerData getPlayerData();
 
+	/**
+	 * Gets the IPlanetData object to save/load data.
+	 * @return IPlanetData object
+	 */
 	IPlanetData getPlanetData();
 
 	/**

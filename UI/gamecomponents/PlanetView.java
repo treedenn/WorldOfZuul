@@ -361,7 +361,11 @@ public class PlanetView {
 
             if (item != null) {
                 if(item.getImage() != null) {
-                    imageView.setImage(new Image(item.getImage().getPath()));
+                    try {
+                        imageView.setImage(new Image(item.getImage().getPath()));
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 imageView.setFitHeight(40);
                 imageView.setPreserveRatio(true);

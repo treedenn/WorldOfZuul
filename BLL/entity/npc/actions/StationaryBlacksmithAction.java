@@ -16,12 +16,14 @@ import BLL.item.ItemStack;
 import BLL.world.Planet;
 
 /**
- *
- * @author lalal
+ * Contains the actions of the Stationary Blacksmith NPC.
  */
 public class StationaryBlacksmithAction implements NPCActionCollection {
     private INPCAction[] actions;
 
+    /**
+     * Constructs a new {@link BLL.entity.npc.StationaryBlacksmith} action.
+     */
     public StationaryBlacksmithAction() {
         actions = new INPCAction[] {
             new NPCAction("Hello Fellow, I'm the blacksmith, name's Gearhead!" +
@@ -41,8 +43,9 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
                         ((Entity) npc).getCurrentPlanet().getNPCs().remove(npc);
                         ((Entity) npc).setCurrentPlanet(null);
 
-                        Planet planet = GameUtility.getRandomPlanetNotXehna(player.getPlanets().values().toArray(new Planet[player.getPlanets().size()]));
                         Blacksmith blacksmith = game.getNpcHandler().getBlacksmith();
+
+                        Planet planet = GameUtility.getRandomPlanetNotXehna(player.getPlanets().values().toArray(new Planet[player.getPlanets().size()]));
 
                         blacksmith.setCurrentPlanet(planet);
                         blacksmith.addTrace(planet.getName());
@@ -55,7 +58,6 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
                         for (ItemStack itemStack : blacksmith.getRecipe().getRequirements()) {
                             player.getInventory().add(itemStack);
                         }
-                        // ---------------
                     } else {
                         setActionId(3);
                     }

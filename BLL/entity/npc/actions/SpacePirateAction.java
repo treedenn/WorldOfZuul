@@ -6,18 +6,19 @@
 package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
-import BLL.ACQ.PersistenceLayer;
 import BLL.Game;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
 
 /**
- *
- * @author lalal
+ * Contains the actions of the Space Pirate NPC.
  */
 public class SpacePirateAction implements NPCActionCollection {
     private INPCAction[] actions;
 
+    /**
+     * Constructs a new {@link BLL.entity.npc.SpacePirate} action.
+     */
     public SpacePirateAction() {
         actions = new INPCAction[] {
             new NPCAction("[You have been intercepted and captured by spacepirates!]" +

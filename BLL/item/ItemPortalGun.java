@@ -6,6 +6,15 @@ package BLL.item;
 public class ItemPortalGun extends Item {
 	private boolean broken;
 
+	/**
+	 * Constructs a new Portal Gun, where it is broken.
+	 * @param id id of item
+	 * @param name name of item
+	 * @param description description of item
+	 * @param weight the weight
+	 * @param isPickupable is it pickupable
+	 * @param isDropable is it dropable
+	 */
 	public ItemPortalGun(int id, String name, String description, double weight, boolean isPickupable, boolean isDropable) {
 		super(id, name, description, weight, isPickupable, isDropable);
 		this.broken = true;

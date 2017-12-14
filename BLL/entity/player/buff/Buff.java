@@ -7,7 +7,6 @@ import BLL.entity.player.Player;
  * It also describes the requirements for a buff, what a buff must contain.
  */
 public interface Buff {
-
 	/**
 	 * A unique id given to each buff.
 	 * @return id

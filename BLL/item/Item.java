@@ -6,7 +6,8 @@ import BLL.Game;
 import BLL.entity.player.Player;
 
 /**
- * Any item inside the game derives from Item.
+ * Any item inside the game is either an Item or derives from Item.
+ * It contains the basic variables and functions.
  */
 public class Item implements IItem, Cloneable {
 	private int id;
@@ -18,10 +19,21 @@ public class Item implements IItem, Cloneable {
 	private double weight;
 	private Usable usable;
 
-	public Item() {
+	/**
+	 * Constructs an item without any values.
+	 */
+	public Item() {}
 
-	}
-
+	/**
+	 * Constructs a new Item with values.
+	 * @param id id of item
+	 * @param name name of item
+	 * @param description description of item
+	 * @param type type of item
+	 * @param weight the weight
+	 * @param isPickupable is it pickupable
+	 * @param isDropable is it dropable
+	 */
 	public Item(int id, String name, String description, ItemType type, double weight, boolean isPickupable, boolean isDropable) {
 		this.id = id;
 		this.name = name;
@@ -33,6 +45,15 @@ public class Item implements IItem, Cloneable {
 		this.usable = null;
 	}
 
+	/**
+	 * Constructs a new Item with values.
+	 * @param id id of item
+	 * @param name name of item
+	 * @param description description of item
+	 * @param weight the weight
+	 * @param isPickupable is it pickupable
+	 * @param isDropable is it dropable
+	 */
 	public Item(Integer id, String name, String description, double weight, boolean isPickupable, boolean isDropable) {
 		this(id, name, description, ItemType.DEFAULT, weight, isPickupable, isDropable);
 	}
@@ -142,8 +163,9 @@ public class Item implements IItem, Cloneable {
 		if(object instanceof Item) {
 			Item item = (Item) object;
 
-			return this.getName().equals(item.getName()) && this.getDescription().equals(item.getDescription());
+			return this.id == item.id;
 		}
+
 		return false;
 	}
 

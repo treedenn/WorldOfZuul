@@ -1,15 +1,20 @@
 package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
-import BLL.ACQ.PersistenceLayer;
 import BLL.Game;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
 import BLL.item.ItemStack;
 
+/**
+ * Contains the actions of the {@link BLL.entity.npc.ProfessorPutricide} NPC.
+ */
 public class ProfessorPutricideAction implements NPCActionCollection {
     private INPCAction[] actions;
 
+    /**
+     * Constructs a new Professor Putricide action.
+     */
     public ProfessorPutricideAction() {
         actions = new INPCAction[] {
             new NPCAction("G'day Rick. It's your old pal, the one and only Professor Putricide!" +

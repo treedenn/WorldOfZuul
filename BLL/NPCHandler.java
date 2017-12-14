@@ -1,10 +1,10 @@
 package BLL;
 
-import BLL.entity.npc.StationaryBlacksmith;
 import BLL.entity.npc.*;
 import BLL.entity.npc.actions.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Handles all the functions to NPCs (No Player Characters) within the game.
@@ -18,17 +18,25 @@ public class NPCHandler {
 	private UnoX unoX;
 	private SpacePirate pirate;
 
+	/**
+	 * Constructs the NPC handler.
+	 */
 	NPCHandler() {
 		blacksmith = new Blacksmith();
-		blacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
-		professorPutricide = new ProfessorPutricide();
-		professorPutricide.setImage(new File("./DAL/resource/images/npcs/profputri.png"));
-		unoX = new UnoX();
-		unoX.setImage(new File("./DAL/resource/images/npcs/unox.png"));
-		pirate = new SpacePirate();
-		pirate.setImage(new File("./DAL/resource/images/npcs/spacepirate.png"));
 		stationaryBlacksmith = new StationaryBlacksmith();
-		stationaryBlacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
+		professorPutricide = new ProfessorPutricide();
+		unoX = new UnoX();
+		pirate = new SpacePirate();
+
+		try {
+			blacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
+			stationaryBlacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
+			professorPutricide.setImage(new File("./DAL/resource/images/npcs/profputri.png"));
+			unoX.setImage(new File("./DAL/resource/images/npcs/unox.png"));
+			pirate.setImage(new File("./DAL/resource/images/npcs/spacepirate.png"));
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		initActions();
 	}

@@ -17,12 +17,14 @@ import BLL.item.ItemPortalGun;
 import BLL.item.ItemStack;
 
 /**
- * Describes the actions of the Blacksmith NPC.
- * @author lalal
+ * Contains the actions of the {@link Blacksmith} NPC.
  */
 public class BlacksmithAction implements NPCActionCollection {
     private INPCAction[] actions;
 
+    /**
+     * Constructs a new Blacksmith action.
+     */
     public BlacksmithAction() {
         actions = new INPCAction[] {
             new NPCDialogAction("MNy dear Rick!" +
@@ -98,6 +100,9 @@ public class BlacksmithAction implements NPCActionCollection {
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public INPCAction[] getActions() {
         return actions;

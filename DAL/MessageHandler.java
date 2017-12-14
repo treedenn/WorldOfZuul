@@ -15,6 +15,10 @@ public class MessageHandler implements Loadable {
 	private YamlObject yamlObject;
 	private Map<String, String> messages;
 
+	/**
+	 * Constructs a new Message handler.
+	 * @param file the location of the localization
+	 */
 	MessageHandler(File file) {
 		this.yamlObject = new YamlObject(file);
 	}

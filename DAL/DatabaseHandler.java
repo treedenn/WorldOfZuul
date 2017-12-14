@@ -12,11 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Handles everything related to database of items.
+ */
 class DatabaseHandler implements Loadable {
 	private YamlObject yamlObject;
 	private List<Item> database;
 	private UsableHandler usableHandler;
 
+	/**
+	 * Constructs a new Database handler.
+	 * @param file where the item database is
+	 */
 	DatabaseHandler(File file) {
 		this.yamlObject = new YamlObject(file);
 		database = null;
@@ -138,5 +145,4 @@ class DatabaseHandler implements Loadable {
 				(boolean) o.get("dropable")
 		);
 	}
-
 }

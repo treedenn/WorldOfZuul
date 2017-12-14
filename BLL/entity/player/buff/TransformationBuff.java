@@ -3,7 +3,8 @@ package BLL.entity.player.buff;
 import BLL.entity.player.Player;
 
 /**
- * It describes the Transformation Buff.
+ * The Transformation Buff is a buff that allows to change
+ * the morph id of the player for an x duration of time.
  */
 public class TransformationBuff implements Buff, Expirable {
 	private int morphId;
@@ -12,10 +13,9 @@ public class TransformationBuff implements Buff, Expirable {
 
 	/**
 	 * Empty transformation buff.
-	 * Morph id and duration can be set.
+	 * Morph id and duration can be set by their responsive functions.
 	 */
-	public TransformationBuff() {
-	}
+	public TransformationBuff() {}
 
 	/**
 	 * Constructs a new transformation buff with a morph id and duration.
@@ -70,9 +70,7 @@ public class TransformationBuff implements Buff, Expirable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onGameTick(Player player) {
-
-	}
+	public void onGameTick(Player player) { }
 
 	/**
 	 * {@inheritDoc}
@@ -101,7 +99,7 @@ public class TransformationBuff implements Buff, Expirable {
 	}
 
 	/**
-	 * Used to make it unique in a set list.
+	 * To make it unique in a set list.
 	 * @return the id
 	 */
 	@Override

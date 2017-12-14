@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * An object that implements the {@link IWorldData} from the business layer.
+ * It contains the details on how to load and save data for the world.
+ */
 public class WorldData implements IWorldData {
 	private Model model;
 
@@ -19,7 +23,7 @@ public class WorldData implements IWorldData {
 
 	/**
 	 * Constructs a new World Data object.
-	 * @param model the persistent layer
+	 * @param model any model
 	 */
 	public WorldData(Model model) {
 		this.model = model;
@@ -127,6 +131,7 @@ public class WorldData implements IWorldData {
 
 	/**
 	 * Loads the data from a map created by {@link #save()} into the object.
+	 * @param map generated map
 	 */
 	public void load(Map<String, Object> map) {
 		if(map.containsKey("requirements")) {

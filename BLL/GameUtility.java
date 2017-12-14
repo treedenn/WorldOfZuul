@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A utility class for the game.
+ * It contains small functions, which can be useful in the business layer.
+ */
 public class GameUtility {
 	/**
 	 * Removes clues from a content/inventory.

@@ -16,19 +16,23 @@ import java.util.Map;
  */
 class QuizHandler implements Loadable {
 	private YamlObject yamlObject;
-	private List<Quiz> quizes;
+	private List<Quiz> quizzes;
 
+	/**
+	 * Constructs a new Quiz handler.
+	 * @param file the location of all the quizzes
+	 */
 	QuizHandler(File file) {
 		this.yamlObject = new YamlObject(file);
-		this.quizes = null;
+		this.quizzes = null;
 	}
 
 	/**
 	 * Gets all the quizzes.
 	 * @return the quizzes
 	 */
-	List<Quiz> getQuizes() {
-		return quizes;
+	List<Quiz> getQuizzes() {
+		return quizzes;
 	}
 
 	/**
@@ -39,7 +43,7 @@ class QuizHandler implements Loadable {
 		Map<Integer, Map<String, Object>> database = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
 
 		if(!database.isEmpty()) {
-			quizes = new ArrayList<>(database.size());
+			quizzes = new ArrayList<>(database.size());
 
 			String question;
 			List<String> opList;
@@ -54,7 +58,7 @@ class QuizHandler implements Loadable {
 
 				answer = (Integer) map.get("answer");
 
-				quizes.add(new Quiz(question, options, answer));
+				quizzes.add(new Quiz(question, options, answer));
 			}
 		}
 	}
