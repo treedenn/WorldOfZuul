@@ -12,7 +12,6 @@ import BLL.entity.Entity;
 import BLL.entity.npc.Blacksmith;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Player;
-import BLL.item.ItemStack;
 import BLL.world.Planet;
 
 /**
@@ -53,11 +52,6 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
 
                         blacksmith.generateRecipeRequirements(game.getModel());
                         game.addCluesToPlanets();
-
-                        // TODO REMOVE DEBUG WHEN FINISHED
-                        for (ItemStack itemStack : blacksmith.getRecipe().getRequirements()) {
-                            player.getInventory().add(itemStack);
-                        }
                     } else {
                         setActionId(3);
                     }
