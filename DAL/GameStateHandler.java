@@ -65,8 +65,12 @@ public class GameStateHandler implements Loadable, Savable {
 		return planetData;
 	}
 
-	public boolean loadingFileExists() {
+	boolean loadingFileExists() {
 		return yamlObject.getFile().exists();
+	}
+
+	boolean deleteLoadingFile() {
+		return loadingFileExists() && yamlObject.getFile().delete();
 	}
 
 	/**

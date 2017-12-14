@@ -759,6 +759,14 @@ public class Game implements Domain {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean deleteLoadingFile() {
+		return model.deleteLoadingFile();
+	}
+
+	/**
 	 * Gets the instance of the Game.
 	 * *Singleton*
 	 * @return the instance of game

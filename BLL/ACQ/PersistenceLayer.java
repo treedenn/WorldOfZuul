@@ -98,8 +98,13 @@ public interface PersistenceLayer {
 	void loadGame() throws IOException;
 
 	/**
-	 * Checks whether the loading file exists
+	 * Checks whether the saving/loading file exists.
 	 * @return true, if it exists
 	 */
 	boolean hasLoadingFile();
+
+	/**
+	 * Deletes the saving/loading file.
+	 */
+	boolean deleteLoadingFile();
 }

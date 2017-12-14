@@ -176,8 +176,14 @@ public interface Domain {
 	boolean load();
 
 	/**
-	 * Returns a boolean based on a file for loading is ready to be loaded.
+	 * Returns a boolean based on the if the loading file exists.
 	 * @return true, if file exists
 	 */
 	boolean hasLoadingFile();
+
+	/**
+	 * Returns a boolean based on the loading has been deleted.
+	 * @return true, if file has been deleted.
+	 */
+	boolean deleteLoadingFile();
 }

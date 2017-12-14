@@ -171,6 +171,14 @@ public class Model implements PersistenceLayer {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean deleteLoadingFile() {
+		return gsHandler.deleteLoadingFile();
+	}
+
+	/**
 	 * Calls the load function from the {@link Loadable} interface.
 	 * @param object to load
 	 */
