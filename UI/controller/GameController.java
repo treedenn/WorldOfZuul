@@ -307,7 +307,7 @@ public class GameController extends Controller implements IGameLoop{
     public void landOnPlanet(){
         if(!planetViewHandler.isVisible()) {
             if (playerCollidingdWithPlanet) {
-                if (getDomain().movePlayerToPlanet(currentPlanet.getName().replace(" ", ""))) {
+                if (getDomain().planetEnter(currentPlanet.getName().replace(" ", ""))) {
                     disableMovement();
                     miniMapHandler.hide();
                     planetViewHandler.leavePlanet();

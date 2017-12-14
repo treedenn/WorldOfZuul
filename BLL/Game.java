@@ -128,6 +128,22 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public boolean hasWonTheGame() {
+		return this.gameWon;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isGameFinished() {
+		return this.finished;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public IPlayer getPlayer() {
 		return player;
 	}
@@ -156,14 +172,6 @@ public class Game implements Domain {
 	public void setMessageToContainer(String message) {messageContainer.setMessage(message);}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isAnswerCorrect(int index) {
-		return npcHandler.getUnoX().isAnswerCorrect(index);
-	}
-
-	/**
 	 * Checks whether the player is allowed to enter the planet.
 	 * If the planet is not lockable, then it has no restrictions.
 	 * @param planet to see if allowed
@@ -173,6 +181,8 @@ public class Game implements Domain {
 		boolean lockable = planet instanceof Lockable;
 		return !lockable || (lockable && ((BLL.world.Lockable) planet).isUnlocked());
 	}
+
+
 
 	/**
 	 * {@inheritDoc}
@@ -446,7 +456,7 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean movePlayerToPlanet(String planetName) {
+	public boolean planetEnter(String planetName) {
 		boolean playerIsMoving = false;
 		String message;
 
@@ -498,9 +508,27 @@ public class Game implements Domain {
 	/**
 	 * {@inheritDoc}
 	 */
+	public boolean planetExit() {
+		player.setCurrentPlanet(null);
+
+		if(player.isFuelEmpty()) {
+			setFinished(true);
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void decreaseFuelOnMove(int ticksPerSecond) {
 		player.decreaseFuel(0.3 / ticksPerSecond);
+
+		if(player.isFuelEmpty()) {
+			finished = true;
+		}
 	}
 
 	/**
@@ -539,7 +567,6 @@ public class Game implements Domain {
 		Random rand = new Random(worldSeed);
 		do {
 			int num = rand.nextInt(12);
-			System.out.println(num);
 			integers.add(num);
 		} while(integers.size() != clues.length);
 
@@ -748,39 +775,6 @@ public class Game implements Domain {
 	@Override
 	public boolean hasLoadingFile() {
 		return model.hasLoadingFile();
-	}
-
-	// TODO: Will this function ever be used?
-	private void gameIsFinished() {
-		StringBuilder sb = new StringBuilder();
-
-		if(gameWon){
-			double millisecondsElapsed = scoreHandler.calculateTimeElapsed();
-			int seconds = (int) ((millisecondsElapsed / 1000) % 60);
-			int minutes = (int) ((millisecondsElapsed / 1000) / 60);
-
-			int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
-			int stars = scoreHandler.getStars(points);
-
-			char[] earnedStars = new char[stars];
-			Arrays.fill(earnedStars, '\u26e4');
-
-			sb.append("---------------------- GAME WON! -----------------------\n");
-			sb.append("Here are some stats for you to brag about...\n");
-			sb.append("You played for ").append(minutes).append(":").append(seconds).append(" minutes\n");
-			sb.append("Your total fuel consumption was ").append(player.getTotalFuelConsumption()).append(" liters\n");
-			sb.append("Out of 5 stars ").append("you earned: ").append(earnedStars).append("\n");
-			sb.append("--------------------------------------------------------");
-
-		} else{
-			sb.append("---------------------- GAME OVER! ----------------------\n");
-			if(player.isFuelEmpty()){
-				sb.append("You ran out of fuel!\n");
-			}
-			/*sb.append("If you want to play again - type '" + CommandWord.RESTART + "'\n");
-			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");*/
-			sb.append("--------------------------------------------------------");
-		}
 	}
 
 	/**

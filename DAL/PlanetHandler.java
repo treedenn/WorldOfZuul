@@ -8,8 +8,6 @@ import DAL.ACQ.Loadable;
 import javafx.geometry.Point2D;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -101,6 +99,7 @@ class PlanetHandler implements Loadable {
 		gallifreyInv.add(new ItemStack(model.getItemById(18)));
 		gallifreyInv.add(new ItemStack(model.getItemById(30)));
 		gallifreyInv.add(new ItemStack(model.getItemById(44)));
+		gallifreyInv.add(new ItemStack(model.getItemById(60)));
 
 		skaroInv.add(new ItemStack(model.getItemById(5)));
 		skaroInv.add(new ItemStack(model.getItemById(19)));
