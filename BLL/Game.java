@@ -31,6 +31,7 @@ public class Game implements Domain {
 	private ScoreHandler scoreHandler;
 	private NPCHandler npcHandler;
 
+	private int worldSeed;
 	private boolean finished;
 	private boolean gameWon;
 	private Player player;
@@ -61,8 +62,66 @@ public class Game implements Domain {
 		this.model.load();
 	}
 
+	/**
+	 * Gets the seed of the game.
+	 * @return
+	 */
+	public int getWorldSeed() {
+		return worldSeed;
+	}
+
+	/**
+	 * Returns the NPC handler.
+	 * @return
+	 */
 	public NPCHandler getNpcHandler() {
 		return npcHandler;
+	}
+
+	/**
+	 * Gets the ScoreHandler.
+	 * Only invoked by data layer to get the current state of score.
+	 * @return the score handler
+	 */
+	public ScoreHandler getScoreHandler() {
+		return scoreHandler;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public IQuiz getQuiz() {
+		npcHandler.getUnoX().pickRandomQuiz();
+		return npcHandler.getUnoX().getCurrentQuiz();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<IScore> getHighscore() {
+		return new ArrayList<>(model.getHighscore());
+	}
+
+	/**
+	 * Sets the finished boolean to a new value.
+	 * It is used to determine whether the game finish.
+	 * Default is false.
+	 * @param finished a boolean to override current value.
+	 */
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+	/**
+	 * Sets the game won boolean to a new value.
+	 * It is used to determine whether the player has won the game or not.
+	 * Default is false.
+	 * @param gameWon a boolean to override current value.
+	 */
+	public void setGameWon(boolean gameWon) {
+		this.gameWon = gameWon;
 	}
 
 	/**
@@ -90,23 +149,29 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Sets the finished boolean to a new value.
-	 * It is used to determine whether the game finish.
-	 * Default is false.
-	 * @param finished a boolean to override current value.
+	 * Sets a message to the {@link MessageContainer}.
+	 * Invoked by components within the business layer.
+	 * @param message a message..
 	 */
-	public void setFinished(boolean finished) {
-		this.finished = finished;
+	public void setMessageToContainer(String message) {messageContainer.setMessage(message);}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isAnswerCorrect(int index) {
+		return npcHandler.getUnoX().isAnswerCorrect(index);
 	}
 
 	/**
-	 * Sets the game won boolean to a new value.
-	 * It is used to determine whether the player has won the game or not.
-	 * Default is false.
-	 * @param gameWon a boolean to override current value.
+	 * Checks whether the player is allowed to enter the planet.
+	 * If the planet is not lockable, then it has no restrictions.
+	 * @param planet to see if allowed
+	 * @return true, if player is allowed
 	 */
-	public void setGameWon(boolean gameWon) {
-		this.gameWon = gameWon;
+	private boolean canPlayerMove(Planet planet) {
+		boolean lockable = planet instanceof Lockable;
+		return !lockable || (lockable && ((BLL.world.Lockable) planet).isUnlocked());
 	}
 
 	/**
@@ -114,6 +179,9 @@ public class Game implements Domain {
 	 */
 	@Override
 	public void init() {
+		// generates a world seed
+		this.worldSeed = (int) (Math.random() * Integer.MAX_VALUE);
+
 		// Obtains the planet data from the persistent layer
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
@@ -150,7 +218,7 @@ public class Game implements Domain {
 
 
 		/* DEBUG MODE */
-        // TODO: remove these statements when game is finishing.
+		// TODO: remove these statements when game is finishing.
 		// These statements are used to debug the game.
 
 		// Adds the Stationary Blacksmith to Xehna, the locked planet.
@@ -172,25 +240,8 @@ public class Game implements Domain {
 
 		System.out.println("Professor is on " + npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
 
-        // useItem(new ItemStack(model.getItemById(58)));
+		// useItem(new ItemStack(model.getItemById(58)));
 		// ---
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isAnswerCorrect(int index) {
-		return npcHandler.getUnoX().isAnswerCorrect(index);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public IQuiz getQuiz() {
-		npcHandler.getUnoX().pickRandomQuiz();
-		return npcHandler.getUnoX().getCurrentQuiz();
 	}
 
 	/**
@@ -483,20 +534,20 @@ public class Game implements Domain {
 		}
 
 		List<Planet> planetsList = new ArrayList<>(player.getPlanets().values());
-		Collections.shuffle(planetsList);
+		Set<Integer> integers = new HashSet<>();
 
-		for (int i = 0; i < clues.length; i++) {
-			((Inventory) planetsList.get(i).getInventory()).add(new ItemStack(clues[i]));
+		Random rand = new Random(worldSeed);
+		do {
+			int num = rand.nextInt(12);
+			System.out.println(num);
+			integers.add(num);
+		} while(integers.size() != clues.length);
+
+		int i = 0;
+		for(Integer integer : integers) {
+			((Inventory) planetsList.get(integer).getInventory()).add(new ItemStack(clues[i]));
+			i++;
 		}
-	}
-
-	/**
-	 * Gets the ScoreHandler.
-	 * Only invoked by data layer to get the current state of score.
-	 * @return the score handler
-	 */
-	public ScoreHandler getScoreHandler() {
-		return scoreHandler;
 	}
 
 	/**
@@ -535,14 +586,6 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<IScore> getHighscore() {
-		return new ArrayList<>(model.getHighscore());
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean save() {
 		IWorldData worldData = model.getWorldData();
 		IPlayerData playerData = model.getPlayerData();
@@ -550,7 +593,8 @@ public class Game implements Domain {
 
 		// WORLD
 
-		worldData.setTimeElapsed(scoreHandler.calculateTimeElapsed());
+		worldData.setWorldSeed(worldSeed);
+		worldData.setTimeElapsed((int) scoreHandler.calculateTimeElapsed());
 
 		for(ItemStack is : player.getInventory().getContent()) {
 			if(is.getItem() instanceof ItemPortalGun) {
@@ -676,6 +720,7 @@ public class Game implements Domain {
 
 			// WORLD
 
+			this.worldSeed = worldData.getWorldSeed();
 			scoreHandler.setStartTimeOffset(worldData.getTimeElapsed());
 
 			for(ItemStack is : player.getInventory().getContent()) {
@@ -736,24 +781,6 @@ public class Game implements Domain {
 			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");*/
 			sb.append("--------------------------------------------------------");
 		}
-	}
-
-	/**
-	 * Sets a message to the {@link MessageContainer}.
-	 * Invoked by components within the business layer.
-	 * @param message a message..
-	 */
-	public void setMessageToContainer(String message) {messageContainer.setMessage(message);}
-
-	/**
-	 * Checks whether the player is allowed to enter the planet.
-	 * If the planet is not lockable, then it has no restrictions.
-	 * @param planet to see if allowed
-	 * @return true, if player is allowed
-	 */
-	private boolean canPlayerMove(Planet planet) {
-		boolean lockable = planet instanceof Lockable;
-		return !lockable || (lockable && ((BLL.world.Lockable) planet).isUnlocked());
 	}
 
 	/**

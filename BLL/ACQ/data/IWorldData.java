@@ -9,16 +9,28 @@ import BLL.item.ItemStack;
  */
 public interface IWorldData {
 	/**
+	 * Gets the seed of the world.
+	 * @return the seed
+	 */
+	int getWorldSeed();
+
+	/**
+	 * Sets the world seed.
+	 * @param worldSeed game seed
+	 */
+	void setWorldSeed(int worldSeed);
+
+	/**
 	 * Gets the playtime (time elapsed) in current game.
 	 * @return time in milliseconds
 	 */
-	long getTimeElapsed();
+	int getTimeElapsed();
 
 	/**
 	 * Sets the playtime (time elapsed) in current game.
 	 * @param time in milliseconds
 	 */
-	void setTimeElapsed(long time);
+	void setTimeElapsed(int time);
 
 	/**
 	 * Returns a boolean based on the condition of the portal gun.
