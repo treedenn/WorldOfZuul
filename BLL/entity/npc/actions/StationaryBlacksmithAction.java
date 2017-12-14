@@ -62,7 +62,8 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
                 }
             },
             new NPCTerminateAction("... Thank you Rick! I will be leaving!" +
-                    "\nIf you need to find me again, I will be leaving traces on the planets - I hope this helps!"),
+                    "\nIf you need to find me again, I will be leaving traces on the planets - I hope this helps!" +
+                    "\nBy the way rick, should you need more fuel for your ship, i noticed a gas station  located on New Earth."),
             new NPCAction("... Thrr, another time perhaps?")
         };
     }
