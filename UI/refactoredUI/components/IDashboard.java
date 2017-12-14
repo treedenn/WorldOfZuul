@@ -12,7 +12,7 @@ public interface IDashboard extends IComponent {
      * Event to be fired when backpack visibility is toggled to visible.
      * @param listener  listener to be added
      */
-    void onBackpackBarClick(IEventListener<?> listener);
+    void onBackpack(IEventListener<?> listener);
 
     /**
      * Method to add an event listener.

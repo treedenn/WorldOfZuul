@@ -4,11 +4,13 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -87,6 +89,20 @@ public class ComponentLoader {
     }
 
     /**
+     * Method to load an component int oa new parent of type {@link Pane}.
+     * This overloaded method also accepts coordinates for translating the component.
+     * @param newParent node to load component into.
+     * @param node component to be loaded.
+     * @param coordX    translate X
+     * @param coordY    translate Y
+     */
+    public static void loadComponent(Pane newParent, Node node, double coordX, double coordY){
+        newParent.getChildren().add(node);
+        node.setTranslateX(coordX);
+        node.setTranslateY(coordY);
+    }
+
+    /**
      * Method to remove an component from a parent.
      * @param component node to be removed.
      */
@@ -117,5 +133,6 @@ public class ComponentLoader {
         timeline.playFromStart();
         timeline.setOnFinished(event -> parent.getChildren().remove(component));
     }
+
 
 }

@@ -1,4 +1,4 @@
-package UI.refactoredUI.planet;
+package UI.refactoredUI.globe;
 
 import UI.refactoredUI.components.Component;
 import UI.refactoredUI.components.IGlobe;
@@ -42,5 +42,10 @@ public class Globe extends Component implements IGlobe {
     @Override
     public String name() {
         return name.getText();
+    }
+
+    @Override
+    public double radius() {
+        return sphere.getRadius();
     }
 }

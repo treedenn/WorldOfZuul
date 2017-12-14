@@ -6,6 +6,7 @@ import UI.refactoredUI.components.*;
 import UI.refactoredUI.dashboard.Dashboard;
 import UI.refactoredUI.drawer.Drawer;
 import UI.refactoredUI.gameMap.GameMap;
+import UI.refactoredUI.guide.Guide;
 import UI.refactoredUI.hamburger.Hamburger;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -24,9 +25,13 @@ public class GameController implements Initializable{
     private Domain domain;
     /** Reference to the window */
     private Stage stage;
+    /** Attribute holding time value. */
+    private double deltaTime;
+
     IGameMap map;
     IBackpack backpack;
     IHamburger hamburger;
+    IGuide guide;
     IDrawer drawer;
     IDashboard dashboard;
 
@@ -53,6 +58,7 @@ public class GameController implements Initializable{
         backpack = new Backpack();
         dashboard = new Dashboard();
         hamburger = new Hamburger();
+        guide = new Guide();
         drawer = new Drawer();
 
 
@@ -61,11 +67,6 @@ public class GameController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
-
-
-
-        root.setStyle("-fx-background-color: #181818;");
         ComponentLoader.loadComponent(main,map.getView(),0,0,0,0,false);
         ComponentLoader.loadComponent(bottom, dashboard.getView(),0,0,0,0, false);
         ComponentLoader.loadComponent(menu, hamburger.getView(), 0,0,0,0,false);
@@ -75,10 +76,9 @@ public class GameController implements Initializable{
             domain.getPlayer().setCoordY(data.getValue());
         });
 
-        map.renderPlanets(domain.getPlayer().getPlanets());
+        guide.onClose(data -> ComponentLoader.removeComponent(guide.getView()));
 
-        dashboard.setFuelValue(.5, "50 ud af 100!");
-        dashboard.setBackpackValue(.5, "DAMN");
+        map.renderPlanets(domain.getPlayer().getPlanets());
 
         hamburger.onOpenNav(data -> ComponentLoader.loadComponent(root, drawer.getView(), 0,-1,0,-1,true));
 
@@ -98,13 +98,18 @@ public class GameController implements Initializable{
         backpack.onClose(data -> ComponentLoader.removeComponent(backpack.getView()));
 
 
-        dashboard.onBackpackBarClick(data -> System.out.println("Bar Clicked!"));
-        dashboard.onHelp(data -> {
-            //ComponentLoader.loadComponent(root, backpack.getView(), 0,0,0,0, true);
-            //backpack.load(domain.getPlayer().getIInventory().getIContent());
-            map.centerCamera(domain.getPlayer().getCoordX(), domain.getPlayer().getCoordY());
+        dashboard.onBackpack(data -> {
+            ComponentLoader.loadComponent(root, backpack.getView(), 0, 0, 0, 0, true);
+            backpack.load(domain.getPlayer().getIInventory().getIContent());
+
         });
 
+        dashboard.onHelp(data -> {
+            ComponentLoader.loadComponent(root, guide.getView(),0,0,0,0,true);
+        });
+
+        /** Method that handles continuation of game etc. */
+        init();
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -117,19 +122,17 @@ public class GameController implements Initializable{
     }
 
     private void tick(){
-
-        /**  */
-        map.setSpaceshipCoordX(domain.getPlayer().getCoordX());
-        map.setSpaceshipCoordX(domain.getPlayer().getCoordY());
-
-
+        deltaTime = System.nanoTime();
+        map.tick(deltaTime);
+        map.keepWithinBoundaries(domain.getPlayer().getCoordX(), domain.getPlayer().getCoordY());
+        if(map.getSpaceship().isMoving()) domain.decreaseFuelOnMove(60);
+        init();
     }
-
 
     @FXML
     void keyIsPressed(KeyEvent event) {
         if(event.getCode() == KeyCode.W){
-            map.accelerateSpaceship(true);
+            map.accelerateSpaceship(true, false);
         }
 
         if(event.getCode() == KeyCode.A){
@@ -137,18 +140,41 @@ public class GameController implements Initializable{
         }
 
         if(event.getCode() == KeyCode.S){
-            map.rotateSpaceshipRight(true);
+            map.accelerateSpaceship(true, true);
         }
 
         if(event.getCode() == KeyCode.D){
-            map.decelerateSpaceship(true);
+            map.rotateSpaceshipRight(true);
         }
 
     }
 
     @FXML
     void keyIsReleased(KeyEvent event) {
+        if(event.getCode() == KeyCode.W){
+            map.accelerateSpaceship(false, false);
+            map.decelerateSpaceship(true);
+        }
 
+        if(event.getCode() == KeyCode.A){
+            map.rotateSpaceshipLeft(false);
+        }
+
+        if(event.getCode() == KeyCode.S){
+            map.accelerateSpaceship(false, true);
+            map.decelerateSpaceship(true);
+        }
+
+        if(event.getCode() == KeyCode.D){
+            map.rotateSpaceshipRight(false);
+
+        }
+
+    }
+
+    private void init(){
+        dashboard.setFuelValue(domain.getPlayer().getFuel()/domain.getPlayer().getMaxFuel(), String.format(" %.2f %% ", domain.getPlayer().getFuel()/domain.getPlayer().getMaxFuel()*100));
+        dashboard.setBackpackValue(domain.getPlayer().getIInventory().getCurrentCapacity()/domain.getPlayer().getIInventory().getMaxCapacity(), String.format(" [%.1f / %.1f] Kg", domain.getPlayer().getIInventory().getCurrentCapacity(), domain.getPlayer().getIInventory().getMaxCapacity()));
     }
 
 }

@@ -4,6 +4,7 @@ import UI.refactoredUI.avatar.Avatar;
 import UI.refactoredUI.bar.Bar;
 import UI.refactoredUI.bar.BarStyle;
 import UI.refactoredUI.components.*;
+import UI.refactoredUI.minimap.MiniMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -19,7 +20,7 @@ public class Dashboard extends Component implements IDashboard{
     private IAvatar avatar;
     private IBar fuelBar;
     private IBar backpackBar;
-    private List<IEventListener<?>> onBackpackBarClickSubscribers = new ArrayList<>();
+    private List<IEventListener<?>> onBackpackSubscribers = new ArrayList<>();
     private List<IEventListener<?>> onHelpSubscribers = new ArrayList<>();
 
     @FXML
@@ -44,14 +45,16 @@ public class Dashboard extends Component implements IDashboard{
         ComponentLoader.loadComponent(bars, backpackBar.getView());
         backpackBar.setLegend("Backpack:");
         backpackBar.setStyle(BarStyle.GREEN);
+        backpackBar.getView().toBack();
+        fuelBar.getView().toBack();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onBackpackBarClick(IEventListener<?> listener) {
-        onBackpackBarClickSubscribers.add(listener);
+    public void onBackpack(IEventListener<?> listener) {
+        onBackpackSubscribers.add(listener);
     }
 
     /**
@@ -90,6 +93,9 @@ public class Dashboard extends Component implements IDashboard{
     void help(ActionEvent event) {
         onHelpSubscribers.forEach(listener -> listener.onAction(null));
     }
+
+    @FXML
+    void openBackpack(ActionEvent event) { onBackpackSubscribers.forEach(listener -> listener.onAction(null));}
 
 
 }

@@ -1,6 +1,7 @@
 package UI.refactoredUI.components;
 
 import BLL.ACQ.IPlanet;
+import com.sun.istack.internal.Nullable;
 import javafx.scene.SubScene;
 
 import java.util.AbstractMap;
@@ -14,11 +15,15 @@ public interface IGameMap extends IComponent {
     // Methods
 
     /**
+     * Method to render game map.
+     */
+    void tick(double deltaTime);
+
+    /**
      * Method to render ui representations of planets.
      * @param planets   map of planets.
      */
     void renderPlanets(Map<String, ? extends IPlanet> planets);
-
 
     /**
      * Method to add an event listener.
@@ -30,17 +35,17 @@ public interface IGameMap extends IComponent {
 
 
     /**
-     * Method to center viewport around player.
+     * Method to center viewport around player and keep player in map.
      * @param coordX    x coordinate of player.
      * @param coordY    y coordinate of player.
      */
-    void centerCamera(double coordX, double coordY);
+    void keepWithinBoundaries(double coordX, double coordY);
 
     void rotateSpaceshipLeft(boolean state);
 
     void rotateSpaceshipRight(boolean state);
 
-    void accelerateSpaceship(boolean state);
+    void accelerateSpaceship(boolean state, @Nullable Boolean reverse);
 
     void decelerateSpaceship(boolean state);
 
@@ -55,6 +60,12 @@ public interface IGameMap extends IComponent {
      * @return  y coordinate.
      */
     void setSpaceshipCoordY(double coordY);
+
+    /**
+     * Returns the space ship component.
+     * @return
+     */
+    ISpaceship getSpaceship();
 
 
 }

@@ -1,0 +1,82 @@
+.surface__wrapper{
+    -fx-background-color: #181818;
+}
+
+.imageHolder{
+    -fx-background-size: 100%;
+    -fx-background-position: top center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: #333333;
+}
+
+.imageGradient{
+    -fx-background-color: linear-gradient(to top, rgba(18,18,18,1), rgba(18,18,18,.1));
+}
+
+/* BUTTONS */
+.button__leavePlanet{
+    -fx-cursor: hand;
+    -fx-font-family: "Circular Std Black";
+    -fx-background-color: #ed2931;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.button__leavePlanet:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.button__leavePlanet:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+/* SCROLL PANE */
+.surface__scrollPane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.surface__scrollPane{
+    -fx-background-color: transparent;
+}
+
+/* OUTER VBOX */
+.outerVbox{
+    -fx-padding: 0 60 18 50;
+}
+
+/* TEXT */
+.topLabel{
+    -fx-font-family: "Circular Std Book";
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+.planetName{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 60;
+    -fx-text-fill: white;
+}
+
+.sectionHeading{
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 18;
+    -fx-text-fill: white;
+}
+
+.planetDescription{
+    -fx-font-family: "Circular Std Book";
+    -fx-font-size: 18;
+    -fx-text-fill: rgba(255,255,255,.8);
+    -fx-padding: 10 0 25;
+}
+
+
+/* LAYOUT ELEMENTS */
+.surface__divider{
+    -fx-border-color: #282828;
+    -fx-border-width: 1 0 0 0;
+}

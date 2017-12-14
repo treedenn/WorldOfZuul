@@ -1,5 +1,7 @@
 package UI.refactoredUI.components;
 
+import com.sun.istack.internal.Nullable;
+
 import java.util.AbstractMap;
 
 public interface ISpaceship extends IComponent {
@@ -23,9 +25,15 @@ public interface ISpaceship extends IComponent {
      */
     void tick(double deltaTime);
 
-    void setAccelerate(boolean state);
+    void setAccelerate(boolean state, @Nullable Boolean reverse);
     void setDecelerate(boolean state);
     void setRotateLeft(boolean state);
     void setRotateRight(boolean state);
+
+    /**
+     * Return true if space ship is moving.
+     * @return
+     */
+    boolean isMoving();
 
 }

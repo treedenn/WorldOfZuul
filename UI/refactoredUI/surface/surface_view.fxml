@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="860.0" prefWidth="1440.0" styleClass="surface__wrapper" stylesheets="@surface.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.refactoredUI.surface.Surface">
+   <children>
+      <AnchorPane prefHeight="400.0" styleClass="imageHolder" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="imageGradient" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="surface__scrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <StackPane alignment="TOP_CENTER">
+               <children>
+                  <VBox maxWidth="1440.0" spacing="30.0" styleClass="outerVbox">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label styleClass="topLabel" text="YOU JUST LANDED ON" />
+                              <Label styleClass="planetName" text="New Earth" />
+                              <Button mnemonicParsing="false" styleClass="button__leavePlanet" text="LEAVE PLANET" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="230.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="20.0">
+                           <VBox.margin>
+                              <Insets top="36.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label styleClass="sectionHeading" text="About this planet" />
+                              <Label layoutX="10.0" layoutY="10.0" styleClass="planetDescription" text="Description..." />
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="surface__divider" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="60.0" layoutY="437.0" prefHeight="20.0">
+                           <children>
+                              <Label styleClass="sectionHeading" text="Stuff on this planet" />
+                              <Label layoutX="10.0" layoutY="10.0" styleClass="planetDescription" text="Description..." />
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Label" />
+                                          <ListView minHeight="500.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

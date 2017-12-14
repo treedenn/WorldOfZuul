@@ -2,9 +2,9 @@ package UI.refactoredUI.gameMap;
 
 import BLL.ACQ.IPlanet;
 import UI.refactoredUI.components.*;
-import UI.refactoredUI.planet.Globe;
+import UI.refactoredUI.minimap.MiniMap;
+import UI.refactoredUI.globe.Globe;
 import UI.refactoredUI.spaceship.Spaceship;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -24,8 +24,9 @@ import java.util.*;
 
 public class GameMap extends Component implements IGameMap {
 
-    private List<IEventListener<AbstractMap.SimpleImmutableEntry<Double, Double>>> onMovementSubscribers;
+    private List<IEventListener<AbstractMap.SimpleImmutableEntry<Double, Double>>> onMovementSubscribers = new ArrayList<>();
 
+    IMiniMap miniMap;
     ISpaceship spaceship;
     private Camera camera;
     private Group root;
@@ -36,25 +37,24 @@ public class GameMap extends Component implements IGameMap {
     private AnchorPane wrapper;
 
     @FXML
-    private AnchorPane upperRightCorner;
-
-    @FXML
     private SubScene subscene;
 
+    @FXML
+    private AnchorPane upperRightCorner;
 
     public GameMap(){
         super("gamemap_view.fxml");
         camera = new ParallelCamera();
         map = new Pane();
         root = new Group();
+        miniMap = new MiniMap();
         spaceship = new Spaceship();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        ComponentLoader.loadComponent(map, spaceship.getView(), mapWidth/2, mapHeight/2);
-
+        ComponentLoader.loadComponent(upperRightCorner, miniMap.getView(), 0,0,0,0,false);
+        ComponentLoader.loadComponent(map, spaceship.getView());
         /** Listen to spaceship velocity and pass this to subscribers. */
         spaceship.onMovement(data -> onMovementSubscribers.forEach(listener -> listener.onAction(data)));
 
@@ -71,6 +71,14 @@ public class GameMap extends Component implements IGameMap {
         subscene.setCamera(camera);
         renderStars();
         renderCenterLabel();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void tick(double deltaTime) {
+        spaceship.tick(deltaTime);
     }
 
     /**
@@ -101,17 +109,15 @@ public class GameMap extends Component implements IGameMap {
      * {@inheritDoc}
      */
     @Override
-    public void accelerateSpaceship(boolean state) {
-        spaceship.setAccelerate(state);
+    public void accelerateSpaceship(boolean state, Boolean reverse) {
+        spaceship.setAccelerate(state, reverse);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void decelerateSpaceship(boolean state) {
-        spaceship.setDecelerate(state);
-    }
+    public void decelerateSpaceship(boolean state) {spaceship.setDecelerate(state);}
 
     /**
      * {@inheritDoc}
@@ -119,17 +125,37 @@ public class GameMap extends Component implements IGameMap {
     @Override
     public void renderPlanets(Map<String, ? extends IPlanet> planets) {
         for (IPlanet iPlanet : planets.values()) {
-            ComponentLoader.loadComponent(map, (((IGlobe)new Globe(iPlanet.getName(), iPlanet.getMap2D().toURI().toString().replace("\\","/")))).getView(), iPlanet.getX(), iPlanet.getY());
+            IGlobe newGlobe = new Globe(iPlanet.getName(), iPlanet.getMap2D().toURI().toString().replace("\\","/"));
+            ComponentLoader.loadComponent(map, newGlobe.getView(),  iPlanet.getX() - newGlobe.radius(), iPlanet.getY() - newGlobe.radius());
         }
+        miniMap.renderPlanets(planets);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void centerCamera(double coordX, double coordY) {
+    public void keepWithinBoundaries(double coordX, double coordY) {
+        setSpaceshipCoordX(coordX);
+        setSpaceshipCoordY(coordY);
+
         camera.setTranslateX(coordX - (subscene.getWidth()/2));
         camera.setTranslateY(coordY - (subscene.getHeight()/2));
+        if(spaceship.getView().getTranslateX() < subscene.getRoot().getTranslateX()){
+            spaceship.getView().setTranslateX(subscene.getRoot().getTranslateX());
+        }
+
+        if (spaceship.getView().getTranslateX() > mapWidth - ((Pane)spaceship.getView()).getWidth()){
+            spaceship.getView().setTranslateX(mapWidth - ((Pane)spaceship.getView()).getWidth());
+        }
+
+        if (spaceship.getView().getTranslateY() < subscene.getRoot().getTranslateY()){
+            spaceship.getView().setTranslateY(subscene.getRoot().getTranslateY());
+        }
+
+        if (spaceship.getView().getTranslateY() > mapHeight - ((Pane)spaceship.getView()).getHeight()){
+            spaceship.getView().setTranslateY(mapHeight - ((Pane)spaceship.getView()).getHeight());
+        }
     }
 
     /**
@@ -138,6 +164,7 @@ public class GameMap extends Component implements IGameMap {
     @Override
     public void setSpaceshipCoordX(double coordX) {
         spaceship.getView().setTranslateX(coordX);
+        miniMap.setSpaceshipCoordX(coordX);
     }
 
     /**
@@ -146,6 +173,12 @@ public class GameMap extends Component implements IGameMap {
     @Override
     public void setSpaceshipCoordY(double coordY) {
         spaceship.getView().setTranslateY(coordY);
+        miniMap.setSpaceshipCoordY(coordY);
+    }
+
+    @Override
+    public ISpaceship getSpaceship() {
+        return spaceship;
     }
 
     /**
