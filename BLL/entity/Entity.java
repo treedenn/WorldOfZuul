@@ -4,18 +4,27 @@ import BLL.ACQ.IPlanet;
 import BLL.world.Planet;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
- * Entity is a 'living' creature, who can be on a planet.
+ * An entity can be on a planet.
  */
 public abstract class Entity {
 	private Planet currentPlanet;
 	private File image;
 
+	/**
+	 * Constructs a new Entity with default value.
+	 * Set methods exist.
+	 */
 	protected Entity() {
 		this(null);
 	}
 
+	/**
+	 * Constructs an Entity, where it is possible to set the current planet
+	 * @param currentPlanet
+	 */
 	public Entity(Planet currentPlanet) { this.currentPlanet = currentPlanet; }
 
 	/**
@@ -49,11 +58,19 @@ public abstract class Entity {
 	 */
 	public File getImage() { return image;}
 
-
-	// TODO: Check if the file actually is a file! Throw exception
 	/**
 	 * Sets the Entity's image to a File reference
 	 * @param image	the file of the Entity's image
 	 */
-	public void setImage(File image){ this.image = image; }
+	public void setImage(File image) throws FileNotFoundException {
+		// TODO: Check if the file is actually an image
+		this.image = image;
+		/*
+		if(image.isFile()) {
+			this.image = image;
+		} else {
+			throw new FileNotFoundException();
+		}
+		*/
+	}
 }

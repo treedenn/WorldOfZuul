@@ -15,13 +15,17 @@ public class ScoreHandler implements ScoringConstants {
     }
 
     /**
-     * Gets the start
-     * @return
+     * Gets when the game starts or was loaded.
+     * @return unix time
      */
     public long getStartTime() {
         return startTime;
     }
 
+    /**
+     * Sets the start time by doing an offset of the value given.
+     * @param offset any offset in milliseconds
+     */
     public void setStartTimeOffset(long offset) {
         this.startTime = startTime - offset;
     }

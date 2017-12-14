@@ -6,7 +6,7 @@ import BLL.entity.npc.actions.NPCActionCollection;
 import java.io.File;
 
 /**
- * Describes the fundamentals an NPC need.
+ * Describes the fundamentals of an NPC.
  */
 public interface NPC {
     /**
@@ -28,6 +28,8 @@ public interface NPC {
 
     /**
      * Returns whether the NPC is good or bad.
+     * Currently, it tells whether you can talk to the NPC or not.
+     * Good NPCs can be talked to, whereas not good NPCs, will contract the player.
      * @return true, if good
      */
     boolean isGood();
@@ -40,9 +42,7 @@ public interface NPC {
 
     /**
      * Sets the actions of the NPC.
-     * @param collection object as {@link NPCActionCollection}
+     * @param collection an object implementing {@link NPCActionCollection}
      */
     void setActions(NPCActionCollection collection);
-
-    //What else?
 }

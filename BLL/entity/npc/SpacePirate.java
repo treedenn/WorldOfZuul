@@ -10,6 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * Contains all the functionality of the Blacksmith NPC.
  * SpacePirate is an NPC that attacks the player when the player is moving towards its destination.
  */
 public class SpacePirate extends MovableEntity implements NPC {

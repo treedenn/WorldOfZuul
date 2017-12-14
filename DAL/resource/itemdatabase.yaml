@@ -571,7 +571,7 @@
   state: LUMINESCENT
 57:
   name: "Portal Gun"
-  description: "Powerful Tool!"
+  description: "The Cake is a lie."
   itemType: PORTALGUN
   pickupable: false
   dropable: false
@@ -595,3 +595,10 @@
   componentType: NONE
   color: WHITE
   state: NORMAL
+60:
+  name: "T.A.R.D.I.S"
+  description: "A Policebox? It looks a lot bigger on the inside than the outside!"
+  itemType: DEFAULT
+  pickupable: false
+  dropable: false
+  weight: 0.0

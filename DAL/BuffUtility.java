@@ -6,6 +6,10 @@ import BLL.entity.player.buff.TransformationBuff;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A utility class to generate and degenerate buffs
+ * into information that can be saved and loaded.
+ */
 public abstract class BuffUtility {
 	/**
 	 * Creates a buff based on the given id.

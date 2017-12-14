@@ -7,6 +7,8 @@ import BLL.item.ItemPortalGun;
 
 /**
  * This describes the functionality of the Portal Gun.
+ * The Portal Gun is used to win the game.
+ * Whenever this is invoked, the player will win the game.
  */
 public class UsablePortalGun implements Usable {
 	/**

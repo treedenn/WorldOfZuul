@@ -1,5 +1,10 @@
 package BLL.entity;
 
+/**
+ * If an object is movable, it can implement this interface.
+ * It describes the basics of being movable, such as:
+ * move, can-move and set-move.
+ */
 public interface Movable {
 	/**
 	 * A method that allows the entity the move.

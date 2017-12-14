@@ -2,7 +2,6 @@ package DAL.data;
 
 import BLL.ACQ.data.IPlanetData;
 import BLL.item.ItemStack;
-import DAL.GameStateHandler;
 import DAL.Model;
 
 import java.util.ArrayList;
@@ -10,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * An object that implements the {@link IPlanetData} from the business layer.
+ * It contains the details on how to load and save data for the planets.
+ */
 public class PlanetData implements IPlanetData {
 	private Model model;
 
@@ -19,6 +22,10 @@ public class PlanetData implements IPlanetData {
 	private List<List<Integer>> npcIds;
 	private List<ItemStack[]> itemStacks;
 
+	/**
+	 * Constructs a new PlanetData object.
+	 * @param model the persistent layer
+	 */
 	public PlanetData(Model model) {
 		this.model = model;
 
@@ -129,6 +136,10 @@ public class PlanetData implements IPlanetData {
 		this.itemStacks.set(index, itemStacks);
 	}
 
+	/**
+	 * A method to save the variables in the object in a Yaml format.
+	 * @return a map with the details
+	 */
 	public Map<Integer, Object> save() {
 		Map<Integer, Object> planetMap = new HashMap<>();
 
@@ -139,12 +150,22 @@ public class PlanetData implements IPlanetData {
 		return planetMap;
 	}
 
+	/**
+	 * A method to turn the map from {@link #save()} to usable data for the business layer.
+	 * @param map any map
+	 */
 	public void load(Map<Integer, Object> map) {
 		for(Map.Entry<Integer, Object> entry : map.entrySet()) {
-			turnMapToAddPlanet((Map<String, Object>) entry.getValue());
+			turnMapAndAddPlanet((Map<String, Object>) entry.getValue());
 		}
 	}
 
+	/**
+	 * Turns a planet into a map.
+	 * Reverse method: {@link #turnMapAndAddPlanet(Map)}.
+	 * @param index index of the planet
+	 * @return a generated map
+	 */
 	private Map<String, Object> turnPlanetToMap(int index) {
 		Map<String, Object> map = new HashMap<>();
 
@@ -157,7 +178,11 @@ public class PlanetData implements IPlanetData {
 		return map;
 	}
 
-	private void turnMapToAddPlanet(Map<String, Object> map) {
+	/**
+	 * Turns a generated map into data and adds it.
+	 * @param map generated map
+	 */
+	private void turnMapAndAddPlanet(Map<String, Object> map) {
 		this.name.add((String) map.get("name"));
 		this.x.add((Double) map.get("x-coordinate"));
 		this.y.add((Double) map.get("y-coordinate"));

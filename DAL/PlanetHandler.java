@@ -101,6 +101,7 @@ class PlanetHandler implements Loadable {
 		gallifreyInv.add(new ItemStack(model.getItemById(18)));
 		gallifreyInv.add(new ItemStack(model.getItemById(30)));
 		gallifreyInv.add(new ItemStack(model.getItemById(44)));
+		gallifreyInv.add(new ItemStack(model.getItemById(60)));
 
 		skaroInv.add(new ItemStack(model.getItemById(5)));
 		skaroInv.add(new ItemStack(model.getItemById(19)));
@@ -149,7 +150,7 @@ class PlanetHandler implements Loadable {
 		};
 
 		// TODO: Comment this statement to disable planet shuffle.
-		// Collections.shuffle(Arrays.asList(planets));
+		Collections.shuffle(Arrays.asList(planets));
 
 		/* the shuffled planets with random positions */
 

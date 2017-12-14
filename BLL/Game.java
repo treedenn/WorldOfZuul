@@ -23,6 +23,10 @@ import BLL.world.Planet;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The facade of the Business Layer (BLL).
+ * **SINGLETON**
+ */
 public class Game implements Domain {
 	private static Game INSTANCE;
 
@@ -31,11 +35,15 @@ public class Game implements Domain {
 	private ScoreHandler scoreHandler;
 	private NPCHandler npcHandler;
 
+	private int worldSeed;
 	private boolean finished;
 	private boolean gameWon;
 	private Player player;
 	private MessageContainer messageContainer;
 
+	/**
+	 * Constructs a new Game.
+	 */
 	private Game() {
 		usableHandler = new UsableHandler();
 		npcHandler = new NPCHandler();
@@ -47,6 +55,10 @@ public class Game implements Domain {
 		messageContainer = new MessageContainer();
 	}
 
+	/**
+	 * Gets the Persistent Layer.
+	 * @return persistent layer
+	 */
 	public PersistenceLayer getModel() {
 		return model;
 	}
@@ -61,8 +73,82 @@ public class Game implements Domain {
 		this.model.load();
 	}
 
+	/**
+	 * Gets the seed of the game.
+	 * @return the game seed
+	 */
+	public int getWorldSeed() {
+		return worldSeed;
+	}
+
+	/**
+	 * Returns the NPC handler.
+	 * @return the npc handler
+	 */
 	public NPCHandler getNpcHandler() {
 		return npcHandler;
+	}
+
+	/**
+	 * Gets the ScoreHandler.
+	 * Only invoked by data layer to get the current state of score.
+	 * @return the score handler
+	 */
+	public ScoreHandler getScoreHandler() {
+		return scoreHandler;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public IQuiz getQuiz() {
+		npcHandler.getUnoX().pickRandomQuiz();
+		return npcHandler.getUnoX().getCurrentQuiz();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<IScore> getHighscore() {
+		return new ArrayList<>(model.getHighscore());
+	}
+
+	/**
+	 * Sets the finished boolean to a new value.
+	 * It is used to determine whether the game finish.
+	 * Default is false.
+	 * @param finished a boolean to override current value.
+	 */
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+	/**
+	 * Sets the game won boolean to a new value.
+	 * It is used to determine whether the player has won the game or not.
+	 * Default is false.
+	 * @param gameWon a boolean to override current value.
+	 */
+	public void setGameWon(boolean gameWon) {
+		this.gameWon = gameWon;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean hasWonTheGame() {
+		return this.gameWon;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isGameFinished() {
+		return this.finished;
 	}
 
 	/**
@@ -90,23 +176,21 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Sets the finished boolean to a new value.
-	 * It is used to determine whether the game finish.
-	 * Default is false.
-	 * @param finished a boolean to override current value.
+	 * Sets a message to the {@link MessageContainer}.
+	 * Invoked by components within the business layer.
+	 * @param message a message..
 	 */
-	public void setFinished(boolean finished) {
-		this.finished = finished;
-	}
+	public void setMessageToContainer(String message) {messageContainer.setMessage(message);}
 
 	/**
-	 * Sets the game won boolean to a new value.
-	 * It is used to determine whether the player has won the game or not.
-	 * Default is false.
-	 * @param gameWon a boolean to override current value.
+	 * Checks whether the player is allowed to enter the planet.
+	 * If the planet is not lockable, then it has no restrictions.
+	 * @param planet to see if allowed
+	 * @return true, if player is allowed
 	 */
-	public void setGameWon(boolean gameWon) {
-		this.gameWon = gameWon;
+	private boolean canPlayerMove(Planet planet) {
+		boolean lockable = planet instanceof Lockable;
+		return !lockable || (lockable && ((BLL.world.Lockable) planet).isUnlocked());
 	}
 
 	/**
@@ -114,6 +198,9 @@ public class Game implements Domain {
 	 */
 	@Override
 	public void init() {
+		// generates a world seed
+		this.worldSeed = (int) (Math.random() * Integer.MAX_VALUE);
+
 		// Obtains the planet data from the persistent layer
 		Map<String, Planet> planetMap = model.getPlanets();
 		Planet[] planets = planetMap.values().toArray(new Planet[planetMap.size()]);
@@ -125,72 +212,24 @@ public class Game implements Domain {
 		npcHandler.getBlacksmith().setPlanets(planetMap);
 
 		// Sets the quizes to UnoX
-		npcHandler.getUnoX().setQuizes(model.getQuizes());
+		npcHandler.getUnoX().setQuizzes(model.getQuizes());
 
 		// Adds the Stationary Blacksmith to Xehna, the locked planet.
-//		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
-//		npcHandler.getStationaryBlacksmith().getCurrentPlanet().getNPCs().add(npcHandler.getStationaryBlacksmith());
-
-		// Adds the Blacksmith
-//		npcHandler.getBlacksmith().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-//		npcHandler.getBlacksmith().setPlanets(planetMap);
-
-		// Adds the pirate to a random planet
-//		npcHandler.getPirate().setPlanets(planetMap);
-//		npcHandler.getPirate().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-//		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
-
-		// Adds the UnoX to a random planet
-//		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
-//		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
-
-		// Adds the UnoX to a random planet
-//		npcHandler.getProfessorPutricide().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-//		npcHandler.getProfessorPutricide().getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
-
-
-		/* DEBUG MODE */
-        // TODO: remove these statements when game is finishing.
-		// These statements are used to debug the game.
-
-		// Adds the Stationary Blacksmith to Xehna, the locked planet.
-		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
 		npcHandler.getStationaryBlacksmith().getCurrentPlanet().getNPCs().add(npcHandler.getStationaryBlacksmith());
 
-		// Adds the pirate to a random
+		// Adds the pirate to a random planet
 		npcHandler.getPirate().setPlanets(planetMap);
-		npcHandler.getPirate().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getPirate().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
 		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
 
-		// Adds the UnoX to a random planet
-		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
-		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
-
-		// Adds the UnoX to a random planet
-		npcHandler.getProfessorPutricide().setCurrentPlanet(planetMap.get("newearth"));
+		// Adds the professor Putricide to a random planet
+		npcHandler.getProfessorPutricide().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
 		npcHandler.getProfessorPutricide().getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
 
-		System.out.println("Professor is on " + npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
-
-        // useItem(new ItemStack(model.getItemById(58)));
-		// ---
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isAnswerCorrect(int index) {
-		return npcHandler.getUnoX().isAnswerCorrect(index);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public IQuiz getQuiz() {
-		npcHandler.getUnoX().pickRandomQuiz();
-		return npcHandler.getUnoX().getCurrentQuiz();
+		// Adds the UnoX to a New Earth
+		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
 	}
 
 	/**
@@ -395,7 +434,7 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean movePlayerToPlanet(String planetName) {
+	public boolean planetEnter(String planetName) {
 		boolean playerIsMoving = false;
 		String message;
 
@@ -447,13 +486,31 @@ public class Game implements Domain {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	public void decreaseFuelOnMove(int ticksPerSecond) {
-		player.decreaseFuel(0.3 / ticksPerSecond);
+	public boolean planetExit() {
+		player.setCurrentPlanet(null);
+
+		if(player.isFuelEmpty()) {
+			setFinished(true);
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
-	 * Add the clues to the planets at random.
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void decreaseFuelOnMove(int ticksPerSecond) {
+		player.decreaseFuel(0.3 / ticksPerSecond);
+
+		if(player.isFuelEmpty()) {
+			finished = true;
+		}
+	}
+
+	/**
+	 * Add the clues to the planets through the world seed.
 	 */
 	public void addCluesToPlanets(){
 		ItemStack[] items = npcHandler.getBlacksmith().getRecipe().getRequirements();
@@ -483,20 +540,19 @@ public class Game implements Domain {
 		}
 
 		List<Planet> planetsList = new ArrayList<>(player.getPlanets().values());
-		Collections.shuffle(planetsList);
+		Set<Integer> integers = new HashSet<>();
 
-		for (int i = 0; i < clues.length; i++) {
-			((Inventory) planetsList.get(i).getInventory()).add(new ItemStack(clues[i]));
+		Random rand = new Random(worldSeed);
+		do {
+			int num = rand.nextInt(12);
+			integers.add(num);
+		} while(integers.size() != clues.length);
+
+		int i = 0;
+		for(Integer integer : integers) {
+			((Inventory) planetsList.get(integer).getInventory()).add(new ItemStack(clues[i]));
+			i++;
 		}
-	}
-
-	/**
-	 * Gets the ScoreHandler.
-	 * Only invoked by data layer to get the current state of score.
-	 * @return the score handler
-	 */
-	public ScoreHandler getScoreHandler() {
-		return scoreHandler;
 	}
 
 	/**
@@ -535,14 +591,6 @@ public class Game implements Domain {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<IScore> getHighscore() {
-		return new ArrayList<>(model.getHighscore());
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean save() {
 		IWorldData worldData = model.getWorldData();
 		IPlayerData playerData = model.getPlayerData();
@@ -550,7 +598,8 @@ public class Game implements Domain {
 
 		// WORLD
 
-		worldData.setTimeElapsed(scoreHandler.calculateTimeElapsed());
+		worldData.setWorldSeed(worldSeed);
+		worldData.setTimeElapsed((int) scoreHandler.calculateTimeElapsed());
 
 		for(ItemStack is : player.getInventory().getContent()) {
 			if(is.getItem() instanceof ItemPortalGun) {
@@ -593,16 +642,17 @@ public class Game implements Domain {
 				NPCIds.add(npc.getId());
 			}
 
+			ItemStack[] content = GameUtility.removeCluesFromContent(((Inventory) p.getInventory()).getContent());
+
 			if(planetData.size() == player.getPlanets().size()) {
 				planetData.setName(i, entry.getKey());
 				planetData.setX(i, p.getX());
 				planetData.setY(i, p.getY());
 				planetData.setNPCs(i, NPCIds);
-				planetData.setInventory(i, ((Inventory) p.getInventory()).getContent());
+				planetData.setInventory(i, content);
 				i++;
 			} else {
-				planetData.addData(entry.getKey(), p.getX(), p.getY(), NPCIds, ((Inventory) p.getInventory()).getContent());
-
+				planetData.addData(entry.getKey(), p.getX(), p.getY(), NPCIds, content);
 			}
 		}
 
@@ -624,30 +674,11 @@ public class Game implements Domain {
 		try {
 			model.loadGame();
 			player.setPlanets(model.getPlanets());
-			npcHandler.getUnoX().setQuizes(model.getQuizes());
+			npcHandler.getUnoX().setQuizzes(model.getQuizes());
 
 			IWorldData worldData = model.getWorldData();
 			IPlayerData playerData = model.getPlayerData();
 			IPlanetData planetData = model.getPlanetData();
-
-			// WORLD
-
-			scoreHandler.setStartTimeOffset(worldData.getTimeElapsed());
-
-			for(ItemStack is : player.getInventory().getContent()) {
-				if(is.getItem() instanceof ItemPortalGun) {
-					ItemPortalGun pg = (ItemPortalGun) is.getItem();
-					if(!worldData.isPortalGunBroken()) {
-						pg.repair();
-					}
-					break;
-				}
-			}
-
-			if(worldData.getRequirements() != null) {
-				npcHandler.getBlacksmith().setRecipe(new Recipe(worldData.getRequirements()));
-				npcHandler.getBlacksmith().setVisitedPlanets(worldData.getBlacksmithTraces());
-			}
 
 			// PLAYER
 
@@ -692,7 +723,26 @@ public class Game implements Domain {
 			player.setPlanets(planetMap);
 			npcHandler.getBlacksmith().setPlanets(planetMap);
 
-			return true;
+			// WORLD
+
+			this.worldSeed = worldData.getWorldSeed();
+			scoreHandler.setStartTimeOffset(worldData.getTimeElapsed());
+
+			for(ItemStack is : player.getInventory().getContent()) {
+				if(is.getItem() instanceof ItemPortalGun) {
+					ItemPortalGun pg = (ItemPortalGun) is.getItem();
+					if(!worldData.isPortalGunBroken()) {
+						pg.repair();
+					}
+					break;
+				}
+			}
+
+			if(worldData.getRequirements() != null) {
+				npcHandler.getBlacksmith().setRecipe(new Recipe(worldData.getRequirements()));
+				addCluesToPlanets();
+				npcHandler.getBlacksmith().setVisitedPlanets(worldData.getBlacksmithTraces());
+			}
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -700,60 +750,20 @@ public class Game implements Domain {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean hasLoadingFile() {
 		return model.hasLoadingFile();
 	}
 
-	// TODO: Will this function ever be used?
-	private void gameIsFinished() {
-		StringBuilder sb = new StringBuilder();
-
-		if(gameWon){
-			double millisecondsElapsed = scoreHandler.calculateTimeElapsed();
-			int seconds = (int) ((millisecondsElapsed / 1000) % 60);
-			int minutes = (int) ((millisecondsElapsed / 1000) / 60);
-
-			int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
-			int stars = scoreHandler.getStars(points);
-
-			char[] earnedStars = new char[stars];
-			Arrays.fill(earnedStars, '\u26e4');
-
-			sb.append("---------------------- GAME WON! -----------------------\n");
-			sb.append("Here are some stats for you to brag about...\n");
-			sb.append("You played for ").append(minutes).append(":").append(seconds).append(" minutes\n");
-			sb.append("Your total fuel consumption was ").append(player.getTotalFuelConsumption()).append(" liters\n");
-			sb.append("Out of 5 stars ").append("you earned: ").append(earnedStars).append("\n");
-			sb.append("--------------------------------------------------------");
-
-		} else{
-			sb.append("---------------------- GAME OVER! ----------------------\n");
-			if(player.isFuelEmpty()){
-				sb.append("You ran out of fuel!\n");
-			}
-			/*sb.append("If you want to play again - type '" + CommandWord.RESTART + "'\n");
-			sb.append("If you want to quit - type '" + CommandWord.QUIT + "'\n");*/
-			sb.append("--------------------------------------------------------");
-		}
-	}
-
 	/**
-	 * Sets a message to the {@link MessageContainer}.
-	 * Invoked by components within the business layer.
-	 * @param message a message..
+	 * {@inheritDoc}
 	 */
-	public void setMessageToContainer(String message) {messageContainer.setMessage(message);}
-
-	/**
-	 * Checks whether the player is allowed to enter the planet.
-	 * If the planet is not lockable, then it has no restrictions.
-	 * @param planet to see if allowed
-	 * @return true, if player is allowed
-	 */
-	private boolean canPlayerMove(Planet planet) {
-		boolean lockable = planet instanceof Lockable;
-		return !lockable || (lockable && ((BLL.world.Lockable) planet).isUnlocked());
+	@Override
+	public boolean deleteLoadingFile() {
+		return model.deleteLoadingFile();
 	}
 
 	/**

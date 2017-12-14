@@ -5,7 +5,7 @@ import BLL.item.Item;
 import BLL.item.ItemStack;
 
 /**
- * Creating a new inventory, this interface has to be implemented.
+ * To create a new inventory, this interface has to be implemented.
  * It describes the general and necessary function to an inventory.
  */
 public interface Inventory extends IInventory {

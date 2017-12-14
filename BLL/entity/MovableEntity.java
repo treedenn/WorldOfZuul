@@ -5,22 +5,34 @@ import BLL.world.Planet;
 import java.util.Map;
 
 /**
- * MovableEntity is a 'living' creature, who has the ability to move from planet to planet.
+ * MovableEntity  has the ability to move from planet to planet.
  */
 public abstract class MovableEntity extends Entity implements Movable {
 	private Map<String, Planet> planets;
 	private boolean canMove;
 
+	/**
+	 * Constructs a new MovableEntity with default values.
+	 */
 	public MovableEntity() {
 		this(null, null);
 		canMove = true;
 	}
 
+	/**
+	 * Constructs a new MovableEntity, where the available planets can be set.
+	 * @param planets the where the entity can move onto
+	 */
 	public MovableEntity(Map<String, Planet> planets) {
 		super(null);
 		this.planets = planets;
 	}
 
+	/**
+	 * Constructs a new MovableEntity, where everything can be set directly.
+	 * @param currentPlanet
+	 * @param planets
+	 */
 	public MovableEntity(Planet currentPlanet, Map<String, Planet> planets) {
 		super(currentPlanet);
 		this.planets = planets;
@@ -40,11 +52,17 @@ public abstract class MovableEntity extends Entity implements Movable {
 		this.planets = planets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean canMove() {
 		return canMove;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setMove(boolean canMove) {
 		this.canMove = canMove;

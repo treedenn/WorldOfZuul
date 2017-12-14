@@ -47,17 +47,22 @@ public interface Domain {
 	Map<String, IPlanet> getPlayerPlanets();
 
 	/**
-	 * Moves the player to the specified planet.
-	 * @param planetName the name of planet
-	 * @return true, if player moved
-	 */
-	boolean movePlayerToPlanet(String planetName);
-
-	/**
 	 * Gets the current highscore list as {@link IScore}.
 	 * @return the highscore list
 	 */
 	List<IScore> getHighscore();
+
+	/**
+	 * Gets the {@link BLL.entity.player.Quiz} object as {@link IQuiz} to limit the functionality in GUI.
+	 * @return returns the current quiz in play.
+	 */
+	IQuiz getQuiz();
+
+	/**
+	 * Returns a reference to the message container.
+	 * @return the message container
+	 */
+	MessageContainer getMessageContainer();
 
 	/**
 	 * Checks whether a player has beaten any highscore.
@@ -66,7 +71,46 @@ public interface Domain {
 	boolean hasBeatenHighscore();
 
 	/**
-	 * It loops through the buff list of the player.
+	 * A method to see if the player has won the game.
+	 * Caution: Use {@link #isGameFinished()} before checking this one!
+	 * @return true, if the player has won the game.
+	 */
+	boolean hasWonTheGame();
+
+	/**
+	 * Returns a boolean based the game is finished or not.
+	 * @return true, if game is finished
+	 */
+	boolean isGameFinished();
+
+	/**
+	 * Player enters the planet.
+	 * @param planetName the name of planet
+	 * @return true, if player moved
+	 */
+	boolean planetEnter(String planetName);
+
+	/**
+	 * Player exits the planet.
+	 * @return true, if player leaved
+	 */
+	boolean planetExit();
+
+	/**
+	 * An method to decrease fuel when moving,
+	 * if decrease of fuel on move is desired with ticks.
+	 * @param ticksPerSecond
+	 */
+	void decreaseFuelOnMove(int ticksPerSecond);
+
+	/**
+	 * Searches the planet. It sets the permanent/temporary search of the current planet.
+	 * @return true, if searching was successful
+	 */
+	boolean searchPlanet();
+
+	/**
+	 * It loops through the buffs of the player.
 	 * On each buff, it triggers {@link Buff#onGameTick(Player)}
 	 * and {@link Buff#isExpired()}, if true, removes the buff.
 	 */
@@ -120,39 +164,6 @@ public interface Domain {
 	boolean dropItem(IItemStack iis);
 
 	/**
-	 * Ignites the search. It sets the permanent/temporary search of the current planet.
-	 * @return true, if searching was successful
-	 */
-	boolean searchPlanet();
-
-	/**
-	 * An method to decrease fuel when moving,
-	 * if decrease of fuel on move is desired with ticks.
-	 * @param ticksPerSecond
-	 */
-	void decreaseFuelOnMove(int ticksPerSecond);
-
-	/**
-	 * Gets the {@link BLL.entity.player.Quiz} object as {@link IQuiz} to limit the functionality in GUI.
-	 * @return returns the current quiz in play.
-	 */
-	IQuiz getQuiz();
-
-	/**
-	 * Use to determine whether the player has given a correct answer from the GUI.
-	 * Is invoked by GUI when an answer is given from the player.
-	 * @param index is the answer of the multiple choice (exclude 0).
-	 * @return a boolean whether the answer is true or not.
-	 */
-	boolean isAnswerCorrect(int index);
-
-	/**
-	 * Returns a reference to the message container.
-	 * @return the message container
-	 */
-	MessageContainer getMessageContainer();
-
-	/**
 	 * Saves the game to a file.
 	 * @return true, if saving was successful
 	 */
@@ -165,8 +176,14 @@ public interface Domain {
 	boolean load();
 
 	/**
-	 * Returns a boolean based on a file for loading is ready to be loaded.
+	 * Returns a boolean based on the if the loading file exists.
 	 * @return true, if file exists
 	 */
 	boolean hasLoadingFile();
+
+	/**
+	 * Returns a boolean based on the loading has been deleted.
+	 * @return true, if file has been deleted.
+	 */
+	boolean deleteLoadingFile();
 }

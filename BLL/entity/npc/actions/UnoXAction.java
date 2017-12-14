@@ -6,14 +6,12 @@
 package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
-import BLL.ACQ.PersistenceLayer;
 import BLL.Game;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.UnoX;
-import BLL.entity.player.Player;
 
 /**
- * Describes the actions of the {@link UnoX}.
+ * Describes the actions of the {@link UnoX} NPC.
  */
 public class UnoXAction implements NPCActionCollection {
     private INPCAction[] actions;

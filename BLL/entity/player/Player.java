@@ -26,6 +26,9 @@ public class Player extends MovableEntity implements IPlayer {
 	private final int MAX_FUEL;
 	private int morphId;
 
+	/**
+	 * Constructs a new player object with default values.
+	 */
 	public Player() {
 		super(null, null);
 		this.inventory = new Backpack(6);
@@ -47,7 +50,7 @@ public class Player extends MovableEntity implements IPlayer {
 
 	/**
 	 * Returns the interface Inventory of the player.
-	 * @return Inventory of the player.
+	 * @return inventory of the player.
 	 */
 	public Inventory getInventory() {
 		return inventory;
@@ -199,6 +202,10 @@ public class Player extends MovableEntity implements IPlayer {
 		this.morphId = morphId;
 	}
 
+	/**
+	 * Loads the data from the PlayerData to the player.
+	 * @param data any IPlayerData
+	 */
 	public void loadPlayer(IPlayerData data) {
 		if(data.getCurrentPlanet() != null) {
 			if(getPlanets().containsKey(data.getCurrentPlanet())) {
@@ -218,12 +225,24 @@ public class Player extends MovableEntity implements IPlayer {
 		totalFuelConsumption = data.getFuelConsumption();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Contains nothing.
+	 */
 	@Override
 	public void move() {}
 
+	/**
+	 * {@inheritDoc}
+	 * Contains nothing.
+	 */
 	@Override
 	public boolean canMove() { return false; }
 
+	/**
+	 * {@inheritDoc}
+	 * Contains nothing.
+	 */
 	@Override
 	public void setMove(boolean canMove) {}
 }

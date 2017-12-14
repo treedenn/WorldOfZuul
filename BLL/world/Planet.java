@@ -1,16 +1,15 @@
 package BLL.world;
 
 import BLL.ACQ.IInventory;
-import BLL.ACQ.IItemStack;
 import BLL.ACQ.IPlanet;
 import BLL.entity.Inventory;
 import BLL.entity.npc.NPC;
 import BLL.entity.player.Backpack;
-import BLL.item.ItemStack;
 import javafx.geometry.Point2D;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author  Michael Kolling and David J. Barnes
@@ -18,7 +17,7 @@ import java.util.*;
  */
 
 /**
- * A Planet is a room/place in the game.
+ * A Planet is a room in the game, where possibilities await!
  */
 public class Planet implements IPlanet {
     /* variables for the room class */
@@ -31,7 +30,13 @@ public class Planet implements IPlanet {
     private Inventory inventory;
     private List<NPC> npcList;
 
-    /* constructor for the planet class */
+    /**
+     * Constructs a new Planet.
+     * @param name name of the planet
+     * @param description description of the planet
+     * @param x the x-coordinate
+     * @param y the y-coordinate
+     */
     public Planet(String name, String description, double x, double y) {
         this.name = name;
         this.description = description;
@@ -41,7 +46,15 @@ public class Planet implements IPlanet {
         this.searched = new boolean[] {false, false};
     }
 
-    /* expanded constructor for the planet class to include resource paths */
+    /**
+     * An extended version of constructing a new Planet.
+     * @param name name of the planet
+     * @param description description of the planet
+     * @param imagePath image when entering the planet
+     * @param map2DPath the sphere image as 2D
+     * @param x the x-coordinate
+     * @param y the y-coordinate
+     */
     public Planet(String name, String description, String imagePath, String map2DPath, double x, double y) {
         this(name, description, x, y);
         this.image = new File(imagePath);
@@ -101,6 +114,14 @@ public class Planet implements IPlanet {
      * {@inheritDoc}
      */
     @Override
+    public double getY() {
+        return coordinates.getY();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public File getImage(){ return image; }
 
     /**
@@ -108,14 +129,6 @@ public class Planet implements IPlanet {
      */
     @Override
     public File getMap2D(){ return map2D; }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public double getY() {
-        return coordinates.getY();
-    }
 
     /**
      * {@inheritDoc}
