@@ -206,52 +206,28 @@ public class Game implements Domain {
 		npcHandler.getUnoX().setQuizes(model.getQuizes());
 
 		// Adds the Stationary Blacksmith to Xehna, the locked planet.
-//		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
-//		npcHandler.getStationaryBlacksmith().getCurrentPlanet().getNPCs().add(npcHandler.getStationaryBlacksmith());
-
-		// Adds the Blacksmith
-//		npcHandler.getBlacksmith().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-//		npcHandler.getBlacksmith().setPlanets(planetMap);
-
-		// Adds the pirate to a random planet
-//		npcHandler.getPirate().setPlanets(planetMap);
-//		npcHandler.getPirate().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-//		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
-
-		// Adds the UnoX to a random planet
-//		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
-//		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
-
-		// Adds the UnoX to a random planet
-//		npcHandler.getProfessorPutricide().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-//		npcHandler.getProfessorPutricide().getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
-
-
-		/* DEBUG MODE */
-		// TODO: remove these statements when game is finishing.
-		// These statements are used to debug the game.
-
-		// Adds the Stationary Blacksmith to Xehna, the locked planet.
-		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getStationaryBlacksmith().setCurrentPlanet(planetMap.get("xehna"));
 		npcHandler.getStationaryBlacksmith().getCurrentPlanet().getNPCs().add(npcHandler.getStationaryBlacksmith());
 
-		// Adds the pirate to a random
+		// Adds the Blacksmith
+		npcHandler.getBlacksmith().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
+		npcHandler.getBlacksmith().setPlanets(planetMap);
+
+		// Adds the pirate to a random planet
 		npcHandler.getPirate().setPlanets(planetMap);
-		npcHandler.getPirate().setCurrentPlanet(planetMap.get("newearth"));
+		npcHandler.getPirate().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
 		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
 
-		// Adds the UnoX to a random planet
+		// Adds the UnoX to a new earth
 		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
-		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
+		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());    
 
-		// Adds the UnoX to a random planet
-		npcHandler.getProfessorPutricide().setCurrentPlanet(planetMap.get("newearth"));
+		// Adds the professorputricide to a random planet
+		npcHandler.getProfessorPutricide().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
 		npcHandler.getProfessorPutricide().getCurrentPlanet().getNPCs().add(npcHandler.getProfessorPutricide());
 
-		System.out.println("Professor is on " + npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
 
-		// useItem(new ItemStack(model.getItemById(58)));
-		// ---
+
 	}
 
 	/**
