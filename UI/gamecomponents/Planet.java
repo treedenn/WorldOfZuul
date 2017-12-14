@@ -3,6 +3,7 @@ package UI.gamecomponents;
 import BLL.ACQ.IPlanet;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DisplacementMap;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
@@ -33,6 +34,8 @@ public class Planet extends GameObject {
         this.name = new Label(planetName);
         texture = new PhongMaterial();
         sphere = new Sphere(280);
+
+
 
         texture.setDiffuseMap(diffuseMap);
         sphere.setMaterial(texture);

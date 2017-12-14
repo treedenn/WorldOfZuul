@@ -16,9 +16,10 @@ public class NewMain extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game/game_view.fxml"));
-        GameController controller = new GameController(Game.getInstance());
-        AnchorPane pane = loader.load();
-        primaryStage.setScene(new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight()));
+        GameController controller = new GameController(Game.getInstance(), primaryStage);
+        loader.setController(controller);
+        AnchorPane root = loader.load();
+        primaryStage.setScene(new Scene(root, root.getPrefWidth(), root.getPrefHeight()));
         primaryStage.show();
     }
 }

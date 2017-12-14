@@ -32,6 +32,7 @@ public class StartController extends Controller{
 	@FXML private AnchorPane aboutWrapper;
 	@FXML private Button exitButton__about;
 	@FXML private Button button__about;
+	@FXML private Button buttonContinueGame;
 
 
 	/**
@@ -48,9 +49,9 @@ public class StartController extends Controller{
 	@Override
 	public void initialize() {
 		configListView();
-
 		getStage().getIcons().add(new Image("./UI/resources/img/favicon.png"));
 
+		buttonContinueGame.setVisible(getDomain().hasLoadingFile());
 	}
 
 	/**
@@ -59,7 +60,6 @@ public class StartController extends Controller{
 	 */
 	@FXML
 	void continueGame(ActionEvent event) {
-		// TODO: Implement continue game here!
 		try {
 			getDomain().load();
 			switchToGameView();

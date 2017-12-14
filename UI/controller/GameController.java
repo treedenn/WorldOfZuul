@@ -11,6 +11,7 @@ import UI.gamecomponents.subscene.gamemap.MiniMap;
 import com.sun.javafx.robot.FXRobot;
 import com.sun.javafx.robot.FXRobotFactory;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -256,8 +257,9 @@ public class GameController extends Controller implements IGameLoop{
 
     @FXML
     void saveAndQuit(ActionEvent event) {
-        // TODO: Implement save and quit here!
         getDomain().save();
+        Platform.exit();
+        System.exit(0);
     }
 
     @FXML

@@ -1,13 +1,23 @@
 package UI.refactoredUI.components;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Component {
 
     /** Reference to the component root. */
-    private static Parent parent;
+    private Parent parent;
     /** Reference to the FXML path. */
     private String resource;
 
@@ -33,6 +43,16 @@ public abstract class Component {
     }
 
     /**
+     * Method returns true if object of type {@link Component} intersects
+     * with the passed object.
+     * @param other object of type {@link Component}.
+     * @return  true if the components intersects / are colliding.
+     */
+    public boolean isColliding(Component other){
+        return getView().getBoundsInParent().intersects(other.getView().getBoundsInParent());
+    }
+
+    /**
      * Accessor method for the component root.
      * @return  the root of the component.
      */
@@ -55,4 +75,5 @@ public abstract class Component {
     public String getResource() {
         return resource;
     }
+
 }

@@ -1,18 +1,19 @@
 package UI.refactoredUI.backpack;
 
-import BLL.item.Item;
-import BLL.item.ItemStack;
+import BLL.ACQ.IItemStack;
 import UI.refactoredUI.components.Component;
 import UI.refactoredUI.components.IBackpack;
 import UI.refactoredUI.components.IEventListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,17 @@ import java.util.ResourceBundle;
 
 public class Backpack extends Component implements IBackpack{
 
-    private List<IEventListener<ItemStack>> useSubscribers = new ArrayList<>();
-    private List<IEventListener<ItemStack>> dropSubscribers = new ArrayList<>();
+    private List<IEventListener<IItemStack>> useSubscribers = new ArrayList<>();
+    private List<IEventListener<IItemStack>> dropSubscribers = new ArrayList<>();
     private List<IEventListener<?>> closeSubscribers = new ArrayList<>();
+    private ObservableList<IItemStack> inventory;
+    private IItemStack selectedItem;
 
     @FXML
-    private ListView<ItemStack> backpackItemList;
+    private StackPane backpackOuterWrapper;
+
+    @FXML
+    private ListView<IItemStack> backpackItemList;
 
     @FXML
     private Button dropButton;
@@ -40,19 +46,30 @@ public class Backpack extends Component implements IBackpack{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        /** Setup {@link backpackItemList} cell factory. */
+        backpackItemList.setCellFactory(param -> {return new InventoryFormatCell();});
+
+        /** Handle click events on the {@link backpackItemList}. */
+        backpackItemList.setOnMouseClicked(event -> {
+            if(selectedItem == backpackItemList.getSelectionModel().getSelectedItem()){
+                backpackItemList.getSelectionModel().select(null);
+                selectedItem = null;
+                dropButton.setDisable(true);
+                useButton.setDisable(true);
+            } else {
+                selectedItem = backpackItemList.getSelectionModel().getSelectedItem();
+                dropButton.setDisable(false);
+                useButton.setDisable(false);
+            }
+        });
+
     }
-
-    @Override
-    public void tick() {
-
-    }
-
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onUse(IEventListener<ItemStack> listener) {
+    public void onUse(IEventListener<IItemStack> listener) {
         useSubscribers.add(listener);
     }
 
@@ -60,7 +77,7 @@ public class Backpack extends Component implements IBackpack{
      * {@inheritDoc}
      */
     @Override
-    public void onDrop(IEventListener<ItemStack> listener) {
+    public void onDrop(IEventListener<IItemStack> listener) {
         dropSubscribers.add(listener);
     }
 
@@ -72,6 +89,15 @@ public class Backpack extends Component implements IBackpack{
         closeSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void load(IItemStack[] items) {
+        inventory = FXCollections.observableArrayList(items);
+        backpackItemList.setItems(inventory);
+    }
+
     @FXML
     void closeBackpack(ActionEvent event) {
         closeSubscribers.forEach(listener -> listener.onAction(null));
@@ -79,15 +105,35 @@ public class Backpack extends Component implements IBackpack{
 
     @FXML
     void drop(ActionEvent event) {
-        ItemStack selectedItem = backpackItemList.getSelectionModel().getSelectedItem();
+        IItemStack selectedItem = backpackItemList.getSelectionModel().getSelectedItem();
         dropSubscribers.forEach(listener -> listener.onAction(selectedItem));
-
     }
 
     @FXML
     void use(ActionEvent event) {
-        ItemStack selectedItem = backpackItemList.getSelectionModel().getSelectedItem();
+        IItemStack selectedItem = backpackItemList.getSelectionModel().getSelectedItem();
         useSubscribers.forEach(listener -> listener.onAction(selectedItem));
     }
 
+
+    /**
+     * Inner class that extends {@link ListCell}, overriding the updateItem method.
+     * The updateItem method is called whenever the item in the cell changes.
+     */
+    // TODO: Move this to separate class?
+    public class InventoryFormatCell extends ListCell<IItemStack> {
+        public InventoryFormatCell(){}
+
+        @Override
+        protected void updateItem(IItemStack itemStack, boolean empty) {
+            super.updateItem(itemStack, empty);
+            setText(itemStack == null? " " : itemStack.toString());
+            setTextFill(new Color(1.,1.,1.,1.));
+
+            if(itemStack != null){
+
+            }
+
+        }
+    }
 }
