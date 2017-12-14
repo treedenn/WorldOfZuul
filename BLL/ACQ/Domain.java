@@ -108,20 +108,20 @@ public interface Domain {
 	/**
 	 * Picks an itemstack and sends it to the player's inventory.
 	 * @param iis the item stack to add to the inventory
-	 * @return true, if successful
+	 * @return true, if pickup successful
 	 */
 	boolean pickupItem(IItemStack iis);
 
 	/**
 	 * Drops the itemstack from the player's inventory to the current planet.
 	 * @param iis the item stack to drop from the inventory
-	 * @return true, if successful
+	 * @return true, if dropped successful
 	 */
 	boolean dropItem(IItemStack iis);
 
 	/**
 	 * Ignites the search. It sets the permanent/temporary search of the current planet.
-	 * @return true, if search
+	 * @return true, if searching was successful
 	 */
 	boolean searchPlanet();
 
@@ -152,7 +152,21 @@ public interface Domain {
 	 */
 	MessageContainer getMessageContainer();
 
+	/**
+	 * Saves the game to a file.
+	 * @return true, if saving was successful
+	 */
 	boolean save();
 
+	/**
+	 * Loads the game from a file.
+	 * @return true, if loading was successful
+	 */
 	boolean load();
+
+	/**
+	 * Returns a boolean based on a file for loading is ready to be loaded.
+	 * @return true, if file exists
+	 */
+	boolean hasLoadingFile();
 }

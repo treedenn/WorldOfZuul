@@ -7,6 +7,7 @@ package BLL.entity.npc.actions;
 
 import BLL.ACQ.INPCAction;
 import BLL.Game;
+import BLL.GameUtility;
 import BLL.entity.Entity;
 import BLL.entity.npc.Blacksmith;
 import BLL.entity.npc.NPC;
@@ -40,7 +41,7 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
                         ((Entity) npc).getCurrentPlanet().getNPCs().remove(npc);
                         ((Entity) npc).setCurrentPlanet(null);
 
-                        Planet planet = (Planet) game.getPlayerPlanets().get("newearth");
+                        Planet planet = GameUtility.getRandomPlanetNotXehna(player.getPlanets().values().toArray(new Planet[player.getPlanets().size()]));
                         Blacksmith blacksmith = game.getNpcHandler().getBlacksmith();
 
                         blacksmith.setCurrentPlanet(planet);
@@ -60,8 +61,9 @@ public class StationaryBlacksmithAction implements NPCActionCollection {
                     }
                 }
             },
-            new NPCTerminateAction("... Thank you Rick! I hope I will see you again!"),
-            new NPCAction("... Maybe next time then?")
+            new NPCTerminateAction("... Thank you Rick! I will be leaving!" +
+                    "\nIf you need to find me again, I will be leaving traces on the planets - I hope this helps!"),
+            new NPCAction("... Thrr, another time perhaps?")
         };
     }
 

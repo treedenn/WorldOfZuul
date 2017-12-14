@@ -73,6 +73,21 @@ public interface PersistenceLayer {
 	 */
 	String getMessage(String key);
 
+	/**
+	 * Tells the persistent layer to save the game.
+	 * @throws IOException throws, if file does not exist
+	 */
 	void saveGame() throws IOException;
+
+	/**
+	 * Tells the persistent layer to load the game.
+	 * @throws IOException throws, if file does not exist
+	 */
 	void loadGame() throws IOException;
+
+	/**
+	 * Checks whether the loading file exists
+	 * @return true, if it exists
+	 */
+	boolean hasLoadingFile();
 }

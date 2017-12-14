@@ -136,12 +136,12 @@ public class Game implements Domain {
 //		npcHandler.getBlacksmith().setPlanets(planetMap);
 
 		// Adds the pirate to a random planet
-		// npcHandler.getPirate().setPlanets(planetMap);
+//		npcHandler.getPirate().setPlanets(planetMap);
 //		npcHandler.getPirate().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
-		// npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
+//		npcHandler.getPirate().getCurrentPlanet().getNPCs().add(npcHandler.getPirate());
 
 		// Adds the UnoX to a random planet
-//		npcHandler.getUnoX().setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(planets));
+//		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
 //		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
 
 		// Adds the UnoX to a random planet
@@ -199,7 +199,7 @@ public class Game implements Domain {
 	@Override
 	public boolean searchPlanet() {
 		boolean isSearching = false;
-		String message;
+		String message = null;
 
 		Planet currentPlanet = player.getCurrentPlanet();
 
@@ -213,7 +213,9 @@ public class Game implements Domain {
 
 				String bsKey = npcHandler.getBlacksmith().getVisitState(currentPlanet.getName()).getKey();
 
-				message = model.getMessage(bsKey);
+				if(npcHandler.getBlacksmith().getCurrentPlanet() != null) {
+					message = model.getMessage(bsKey);
+				}
 			}
 		} else {
 			message = model.getMessage("player-deep-space");
@@ -497,8 +499,6 @@ public class Game implements Domain {
 		return scoreHandler;
 	}
 
-	// TODO: Perhaps change boolean to int to get the direct location
-
 	/**
 	 * @inheritDoc
 	 */
@@ -539,6 +539,9 @@ public class Game implements Domain {
 		return new ArrayList<>(model.getHighscore());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean save() {
 		IWorldData worldData = model.getWorldData();
@@ -569,8 +572,6 @@ public class Game implements Domain {
 		} else {
 			playerData.setCurrentPlanet(null);
 		}
-
-		// TODO: Remove clues from saving/loading and replant them when the game restarts
 
 		playerData.setX(player.getCoordX());
 		playerData.setY(player.getCoordY());
@@ -614,6 +615,9 @@ public class Game implements Domain {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean load() {
 
@@ -687,6 +691,8 @@ public class Game implements Domain {
 
 			player.setPlanets(planetMap);
 			npcHandler.getBlacksmith().setPlanets(planetMap);
+
+			return true;
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -694,42 +700,12 @@ public class Game implements Domain {
 		return false;
 	}
 
-	/* function to print a welcome message */
-	private String[] welcomeMessage() {
-		return new String[] {
-			"",
-			"Welcome to the ridicoulous Rick & Morty spinoff!",
-			"Rick & Morty spinoff is a new and incredibly addictive adventure game!",
-			"[Type '" + /*CommandWord.HELP + */ "' if you need help]",
-            "[Type '" + /*CommandWord.INFO + */ "' if you need more information]",
-			"",
-		};
+	@Override
+	public boolean hasLoadingFile() {
+		return model.hasLoadingFile();
 	}
-        
-    private String[] descriptionMessage() {
-        return new String[] {
-                            "GAME DESCRIPTION",
-			"--------------",
-			"You are Rick, the brilliant scientist. But you have mistakenly destroyed Earth in your current dimension.",
-			"Normally, you would use your Portal Gun to teleport yourself to a new dimension... But it's broken!",
-			"Your mission is now to fix your Portal Gun and travel safely to a new dimension. Good luck!",
-			"--------------",
-                            "",
-        };
-    }
 
-    private String[] hintMessage() {
-        return new String[] {
-            "OBJECTIVE:",
-            "--------------",
-            "> You need to find the blacksmith named Gearhead!",
-            "> Gearhead will show you his recipe for the Portal Gun!",
-            "> It is now your job to find all the items needed!",
-            "> Return to Gearhead and repair your Portal Gun!",
-            "--------------",
-        };
-    }
-
+	// TODO: Will this function ever be used?
 	private void gameIsFinished() {
 		StringBuilder sb = new StringBuilder();
 
