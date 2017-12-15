@@ -25,6 +25,7 @@ import java.util.*;
 public class GameMap extends Component implements IGameMap {
 
     private List<IEventListener<AbstractMap.SimpleImmutableEntry<Double, Double>>> onMovementSubscribers = new ArrayList<>();
+    private List<IGlobe> planetsOnGameMap = new ArrayList<>();
 
     IMiniMap miniMap;
     ISpaceship spaceship;
@@ -55,6 +56,7 @@ public class GameMap extends Component implements IGameMap {
     public void initialize(URL location, ResourceBundle resources) {
         ComponentLoader.loadComponent(upperRightCorner, miniMap.getView(), 0,0,0,0,false);
         ComponentLoader.loadComponent(map, spaceship.getView());
+
         /** Listen to spaceship velocity and pass this to subscribers. */
         spaceship.onMovement(data -> onMovementSubscribers.forEach(listener -> listener.onAction(data)));
 
@@ -127,6 +129,8 @@ public class GameMap extends Component implements IGameMap {
         for (IPlanet iPlanet : planets.values()) {
             IGlobe newGlobe = new Globe(iPlanet.getName(), iPlanet.getMap2D().toURI().toString().replace("\\","/"));
             ComponentLoader.loadComponent(map, newGlobe.getView(),  iPlanet.getX() - newGlobe.radius(), iPlanet.getY() - newGlobe.radius());
+            newGlobe.getView().toBack();
+            planetsOnGameMap.add(newGlobe);
         }
         miniMap.renderPlanets(planets);
     }
@@ -176,9 +180,21 @@ public class GameMap extends Component implements IGameMap {
         miniMap.setSpaceshipCoordY(coordY);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ISpaceship getSpaceship() {
         return spaceship;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<IGlobe> getPlanetsOnGameMap() {
+        return planetsOnGameMap;
     }
 
     /**

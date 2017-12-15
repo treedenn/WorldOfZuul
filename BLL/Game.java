@@ -423,7 +423,7 @@ public class Game implements Domain {
 				message = model.getMessage("player-deep-space");
 			}
 		} else {
-
+			message = model.getMessage("player-deep-space");
 		}
 
 		messageContainer.setMessage(message);

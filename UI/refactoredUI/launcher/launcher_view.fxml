@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to top, #1C2963,#2D46B9);" stylesheets="@launcher.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane alignment="CENTER" prefHeight="560.0" prefWidth="810.0" styleClass="launcherNoiseBG">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane minHeight="550.0" minWidth="800.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="314.0" minHeight="10.0" prefHeight="294.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="284.0" minHeight="10.0" prefHeight="224.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                           <children>
+                              <ImageView fitHeight="227.0" fitWidth="159.0" layoutX="202.0" layoutY="-111.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../resources/img/rick.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <Button fx:id="buttonContinueGame" mnemonicParsing="false" onAction="#continueGame" text="CONTINUE GAME">
+                           <styleClass>
+                              <String fx:value="start-view-button" />
+                              <String fx:value="startViewButton__continue--green" />
+                           </styleClass>
+                           <effect>
+                              <DropShadow blurType="GAUSSIAN" color="#0000002b" height="15.0" offsetY="1.0" radius="7.0" width="15.0" />
+                           </effect>
+                        </Button>
+                        <GridPane GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="buttonNewGame" mnemonicParsing="false" onAction="#handleNewGameAction" styleClass="startViewButton__secondary" text="New game" />
+                              <Button fx:id="button__about" mnemonicParsing="false" onAction="#displayAboutScreen" styleClass="startViewButton__secondary" text="About" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="122.0" minHeight="5.0" prefHeight="113.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="100.0" valignment="TOP" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="81.0" valignment="TOP" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="launcherTitle" text="Rick's" textFill="WHITE">
+                           <font>
+                              <Font name="Georgia" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="launcherTitle" text="Adventure" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Georgia" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="launcherSubTitle" text="Love is just a chemical reaction. But you are going to love this game." textFill="WHITE" wrapText="true" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Georgia" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.columnIndex="1" GridPane.rowSpan="2">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="257.0" minHeight="10.0" prefHeight="47.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="495.0" minHeight="10.0" prefHeight="481.0" valignment="TOP" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="buttonExit" mnemonicParsing="false" onAction="#handleExitAction" text="EXIT" textFill="WHITE" GridPane.columnIndex="1">
+                           <graphic>
+                              <SVGPath content="M19,6.4L17.6,5L12,10.6L6.4,5L5,6.4l5.6,5.6L5,17.6L6.4,19l5.6-5.6l5.6,5.6l1.4-1.4L13.4,12L19,6.4z" fill="WHITE" />
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="startViewButton__exit" />
+                              <String fx:value="buttonScale" />
+                           </styleClass>
+                        </Button>
+                        <GridPane GridPane.columnSpan="2" GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" styleClass="highscoreScrollPane" vbarPolicy="NEVER">
+                                 <content>
+                                    <TableView fx:id="tableviewHighscore" prefHeight="500.0" styleClass="highscoreTable">
+                                      <columns>
+                                        <TableColumn fx:id="tablecolumnIndex" editable="false" maxWidth="1.7976931348623157E308" minWidth="35.0" prefWidth="20.0" resizable="false" text="#" />
+                                        <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" resizable="false" sortable="false" text="NAME" />
+                                          <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="150.0" resizable="false" sortable="false" text="SCORE" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </GridPane>
+                        <Label text="HIGHSCORES:" textFill="WHITE" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </GridPane>
+               </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="16.0" left="45.0" right="30.0" top="16.0" />
+               </padding>
+            </GridPane>
+         </children>
+      </GridPane>
+      <AnchorPane fx:id="aboutWrapper" prefHeight="560.0" prefWidth="810.0" style="-fx-background-color: #121212;" visible="false">
+         <children>
+            <AnchorPane prefHeight="84.0" prefWidth="810.0" style="-fx-background-color: linear-gradient(to bottom, #1E1E1E, #121212); -fx-border-width: 0 0 1 0; -fx-border-color: #282828;" />
+            <GridPane prefHeight="550.0" prefWidth="800.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="272.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="478.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="317.0" minHeight="10.0" prefHeight="82.0" valignment="TOP" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="442.0" minHeight="10.0" prefHeight="418.0" valignment="TOP" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="exitButton__about" alignment="CENTER" mnemonicParsing="false" onAction="#closeAboutScreen" text="GO BACK">
+                     <graphic>
+                        <SVGPath content="M15.4,16.1l-4.6-4.6l4.6-4.6L14,5.5l-6,6l6,6L15.4,16.1z" fill="WHITE" scaleX="1.3" scaleY="1.3" translateX="-10.0" />
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <styleClass>
+                        <String fx:value="startViewButton__closeHighscore" />
+                        <String fx:value="buttonScale" />
+                     </styleClass>
+                  </Button>
+                  <VBox GridPane.rowIndex="1">
+                     <children>
+                        <Label styleClass="launcherSubTitle" text="This game is developed by students at University of Southern Denmark." textFill="WHITE" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="launcherSmallTitle" text="Released: DD/MM/YY" textFill="WHITE" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="8.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="launcherSmallTitle" text="Made by: " textFill="WHITE" wrapText="true">
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </Label>
+                        <Label styleClass="launcherSmallTitle" text="Josef Pham" textFill="#ffffffcc" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="launcherSmallTitle" text="Dennis Petersen" textFill="#ffffffcc" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="launcherSmallTitle" text="Lasse Traberg-Larsen" textFill="#ffffffcc" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="launcherSmallTitle" text="Rasmus Hansen" textFill="#ffffffcc" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="launcherSmallTitle" text="Victor Størner-Ryberg" textFill="#ffffffcc" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="launcherSmallTitle" text="Michael Vittus Poulsen" textFill="#ffffffcc" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="15.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Accordion style="-fx-background-color: none;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <panes>
+                      <TitledPane animated="false" style="-fx-background-color: none;" text="FAQ">
+                           <content>
+                              <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none;">
+                                 <content>
+                                    <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla enim elit, porttitor in mauris eget, tempor dignissim leo. Etiam tempor arcu et urna porttitor tempor. Donec egestas velit nibh, eget pellentesque risus fringilla a. Sed justo turpis, tempus vitae justo in, molestie pretium nisi. Nullam feugiat blandit auctor. Etiam hendrerit vitae sem a viverra. Quisque id enim ut ante lobortis vestibulum. Donec diam quam, euismod eu malesuada ut, mattis ut ipsum. Nam sed accumsan arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer convallis id nibh et consequat. Donec ornare orci eget eros fringilla pellentesque. Integer nec venenatis odio. Nunc maximus suscipit arcu, sed efficitur odio commodo et. Aliquam neque quam, fermentum eu est ut, sodales egestas mauris." textFill="WHITE" wrapText="true" />
+                                 </content>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </ScrollPane>
+                           </content>
+                      </TitledPane>
+                        <TitledPane animated="false" style="-fx-background-color: none;" text="Credits">
+                           <content>
+                              <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none;">
+                                 <content>
+                                    <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla enim elit, porttitor in mauris eget, tempor dignissim leo. Etiam tempor arcu et urna porttitor tempor. Donec egestas velit nibh, eget pellentesque risus fringilla a. Sed justo turpis, tempus vitae justo in, molestie pretium nisi. Nullam feugiat blandit auctor. Etiam hendrerit vitae sem a viverra. Quisque id enim ut ante lobortis vestibulum. Donec diam quam, euismod eu malesuada ut, mattis ut ipsum. Nam sed accumsan arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer convallis id nibh et consequat. Donec ornare orci eget eros fringilla pellentesque. Integer nec venenatis odio. Nunc maximus suscipit arcu, sed efficitur odio commodo et. Aliquam neque quam, fermentum eu est ut, sodales egestas mauris." textFill="WHITE" wrapText="true" />
+                                 </content>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </ScrollPane>
+                           </content>
+                        </TitledPane>
+                    </panes>
+                  </Accordion>
+               </children>
+               <padding>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </padding>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

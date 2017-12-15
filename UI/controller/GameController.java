@@ -211,9 +211,6 @@ public class GameController extends Controller implements IGameLoop{
             if(key.getCode() == KeyCode.SPACE){
                 key.consume();
                 landOnPlanet();
-
-                
-
             }
         });
 

@@ -16,6 +16,7 @@ public class Spaceship extends Component implements ISpaceship {
 
     private List<IEventListener<AbstractMap.SimpleImmutableEntry<Double, Double>>> onMovementSubscribers = new ArrayList<>();
 
+    private boolean isMoveable;
     private boolean accelerate, right, left, decelerate, reverse;
     private double accelerationTime, decelerationTime;
     private double speed, maxSpeed, accelerationRatio, decelerationRatio;
@@ -27,6 +28,7 @@ public class Spaceship extends Component implements ISpaceship {
         accelerationRatio = 1500;
         decelerationRatio = 500;
         velocity = new Point2D(0,0);
+        isMoveable = true;
     }
 
     @Override
@@ -39,17 +41,23 @@ public class Spaceship extends Component implements ISpaceship {
      */
     @Override
     public void tick(double deltaTime) {
-        if(accelerate && !decelerate) {
-            accelerate(deltaTime);
-        } else {accelerationTime = 0;}
+        if(isMoveable) {
+            if (accelerate && !decelerate) {
+                accelerate(deltaTime);
+            } else {
+                accelerationTime = 0;
+            }
 
-        if(left && !right) getView().setRotate(getView().getRotate() - 5);
+            if (left && !right) getView().setRotate(getView().getRotate() - 5);
 
-        if (right && !left) getView().setRotate(getView().getRotate() + 5);
+            if (right && !left) getView().setRotate(getView().getRotate() + 5);
 
-        if(decelerate){
-            decelerate(deltaTime);
-        } else {decelerationTime = 0;}
+            if (decelerate) {
+                decelerate(deltaTime);
+            } else {
+                decelerationTime = 0;
+            }
+        }
     }
 
     /**
@@ -96,7 +104,15 @@ public class Spaceship extends Component implements ISpaceship {
      */
     @Override
     public boolean isMoving() {
-        return accelerate;
+        return isMoveable && accelerate  ? true : false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setMoveable(boolean moveable) {
+        isMoveable = moveable;
     }
 
     /**

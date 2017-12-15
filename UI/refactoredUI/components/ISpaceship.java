@@ -36,4 +36,6 @@ public interface ISpaceship extends IComponent {
      */
     boolean isMoving();
 
+    void setMoveable(boolean moveable);
+
 }

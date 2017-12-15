@@ -4,20 +4,22 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="860.0" prefWidth="1440.0" styleClass="surface__wrapper" stylesheets="@surface.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.refactoredUI.surface.Surface">
+<AnchorPane prefHeight="860.0" prefWidth="1440.0" styleClass="surface__wrapper" stylesheets="@surface.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.refactoredUI.surface.Surface">
    <children>
-      <AnchorPane prefHeight="400.0" styleClass="imageHolder" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="image" prefHeight="400.0" styleClass="imageHolder" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="imageGradient" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="surface__scrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane fx:id="scroller" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" styleClass="surface__scrollPane" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <StackPane alignment="TOP_CENTER">
                <children>
@@ -26,33 +28,85 @@
                         <VBox>
                            <children>
                               <Label styleClass="topLabel" text="YOU JUST LANDED ON" />
-                              <Label styleClass="planetName" text="New Earth" />
-                              <Button mnemonicParsing="false" styleClass="button__leavePlanet" text="LEAVE PLANET" />
+                              <Label fx:id="name" styleClass="planetName" text="New Earth" />
+                              <Button fx:id="buttonExit" mnemonicParsing="false" onAction="#exit" styleClass="button__leavePlanet" text="LEAVE PLANET" />
                            </children>
                            <VBox.margin>
                               <Insets top="230.0" />
                            </VBox.margin>
                         </VBox>
-                        <VBox prefHeight="20.0">
+                        <VBox>
                            <VBox.margin>
                               <Insets top="36.0" />
                            </VBox.margin>
                            <children>
                               <Label styleClass="sectionHeading" text="About this planet" />
-                              <Label layoutX="10.0" layoutY="10.0" styleClass="planetDescription" text="Description..." />
+                              <Label fx:id="description" alignment="TOP_LEFT" styleClass="planetDescription" text="Description..." wrapText="true" />
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="surface__divider" />
                            </children>
                         </VBox>
-                        <VBox layoutX="60.0" layoutY="437.0" prefHeight="20.0">
+                        <VBox spacing="20.0">
                            <children>
-                              <Label styleClass="sectionHeading" text="Stuff on this planet" />
-                              <Label layoutX="10.0" layoutY="10.0" styleClass="planetDescription" text="Description..." />
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <VBox alignment="CENTER" spacing="15.0">
                                  <children>
-                                    <VBox HBox.hgrow="ALWAYS">
+                                    <HBox alignment="CENTER">
                                        <children>
-                                          <Label text="Label" />
-                                          <ListView minHeight="500.0" />
+                                          <Label styleClass="sectionHeading" text="Stuff on this planet" />
+                                          <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="buttonSearch" contentDisplay="TEXT_ONLY" mnemonicParsing="false" onAction="#search" styleClass="button__searchPlanet" text="SEARCH PLANET">
+                                             <graphic>
+                                                <ProgressBar fx:id="barSearch" prefWidth="200.0" progress="0.0" styleClass="searchProgress" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="surface__divider" />
+                                 </children>
+                              </VBox>
+                              <VBox VBox.vgrow="SOMETIMES">
+                                 <children>
+                                    <StackPane alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label fx:id="notSearchedLabel" styleClass="notSearchedLabel" text="You have not searched this planet yet!" visible="false" />
+                                          <Label fx:id="isSearchedLabel" styleClass="isSearchedLabel" text="You have searched this planet! You might search again......" textOverrun="CLIP" visible="false" wrapText="true" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </VBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                 <children>
+                                    <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="listHeaderLabel" text="Items" />
+                                          <VBox>
+                                             <children>
+                                                <AnchorPane VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <Button fx:id="buttonPickup" disable="true" mnemonicParsing="false" onAction="#pickup" styleClass="button__pickup" text="CLICK HERE TO PICK UP" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                                <ListView fx:id="itemList" minHeight="500.0" onMouseClicked="#selectItem" styleClass="surfaceList" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="listHeaderLabel" text="Characters" />
+                                          <VBox>
+                                             <children>
+                                                <AnchorPane VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="characterClickInstruction" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label text="CLICK ON CHARACTER TO INTERACT" />
+                                                         </children>
+                                                      </StackPane>
+                                                   </children>
+                                                </AnchorPane>
+                                                <ListView fx:id="characterList" minHeight="500.0" onMouseClicked="#interact" styleClass="surfaceList" />
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </VBox>
                                  </children>

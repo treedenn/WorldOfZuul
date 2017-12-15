@@ -1,0 +1,64 @@
+.highscoreWrapper{
+    -fx-background-color: #282828;
+    -fx-background-radius: 4;
+}
+
+.highscoreTitle{
+    -fx-font-family: "Circular Std Bold";
+    -fx-font-size: 40;
+    -fx-text-fill: white;
+}
+
+.highscoreSubTitle{
+    -fx-font-family: "Circular Std Book";
+    -fx-font-size: 13;
+    -fx-text-fill: white;
+}
+
+.enterNameLabel{
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 15;
+    -fx-text-fill: white;
+}
+
+.scoreLabel{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+.score{
+    -fx-font-family: "Circular Std Book";
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+}
+
+.saveButton{
+    -fx-cursor: hand;
+    -fx-font-family: "Circular Std Black";
+    -fx-background-color: #1db954;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+
+}
+
+.saveButton:hover{
+    -fx-background-color: #1ed760;
+}
+
+.saveButton:pressed{
+    -fx-background-color: #1db954;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.nameTextField{
+    -fx-background-color: #333333;
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-text-fill: white;
+    -fx-font-size: 30;
+}

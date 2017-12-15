@@ -5,6 +5,7 @@ import com.sun.istack.internal.Nullable;
 import javafx.scene.SubScene;
 
 import java.util.AbstractMap;
+import java.util.List;
 import java.util.Map;
 
 public interface IGameMap extends IComponent {
@@ -66,6 +67,12 @@ public interface IGameMap extends IComponent {
      * @return
      */
     ISpaceship getSpaceship();
+
+    /**
+     * Method to a list of rendered globes on map.
+     * @return  list of objects of type {@link IGlobe}.
+     */
+    List<IGlobe> getPlanetsOnGameMap();
 
 
 }

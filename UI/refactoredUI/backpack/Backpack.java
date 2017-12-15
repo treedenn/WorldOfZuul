@@ -1,6 +1,7 @@
 package UI.refactoredUI.backpack;
 
 import BLL.ACQ.IItemStack;
+import BLL.Game;
 import UI.refactoredUI.components.Component;
 import UI.refactoredUI.components.IBackpack;
 import UI.refactoredUI.components.IEventListener;
@@ -49,6 +50,7 @@ public class Backpack extends Component implements IBackpack{
         /** Setup {@link backpackItemList} cell factory. */
         backpackItemList.setCellFactory(param -> {return new InventoryFormatCell();});
 
+        // TODO: USE SCENEBUILDER EVENT
         /** Handle click events on the {@link backpackItemList}. */
         backpackItemList.setOnMouseClicked(event -> {
             if(selectedItem == backpackItemList.getSelectionModel().getSelectedItem()){
@@ -120,7 +122,6 @@ public class Backpack extends Component implements IBackpack{
      * Inner class that extends {@link ListCell}, overriding the updateItem method.
      * The updateItem method is called whenever the item in the cell changes.
      */
-    // TODO: Move this to separate class?
     public class InventoryFormatCell extends ListCell<IItemStack> {
         public InventoryFormatCell(){}
 

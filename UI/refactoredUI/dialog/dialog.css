@@ -1,0 +1,83 @@
+.dialogWrapper{
+    -fx-background-color: #282828;
+    -fx-background-radius: 4;
+}
+
+.messageText{
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 16;
+    -fx-fill: white;
+}
+
+.characterImage{
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+}
+
+.dialog__scrollPane{
+    -fx-padding: 16 0 0 16;
+    -fx-background-color: transparent;
+}
+
+.dialog__scrollPane .scroll-bar:vertical{
+    -fx-background-color: transparent;
+}
+
+
+.dialog__scrollPane .scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.dialog__scrollPane .scroll-bar:vertical .thumb{
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0em;
+}
+
+
+.dialog_button{
+    -fx-cursor: hand;
+    -fx-font-family: "Circular Std Black";
+    -fx-background-color: #2979FF;
+    -fx-background-radius: 4;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.dialog_button:hover{
+    -fx-background-color: #448AFF;
+
+}
+.dialog_button:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.pickAnswerLabel{
+    -fx-font-family: "Circular Std Book";
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+}
+
+.leaveDialogButton{
+    -fx-cursor: hand;
+    -fx-font-family: "Circular Std Black";
+    -fx-background-color: #ed2931;
+    -fx-background-radius: 500;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.leaveDialogButton:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.leaveDialogButton:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}

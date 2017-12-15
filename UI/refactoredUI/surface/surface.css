@@ -34,6 +34,58 @@
     -fx-text-fill: rgba(255,255,255,0.8);
 }
 
+.button__searchPlanet{
+    -fx-cursor: hand;
+    -fx-font-family: "Circular Std Black";
+    -fx-background-color: #2979FF;
+    -fx-background-radius: 40px 40px 40px 40px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.button__searchPlanet:hover{
+    -fx-background-color: #448AFF;
+}
+
+.button__searchPlanet:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.button__pickup{
+    -fx-cursor: hand;
+    -fx-font-family: "Circular Std Black";
+    -fx-background-color: #2979FF;
+    -fx-background-radius: 3 3 0 0;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 12px 5px 12px;
+}
+
+.button__pickup:hover{
+    -fx-background-color: #448AFF;
+}
+
+.button__pickup:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.searchProgress .bar{
+    -fx-box-color: white;
+    -fx-background-radius: 40px 40px 40px 40px;
+    -fx-background-color: white;
+}
+.searchProgress > .track {
+    -fx-background-color: transparent;
+    -fx-text-box-border: #448AFF;
+    -fx-control-inner-background: #448AFF;
+}
+
+
 /* SCROLL PANE */
 .surface__scrollPane > .viewport {
     -fx-background-color: transparent;
@@ -42,6 +94,22 @@
 .surface__scrollPane{
     -fx-background-color: transparent;
 }
+
+.surface__scrollPane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.surface__scrollPane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.surface__scrollPane .scroll-bar:vertical .thumb{
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0em;
+}
+
 
 /* OUTER VBOX */
 .outerVbox{
@@ -74,9 +142,108 @@
     -fx-padding: 10 0 25;
 }
 
+.listHeaderLabel{
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+}
+
+.characterClickInstruction{
+    -fx-background-color: transparent;
+    -fx-border-color: #333333;
+    -fx-border-radius: 3 3 0 0;
+    -fx-padding: 12px 5 12px;
+}
+
+.characterClickInstruction .label{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+.notSearchedLabel{
+    -fx-font-family: "Circular Std Book";
+    -fx-font-size: 18;
+    -fx-text-fill: rgba(255,255,255,.8);
+    -fx-padding: 10;
+    -fx-background-color: #ed2931;
+}
+
+
+.isSearchedLabel{
+    -fx-font-family: "Circular Std Book";
+    -fx-font-size: 18;
+    -fx-text-fill: rgba(255,255,255,.8);
+    -fx-padding: 10;
+    -fx-background-color: #1db954;
+}
+
+
 
 /* LAYOUT ELEMENTS */
 .surface__divider{
     -fx-border-color: #282828;
     -fx-border-width: 1 0 0 0;
+}
+
+/* LISTS */
+.surfaceList{
+    -fx-background-color: transparent;
+    -fx-border-color: #282828;
+    -fx-border-width: 1 0.5 1 1;
+}
+
+.surfaceList{
+    -fx-padding: 16 0 0 16;
+    -fx-background-color: transparent;
+}
+
+.surfaceList .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.surfaceList .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.surfaceList .scroll-bar:vertical .thumb{
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0em;
+}
+
+.surfaceList .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.surfaceList .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.surfaceList .scroll-bar:horizontal .thumb{
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0em;
+}
+
+
+
+.surfaceList .list-cell{
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-font-size: 20;
+    -fx-font-family: 'Circular Std Book';
+    -fx-background-color: transparent;
+}
+
+.surfaceList .list-cell:selected{
+    -fx-background-color: #333333;
+    -fx-text-fill: #448AFF;
+}
+
+.surfaceList .list-cell:hover{
+    -fx-background-color: #282828;
+    -fx-cursor: hand;
 }

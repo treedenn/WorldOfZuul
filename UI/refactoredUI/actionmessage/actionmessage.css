@@ -1,0 +1,20 @@
+.keyHint{
+    -fx-border-color: white;
+    -fx-padding: 2 5 2 5;
+    -fx-border-width: 1;
+    -fx-text-fill: white;
+    -fx-font-family: 'Circular Std Book';
+    -fx-font-size: 22;
+}
+
+.actionText{
+    -fx-text-fill: white;
+    -fx-font-family: 'Circular Std Book';
+    -fx-font-size: 22;
+}
+
+.gestureText{
+    -fx-text-fill: white;
+    -fx-font-family: 'Circular Std Book';
+    -fx-font-size: 22;
+}

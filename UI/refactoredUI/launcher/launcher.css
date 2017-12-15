@@ -1,0 +1,607 @@
+/* LOAD CUSTOM FONT */
+
+@font-face {
+    src: url('/UI/resources/fonts/circular-book.ttf');
+}
+
+@font-face {
+    src: url('/UI/resources/fonts/circular-medium.ttf');
+}
+
+@font-face {
+    src: url('/UI/resources/fonts/circular-bold.ttf');
+}
+
+@font-face {
+    src: url('/UI/resources/fonts/circular-black.ttf');
+}
+
+/* -----------------------------------*/
+
+/* START VIEW */
+
+.launcherTitle{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 65px;
+}
+
+.launcherSubTitle{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 20px;
+}
+
+.launcherSmallTitle{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 14px;
+}
+
+.launcherNoiseBG{
+    -fx-background-image: url("/UI/resources/img/noise2.png");
+    -fx-background-repeat: repeat;
+}
+
+.start-view-button {
+    -fx-border-color: white;
+    -fx-background-color: none;
+    -fx-border-radius: 100% !important;
+    -fx-border-width: 2px !important;
+    -fx-text-fill: white !important;
+    -fx-cursor: hand;
+}
+
+.start-view-button:hover{
+    -fx-background-color: rgba(0,0,0,0.2);
+}
+
+.startViewButton__exit{
+    -fx-background-color: transparent;
+}
+
+.startViewButton__continue--green{
+    -fx-background-color: #1db954;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 56px 12px;
+}
+
+.startViewButton__continue--green:hover{
+    -fx-background-color: #1ed760;
+}
+
+.startViewButton__continue--green:pressed{
+    -fx-background-color: #1db954;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.startViewButton__continue--red{
+    -fx-background-color: linear-gradient(to right,#ed2931 0,#f95a3e);
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 56px 12px;
+}
+
+.startViewButton__continue--red:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.startViewButton__continue--red:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.startViewButton__secondary{
+    -fx-text-fill: #1db954;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+}
+
+
+.startViewButton__secondary:hover{
+    -fx-scale-x: 107%;
+    -fx-scale-y: 107%;
+}
+
+
+.startViewButton__secondary:pressed{
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
+    -fx-opacity: 0.8;
+}
+
+
+.wrapper__buttonWrapper--white-outline{
+    -fx-border-width: 2px;
+    -fx-border-color: transparent;
+    -fx-padding: 16px;
+}
+
+.highscoreTable{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.highscoreTable .column-header-background{
+    -fx-background-color: transparent;
+}
+
+.highscoreTable .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.highscoreTable .column-header .label{
+    -fx-alignment: center-left;
+}
+
+.highscoreTable .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.19);
+}
+
+.highscoreTable .table-cell{
+    -fx-text-fill: white;
+    -fx-font-family: "Circular Std Medium";
+}
+
+.highscoreTable .table-row-cell{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-width: 1;
+    -fx-border-color: transparent;
+
+}
+
+.highscoreTable .table-cell{
+    -fx-font-size: 25px;
+    -fx-text-fill: rgba(255,255,255,0.3);
+}
+
+
+.highscoreTable .table-row-cell:odd{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.startViewButton__closeHighscore{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+.highscoreScrollPane{
+    -fx-font-size: 15px;
+}
+.highscoreScrollPane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.highscoreScrollPane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.highscoreScrollPane .scroll-bar:vertical .thumb{
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0em;
+}
+
+
+
+/* -----------------------------------*/
+/* */
+.root{
+    -fx-font-family: 'Circular Std Black';
+    -fx-background-color: transparent;
+}
+
+.button{
+    -fx-cursor: hand;
+}
+
+.buttonScale:hover{
+    -fx-scale-x: 107%;
+    -fx-scale-y: 107%;
+}
+
+
+.buttonScale:pressed{
+    -fx-scale-x: 100%;
+    -fx-scale-y: 100%;
+    -fx-opacity: 0.8;
+}
+
+/* -----------------------------------*/
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.accordion .titled-pane > *.content{
+    -fx-background-color: transparent ;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: #fff;
+}
+
+.accordion .titled-pane{
+    -fx-text-fill: #fff;
+    -fx-font-size: 20px;
+    -fx-font-family: "Circular Std Book";
+}
+
+.accordion .titled-pane .title {
+    -fx-background-color: transparent ;
+    -fx-text-fill: #fff;
+    -fx-border-color: #282828;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* GAME VIEW ---------------------------- */
+.barometerLabel{
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 10px;
+}
+
+/* ---- MENU BAR ------ */
+.button__menuBar{
+    -fx-border-color: white;
+    -fx-background-color: none;
+    -fx-border-radius: 100%;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 56px 12px;
+}
+
+.button__menuBar:hover{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.button__menuBar:pressed{
+    -fx-background-color: #d9dadc;
+    -fx-border-color: #d9dadc;
+    -fx-text-fill: black;
+}
+
+.exitButton__drawer{
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+
+.exitButton__drawer:hover{
+    -fx-background-color: rgba(0,0,0,0.3);
+}
+
+.notification{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-width: 4px;
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-radius: 5px;
+}
+
+.notification .notification__title{
+    -fx-font-family: "Circular Std Medium";
+    -fx-font-size: 20;
+}
+
+.notification .notification__text{
+    -fx-font-family: "Circular Std book";
+    -fx-font-size: 12;
+}
+
+
+.bar__fuel > .track{
+
+}
+
+.bar__fuel{
+    -fx-cursor: hand;
+}
+
+.bar__fuel .bar{
+
+    -fx-padding: 15px 5px 15px 5px;
+    -fx-background-color: linear-gradient(to right,#ed2931 0,#f95a3e);
+    -fx-background-image: url("/UI/resources/img/noise2.png");
+    -fx-background-repeat: repeat;
+
+}
+
+
+.bar__backpack > .track{
+
+}
+
+.bar__backpack .bar{
+    -fx-padding: 15px 5px 15px 5px;
+    -fx-background-color: linear-gradient(to right,#1db954 0,#1ed760);
+    -fx-background-image: url("/UI/resources/img/noise2.png");
+    -fx-background-repeat: repeat;
+}
+
+body{
+
+}
+
+.button__leavePlanet{
+    -fx-background-color: #ed2931;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.button__leavePlanet:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.button__leavePlanet:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+
+.planet__view{
+    -fx-background-size: 100%;
+    -fx-background-position: top center;
+    -fx-background-repeat: no-repeat;
+}
+
+.planet__gradient{
+    -fx-background-color: linear-gradient(to top, #121212, rgba(18,18,18,0));
+}
+
+.view__scroll-pane{
+    -fx-border-color: #282828;
+    -fx-border-width: 0 0 1 0;
+}
+.view__scroll-pane .scroll-bar:horizontal, .view__scroll-pane .scroll-bar:vertical{
+    -fx-background-color:#181818;
+}
+
+.view__scroll-pane .increment-button, .view__scroll-pane .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.view__scroll-pane .scroll-bar:horizontal .track,
+.view__scroll-pane .scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.view__scroll-pane .scroll-bar:horizontal .thumb,
+.view__scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #535353;
+    -fx-background-radius: 0;
+}
+
+
+.button__leavePlanet{
+    -fx-background-color: #ed2931;
+    -fx-background-radius: 500px 500px 500px 500px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.button__leavePlanet:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.button__leavePlanet:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.button__searchPlanet{
+    -fx-background-color: #2979FF;
+    -fx-background-radius: 40px 40px 40px 40px;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 40px 8px;
+}
+
+.button__searchPlanet:hover{
+    -fx-background-color: #448AFF;
+}
+
+.button__searchPlanet:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.searchList{
+    -fx-background-color: transparent;
+    -fx-border-color: #282828;
+    -fx-border-width: 1 0.5 1 1;
+}
+
+.searchProgress .bar{
+    -fx-box-color: white;
+    -fx-background-radius: 40px 40px 40px 40px;
+    -fx-background-color: white;
+}
+.searchProgress > .track {
+    -fx-background-color: transparent;
+    -fx-text-box-border: #448AFF;
+    -fx-control-inner-background: #448AFF;
+
+}
+
+.choiceButton{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-color: #2979FF;
+    -fx-background-radius: 3px;
+    -fx-border-color: transparent;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-padding: 12px 0;
+}
+
+.choiceButton:hover{
+    -fx-background-color: #448AFF;
+}
+
+.choiceButton:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.button__dialog-exit{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-color: #ed2931;
+    -fx-background-radius: 3px;
+    -fx-border-color: transparent;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-padding: 12px 0;
+}
+
+.button__dialog-exit:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.button__dialog-exit:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+
+.list-cell{
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-font-size: 20;
+    -fx-font-family: 'Circular Std Book';
+    -fx-background-color: transparent;
+}
+
+.list-cell:selected{
+    -fx-background-color: #333333;
+    -fx-text-fill: #448AFF;
+}
+
+.list-cell:hover{
+    -fx-background-color: #282828;
+    -fx-cursor: hand;
+}
+
+.backpackButton--dropButton{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 0;
+    -fx-background-color: #ed2931;
+    -fx-background-radius:  4 0 0 4;
+}
+
+.backpackButton--dropButton:hover{
+    -fx-background-color: #f95a3e;
+}
+
+.backpackButton--dropButton:pressed{
+    -fx-background-color: #ed2931;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.backpackButton--inspectButton{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 0;
+    -fx-background-color: #2979FF;
+}
+
+.backpackButton--inspectButton:hover{
+    -fx-background-color: #448AFF;
+}
+
+.backpackButton--inspectButton:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.backpackButton--useButton{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 0;
+    -fx-background-color: #1db954;
+    -fx-background-radius:  0 4 4 0;
+}
+
+.backpackButton--useButton:hover{
+    -fx-background-color: #1ed760;
+}
+
+.backpackButton--useButton:pressed{
+    -fx-background-color: #1db954;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.planetViewButton--pickup{
+    -fx-font-family: "Circular Std Bold";
+    -fx-background-radius: 4;
+    -fx-border-color: transparent;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 20px;
+    -fx-background-color: #2979FF;
+}
+
+.planetViewButton--pickup:hover{
+    -fx-background-color: #448AFF;
+}
+
+.planetViewButton--pickup:pressed{
+    -fx-background-color: #2979FF;
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.button__help{
+    -fx-background-color: transparent;
+}
+
+.controlsH1{
+    -fx-font-family: "Circular Std Black";
+    -fx-font-size: 60;
+    -fx-text-fill: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

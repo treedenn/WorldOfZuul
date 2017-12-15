@@ -20,6 +20,8 @@ public abstract class Component {
     private Parent parent;
     /** Reference to the FXML path. */
     private String resource;
+    /** True if the component is loaded. */
+    private boolean isLoaded;
 
     /**
      * Constructor.
