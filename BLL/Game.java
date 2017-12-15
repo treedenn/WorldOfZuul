@@ -243,11 +243,10 @@ public class Game implements Domain {
 		Planet currentPlanet = player.getCurrentPlanet();
 
 		if(currentPlanet != null) {
-			if(currentPlanet.getTempSearched()) {
+			if(currentPlanet.hasSearched()) {
 				message = model.getMessage("planet-search-already");
 			} else {
-				player.getCurrentPlanet().setPermanentSearch(true);
-				player.getCurrentPlanet().setTemporarySearch(true);
+				player.getCurrentPlanet().setSearched(true);
 				isSearching = true;
 
 				String bsKey = npcHandler.getBlacksmith().getVisitState(currentPlanet.getName()).getKey();
@@ -359,29 +358,25 @@ public class Game implements Domain {
 		String message = null;
 
 		if(player.getCurrentPlanet() != null) {
-			if(player.getCurrentPlanet().getPermSearched()) {
-				if(iis instanceof ItemStack) {
-					ItemStack is = (ItemStack) iis;
-					Item item = is.getItem();
+			if(iis instanceof ItemStack) {
+				ItemStack is = (ItemStack) iis;
+				Item item = is.getItem();
 
-					if(item.isPickupable()) {
-						Inventory playerInv = player.getInventory();
-						Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
+				if(item.isPickupable()) {
+					Inventory playerInv = player.getInventory();
+					Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
 
-						if(planetInv.contains(is) && playerInv.add(is)) {
-							planetInv.remove(is);
+					if(planetInv.contains(is) && playerInv.add(is)) {
+						planetInv.remove(is);
 
-							isPickedUp = true;
-							message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
-						} else {
-							message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
-						}
+						isPickedUp = true;
+						message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-successful"), "{ITEM}", item.getName());
 					} else {
-						message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
+						message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-unsuccessful"), "{ITEM}", item.getName());
 					}
+				} else {
+					message = GameUtility.replacePlaceHolders(model.getMessage("item-pickup-not-pickupable"), "{ITEM}", item.getName());
 				}
-			} else {
-				message = model.getMessage("planet-search-require");
 			}
 		} else {
 			message = model.getMessage("player-deep-space");
@@ -400,29 +395,25 @@ public class Game implements Domain {
 		String message = null;
 
 		if(player.getCurrentPlanet() != null) {
-			if(player.getCurrentPlanet().getPermSearched()) {
-				if(iis instanceof ItemStack) {
-					ItemStack is = (ItemStack) iis;
-					Item item = is.getItem();
+			if(iis instanceof ItemStack) {
+				ItemStack is = (ItemStack) iis;
+				Item item = is.getItem();
 
-					if(item.isDropable()) {
-						Inventory playerInv = player.getInventory();
-						Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
+				if(item.isDropable()) {
+					Inventory playerInv = player.getInventory();
+					Inventory planetInv = (Inventory) player.getCurrentPlanet().getInventory();
 
-						if(playerInv.contains(is) && playerInv.remove(is)) {
-							planetInv.add(is);
+					if(playerInv.contains(is) && playerInv.remove(is)) {
+						planetInv.add(is);
 
-							isDropped = true;
-							message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
-						} else {
-							message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
-						}
+						isDropped = true;
+						message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-successful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 					} else {
-						message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
+						message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-unsuccessful"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 					}
+				} else {
+					message = GameUtility.replacePlaceHolders(model.getMessage("item-drop-not-dropable"), "{ITEM}", item.getName(), "{QUANTITY}", is.getQuantity() + "");
 				}
-			} else {
-				message = model.getMessage("player-deep-space");
 			}
 		} else {
 			message = model.getMessage("player-deep-space");
@@ -454,7 +445,7 @@ public class Game implements Domain {
 			} else {
 				player.setCurrentPlanet(planet);
 				player.decreaseFuel(10);
-				player.getCurrentPlanet().setTemporarySearch(false);
+				player.getCurrentPlanet().setSearched(false);
 
 				List<Movable> movedNPC = new ArrayList<>();
 

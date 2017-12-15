@@ -30,21 +30,7 @@ public interface IPlanet {
 	String getArriveMessage();
 
 	/**
-	 * Gets the temporary search variable.
-	 * @return temporary search variable
-	 */
-	boolean getTempSearched();
-
-	/**
-	 * Gets the permanent search variable.
-	 * @return permanent search variable
-	 */
-	boolean getPermSearched();
-
-	/**
-	 * Returns a boolean based on both the temporary and permanent search is true.
-	 * If both ({@link #getTempSearched()} & {@link #getPermSearched()}) return true,
-	 * this function will return true, otherwise false.
+	 * Returns a boolean based on both the planet has been searched.
 	 * @return if planet has been searched
 	 */
 	boolean hasSearched();

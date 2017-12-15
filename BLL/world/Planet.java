@@ -26,7 +26,7 @@ public class Planet implements IPlanet {
     private Point2D coordinates;
     private File map2D;
     private File image;
-    private boolean[] searched;
+    private boolean searched;
     private Inventory inventory;
     private List<NPC> npcList;
 
@@ -43,7 +43,7 @@ public class Planet implements IPlanet {
         this.coordinates = new Point2D(x, y);
         this.inventory = new Backpack(10000);
         this.npcList = new ArrayList<>();
-        this.searched = new boolean[] {false, false};
+        this.searched = false;
     }
 
     /**
@@ -134,38 +134,17 @@ public class Planet implements IPlanet {
      * {@inheritDoc}
      */
     @Override
-    public boolean getTempSearched() {
-        return searched[1];
-    }
-
-    /**
-     * Sets the temporary search to a new value.
-     * @param value the new value
-     */
-    public void setTemporarySearch(boolean value) {
-        searched[1] = value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean getPermSearched() {
-        return searched[0];
-    }
-
-    /**
-     * Sets the permanent search value.
-     * @param value the new value
-     */
-    public void setPermanentSearch(boolean value) {
-        searched[0] = value;
-    }
-
-    @Override
 	public boolean hasSearched() {
-		return searched[0] && searched[1];
+		return searched;
 	}
+
+    /**
+     * Sets the search of the planet.
+     * @param searched
+     */
+    public void setSearched(boolean searched) {
+        this.searched = searched;
+    }
 
     /**
      * {@inheritDoc}
