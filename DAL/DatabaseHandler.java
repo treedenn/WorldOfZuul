@@ -2,7 +2,7 @@ package DAL;
 
 import BLL.UsableHandler;
 import BLL.item.*;
-import DAL.yaml.YamlObject;
+import DAL.yaml.IOYaml;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +15,7 @@ import java.util.Map;
  * Handles everything related to database of items.
  */
 class DatabaseHandler implements Loadable {
-	private YamlObject yamlObject;
+	private IOYaml IOYaml;
 	private List<Item> database;
 	private UsableHandler usableHandler;
 
@@ -24,7 +24,7 @@ class DatabaseHandler implements Loadable {
 	 * @param file where the item database is
 	 */
 	DatabaseHandler(File file) {
-		this.yamlObject = new YamlObject(file);
+		this.IOYaml = new IOYaml(file);
 		database = null;
 	}
 
@@ -50,7 +50,7 @@ class DatabaseHandler implements Loadable {
 	 */
 	@Override
 	public void load() throws IOException {
-		Map<Integer, Map<String, Object>> map = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
+		Map<Integer, Map<String, Object>> map = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
 
 		if(!map.isEmpty()) {
 			database = new ArrayList<>(map.size());

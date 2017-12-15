@@ -4,7 +4,7 @@ import BLL.item.ItemStack;
 import DAL.data.PlanetData;
 import DAL.data.PlayerData;
 import DAL.data.WorldData;
-import DAL.yaml.YamlObject;
+import DAL.yaml.IOYaml;
 
 import java.io.File;
 import java.io.FileReader;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class GameStateHandler implements Loadable, Savable {
 	private Model model;
 
-	private YamlObject yamlObject;
+	private IOYaml IOYaml;
 
 	private WorldData worldData;
 	private PlayerData playerData;
@@ -32,7 +32,7 @@ public class GameStateHandler implements Loadable, Savable {
 	 */
 	GameStateHandler(Model model, File file) {
 		this.model = model;
-		this.yamlObject = new YamlObject(file);
+		this.IOYaml = new IOYaml(file);
 
 		worldData = new WorldData(model);
 		playerData = new PlayerData(model);
@@ -64,11 +64,11 @@ public class GameStateHandler implements Loadable, Savable {
 	}
 
 	boolean loadingFileExists() {
-		return yamlObject.getFile().exists();
+		return IOYaml.getFile().exists();
 	}
 
 	boolean deleteLoadingFile() {
-		return loadingFileExists() && yamlObject.getFile().delete();
+		return loadingFileExists() && IOYaml.getFile().delete();
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class GameStateHandler implements Loadable, Savable {
 	 */
 	@Override
 	public void load() throws IOException {
-		Map<String, Map<?, ?>> map = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
+		Map<String, Map<?, ?>> map = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
 
 		if(!map.isEmpty()) {
 			Map<String, Object> playerMap = (Map<String, Object>) map.get("player");
@@ -100,7 +100,7 @@ public class GameStateHandler implements Loadable, Savable {
 		map.put("world", worldData.save());
 		map.put("planets", planetData.save());
 
-		yamlObject.getYaml().dump(map, new FileWriter(yamlObject.getFile()));
+		IOYaml.getYaml().dump(map, new FileWriter(IOYaml.getFile()));
 	}
 
 	/**

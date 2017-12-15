@@ -1,7 +1,7 @@
 package DAL;
 
 import BLL.scoring.Score;
-import DAL.yaml.YamlObject;
+import DAL.yaml.IOYaml;
 
 import java.io.*;
 import java.util.*;
@@ -10,7 +10,7 @@ import java.util.*;
  * Handles the highscore. It saves and loads the highscore.
  */
 class HighscoreHandler implements Savable, Loadable {
-	private YamlObject yamlObject;
+	private IOYaml IOYaml;
 	private List<Score> highscore;
 
 	/**
@@ -18,7 +18,7 @@ class HighscoreHandler implements Savable, Loadable {
 	 * @param file the location of the highscore file
 	 */
 	HighscoreHandler(File file) {
-		this.yamlObject = new YamlObject(file);
+		this.IOYaml = new IOYaml(file);
 		this.highscore = null;
 	}
 
@@ -35,7 +35,7 @@ class HighscoreHandler implements Savable, Loadable {
 	 */
 	@Override
 	public void load() throws FileNotFoundException {
-		Map<Integer, Map<String, Object>> map = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
+		Map<Integer, Map<String, Object>> map = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
 
 		if(!map.isEmpty()) {
 			highscore = new ArrayList<>();
@@ -68,6 +68,6 @@ class HighscoreHandler implements Savable, Loadable {
 			map.put(i, data);
 		}
 
-		yamlObject.getYaml().dump(map, new FileWriter(yamlObject.getFile()));
+		IOYaml.getYaml().dump(map, new FileWriter(IOYaml.getFile()));
 	}
 }

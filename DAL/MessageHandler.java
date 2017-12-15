@@ -1,6 +1,6 @@
 package DAL;
 
-import DAL.yaml.YamlObject;
+import DAL.yaml.IOYaml;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +11,7 @@ import java.util.Map;
  * Handles the messages/localization. It loads the localization.
  */
 public class MessageHandler implements Loadable {
-	private YamlObject yamlObject;
+	private IOYaml IOYaml;
 	private Map<String, String> messages;
 
 	/**
@@ -19,7 +19,7 @@ public class MessageHandler implements Loadable {
 	 * @param file the location of the localization
 	 */
 	MessageHandler(File file) {
-		this.yamlObject = new YamlObject(file);
+		this.IOYaml = new IOYaml(file);
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class MessageHandler implements Loadable {
 	 */
 	@Override
 	public void load() throws IOException {
-		messages = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
+		messages = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
 	}
 
 	/**

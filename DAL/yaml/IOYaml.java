@@ -5,14 +5,14 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 
 /**
- * YamlObject is connected to {@link Yaml} and a file.
+ * IOYaml is connected to {@link Yaml} and a file.
  * Yaml is used to save/load from a yaml file.
  */
-public class YamlObject {
+public class IOYaml {
 	private File file;
 	private Yaml yaml;
 
-	public YamlObject(File file) {
+	public IOYaml(File file) {
 		this.file = file;
 		yaml = new Yaml();
 	}

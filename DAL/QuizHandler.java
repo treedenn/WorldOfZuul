@@ -1,7 +1,7 @@
 package DAL;
 
 import BLL.entity.player.Quiz;
-import DAL.yaml.YamlObject;
+import DAL.yaml.IOYaml;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ import java.util.Map;
  * Handles the quizzes. It loads all the quizzes.
  */
 class QuizHandler implements Loadable {
-	private YamlObject yamlObject;
+	private IOYaml IOYaml;
 	private List<Quiz> quizzes;
 
 	/**
@@ -22,7 +22,7 @@ class QuizHandler implements Loadable {
 	 * @param file the location of all the quizzes
 	 */
 	QuizHandler(File file) {
-		this.yamlObject = new YamlObject(file);
+		this.IOYaml = new IOYaml(file);
 		this.quizzes = null;
 	}
 
@@ -39,7 +39,7 @@ class QuizHandler implements Loadable {
 	 */
 	@Override
 	public void load() throws IOException {
-		Map<Integer, Map<String, Object>> database = yamlObject.getYaml().load(new FileReader(yamlObject.getFile()));
+		Map<Integer, Map<String, Object>> database = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
 
 		if(!database.isEmpty()) {
 			quizzes = new ArrayList<>(database.size());
