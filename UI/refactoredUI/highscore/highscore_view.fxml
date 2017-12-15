@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane style="-fx-background-color: rgba(0,0,0,0.8);" stylesheets="@highscore.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.refactoredUI.highscore.Highscore">
+<AnchorPane style="-fx-background-color: rgba(0,0,0,0.8);" stylesheets="@highscore.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.refactoredUI.highscore.Highscore">
    <children>
       <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -28,20 +27,21 @@
                   </HBox>
                   <VBox alignment="TOP_CENTER">
                      <children>
-                        <Label styleClass="scoreLabel" text="SCORE" />
+                        <Label fx:id="scoreTopLabel" styleClass="scoreLabel" text="SCORE" />
                         <Label fx:id="scoreValue" layoutX="288.0" layoutY="10.0" styleClass="score" text="SCORE" />
                      </children>
                   </VBox>
                   <VBox spacing="6.0">
                      <children>
-                        <Label styleClass="enterNameLabel" text="Enter your name:" />
+                        <Label fx:id="enterNameField" styleClass="enterNameLabel" text="Enter your name:" />
                         <TextField fx:id="nameTextField" styleClass="nameTextField" />
                      </children>
                      <padding>
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </padding>
                   </VBox>
-                  <Button mnemonicParsing="false" onAction="#saveHighscore" styleClass="saveButton" text="SAVE HIGHSCORE" />
+                  <Button fx:id="saveHighscore" mnemonicParsing="false" onAction="#saveHighscore" styleClass="saveButton" text="SAVE HIGHSCORE" />
+                  <Button fx:id="exitGame" mnemonicParsing="false" onAction="#exit" styleClass="saveButton" text="EXIT" />
                </children>
                <padding>
                   <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

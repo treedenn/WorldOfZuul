@@ -141,7 +141,11 @@ public class Surface extends Component implements ISurface {
         this.items = FXCollections.observableArrayList(items);
         itemList.setItems(this.items);
 
-        this.characters = FXCollections.observableArrayList(characters);
+        List<NPC> goodNPCS = new ArrayList<>();
+        for (NPC character : characters) {
+            if(character.isGood()) goodNPCS.add(character);
+        }
+        this.characters = FXCollections.observableArrayList(goodNPCS);
         characterList.setItems(this.characters);
         characterList.setCellFactory(param -> {return new CharacterFormatCell();});
     }

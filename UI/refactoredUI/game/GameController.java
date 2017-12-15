@@ -52,6 +52,8 @@ public class GameController implements Initializable{
 
     private NPC interactingNPC;
 
+    private NPC initiatorNPC;
+
     private int actionIndex;
 
     private INPCAction currentAction;
@@ -232,6 +234,14 @@ public class GameController implements Initializable{
             }
         });
 
+        highscore.onExit(data -> {
+            try {
+                switchGameView();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         // **************************************************
 
 
@@ -254,8 +264,11 @@ public class GameController implements Initializable{
         }
 
 
-        NPC initiatorNPC = domain.interaction();
-        if(initiatorNPC != null) startInteract(initiatorNPC, 0);
+        initiatorNPC = domain.interaction();
+        if(initiatorNPC != null) {
+            ComponentLoader.loadComponent(root,dialog.getView(),0,0,bottom.getHeight(),0,true);
+            startInteract(initiatorNPC, 0);
+        }
 
         domain.updateBuffs();
         deltaTime = System.nanoTime();
@@ -388,8 +401,6 @@ public class GameController implements Initializable{
 
 
 
-
-
     private void startInteract(NPC npc, int index){
         disableMovement();
 
@@ -405,9 +416,8 @@ public class GameController implements Initializable{
             currentAction = (NPCAction) actions[actionIndex];
         }
 
-        dialog.loadCharacterInformation(interactingNPC.getName(), currentAction.getMessage(), interactingNPC.getImage().toURI().toString().replace("\\", "/"));
+        dialog.loadCharacterInformation(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
         dialog.addChoices(currentAction);
-
     }
 
     private void nextAction(){
