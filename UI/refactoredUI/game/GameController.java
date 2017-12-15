@@ -246,7 +246,6 @@ public class GameController implements Initializable{
     }
 
     private void tick(){
-        System.out.println(domain.isGameFinished());
         if(domain.isGameFinished()){
             ComponentLoader.loadComponent(root, highscore.getView(), 0,0,0,0,true);
             highscore.load(10000, domain.hasWonTheGame());
@@ -254,9 +253,9 @@ public class GameController implements Initializable{
             animationTimer.stop();
         }
 
-        // TODO: FIX SPACE PIRATES
-        //NPC initiatorNPC = domain.interaction();
-        //if(initiatorNPC != null) startInteract(initiatorNPC, 0);
+
+        NPC initiatorNPC = domain.interaction();
+        if(initiatorNPC != null) startInteract(initiatorNPC, 0);
 
         domain.updateBuffs();
         deltaTime = System.nanoTime();
