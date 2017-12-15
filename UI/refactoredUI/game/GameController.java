@@ -331,7 +331,7 @@ public class GameController implements Initializable{
                 String planetName = currentPlanet.getName();
                 String planetDescription = currentPlanet.getDescription();
                 String imagePath = currentPlanet.getImage().toURI().toString().replace("\\", "/");
-                boolean permSearched = currentPlanet.getPermSearched();
+                boolean permSearched = currentPlanet.hasSearched();
                 surface.setup(planetName,planetDescription,imagePath,permSearched);
             }
             checkMessageContainer();
