@@ -10,6 +10,7 @@ import BLL.entity.Movable;
 import BLL.entity.MovableEntity;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.SpacePirate;
+import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCJumpAction;
 import BLL.entity.player.Player;
 import BLL.entity.player.Recipe;
@@ -300,7 +301,7 @@ public class Game implements Domain {
 	@Override
 	public void startInteract(NPC npc, int actionId) {
 		if(npc != null) {
-			INPCAction[] actions = npc.getActions();
+			NPCAction[] actions = npc.getActions();
 
 			if(actions[actionId] instanceof NPCJumpAction) {
 				((NPCJumpAction) actions[actionId]).resetActionId();
@@ -316,7 +317,7 @@ public class Game implements Domain {
 	@Override
 	public void endInteract(NPC npc, int actionId) {
 		if(npc != null) {
-			INPCAction[] actions = npc.getActions();
+			NPCAction[] actions = npc.getActions();
 			actions[actionId].onEndEvent(npc, this);
 		}
 	}

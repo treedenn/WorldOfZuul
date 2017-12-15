@@ -1,8 +1,8 @@
 package BLL.entity.npc;
 
-import BLL.ACQ.INPCAction;
+import BLL.Game;
 import BLL.entity.Entity;
-import BLL.entity.npc.actions.NPCActionCollection;
+import BLL.entity.npc.actions.*;
 import BLL.entity.player.Quiz;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.List;
  * To get the refill, a correct answer in the quiz, has to happen.
  */
 public class UnoX extends Entity implements NPC{
-    private NPCActionCollection collection;
+    private NPCAction[] actions;
     private List<Quiz> quizzes;
     private Quiz currentQuiz;
     private File image;
@@ -22,7 +22,10 @@ public class UnoX extends Entity implements NPC{
     /**
      * Constructs a new UnoX NPC.
      */
-    public UnoX() { }
+    public UnoX() {
+        super();
+        initActions();
+    }
 
     /**
      * Gets the quiz that is current selected.
@@ -99,8 +102,8 @@ public class UnoX extends Entity implements NPC{
      * {@inheritDoc}
      */
     @Override
-    public INPCAction[] getActions() {
-        return collection.getActions();
+    public NPCAction[] getActions() {
+        return actions;
     }
 
     /**
@@ -108,6 +111,27 @@ public class UnoX extends Entity implements NPC{
      */
     @Override
     public void setActions(NPCActionCollection collection) {
-        this.collection = collection;
+        this.actions = collection.getActions();
+    }
+
+    private void initActions() {
+        actions = new NPCAction[] {
+                new NPCAction("Oy matey, I guess you need some gas, aye?" +
+                        "\nYou'll just need to pass me test lad!"),
+                new NPCDialogAction("Would you like to play a small quiz in order to win some gas for your ship?") {
+                    @Override
+                    public void onEndEvent(NPC npc, Game game) {
+                        super.onEndEvent(npc, game);
+
+                        if(answerYes) {
+                            ((UnoX) npc).pickRandomQuiz();
+                        } else {
+                            setActionId(3);
+                        }
+                    }
+                },
+                new NPCQuizAction(""),
+                new NPCTerminateAction("... C'ya next time!")
+        };
     }
 }

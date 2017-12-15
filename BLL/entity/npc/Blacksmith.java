@@ -1,11 +1,18 @@
 package BLL.entity.npc;
 
 import BLL.ACQ.BlacksmithTraceState;
-import BLL.ACQ.INPCAction;
 import BLL.ACQ.PersistenceLayer;
+import BLL.Game;
+import BLL.entity.Inventory;
 import BLL.entity.MovableEntity;
+import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCActionCollection;
+import BLL.entity.npc.actions.NPCDialogAction;
+import BLL.entity.npc.actions.NPCTerminateAction;
+import BLL.entity.player.Player;
 import BLL.entity.player.Recipe;
+import BLL.item.ItemComponent;
+import BLL.item.ItemPortalGun;
 import BLL.item.ItemStack;
 import BLL.world.Planet;
 
@@ -21,14 +28,16 @@ public class Blacksmith extends MovableEntity implements NPC {
 	private Recipe recipe;
 	private String[] visitedPlanets;
 
-	private NPCActionCollection collection;
+	private NPCAction[] actions;
 
 	/**
 	 * Constructs a new Blacksmith.
 	 */
 	public Blacksmith() {
+		super();
 		recipe = null;
 		visitedPlanets = new String[4]; // used for traces
+		initActions();
 	}
 
 	/**
@@ -68,8 +77,8 @@ public class Blacksmith extends MovableEntity implements NPC {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public INPCAction[] getActions() {
-		return collection.getActions();
+	public NPCAction[] getActions() {
+		return actions;
 	}
 
 	/**
@@ -77,7 +86,7 @@ public class Blacksmith extends MovableEntity implements NPC {
 	 */
 	@Override
 	public void setActions(NPCActionCollection collection) {
-		this.collection = collection;
+		this.actions = collection.getActions();
 	}
 
 	/**
@@ -209,5 +218,93 @@ public class Blacksmith extends MovableEntity implements NPC {
 		requirements[3] = new ItemStack(model.getItemById((int) (liquids + canisters + gears + Math.random() * cpus)));
 
 		recipe = new Recipe(requirements);
+	}
+
+	private void initActions() {
+		actions = new NPCAction[] {
+				new NPCDialogAction("MNy dear Rick!" +
+						"\nIt's already time to return the favor?" +
+						"\nI've heard that you somehow broke your portal gun?"),
+				new NPCDialogAction("Would you like to see my recipe for the Portal Gun?") {
+					@Override
+					public void onEndEvent(NPC npc, Game game) {
+						super.onEndEvent(npc, game);
+
+						if(!answerYes) {
+							setActionId(4);
+						}
+					}
+				},
+				new NPCAction("My tinker tools show what you already have, not what you need..." +
+						"I have heard rumours that clues are around the universe!" +
+						"\nThe recipe is:") {
+					@Override
+					public void onStartEvent(NPC npc, Game game) {
+						super.onStartEvent(npc, game);
+
+						if(npc instanceof Blacksmith) {
+							Blacksmith bs = (Blacksmith) npc;
+
+							Player player = (Player) game.getPlayer();
+
+							Inventory inventory = player.getInventory();
+							Recipe recipe = bs.getRecipe();
+
+							boolean[] haveItems = recipe.haveItems(inventory.getContent());
+
+							ItemStack[] items = recipe.getRequirements();
+
+							if(allTrue(haveItems)) {
+								for(ItemStack itemStack : inventory.getContent()) {
+									if(itemStack.getItem() instanceof ItemPortalGun) {
+										ItemPortalGun pg = (ItemPortalGun) itemStack.getItem();
+										pg.repair();
+										break;
+									}
+								}
+
+								for(ItemStack item : items) {
+									inventory.remove(item);
+								}
+
+								message = "Oh, since you had the materials to repair your Portal Gun, I did it.";
+							} else {
+								StringBuilder sb = new StringBuilder();
+
+								String text;
+								ItemComponent itemComponent;
+								for(ItemStack item : items) {
+									itemComponent = (ItemComponent) item.getItem();
+
+									if(player.getInventory().contains(item)) {
+										text = String.format("[\u2713] %s [%s]", itemComponent.getName(), itemComponent.getComponentType().name());
+									} else {
+										text = String.format("[\u2715] %s [%s]", "XXXXXXXXXX", itemComponent.getComponentType().name());
+									}
+
+									sb.append(System.lineSeparator());
+									sb.append(text);
+								}
+
+								message += sb.toString();
+							}
+						}
+					}
+				},
+				new NPCTerminateAction("... I hope I will see you again!")
+		};
+	}
+
+	/**
+	 * Checks if all the booleans inside an array are true.
+	 * @param booleans any boolean array
+	 * @return true, if all booleans are true
+	 */
+	private boolean allTrue(boolean[] booleans) {
+		for(boolean b : booleans) {
+			if(!b) { return false; }
+		}
+
+		return true;
 	}
 }

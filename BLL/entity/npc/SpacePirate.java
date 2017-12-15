@@ -1,9 +1,13 @@
 package BLL.entity.npc;
 
-import BLL.ACQ.INPCAction;
+import BLL.Game;
 import BLL.GameUtility;
 import BLL.entity.MovableEntity;
+import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCActionCollection;
+import BLL.entity.npc.actions.NPCDialogAction;
+import BLL.entity.npc.actions.NPCTerminateAction;
+import BLL.entity.player.Player;
 import BLL.world.Planet;
 
 import java.util.Timer;
@@ -14,7 +18,7 @@ import java.util.TimerTask;
  * SpacePirate is an NPC that attacks the player when the player is moving towards its destination.
  */
 public class SpacePirate extends MovableEntity implements NPC {
-    private NPCActionCollection collection;
+    private NPCAction[] actions;
 
     private boolean canAttack;
     private int moveCounter;
@@ -23,6 +27,8 @@ public class SpacePirate extends MovableEntity implements NPC {
      * Instantiates a new pirate.
      */
     public SpacePirate() {
+        super();
+        initActions();
         canAttack = true;
         moveCounter = 0;
     }
@@ -76,16 +82,16 @@ public class SpacePirate extends MovableEntity implements NPC {
      * {@inheritDoc}
      */
     @Override
-    public INPCAction[] getActions() {
-        return collection.getActions();
+    public NPCAction[] getActions() {
+        return actions;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setActions(NPCActionCollection actions) {
-        collection = actions;
+    public void setActions(NPCActionCollection collection) {
+        this.actions = collection.getActions();
     }
 
     /**
@@ -102,5 +108,39 @@ public class SpacePirate extends MovableEntity implements NPC {
             setCurrentPlanet(GameUtility.getRandomPlanetNotXehna(getPlanets().values().toArray(new Planet[getPlanets().size()])));
             getCurrentPlanet().getNPCs().add(this);
         }
+    }
+
+    private void initActions() {
+        actions = new NPCAction[] {
+                new NPCAction("[You have been intercepted and captured by spacepirates!]" +
+                        "\nAll hand hoay! It's your lucky day lassie - you are now prisoner of my pirate crew!"),
+                new NPCDialogAction("Would you like to pay a ransom in order to proceed your voyage?" +
+                        "\n(By saying no, you might have a chance to flee the scenario, no paying)") {
+                    @Override
+                    public void onEndEvent(NPC npc, Game game) {
+                        super.onEndEvent(npc, game);
+
+                        Player player = (Player) game.getPlayer();
+
+                        if(answerYes) {
+                            player.decreaseFuel(10);
+                            game.setMessageToContainer("Fuel has been decreased by 10.");
+                            setActionId(3);
+                        } else {
+                            if((int) (Math.random() * 3) == 0) {
+                                game.setMessageToContainer("You escaped from the pirate!");
+                                setActionId(4);
+                            } else {
+                                player.decreaseFuel(20);
+                                game.setMessageToContainer("Fuel has been decreased by 20.");
+                                setActionId(3);
+                            }
+                        }
+                    }
+                },
+                new NPCTerminateAction("... Arrr', we will be seeing you again, you landlubber!"),
+                new NPCTerminateAction("... Arrr', you fool! No one denies my orders!"),
+                new NPCAction("No one flees from me! I WILL BE BACK!")
+        };
     }
 }

@@ -1,7 +1,6 @@
 package UI.deleteWhenTransitioneToNewGUI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.*;
@@ -388,16 +387,16 @@ public class GameController extends Controller implements IGameLoop{
         this.npc = npc;
         this.index = index;
 
-        INPCAction[] actions = npc.getActions();
+        NPCAction[] actions = npc.getActions();
 
         getDomain().startInteract(npc, index);
 
         if(actions[index] instanceof NPCDialogAction){
-            currentAction = (NPCDialogAction) actions[index];
+            currentAction = actions[index];
             dialogHandler.updateDialog(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
             dialogHandler.addChoice(currentAction);
         } else {
-            currentAction = (NPCAction) actions[index];
+            currentAction = actions[index];
             dialogHandler.updateDialog(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
             dialogHandler.addChoice(currentAction);
         }

@@ -1,7 +1,6 @@
 package BLL;
 
 import BLL.entity.npc.*;
-import BLL.entity.npc.actions.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,19 +36,6 @@ public class NPCHandler {
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		initActions();
-	}
-
-	/**
-	 * Inits all the actions to the NPCs.
-	 */
-	private void initActions() {
-		professorPutricide.setActions(new ProfessorPutricideAction());
-		stationaryBlacksmith.setActions(new StationaryBlacksmithAction());
-		blacksmith.setActions(new BlacksmithAction());
-		pirate.setActions(new SpacePirateAction());
-		unoX.setActions(new UnoXAction());
 	}
 
 	/**

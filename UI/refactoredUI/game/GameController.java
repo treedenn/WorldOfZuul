@@ -1,7 +1,6 @@
 package UI.refactoredUI.game;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCAction;
@@ -56,7 +55,7 @@ public class GameController implements Initializable{
 
     private int actionIndex;
 
-    private INPCAction currentAction;
+    private NPCAction currentAction;
 
     /**  */
     boolean actionMessageIsVisible;
@@ -407,13 +406,13 @@ public class GameController implements Initializable{
         interactingNPC = npc;
         actionIndex = index;
 
-        INPCAction[] actions = npc.getActions();
+        NPCAction[] actions = npc.getActions();
         domain.startInteract(interactingNPC, actionIndex);
 
         if(actions[actionIndex] instanceof NPCDialogAction){
-            currentAction = (NPCDialogAction) actions[actionIndex];
+            currentAction = actions[actionIndex];
         } else{
-            currentAction = (NPCAction) actions[actionIndex];
+            currentAction = actions[actionIndex];
         }
 
         dialog.loadCharacterInformation(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));

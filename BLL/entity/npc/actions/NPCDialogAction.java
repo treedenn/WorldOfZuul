@@ -6,7 +6,7 @@ package BLL.entity.npc.actions;
  * Derives from the {@link NPCJumpAction}, since it should be able to jump between actions.
  */
 public class NPCDialogAction extends NPCJumpAction {
-	boolean answerYes;
+	protected boolean answerYes;
 
 	/**
 	 * Constructs a new NPC Dialog action.
