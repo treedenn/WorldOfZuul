@@ -92,9 +92,6 @@ public class GameController implements Initializable{
         this.domain = domain;
         this.stage = stage;
 
-        // TODO: REMOVE DEBUG
-        domain.init();
-
         map = new GameMap();
         backpack = new Backpack();
         dashboard = new Dashboard();
@@ -143,7 +140,10 @@ public class GameController implements Initializable{
         });
 
 
-        backpack.onUse(data -> { if (domain.useItem(data)) backpack.load(domain.getPlayer().getIInventory().getIContent());});
+        backpack.onUse(data -> {
+            if (domain.useItem(data)) backpack.load(domain.getPlayer().getIInventory().getIContent());
+            checkMessageContainer();
+        });
 
 
         backpack.onClose(data -> ComponentLoader.removeComponent(backpack.getView()));

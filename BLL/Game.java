@@ -336,9 +336,11 @@ public class Game implements Domain {
 			if(i.hasUsable()) {
 				if(i.use(player, this)) {
 					player.getInventory().remove((ItemStack) iis);
+					message = GameUtility.replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
+					isUsed = true;
+				} else {
+					message = GameUtility.replacePlaceHolders(model.getMessage("item-use-unsuccessful"), "{ITEM}", i.getName());
 				}
-				isUsed = true;
-				message = GameUtility.replacePlaceHolders(model.getMessage("item-use-successful"), "{ITEM}", i.getName());
 			} else {
 				message = GameUtility.replacePlaceHolders(model.getMessage("item-use-not-usable"), "{ITEM}", i.getName());
 			}

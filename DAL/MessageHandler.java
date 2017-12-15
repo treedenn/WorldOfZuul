@@ -1,6 +1,5 @@
 package DAL;
 
-import DAL.ACQ.Loadable;
 import DAL.yaml.YamlObject;
 
 import java.io.File;

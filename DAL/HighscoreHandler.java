@@ -1,8 +1,6 @@
 package DAL;
 
 import BLL.scoring.Score;
-import DAL.ACQ.Loadable;
-import DAL.ACQ.Savable;
 import DAL.yaml.YamlObject;
 
 import java.io.*;

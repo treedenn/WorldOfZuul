@@ -9,8 +9,6 @@ import BLL.entity.player.Quiz;
 import BLL.item.*;
 import BLL.world.Planet;
 import BLL.scoring.Score;
-import DAL.ACQ.Loadable;
-import DAL.ACQ.Savable;
 
 import java.io.*;
 import java.util.*;

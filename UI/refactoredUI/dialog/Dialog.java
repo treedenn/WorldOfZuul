@@ -69,7 +69,8 @@ public class Dialog extends Component implements IDialog {
     @Override
     public void loadCharacterInformation(String characterName, String message, String imagePath) {
         String backgroundImage =  "-fx-background-image: url(" + imagePath + ");";
-        if(imagePath != null) image.setStyle(backgroundImage);
+        //System.out.println(imagePath);
+        //if(imagePath != null) image.setStyle(backgroundImage);
         this.message.setText(characterName + " says: \n" + message);
     }
 

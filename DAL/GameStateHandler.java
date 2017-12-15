@@ -1,8 +1,6 @@
 package DAL;
 
 import BLL.item.ItemStack;
-import DAL.ACQ.Loadable;
-import DAL.ACQ.Savable;
 import DAL.data.PlanetData;
 import DAL.data.PlayerData;
 import DAL.data.WorldData;
