@@ -1,7 +1,6 @@
 package UI.deleteWhenTransitioneToNewGUI.controller;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.*;
@@ -332,7 +331,7 @@ public class GameController extends Controller implements IGameLoop{
 
     NPC npc;
     int index;
-    INPCAction currentAction;
+    NPCAction currentAction;
 
     public void setQuizAnswer(int i){
         NPCQuizAction quizAction = (NPCQuizAction) currentAction;
@@ -388,7 +387,7 @@ public class GameController extends Controller implements IGameLoop{
         this.npc = npc;
         this.index = index;
 
-        INPCAction[] actions = npc.getActions();
+        NPCAction[] actions = npc.getActions();
 
         getDomain().startInteract(npc, index);
 

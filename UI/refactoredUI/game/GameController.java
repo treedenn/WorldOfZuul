@@ -1,9 +1,9 @@
 package UI.refactoredUI.game;
 
 import BLL.ACQ.Domain;
-import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
+import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
 import BLL.entity.npc.actions.NPCQuizAction;
 import BLL.entity.npc.actions.NPCTerminateAction;
@@ -55,7 +55,7 @@ public class GameController implements Initializable{
 
     private int actionIndex;
 
-    private INPCAction currentAction;
+    private NPCAction currentAction;
 
     /**  */
     boolean actionMessageIsVisible;
@@ -406,7 +406,7 @@ public class GameController implements Initializable{
         interactingNPC = npc;
         actionIndex = index;
 
-        INPCAction[] actions = npc.getActions();
+        NPCAction[] actions = npc.getActions();
         domain.startInteract(interactingNPC, actionIndex);
 
         if(actions[actionIndex] instanceof NPCDialogAction){
@@ -431,7 +431,6 @@ public class GameController implements Initializable{
             ComponentLoader.removeComponent(dialog.getView());
             enableMovement();
         }
-
     }
 
     private void setAnswer(Boolean answerYes){
