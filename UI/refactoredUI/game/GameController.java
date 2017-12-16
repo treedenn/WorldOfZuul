@@ -424,9 +424,6 @@ public class GameController implements Initializable{
         } else{
             currentAction = actions[actionIndex];
         }
-
-        System.out.println("/DAL/resource/images/npcs/spacepirate.png");
-
         dialog.loadCharacterInformation(npc.getName(), currentAction.getMessage(), npc.getImage().getPath().replace("\\", "/"));
         dialog.addChoices(currentAction);
     }
