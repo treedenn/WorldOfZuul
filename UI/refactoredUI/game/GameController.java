@@ -1,9 +1,9 @@
 package UI.refactoredUI.game;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.INPCAction;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
-import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
 import BLL.entity.npc.actions.NPCQuizAction;
 import BLL.entity.npc.actions.NPCTerminateAction;
@@ -55,7 +55,7 @@ public class GameController implements Initializable{
 
     private int actionIndex;
 
-    private NPCAction currentAction;
+    private INPCAction currentAction;
 
     /**  */
     boolean actionMessageIsVisible;
@@ -195,7 +195,7 @@ public class GameController implements Initializable{
 
         surface.OnTickList(data -> surface.tickList(domain.getPlayer().getCurrentPlanet().getInventory().getIContent(), domain.getPlayer().getCurrentPlanet().getNPCs()));
 
-        surface.onSearch(data -> { ;
+        surface.onSearch(data -> {
             surface.setIsSearched(domain.searchPlanet());
             checkMessageContainer();
             surface.tickList(domain.getPlayer().getCurrentPlanet().getInventory().getIContent(), domain.getPlayer().getCurrentPlanet().getNPCs());
@@ -406,7 +406,7 @@ public class GameController implements Initializable{
         interactingNPC = npc;
         actionIndex = index;
 
-        NPCAction[] actions = npc.getActions();
+        INPCAction[] actions = npc.getActions();
         domain.startInteract(interactingNPC, actionIndex);
 
         if(actions[actionIndex] instanceof NPCDialogAction){

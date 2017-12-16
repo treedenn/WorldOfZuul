@@ -1,6 +1,6 @@
 package BLL.entity.npc;
 
-import BLL.entity.npc.actions.NPCAction;
+import BLL.ACQ.INPCAction;
 import BLL.entity.npc.actions.NPCActionCollection;
 
 import java.io.File;
@@ -35,10 +35,10 @@ public interface NPC {
     boolean isGood();
 
     /**
-     * Gets the actions of the NPC as {@link NPCAction}.
+     * Gets the actions of the NPC as {@link INPCAction}.
      * @return Array of actions as INPCAction
      */
-    NPCAction[] getActions();
+    INPCAction[] getActions();
 
     /**
      * Sets the actions of the NPC.

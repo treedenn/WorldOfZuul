@@ -1,6 +1,6 @@
 package UI.refactoredUI.dialog;
 
-import BLL.entity.npc.actions.NPCAction;
+import BLL.ACQ.INPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
 import BLL.entity.npc.actions.NPCQuizAction;
 import UI.refactoredUI.components.Component;
@@ -74,7 +74,7 @@ public class Dialog extends Component implements IDialog {
     }
 
     @Override
-    public void addChoices(NPCAction action) {
+    public void addChoices(INPCAction action) {
         buttonWrapper.getChildren().clear();
         if(action instanceof NPCDialogAction){
             Button yesButton = new Button("Yes");

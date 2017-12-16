@@ -5,15 +5,10 @@ import UI.refactoredUI.components.Component;
 import UI.refactoredUI.components.ComponentLoader;
 import UI.refactoredUI.components.IGameMap;
 import UI.refactoredUI.components.IMiniMap;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import java.net.URL;
 import java.util.Map;

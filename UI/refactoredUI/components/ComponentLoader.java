@@ -8,9 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -44,10 +42,10 @@ public class ComponentLoader {
      */
     public static void loadComponent(AnchorPane newParent, Parent component, double topAnchor, double rightAnchor, double bottomAnchor, double leftAnchor, boolean animated){
         if(!newParent.getChildren().contains(component)) newParent.getChildren().add(component);
-        if(topAnchor != -1) newParent.setTopAnchor(component, topAnchor);
-        if(rightAnchor != -1) newParent.setRightAnchor(component, rightAnchor);
-        if(bottomAnchor != -1) newParent.setBottomAnchor(component, bottomAnchor);
-        if(leftAnchor != -1) newParent.setLeftAnchor(component, leftAnchor);
+        if(topAnchor != -1) AnchorPane.setTopAnchor(component, topAnchor);
+        if(rightAnchor != -1) AnchorPane.setRightAnchor(component, rightAnchor);
+        if(bottomAnchor != -1) AnchorPane.setBottomAnchor(component, bottomAnchor);
+        if(leftAnchor != -1) AnchorPane.setLeftAnchor(component, leftAnchor);
         if (animated) animateEntrance(newParent, component);
     }
 
@@ -61,7 +59,7 @@ public class ComponentLoader {
      */
     public static void loadComponent(GridPane newParent, Parent component, int row, int col, boolean animated){
         if(!newParent.getChildren().contains(component)) newParent.getChildren().add(component);
-        newParent.setConstraints(component,col, row);
+        GridPane.setConstraints(component,col, row);
         if (animated) animateEntrance(newParent, component);
     }
 

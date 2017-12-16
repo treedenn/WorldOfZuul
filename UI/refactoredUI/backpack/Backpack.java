@@ -1,7 +1,6 @@
 package UI.refactoredUI.backpack;
 
 import BLL.ACQ.IItemStack;
-import BLL.Game;
 import UI.refactoredUI.components.Component;
 import UI.refactoredUI.components.IBackpack;
 import UI.refactoredUI.components.IEventListener;

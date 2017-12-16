@@ -1,5 +1,6 @@
 package BLL.entity.npc.actions;
 
+import BLL.ACQ.INPCAction;
 import BLL.Game;
 import BLL.entity.npc.NPC;
 
@@ -7,7 +8,7 @@ import BLL.entity.npc.NPC;
  * The base of all NPC actions.
  * It simply contains a message to be displayed.
  */
-public class NPCAction {
+public class NPCAction implements INPCAction {
 	private final String DEFAULT_MESSAGE;
 	protected String message;
 
@@ -21,8 +22,10 @@ public class NPCAction {
 	}
 
 	/**
-	 * Gets the message of the action.
+	 * {@inheritDoc}
+	 * @return
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -37,7 +40,7 @@ public class NPCAction {
 	}
 
 	/**
-	 * Whenever an actio ends, this method has to be invoked.
+	 * Whenever an action ends, this method has to be invoked.
 	 * Base does nothing.
 	 */
 	public void onEndEvent(NPC npc, Game game) { }

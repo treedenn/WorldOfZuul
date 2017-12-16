@@ -283,7 +283,7 @@ public class PlanetView {
                     Region itemListHeaderSpacer = new Region();
                     HBox itemListHeaderHBox = new HBox();
                     itemListHeaderHBox.getChildren().addAll(itemListHeader, itemListHeaderSpacer, pickupButton);
-                    itemListHeaderHBox.setHgrow(itemListHeaderSpacer, Priority.ALWAYS);
+                    HBox.setHgrow(itemListHeaderSpacer, Priority.ALWAYS);
                     itemListHeaderHBox.setAlignment(Pos.CENTER);
 
                     VBox itemVbox = new VBox(itemListHeaderHBox, itemList);

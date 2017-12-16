@@ -301,7 +301,7 @@ public class Game implements Domain {
 	@Override
 	public void startInteract(NPC npc, int actionId) {
 		if(npc != null) {
-			NPCAction[] actions = npc.getActions();
+			NPCAction[] actions = (NPCAction[]) npc.getActions();
 
 			if(actions[actionId] instanceof NPCJumpAction) {
 				((NPCJumpAction) actions[actionId]).resetActionId();
@@ -317,7 +317,7 @@ public class Game implements Domain {
 	@Override
 	public void endInteract(NPC npc, int actionId) {
 		if(npc != null) {
-			NPCAction[] actions = npc.getActions();
+			NPCAction[] actions = (NPCAction[]) npc.getActions();
 			actions[actionId].onEndEvent(npc, this);
 		}
 	}

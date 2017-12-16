@@ -1,6 +1,6 @@
 package UI.deleteWhenTransitioneToNewGUI.controller.gamecomponents;
 
-import BLL.entity.npc.actions.NPCAction;
+import BLL.ACQ.INPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
 import BLL.entity.npc.actions.NPCQuizAction;
 import UI.deleteWhenTransitioneToNewGUI.controller.GameController;
@@ -40,7 +40,7 @@ public class Dialog implements Reusable{
 
     }
 
-    public void addChoice(NPCAction action){
+    public void addChoice(INPCAction action){
         choices.getChildren().clear();
         if(action instanceof NPCDialogAction){
             Button yesButton = new Button("Yes");

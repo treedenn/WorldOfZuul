@@ -69,7 +69,7 @@ public class Avatar{
      * @param rick
      */
     public void isRick(boolean rick) {
-        wasRickBefore = isRick ? true : false;
+        wasRickBefore = isRick;
         isRick = rick;
         if(isRick != wasRickBefore){ changeAvatarIMG();}
     }

@@ -1,6 +1,6 @@
 package UI.refactoredUI.components;
 
-import BLL.entity.npc.actions.NPCAction;
+import BLL.ACQ.INPCAction;
 
 public interface IDialog extends IComponent {
     // Events
@@ -15,7 +15,7 @@ public interface IDialog extends IComponent {
     // Methods
     void loadCharacterInformation(String characterName, String message, String imagePath);
 
-    void addChoices(NPCAction action);
+    void addChoices(INPCAction action);
 
     void allowLeaveOption(boolean leaveOption);
 }

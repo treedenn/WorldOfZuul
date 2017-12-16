@@ -51,7 +51,7 @@ public class Avatar extends Component implements IAvatar {
 
     @Override
     public void setAvatar(String name) {
-        avatarHasChanged = currentAvatar.equals(name) ? false : true;
+        avatarHasChanged = !currentAvatar.equals(name);
         currentAvatar = name;
         if(avatarHasChanged) changeAvatar();
     }
