@@ -1,6 +1,5 @@
 package BLL.entity.npc;
 
-import BLL.ACQ.INPCAction;
 import BLL.Game;
 import BLL.GameUtility;
 import BLL.entity.Entity;
@@ -18,7 +17,7 @@ import BLL.world.Planet;
  * it will initiate the movable Blacksmith.
  */
 public class StationaryBlacksmith extends Entity implements NPC {
-	private INPCAction[] actions;
+	private NPCAction[] actions;
 
 	/**
 	 * Constructs a Stationary Blacksmith.
@@ -53,7 +52,7 @@ public class StationaryBlacksmith extends Entity implements NPC {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public INPCAction[] getActions() {
+	public NPCAction[] getActions() {
 		return actions;
 	}
 

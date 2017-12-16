@@ -1,6 +1,5 @@
 package BLL.entity.npc.actions;
 
-import BLL.ACQ.INPCAction;
 import BLL.Game;
 import BLL.entity.npc.NPC;
 
@@ -8,7 +7,7 @@ import BLL.entity.npc.NPC;
  * The base of all NPC actions.
  * It simply contains a message to be displayed.
  */
-public class NPCAction implements INPCAction {
+public class NPCAction {
 	private final String DEFAULT_MESSAGE;
 	protected String message;
 
@@ -22,10 +21,8 @@ public class NPCAction implements INPCAction {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * @return
+	 * Gets the message of the action.
 	 */
-	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -35,7 +32,7 @@ public class NPCAction implements INPCAction {
 	 * The base always sets the message to default,
 	 * since derives classes can overwrite message.
 	 */
-	public void onStartEvent(NPC npc, Game game) {
+	protected void onStartEvent(NPC npc, Game game) {
 		message = DEFAULT_MESSAGE;
 	}
 
@@ -43,5 +40,5 @@ public class NPCAction implements INPCAction {
 	 * Whenever an action ends, this method has to be invoked.
 	 * Base does nothing.
 	 */
-	public void onEndEvent(NPC npc, Game game) { }
+	protected void onEndEvent(NPC npc, Game game) { }
 }

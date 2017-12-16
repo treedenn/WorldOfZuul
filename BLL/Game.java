@@ -11,6 +11,7 @@ import BLL.entity.MovableEntity;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.SpacePirate;
 import BLL.entity.npc.actions.NPCAction;
+import BLL.entity.npc.actions.NPCActionHandler;
 import BLL.entity.npc.actions.NPCJumpAction;
 import BLL.entity.player.Player;
 import BLL.entity.player.Recipe;
@@ -35,6 +36,7 @@ public class Game implements Domain {
 	private UsableHandler usableHandler;
 	private ScoreHandler scoreHandler;
 	private NPCHandler npcHandler;
+	private NPCActionHandler npcActionHandler;
 
 	private int worldSeed;
 	private boolean finished;
@@ -49,6 +51,7 @@ public class Game implements Domain {
 		usableHandler = new UsableHandler();
 		npcHandler = new NPCHandler();
 		scoreHandler = new ScoreHandler();
+		npcActionHandler = new NPCActionHandler();
 
 		finished = false;
 		gameWon = false;
@@ -300,15 +303,7 @@ public class Game implements Domain {
 	 */
 	@Override
 	public void startInteract(NPC npc, int actionId) {
-		if(npc != null) {
-			NPCAction[] actions = (NPCAction[]) npc.getActions();
-
-			if(actions[actionId] instanceof NPCJumpAction) {
-				((NPCJumpAction) actions[actionId]).resetActionId();
-			}
-
-			actions[actionId].onStartEvent(npc, this);
-		}
+		npcActionHandler.startInteraction(this, npc, actionId);
 	}
 
 	/**
@@ -316,10 +311,7 @@ public class Game implements Domain {
 	 */
 	@Override
 	public void endInteract(NPC npc, int actionId) {
-		if(npc != null) {
-			NPCAction[] actions = (NPCAction[]) npc.getActions();
-			actions[actionId].onEndEvent(npc, this);
-		}
+		npcActionHandler.endInteraction(this, npc, actionId);
 	}
 
 	/**

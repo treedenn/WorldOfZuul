@@ -44,7 +44,7 @@ public class NPCQuizAction extends NPCAction {
      * {@inheritDoc}
      */
     @Override
-    public void onStartEvent(NPC npc, Game game) {
+    protected void onStartEvent(NPC npc, Game game) {
         super.onStartEvent(npc, game);
 
         uno = (UnoX) npc;
@@ -55,14 +55,14 @@ public class NPCQuizAction extends NPCAction {
             sb.append(String.valueOf(i + 1) + ". ");
             sb.append(quiz.getOptions()[i]);
         }
-        message = sb.toString();
+        message += sb.toString();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onEndEvent(NPC npc, Game game) {
+    protected void onEndEvent(NPC npc, Game game) {
         super.onEndEvent(npc, game);
 
         uno = (UnoX) npc;
