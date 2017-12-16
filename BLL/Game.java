@@ -202,6 +202,11 @@ public class Game implements Domain {
 	 */
 	@Override
 	public void init() {
+
+		// Restarts the game
+		finished= false;
+		gameWon = false;
+
 		// generates a world seed
 		this.worldSeed = (int) (Math.random() * Integer.MAX_VALUE);
 

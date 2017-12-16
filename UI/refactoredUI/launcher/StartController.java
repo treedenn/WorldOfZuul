@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -16,15 +17,21 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * The start controller for the game launcher
  */
-public class StartController extends Controller {
+public class StartController implements Initializable{
+
+	private Domain domain;
+	private Stage stage;
 
 	@FXML private Button buttonNewGame;
 	@FXML private Button buttonExit;
@@ -41,19 +48,19 @@ public class StartController extends Controller {
 	 * Constructor.
 	 * @param domain reference to domain logic.
 	 */
-	public StartController(Domain domain) {
-		super(domain);
+	public StartController(Domain domain, Stage stage) {
+		this.domain = domain;
+		this.stage = stage;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void initialize() {
+	public void initialize(URL location, ResourceBundle resources) {
 		configListView();
-		getStage().getIcons().add(new Image("./UI/resources/img/favicon.png"));
-
-		buttonContinueGame.setVisible(getDomain().hasLoadingFile());
+		stage.getIcons().add(new Image("./UI/resources/img/favicon.png"));
+		buttonContinueGame.setDisable(!domain.hasLoadingFile());
 	}
 
 	/**
@@ -63,7 +70,7 @@ public class StartController extends Controller {
 	@FXML
 	void continueGame(ActionEvent event) {
 		try {
-			getDomain().load();
+			domain.load();
 			switchToGameView();
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -77,7 +84,9 @@ public class StartController extends Controller {
 	@FXML
 	void handleNewGameAction(ActionEvent event) {
 		try {
-			getDomain().init();
+			domain.init();
+			domain.getPlayer().setCoordX(4000);
+			domain.getPlayer().setCoordY(4000);
 			switchToGameView();
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -122,18 +131,18 @@ public class StartController extends Controller {
 	 */
 	private void switchToGameView() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/refactoredUI/game/game_view.fxml"));
-		GameController controller = new GameController(getDomain(), getStage());
+		GameController controller = new GameController(domain, stage);
 		//FXMLLoader loader = new FXMLLoader(getClass().getResource("view/start_view.fxml"));
 		//StartController controller = new StartController(domain);
 		//controller.setStage(primaryStage);
 		loader.setController(controller);
 		AnchorPane pane = loader.load();
-		getStage().setScene(new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight()));
-		getStage().setTitle("Rick's Adventure The Game// Gruppe 24");
-		getStage().setResizable(true);
-		getStage().show();
+		stage.setScene(new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight()));
+		stage.setTitle("Rick's Adventure The Game// Gruppe 24");
+		stage.setResizable(true);
+		stage.show();
 
-		getStage().setOnCloseRequest(event -> {
+		stage.setOnCloseRequest(event -> {
 			Platform.exit();
 			System.exit(0);
 		});
@@ -141,7 +150,7 @@ public class StartController extends Controller {
 
 
 	private void configListView() {
-		List<IScore> highscore = getDomain().getHighscore();
+		List<IScore> highscore = domain.getHighscore();
 		List<UIScore> scores = new ArrayList<>();
 
 		IScore is;

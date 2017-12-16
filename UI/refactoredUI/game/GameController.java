@@ -45,36 +45,32 @@ public class GameController implements Initializable{
     private Domain domain;
     /** Reference to the window */
     private Stage stage;
-    /** Attribute holding time value. */
-    private double deltaTime;
+
     /** String attribute to keep track of name of planet the spaceship is hovering over. */
     private String planetHovering;
 
     private NPC interactingNPC;
-
-    private NPC initiatorNPC;
 
     private int actionIndex;
 
     private NPCAction currentAction;
 
     /**  */
-    boolean actionMessageIsVisible;
+    private boolean actionMessageIsVisible;
 
-    AnimationTimer animationTimer;
+    private AnimationTimer animationTimer;
 
-
-    IGameMap map;
-    IBackpack backpack;
-    IHamburger hamburger;
-    IGuide guide;
-    IDrawer drawer;
-    IDashboard dashboard;
-    ISurface surface;
-    IActionMessage actionMessage;
-    INotification notification;
-    IDialog dialog;
-    IHighscore highscore;
+    private IGameMap map;
+    private IBackpack backpack;
+    private IHamburger hamburger;
+    private IGuide guide;
+    private IDrawer drawer;
+    private IDashboard dashboard;
+    private ISurface surface;
+    private IActionMessage actionMessage;
+    private INotification notification;
+    private IDialog dialog;
+    private IHighscore highscore;
 
     @FXML
     private AnchorPane root;
@@ -110,11 +106,15 @@ public class GameController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
-        // Consume KeyEvent for Space.
+        // Consume KeyEvent for Space and Escape.
         root.addEventFilter(KeyEvent.KEY_PRESSED, key ->{
             if(key.getCode() == KeyCode.SPACE) {
                 key.consume();
                 spaceIsPressed();
+            }
+            if(key.getCode() == KeyCode.ESCAPE){
+                key.consume();
+                escapeIsPressed();
             }
         });
 
@@ -137,6 +137,15 @@ public class GameController implements Initializable{
         drawer.onMaximizeMinimize(data -> {
             stage.setFullScreen(!stage.isFullScreen());
             drawer.setWindowState(stage.isFullScreen() ? "WINDOWED" : "FULLSCREEN");
+        });
+
+        drawer.onSaveAndQuit(data -> {
+            domain.save();
+            try {
+                switchGameView();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
 
@@ -229,6 +238,7 @@ public class GameController implements Initializable{
 
         highscore.onSaveHighscore(data -> {
             domain.addPlayerToHighscore(data);
+            domain.deleteLoadingFile();
             try {
                 switchGameView();
             } catch (IOException e) {
@@ -237,6 +247,7 @@ public class GameController implements Initializable{
         });
 
         highscore.onExit(data -> {
+            domain.deleteLoadingFile();
             try {
                 switchGameView();
             } catch (IOException e) {
@@ -273,21 +284,22 @@ public class GameController implements Initializable{
 
 
 
-        initiatorNPC = domain.interaction();
+        NPC initiatorNPC = domain.interaction();
         if(initiatorNPC != null) {
             ComponentLoader.loadComponent(root,dialog.getView(),0,0,bottom.getHeight(),0,true);
             startInteract(initiatorNPC, 0);
         }
 
         domain.updateBuffs();
-        deltaTime = System.nanoTime();
+        double deltaTime = System.nanoTime();
         map.tick(deltaTime);
         map.keepWithinBoundaries(domain.getPlayer().getCoordX(), domain.getPlayer().getCoordY());
         if(map.getSpaceship().isMoving()) domain.decreaseFuelOnMove(60);
 
-        /** Collision detection: Sets {@link planetHovering} to planet name if collision is detected. */
+
         int count = 0;
         int countOnTrue = 0;
+        /** Collision detection: Sets {@link planetHovering} to planet name if collision is detected. */
         for (IGlobe globe : map.getPlanetsOnGameMap()) {
             if(((Component) globe).isColliding((Component) map.getSpaceship())){
                 planetHovering = globe.name().replace(" ", "");
@@ -345,6 +357,10 @@ public class GameController implements Initializable{
             }
             checkMessageContainer();
         }
+    }
+
+    private void escapeIsPressed(){
+       drawer.setWindowState(stage.isFullScreen() ? "WINDOWED" : "FULLSCREEN");
     }
 
     @FXML
@@ -468,8 +484,7 @@ public class GameController implements Initializable{
 
     private void switchGameView() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/refactoredUI/launcher/launcher_view.fxml"));
-        StartController controller = new StartController(domain);
-        controller.setStage(root);
+        StartController controller = new StartController(domain,stage);
         loader.setController(controller);
         Pane newRoot = loader.load();
         Scene scene = new Scene(newRoot, newRoot.getPrefWidth(), newRoot.getPrefHeight());

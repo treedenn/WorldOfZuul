@@ -24,8 +24,7 @@ public class GUI extends Application implements UserInterface {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("refactoredUI/launcher/launcher_view.fxml"));
-		StartController controller = new StartController(domain);
-		controller.setStage(primaryStage);
+		StartController controller = new StartController(domain, primaryStage);
 		loader.setController(controller);
 		AnchorPane pane = loader.load();
 		primaryStage.setScene(new Scene(pane, pane.getPrefWidth(), pane.getPrefHeight()));
