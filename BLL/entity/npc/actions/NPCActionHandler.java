@@ -23,7 +23,6 @@ public class NPCActionHandler {
 			}
 
 			actions[actionId].onStartEvent(npc, game);
-			System.out.println("START EVENT");
 		}
 	}
 
@@ -38,7 +37,6 @@ public class NPCActionHandler {
 		if(npc != null) {
 			NPCAction[] actions = npc.getActions();
 			actions[actionId].onEndEvent(npc, game);
-			System.out.println("END EVENT");
 		}
 	}
 }
