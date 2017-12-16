@@ -104,7 +104,7 @@ public class Spaceship extends Component implements ISpaceship {
      */
     @Override
     public boolean isMoving() {
-        return isMoveable && accelerate  ? true : false;
+        return isMoveable && accelerate;
     }
 
     /**

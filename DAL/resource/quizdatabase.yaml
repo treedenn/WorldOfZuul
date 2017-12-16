@@ -28,12 +28,12 @@
     - "all of the above"
   answer: 2
 4:
-  question: "which GUI toolkit comes included with Java?"
+  question: "which GUI toolkit is not included with Java 8?"
   options:
     - "Swing"
-    - "Gtk"
+    - "GTK"
     - "JavaFX"
-  answer: 0
+  answer: 1
 5:
   question: "the current version of Java is?"
   options:
@@ -56,9 +56,9 @@
     - ".java"
   answer: 1
 8:
-  question: "In Java console output i achieved by using?"
+  question: "Java console can be achieved by using?"
   options:
-    - "sted::cout"
+    - "std::cout"
     - "printf"
     - "System.out.println"
   answer: 2
@@ -100,7 +100,7 @@
 14:
   question: "In Java the word true is"
   options:
-    - "A Java keyword"
+    - "An object"
     - "A Boolean literal"
     - "Same as value 1"
   answer: 1
@@ -116,7 +116,7 @@
   options:
     - "d = Double.parseDouble(s);"
     - "d = Double.valueOf(s).doubleValue();"
-    - "both of the above"
+    - "Both"
   answer: 2
 17:
   question: "How many elements are array matrix (int[][] matrix = new int[5][5])?"
@@ -133,7 +133,7 @@
     - "3.0"
   answer: 1
 19:
-  question: "A Java entity is stored in _____."
+  question: "A Java integer is stored in _____."
   options:
     - "one byte"
     - "two bytes"
@@ -145,7 +145,7 @@
     - "$343"
     - "class"
     - "9x"
-  answer: 1
+  answer: 0
 21:
   question: "To assign a value 1 to variable x, you write"
   options:
@@ -154,7 +154,7 @@
     - "x==1;"
   answer: 1
 22:
-  question: "	Which of these data types requires the most amount of memory?"
+  question: "Which of these data types requires the most amount of memory?"
   options:
     - "long"
     - "short"
@@ -175,12 +175,12 @@
     - "25 % 5"
   answer: 0
 25:
-  question: "Which of the Boolean expressions below is incorrect?"
+  question: "Which of the Boolean expressions below is correct?"
   options:
-    - "(true) && (3 => 4)"
-    - "!(x > 0) && (x > 0)"
     - "(x > 0) || (x < 0)"
-  answer: 0
+    - "!(x > 0) && (x > 0)"
+    - "(true && ((39 % 3 == 13) || !false)) && (5 => 4)"
+  answer: 2
 26:
   question: "The Unicode of 'a' is 97. What is the Unicode for 'c'?"
   options:
@@ -256,7 +256,7 @@
   options:
     - "true"
     - "false"
-    - "what is imutable?"
+    - "what is immutable?"
   answer: 0
 37:
   question: "What is the best suitable relationship between Employee and Faculty?"
@@ -287,7 +287,7 @@
     - "Vector"
   answer: 0
 41:
-  question: " Which of the following data types does not implement the Collection interface?"
+  question: "Which of the following data types does not implement the Collection interface?"
   options:
     - "HashSet"
     - "ArrayList"

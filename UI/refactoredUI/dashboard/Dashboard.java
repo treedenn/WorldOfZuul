@@ -4,7 +4,6 @@ import UI.refactoredUI.avatar.Avatar;
 import UI.refactoredUI.bar.Bar;
 import UI.refactoredUI.bar.BarStyle;
 import UI.refactoredUI.components.*;
-import UI.refactoredUI.minimap.MiniMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;

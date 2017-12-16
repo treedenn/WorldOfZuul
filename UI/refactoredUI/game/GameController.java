@@ -203,7 +203,7 @@ public class GameController implements Initializable{
 
         surface.OnTickList(data -> surface.tickList(domain.getPlayer().getCurrentPlanet().getInventory().getIContent(), domain.getPlayer().getCurrentPlanet().getNPCs()));
 
-        surface.onSearch(data -> { ;
+        surface.onSearch(data -> {
             surface.setIsSearched(domain.searchPlanet());
             checkMessageContainer();
             surface.tickList(domain.getPlayer().getCurrentPlanet().getInventory().getIContent(), domain.getPlayer().getCurrentPlanet().getNPCs());
@@ -443,7 +443,6 @@ public class GameController implements Initializable{
             ComponentLoader.removeComponent(dialog.getView());
             enableMovement();
         }
-
     }
 
     private void setAnswer(Boolean answerYes){

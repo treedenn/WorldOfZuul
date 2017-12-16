@@ -2,7 +2,6 @@ package UI.refactoredUI.components;
 
 import BLL.ACQ.IPlanet;
 import com.sun.istack.internal.Nullable;
-import javafx.scene.SubScene;
 
 import java.util.AbstractMap;
 import java.util.List;

@@ -32,13 +32,13 @@ public class NPCAction {
 	 * The base always sets the message to default,
 	 * since derives classes can overwrite message.
 	 */
-	public void onStartEvent(NPC npc, Game game) {
+	protected void onStartEvent(NPC npc, Game game) {
 		message = DEFAULT_MESSAGE;
 	}
 
 	/**
-	 * Whenever an actio ends, this method has to be invoked.
+	 * Whenever an action ends, this method has to be invoked.
 	 * Base does nothing.
 	 */
-	public void onEndEvent(NPC npc, Game game) { }
+	protected void onEndEvent(NPC npc, Game game) { }
 }
