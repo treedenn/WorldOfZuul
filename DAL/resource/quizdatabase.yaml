@@ -154,7 +154,7 @@
     - "x==1;"
   answer: 1
 22:
-  question: "	Which of these data types requires the most amount of memory?"
+  question: "Which of these data types requires the most amount of memory?"
   options:
     - "long"
     - "short"
@@ -287,7 +287,7 @@
     - "Vector"
   answer: 0
 41:
-  question: " Which of the following data types does not implement the Collection interface?"
+  question: "Which of the following data types does not implement the Collection interface?"
   options:
     - "HashSet"
     - "ArrayList"
