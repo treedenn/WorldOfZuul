@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 /**
  * The facade of the User Interface Layer (UI).
  */
-public class JavaFX extends Application implements UserInterface {
+public class GUI extends Application implements UserInterface {
 
 	/** Business layer object implementing {@link Domain} interface */
 	private static Domain domain;
@@ -23,9 +23,6 @@ public class JavaFX extends Application implements UserInterface {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO: LASSE ARBEJDER HER
-		//FXMLLoader loader = new FXMLLoader(getClass().getResource("refactoredUI/game/game_view.fxml"));
-		//GameController controller = new GameController(Game.getInstance(), primaryStage);
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("refactoredUI/launcher/launcher_view.fxml"));
 		StartController controller = new StartController(domain);
 		controller.setStage(primaryStage);
@@ -43,7 +40,7 @@ public class JavaFX extends Application implements UserInterface {
 	 */
 	@Override
 	public void injectDomain(Domain domain) {
-		JavaFX.domain = domain;
+		GUI.domain = domain;
 	}
 
 

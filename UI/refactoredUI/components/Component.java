@@ -20,8 +20,6 @@ public abstract class Component {
     private Parent parent;
     /** Reference to the FXML path. */
     private String resource;
-    /** True if the component is loaded. */
-    private boolean isLoaded;
 
     /**
      * Constructor.
@@ -69,13 +67,4 @@ public abstract class Component {
     public void setParent(Parent parent) {
         this.parent = parent;
     }
-
-    /**
-     * Accessor method for the FXML file path.
-     * @return  the FXML file path.
-     */
-    public String getResource() {
-        return resource;
-    }
-
 }

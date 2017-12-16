@@ -1,6 +1,7 @@
 package UI.refactoredUI.game;
 
 import BLL.ACQ.Domain;
+import BLL.ACQ.IItemStack;
 import BLL.ACQ.IPlanet;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.actions.NPCAction;
@@ -144,6 +145,13 @@ public class GameController implements Initializable{
             checkMessageContainer();
         });
 
+        backpack.onUse(new IEventListener<IItemStack>() {
+            @Override
+            public void onAction(IItemStack data) {
+                System.out.println("Hej");
+            }
+        });
+
 
         backpack.onClose(data -> ComponentLoader.removeComponent(backpack.getView()));
 
@@ -209,11 +217,6 @@ public class GameController implements Initializable{
         // **************************************************
 
         // DIALOG -----------------------------
-        dialog.onLeave(data -> {
-            domain.endInteract(interactingNPC, actionIndex);
-            ComponentLoader.removeComponent(dialog.getView());
-        });
-
         dialog.onContinue(data -> nextAction());
 
         dialog.onAnswer(data -> setAnswer(data) );
@@ -261,6 +264,13 @@ public class GameController implements Initializable{
             highscore.getView().toFront();
             animationTimer.stop();
         }
+
+        if (domain.getPlayer().getMorphId() == -1){
+            dashboard.getAvatar().setAvatar("rick");
+        } else{
+            dashboard.getAvatar().setAvatar("morty");
+        }
+
 
 
         initiatorNPC = domain.interaction();
@@ -415,7 +425,9 @@ public class GameController implements Initializable{
             currentAction = actions[actionIndex];
         }
 
-        dialog.loadCharacterInformation(npc.getName(), currentAction.getMessage(), npc.getImage().toURI().toString().replace("\\", "/"));
+        System.out.println("/DAL/resource/images/npcs/spacepirate.png");
+
+        dialog.loadCharacterInformation(npc.getName(), currentAction.getMessage(), npc.getImage().getPath().replace("\\", "/"));
         dialog.addChoices(currentAction);
     }
 
@@ -449,16 +461,13 @@ public class GameController implements Initializable{
             ComponentLoader.removeComponent(dialog.getView());
             enableMovement();
         }
-
-        // TICK STUFF HERE
     }
 
     private void setQuizAnswer(int i){
         NPCQuizAction npcQuizAction = (NPCQuizAction) currentAction;
         npcQuizAction.setAnswer(i);
-        domain.endInteract(interactingNPC, i);
-        checkMessageContainer();
         nextAction();
+        checkMessageContainer();
     }
 
     private void switchGameView() throws IOException{

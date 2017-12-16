@@ -28,11 +28,11 @@ public class NPCHandler {
 		pirate = new SpacePirate();
 
 		try {
-			blacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
-			stationaryBlacksmith.setImage(new File("./DAL/resource/images/npcs/gearhead.png"));
-			professorPutricide.setImage(new File("./DAL/resource/images/npcs/profputri.png"));
-			unoX.setImage(new File("./DAL/resource/images/npcs/unox.png"));
-			pirate.setImage(new File("./DAL/resource/images/npcs/spacepirate.png"));
+			blacksmith.setImage(new File("/DAL/resource/images/npcs/gearhead.png"));
+			stationaryBlacksmith.setImage(new File("/DAL/resource/images/npcs/gearhead.png"));
+			professorPutricide.setImage(new File("/DAL/resource/images/npcs/profputri.png"));
+			unoX.setImage(new File("/DAL/resource/images/npcs/unox.png"));
+			pirate.setImage(new File("/DAL/resource/images/npcs/spacepirate.png"));
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Static class.
  */
-public class ComponentLoader {
+public final class ComponentLoader {
 
     private static Timeline timeline;
     private static List<KeyFrame> keyframes;

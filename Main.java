@@ -3,7 +3,7 @@ import BLL.ACQ.PersistenceLayer;
 import BLL.ACQ.UserInterface;
 import BLL.Game;
 import DAL.Model;
-import UI.JavaFX;
+import UI.GUI;
 
 public class Main {
 	/**
@@ -14,7 +14,7 @@ public class Main {
 		PersistenceLayer persistenceLayer = Model.getInstance();
 		Domain domain = Game.getInstance();
 		domain.injectPersistenceLayer(persistenceLayer);
-		UserInterface ui = new JavaFX();
+		UserInterface ui = new GUI();
 		ui.injectDomain(domain);
 		ui.startApplication();
 	}

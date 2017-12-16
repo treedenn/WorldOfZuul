@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 
 public class Dialog extends Component implements IDialog {
 
-    private List<IEventListener> onLeaveSubscribers = new ArrayList<>();
     private List<IEventListener<Boolean>> onAnswerSubscribers = new ArrayList<>();
     private List<IEventListener> onContinueSubscribers = new ArrayList<>();
     private List<IEventListener<Integer>> onQuizAnswerSubscribers = new ArrayList<>();
@@ -44,12 +43,6 @@ public class Dialog extends Component implements IDialog {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
-    @Override
-    public void onLeave(IEventListener listener) {
-        onLeaveSubscribers.add(listener);
-    }
-
     @Override
     public void onAnswer(IEventListener<Boolean> listener) {
         onAnswerSubscribers.add(listener);
@@ -69,7 +62,7 @@ public class Dialog extends Component implements IDialog {
     public void loadCharacterInformation(String characterName, String message, String imagePath) {
         String backgroundImage =  "-fx-background-image: url(" + imagePath + ");";
         //System.out.println(imagePath);
-        //if(imagePath != null) image.setStyle(backgroundImage);
+         if(imagePath != null) image.setStyle(backgroundImage);
         this.message.setText(characterName + " says: \n" + message);
     }
 
@@ -102,15 +95,4 @@ public class Dialog extends Component implements IDialog {
         }
 
     }
-
-    @Override
-    public void allowLeaveOption(boolean leaveOption) {
-        leaveButton.setDisable(leaveOption);
-    }
-
-    @FXML
-    void leave(ActionEvent event) {
-        onLeaveSubscribers.forEach(listener -> listener.onAction(null));
-    }
-
 }

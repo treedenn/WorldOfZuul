@@ -4,7 +4,6 @@ import BLL.entity.npc.actions.NPCAction;
 
 public interface IDialog extends IComponent {
     // Events
-    void onLeave(IEventListener listener);
 
     void onAnswer(IEventListener<Boolean> listener);
 
@@ -17,5 +16,4 @@ public interface IDialog extends IComponent {
 
     void addChoices(NPCAction action);
 
-    void allowLeaveOption(boolean leaveOption);
 }
