@@ -125,10 +125,10 @@ public final class ComponentLoader {
         keyframes.add(new KeyFrame(Duration.millis(330), new KeyValue(component.getChildrenUnmodifiable().get(0).translateYProperty(),0, Interpolator.EASE_BOTH)));
         timeline.getKeyFrames().addAll(keyframes);
         timeline.playFromStart();
+        if(component.opacityProperty().doubleValue() < 1) component.setOpacity(1);
     }
 
     private static boolean animateExit(Pane parent, Parent component){
-            timeline.stop();
             component.setOpacity(1);
             timeline = new Timeline();
             keyframes = new ArrayList<>();
@@ -141,7 +141,7 @@ public final class ComponentLoader {
                     parent.getChildren().remove(component);
                 }
             });
-            return parent.getChildren().contains(component) ? false : true;
+            return true;
     }
 
 

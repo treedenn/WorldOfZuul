@@ -148,7 +148,6 @@ class PlanetHandler implements Loadable {
 				deineax, uskillion, ayrus, amrit, earth
 		};
 
-		// TODO: Comment this statement to disable planet shuffle.
 		Collections.shuffle(Arrays.asList(planets));
 
 		/* the shuffled planets with random positions */

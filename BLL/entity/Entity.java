@@ -63,14 +63,6 @@ public abstract class Entity {
 	 * @param image	the file of the Entity's image
 	 */
 	public void setImage(File image) throws FileNotFoundException {
-		// TODO: Check if the file is actually an image
 		this.image = image;
-		/*
-		if(image.isFile()) {
-			this.image = image;
-		} else {
-			throw new FileNotFoundException();
-		}
-		*/
 	}
 }

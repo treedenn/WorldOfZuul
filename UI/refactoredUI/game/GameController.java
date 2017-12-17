@@ -147,23 +147,6 @@ public class GameController implements Initializable{
             }
         });
 
-
-        backpack.onUse(data -> {
-            if (domain.useItem(data)) backpack.load(domain.getPlayer().getIInventory().getIContent());
-            checkMessageContainer();
-        });
-
-        backpack.onUse(new IEventListener<IItemStack>() {
-            @Override
-            public void onAction(IItemStack data) {
-                System.out.println("Hej");
-            }
-        });
-
-
-        backpack.onClose(data -> ComponentLoader.removeComponent(backpack.getView()));
-
-
         dashboard.onBackpack(data -> {
             ComponentLoader.loadComponent(root, backpack.getView(), 0, 0, 0, 0, true);
             backpack.load(domain.getPlayer().getIInventory().getIContent());
@@ -183,15 +166,17 @@ public class GameController implements Initializable{
 
 
         // BACKPACK----------------------------
-        backpack.onDrop(data -> {
-            if(domain.dropItem(data)){
-                backpack.load(domain.getPlayer().getIInventory().getIContent());
-            }
+        backpack.onUse(data -> {
+            if (domain.useItem(data)) backpack.load(domain.getPlayer().getIInventory().getIContent());
             checkMessageContainer();
-
         });
 
+        backpack.onClose(data -> ComponentLoader.removeComponent(backpack.getView()));
 
+        backpack.onDrop(data -> {
+            if(domain.dropItem(data)) backpack.load(domain.getPlayer().getIInventory().getIContent());
+            checkMessageContainer();
+        });
         // **************************************************
 
         // SURFACE ----------------------------
@@ -428,21 +413,20 @@ public class GameController implements Initializable{
 
 
     private void startInteract(NPC npc, int index){
-        disableMovement();
-
-        interactingNPC = npc;
-        actionIndex = index;
-
-        NPCAction[] actions = npc.getActions();
-        domain.startInteract(interactingNPC, actionIndex);
-
-        if(actions[actionIndex] instanceof NPCDialogAction){
-            currentAction = actions[actionIndex];
-        } else{
-            currentAction = actions[actionIndex];
+        if(npc != null) {
+            disableMovement();
+            interactingNPC = npc;
+            actionIndex = index;
+            NPCAction[] actions = npc.getActions();
+            domain.startInteract(interactingNPC, actionIndex);
+            if (actions[actionIndex] instanceof NPCDialogAction) {
+                currentAction = actions[actionIndex];
+            } else {
+                currentAction = actions[actionIndex];
+            }
+            dialog.loadCharacterInformation(npc.getName(), currentAction.getMessage(), npc.getImage().getPath().replace("\\", "/"));
+            dialog.addChoices(currentAction);
         }
-        dialog.loadCharacterInformation(npc.getName(), currentAction.getMessage(), npc.getImage().getPath().replace("\\", "/"));
-        dialog.addChoices(currentAction);
     }
 
     private void nextAction(){

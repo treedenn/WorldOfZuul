@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class Backpack extends Component implements IBackpack{
 
-    private List<IEventListener<IItemStack>> useSubscribers = new ArrayList<>();
+    private List<IEventListener<IItemStack>> onUseSubscribers = new ArrayList<>();
     private List<IEventListener<IItemStack>> dropSubscribers = new ArrayList<>();
     private List<IEventListener<?>> closeSubscribers = new ArrayList<>();
     private ObservableList<IItemStack> inventory;
@@ -49,7 +49,7 @@ public class Backpack extends Component implements IBackpack{
         /** Setup {@link backpackItemList} cell factory. */
         backpackItemList.setCellFactory(param -> {return new InventoryFormatCell();});
 
-        // TODO: USE SCENEBUILDER EVENT
+
         /** Handle click events on the {@link backpackItemList}. */
         backpackItemList.setOnMouseClicked(event -> {
             if(selectedItem == backpackItemList.getSelectionModel().getSelectedItem()){
@@ -71,7 +71,7 @@ public class Backpack extends Component implements IBackpack{
      */
     @Override
     public void onUse(IEventListener<IItemStack> listener) {
-        useSubscribers.add(listener);
+        onUseSubscribers.add(listener);
     }
 
     /**
@@ -113,7 +113,7 @@ public class Backpack extends Component implements IBackpack{
     @FXML
     void use(ActionEvent event) {
         IItemStack selectedItem = backpackItemList.getSelectionModel().getSelectedItem();
-        useSubscribers.forEach(listener -> listener.onAction(selectedItem));
+        onUseSubscribers.forEach(listener -> listener.onAction(selectedItem));
     }
 
 

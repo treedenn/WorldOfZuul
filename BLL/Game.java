@@ -436,8 +436,7 @@ public class Game implements Domain {
 				message = GameUtility.replacePlaceHolders(model.getMessage("player-move-unsuccessful"), "{PLANET}", planet.getName());
 			} else {
 				player.setCurrentPlanet(planet);
-				player.decreaseFuel(10);
-				player.getCurrentPlanet().setSearched(false);
+				player.decreaseFuel(6.66);
 
 				List<Movable> movedNPC = new ArrayList<>();
 
