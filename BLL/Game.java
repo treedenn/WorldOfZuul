@@ -230,6 +230,7 @@ public class Game implements Domain {
 		// Adds the UnoX to a New Earth
 		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
 		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
+		System.out.println(npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
 	}
 
 	/**
