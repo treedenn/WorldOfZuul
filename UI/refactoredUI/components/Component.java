@@ -22,15 +22,18 @@ public abstract class Component {
 
     /**
      * Returns an object of type {@link Parent} that can be added to the scene graph.
-     * @return  the root of the component.
+     * @return  the loaded object hierarchy.
      */
     public Parent getView(){
         if(parent != null) return parent;
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
             loader.setControllerFactory(param -> this);
-            return (parent = (loader.load()));
-        } catch (IOException e) { return null;}
+            return (parent = (loader.load())); // return object hierarchy.
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
