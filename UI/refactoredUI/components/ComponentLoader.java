@@ -15,13 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Static class.
+ * This utility class provides static methods for loading and removing components.
  */
 public final class ComponentLoader {
 
     private static Timeline timeline;
     private static List<KeyFrame> keyframes;
 
+    /**
+     * Private no-args constructor to prevent instantiation.
+     */
+    private ComponentLoader(){
+
+    }
 
     /**
      * Method to load an component into a new parent of type {@link AnchorPane}.
@@ -64,12 +70,12 @@ public final class ComponentLoader {
     }
 
     /**
-     * Method to load an component int oa new parent of type {@link Pane}.
+     * Method to load an component int a new parent of type {@link Pane}.
      * @param newParent node to load component into.
-     * @param component component to be loaded.
+     * @param component object hierarchy to be loaded.
      */
-    public static void loadComponent(Pane newParent, Parent component){
-        newParent.getChildren().add(component);
+    public static boolean loadComponent(Pane newParent, Parent component){
+        return newParent.getChildren().add(component);
     }
 
     /**
@@ -102,12 +108,12 @@ public final class ComponentLoader {
 
     /**
      * Method to remove an component from a parent.
-     * @param component node to be removed.
+     * @param component
+     * @return true if removal was completed.
      */
     public static boolean removeComponent(Parent component){
         Pane parent = (Pane) component.getParent();
-        animateExit(parent, component);
-        return true;
+        return animateExit(parent, component); // Fades component and removes on finished animation.
     }
 
     private static void animateEntrance(Pane parent, Parent component){
@@ -121,7 +127,7 @@ public final class ComponentLoader {
         timeline.playFromStart();
     }
 
-    private static void animateExit(Pane parent, Parent component){
+    private static boolean animateExit(Pane parent, Parent component){
             timeline.stop();
             component.setOpacity(1);
             timeline = new Timeline();
@@ -135,7 +141,7 @@ public final class ComponentLoader {
                     parent.getChildren().remove(component);
                 }
             });
-
+            return parent.getChildren().contains(component) ? false : true;
     }
 
 
