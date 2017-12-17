@@ -105,7 +105,6 @@ public class GameController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
         // Consume KeyEvent for Space and Escape.
         root.addEventFilter(KeyEvent.KEY_PRESSED, key ->{
             if(key.getCode() == KeyCode.SPACE) {
@@ -257,6 +256,8 @@ public class GameController implements Initializable{
 
         // **************************************************
 
+
+        checkMessageContainer();
 
         animationTimer = new AnimationTimer() {
             @Override

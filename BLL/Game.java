@@ -231,6 +231,8 @@ public class Game implements Domain {
 		npcHandler.getUnoX().setCurrentPlanet(planetMap.get("newearth"));
 		npcHandler.getUnoX().getCurrentPlanet().getNPCs().add(npcHandler.getUnoX());
 		System.out.println(npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
+
+		messageContainer.setMessage("Hello Rick! Because of how intelligent I am as an AI, I can tell you that you will find something important on " + npcHandler.getProfessorPutricide().getCurrentPlanet().getName());
 	}
 
 	/**
