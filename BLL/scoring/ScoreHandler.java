@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * ScoreHandler controls the point system inside the game.
  * It calculates the total amount of points.
- * An optional option is to convert points to stars.
+ * An optional option is to convert points to stars by using the static method.
  */
 public class ScoreHandler implements ScoringConstants {
     private long startTime;
@@ -32,6 +32,10 @@ public class ScoreHandler implements ScoringConstants {
 
     /**
      * Calculates the total amount of points the player received throughout the game.
+     * The formula is:
+     * fuelPoints = fuelConsumption * pointDecreaseFuelConsumption
+     * timePoints = timeElapsed in minutes * pointDecreasePerMinute
+     * points = startScore - fuelPoints - timePoints
      * @param totalFuelConsumption the amount of fuel the player has used
      * @return score the player obtained
      */
@@ -47,18 +51,18 @@ public class ScoreHandler implements ScoringConstants {
      * @param points total points of the player
      * @return how many stars based on points
      */
-    public int getStars(int points) {
+    public static int getStars(int points) {
         int stars;
 
-        if(points >= 8000){
+        if(points >= 10000){
             stars = 5;
-        } else if (points >= 6000){
+        } else if (points >= 8000){
             stars = 4;
-        } else if (points >= 4000){
+        } else if (points >= 6000){
             stars = 3;
-        } else if (points >= 2000){
+        } else if (points >= 4000){
             stars = 2;
-        } else if (points >= 0){
+        } else if (points >= 2000){
             stars = 1;
         } else{
             stars = 0;

@@ -271,7 +271,7 @@ public class GameController implements Initializable{
     private void tick(){
         if(domain.isGameFinished()){
             ComponentLoader.loadComponent(root, highscore.getView(), 0,0,0,0,true);
-            highscore.load(10000, domain.hasWonTheGame());
+            highscore.load(domain.getPlayerScore(), domain.hasWonTheGame());
             highscore.getView().toFront();
             animationTimer.stop();
         }

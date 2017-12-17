@@ -71,6 +71,12 @@ public interface Domain {
 	boolean hasBeatenHighscore();
 
 	/**
+	 * Returns the player score at given time it is invoked.
+	 * @return player score
+	 */
+	int getPlayerScore();
+
+	/**
 	 * A method to see if the player has won the game.
 	 * Caution: Use {@link #isGameFinished()} before checking this one!
 	 * @return true, if the player has won the game.

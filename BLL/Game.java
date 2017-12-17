@@ -94,15 +94,6 @@ public class Game implements Domain {
 	}
 
 	/**
-	 * Gets the ScoreHandler.
-	 * Only invoked by data layer to get the current state of score.
-	 * @return the score handler
-	 */
-	public ScoreHandler getScoreHandler() {
-		return scoreHandler;
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -576,6 +567,14 @@ public class Game implements Domain {
 			scores.remove(scores.size() - 1);
 			model.saveHighscore();
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getPlayerScore() {
+		return scoreHandler.calculatePoints(player.getTotalFuelConsumption());
 	}
 
 	/**

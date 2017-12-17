@@ -69,7 +69,7 @@ public abstract class BuffUtility {
 	 */
 	private static TransformationBuff getTransformationBuff(Map<String, Object> information) {
 		if(information.containsKey("morph-id") && information.containsKey("duration")) {
-			return new TransformationBuff((int) information.get("morph-id"), (long) information.get("duration"));
+			return new TransformationBuff((int) information.get("morph-id"), (int) information.get("duration"));
 		}
 
 		return null;
