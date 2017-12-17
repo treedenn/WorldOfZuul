@@ -11,7 +11,7 @@ import java.util.List;
  * A utility class for the game.
  * It contains small functions, which can be useful in the business layer.
  */
-public class GameUtility {
+public final class GameUtility {
 	/**
 	 * Removes clues from a content/inventory.
 	 * @param itemStacks the itemstack to search for clues

@@ -10,7 +10,7 @@ import java.util.*;
  * Handles the highscore. It saves and loads the highscore.
  */
 class HighscoreHandler implements Savable, Loadable {
-	private IOYaml IOYaml;
+	private IOYaml ioYaml;
 	private List<Score> highscore;
 
 	/**
@@ -18,7 +18,7 @@ class HighscoreHandler implements Savable, Loadable {
 	 * @param file the location of the highscore file
 	 */
 	HighscoreHandler(File file) {
-		this.IOYaml = new IOYaml(file);
+		this.ioYaml = new IOYaml(file);
 		this.highscore = null;
 	}
 
@@ -35,7 +35,7 @@ class HighscoreHandler implements Savable, Loadable {
 	 */
 	@Override
 	public void load() throws FileNotFoundException {
-		Map<Integer, Map<String, Object>> map = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
+		Map<Integer, Map<String, Object>> map = ioYaml.getYaml().load(new FileReader(ioYaml.getFile()));
 
 		if(!map.isEmpty()) {
 			highscore = new ArrayList<>();
@@ -68,6 +68,6 @@ class HighscoreHandler implements Savable, Loadable {
 			map.put(i, data);
 		}
 
-		IOYaml.getYaml().dump(map, new FileWriter(IOYaml.getFile()));
+		ioYaml.getYaml().dump(map, new FileWriter(ioYaml.getFile()));
 	}
 }

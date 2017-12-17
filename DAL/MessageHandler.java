@@ -11,7 +11,7 @@ import java.util.Map;
  * Handles the messages/localization. It loads the localization.
  */
 public class MessageHandler implements Loadable {
-	private IOYaml IOYaml;
+	private IOYaml ioYaml;
 	private Map<String, String> messages;
 
 	/**
@@ -19,7 +19,7 @@ public class MessageHandler implements Loadable {
 	 * @param file the location of the localization
 	 */
 	MessageHandler(File file) {
-		this.IOYaml = new IOYaml(file);
+		this.ioYaml = new IOYaml(file);
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class MessageHandler implements Loadable {
 	 */
 	@Override
 	public void load() throws IOException {
-		messages = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
+		messages = ioYaml.getYaml().load(new FileReader(ioYaml.getFile()));
 	}
 
 	/**

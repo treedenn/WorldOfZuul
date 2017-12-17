@@ -2,7 +2,7 @@ package UI;
 
 import BLL.ACQ.Domain;
 import BLL.ACQ.UserInterface;
-import UI.refactoredUI.launcher.StartController;
+import UI.components.launcher.StartController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,7 +23,7 @@ public class GUI extends Application implements UserInterface {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("refactoredUI/launcher/launcher_view.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("components/launcher/launcher_view.fxml"));
 		StartController controller = new StartController(domain, primaryStage);
 		loader.setController(controller);
 		AnchorPane pane = loader.load();

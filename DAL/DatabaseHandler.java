@@ -15,7 +15,7 @@ import java.util.Map;
  * Handles everything related to database of items.
  */
 class DatabaseHandler implements Loadable {
-	private IOYaml IOYaml;
+	private IOYaml ioYaml;
 	private List<Item> database;
 	private UsableHandler usableHandler;
 
@@ -24,7 +24,7 @@ class DatabaseHandler implements Loadable {
 	 * @param file where the item database is
 	 */
 	DatabaseHandler(File file) {
-		this.IOYaml = new IOYaml(file);
+		this.ioYaml = new IOYaml(file);
 		database = null;
 	}
 
@@ -50,7 +50,7 @@ class DatabaseHandler implements Loadable {
 	 */
 	@Override
 	public void load() throws IOException {
-		Map<Integer, Map<String, Object>> map = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
+		Map<Integer, Map<String, Object>> map = ioYaml.getYaml().load(new FileReader(ioYaml.getFile()));
 
 		if(!map.isEmpty()) {
 			database = new ArrayList<>(map.size());

@@ -14,7 +14,7 @@ import java.util.Map;
  * Handles the quizzes. It loads all the quizzes.
  */
 class QuizHandler implements Loadable {
-	private IOYaml IOYaml;
+	private IOYaml ioYaml;
 	private List<Quiz> quizzes;
 
 	/**
@@ -22,7 +22,7 @@ class QuizHandler implements Loadable {
 	 * @param file the location of all the quizzes
 	 */
 	QuizHandler(File file) {
-		this.IOYaml = new IOYaml(file);
+		this.ioYaml = new IOYaml(file);
 		this.quizzes = null;
 	}
 
@@ -39,7 +39,7 @@ class QuizHandler implements Loadable {
 	 */
 	@Override
 	public void load() throws IOException {
-		Map<Integer, Map<String, Object>> database = IOYaml.getYaml().load(new FileReader(IOYaml.getFile()));
+		Map<Integer, Map<String, Object>> database = ioYaml.getYaml().load(new FileReader(ioYaml.getFile()));
 
 		if(!database.isEmpty()) {
 			quizzes = new ArrayList<>(database.size());

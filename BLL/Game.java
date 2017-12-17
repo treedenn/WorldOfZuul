@@ -470,6 +470,7 @@ public class Game implements Domain {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean planetExit() {
 		player.setCurrentPlanet(null);
 
