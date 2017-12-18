@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ScoreHandler implements ScoringConstants {
     private long startTime;
+    private long endTime;
 
     public ScoreHandler() {
         startTime = System.currentTimeMillis();
@@ -31,17 +32,34 @@ public class ScoreHandler implements ScoringConstants {
     }
 
     /**
+     * Gets the end time.
+     * @return endtime in milliseconds
+     */
+    public long getEndTime() {
+        return endTime;
+    }
+
+    /**
+     * Sets the end time when winning a game, so the points do not keep decreasing.
+     * @param endTime new end time
+     */
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    /**
      * Calculates the total amount of points the player received throughout the game.
      * The formula is:
      * fuelPoints = fuelConsumption * pointDecreaseFuelConsumption
      * timePoints = timeElapsed in minutes * pointDecreasePerMinute
      * points = startScore - fuelPoints - timePoints
+     * @param time points at given time
      * @param totalFuelConsumption the amount of fuel the player has used
      * @return score the player obtained
      */
-    public int calculatePoints(int totalFuelConsumption) {
+    public int calculatePoints(long time, int totalFuelConsumption) {
         int fuelPoints = totalFuelConsumption * pointDecreaseFuelConsumption;
-        int timePoints = (int)TimeUnit.MILLISECONDS.toMinutes(calculateTimeElapsed()) * pointDecreasePerMinute;
+        int timePoints = (int)TimeUnit.MILLISECONDS.toMinutes(time) * pointDecreasePerMinute;
 
         return startScore - fuelPoints - timePoints;
     }
