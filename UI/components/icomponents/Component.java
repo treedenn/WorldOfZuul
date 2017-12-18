@@ -1,10 +1,13 @@
-package UI.components.components;
+package UI.components.icomponents;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
 
+/**
+ * This abstract class defines shared functionality between all GUi components.
+ */
 public abstract class Component {
 
     /** Reference to the component root. */

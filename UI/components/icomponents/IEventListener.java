@@ -1,4 +1,4 @@
-package UI.components.components;
+package UI.components.icomponents;
 
 /**
  * This generic interface is used as a part of the observer pattern.

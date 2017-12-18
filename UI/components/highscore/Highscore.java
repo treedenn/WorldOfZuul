@@ -1,8 +1,8 @@
 package UI.components.highscore;
 
-import UI.components.components.Component;
-import UI.components.components.IEventListener;
-import UI.components.components.IHighscore;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.IEventListener;
+import UI.components.icomponents.IHighscore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,9 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the highscore view.
+ */
 public class Highscore extends Component implements IHighscore {
 
+    /** List of observers */
     private List<IEventListener<String>> onSaveHighscoreSubscribers = new ArrayList<>();
+    /** List of observers */
     private List<IEventListener> onExitSubscribers = new ArrayList<>();
 
 
@@ -44,8 +49,15 @@ public class Highscore extends Component implements IHighscore {
     @FXML
     private TextField nameTextField;
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public Highscore(){super("highscore_view.fxml");}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -91,11 +103,19 @@ public class Highscore extends Component implements IHighscore {
     }
 
 
+    /**
+     * Method to notify all subscribers of the onExit()-method.
+     * @param event the type of event.
+     */
     @FXML
     void exit(ActionEvent event) {
         onExitSubscribers.forEach(listener -> listener.onAction(null));
     }
 
+    /**
+     * Method to notify all subscribers of the onSaveHighscore()-event.
+     * @param event the type of event.
+     */
     @FXML
     void saveHighscore(ActionEvent event) {
         onSaveHighscoreSubscribers.forEach(listener -> listener.onAction(nameTextField.getText()));

@@ -3,9 +3,9 @@ package UI.components.dialog;
 import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCDialogAction;
 import BLL.entity.npc.actions.NPCQuizAction;
-import UI.components.components.Component;
-import UI.components.components.IDialog;
-import UI.components.components.IEventListener;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.IDialog;
+import UI.components.icomponents.IEventListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -18,10 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the dialog view.
+ */
 public class Dialog extends Component implements IDialog {
 
+    /** List of observers */
     private List<IEventListener<Boolean>> onAnswerSubscribers = new ArrayList<>();
+    /** List of observers */
     private List<IEventListener> onContinueSubscribers = new ArrayList<>();
+    /** List of observers */
     private List<IEventListener<Integer>> onQuizAnswerSubscribers = new ArrayList<>();
 
     @FXML
@@ -36,27 +42,46 @@ public class Dialog extends Component implements IDialog {
     @FXML
     private VBox buttonWrapper;
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public Dialog(){super("dialog_view.fxml");}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAnswer(IEventListener<Boolean> listener) {
         onAnswerSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onContinue(IEventListener listener) {
         onContinueSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onQuizAnswer(IEventListener<Integer> listener) {
         onQuizAnswerSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadCharacterInformation(String characterName, String message, String imagePath) {
         String backgroundImage =  "-fx-background-image: url(" + imagePath + ");";
@@ -65,6 +90,9 @@ public class Dialog extends Component implements IDialog {
         this.message.setText(characterName + " says: \n" + message);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addChoices(NPCAction action) {
         buttonWrapper.getChildren().clear();

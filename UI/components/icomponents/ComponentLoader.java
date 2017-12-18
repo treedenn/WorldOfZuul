@@ -1,4 +1,4 @@
-package UI.components.components;
+package UI.components.icomponents;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -19,32 +19,25 @@ import java.util.List;
  */
 public final class ComponentLoader {
 
+    /** This attribute is used for animation. */
     private static Timeline timeline;
+    /** This attribute is used together with the {@link Timeline} for animation. */
     private static List<KeyFrame> keyframes;
 
     /**
      * Private no-args constructor to prevent instantiation.
      */
-    private ComponentLoader(){
-
-    }
+    private ComponentLoader(){}
 
     /**
-     * Method to load an component into a new parent of type {@link AnchorPane}.
+     * Static method to load an component into a new parent of type {@link AnchorPane}.
      * @param newParent node to load component into.
      * @param component component to be loaded.
-     * @param animated true if component's entrance is animated.
-     */
-
-    /**
-     * Method to load an component into a new parent of type {@link AnchorPane}.
-     * @param newParent node to load component into.
-     * @param component component to be loaded.
-     * @param topAnchor -1 to unset
-     * @param rightAnchor -1 to unset
-     * @param bottomAnchor -1 to unset
-     * @param leftAnchor -1 to unset
-     * @param animated  true if component's entrance is animated.
+     * @param topAnchor Distance from top. -1 to unset.
+     * @param rightAnchor Distance from right. -1 to unset.
+     * @param bottomAnchor Distance from bottom. -1 to unset.
+     * @param leftAnchor Distance from left. -1 to unset.
+     * @param animated  true to animate component entrance.
      */
     public static void loadComponent(AnchorPane newParent, Parent component, double topAnchor, double rightAnchor, double bottomAnchor, double leftAnchor, boolean animated){
         if(!newParent.getChildren().contains(component)) newParent.getChildren().add(component);
@@ -56,7 +49,7 @@ public final class ComponentLoader {
     }
 
     /**
-     * Method to load an component int oa new parent of type {@link GridPane}.
+     * Static method to load an component int a new parent of type {@link GridPane}.
      * @param newParent node to load component into.
      * @param component component to be loaded.
      * @param row   row index of parent.
@@ -70,7 +63,7 @@ public final class ComponentLoader {
     }
 
     /**
-     * Method to load an component int a new parent of type {@link Pane}.
+     * Static method to load an component int a new parent of type {@link Pane}.
      * @param newParent node to load component into.
      * @param component object hierarchy to be loaded.
      */
@@ -79,7 +72,7 @@ public final class ComponentLoader {
     }
 
     /**
-     * Method to load an component int oa new parent of type {@link Pane}.
+     * Static method to load an component int oa new parent of type {@link Pane}.
      * This overloaded method also accepts coordinates for translating the component.
      * @param newParent node to load component into.
      * @param component component to be loaded.
@@ -93,7 +86,7 @@ public final class ComponentLoader {
     }
 
     /**
-     * Method to load an component int oa new parent of type {@link Pane}.
+     * Static method to load an component int oa new parent of type {@link Pane}.
      * This overloaded method also accepts coordinates for translating the component.
      * @param newParent node to load component into.
      * @param node component to be loaded.
@@ -107,7 +100,7 @@ public final class ComponentLoader {
     }
 
     /**
-     * Method to remove an component from a parent.
+     * Static method to remove an component from a parent.
      * @param component
      * @return true if removal was completed.
      */
@@ -116,6 +109,11 @@ public final class ComponentLoader {
         return animateExit(parent, component); // Fades component and removes on finished animation.
     }
 
+    /**
+     * Static method to animate component entrance.
+     * @param parent parent of component.
+     * @param component object hierarchy to be animated.
+     */
     private static void animateEntrance(Pane parent, Parent component){
         component.setOpacity(0);
         component.getChildrenUnmodifiable().get(0).translateYProperty().set(-100);
@@ -128,6 +126,12 @@ public final class ComponentLoader {
         if(component.opacityProperty().doubleValue() < 1) component.setOpacity(1);
     }
 
+    /**
+     * Static method to animate removal of component.
+     * @param parent parent of component.
+     * @param component object hierarchy to be animated.
+     * @return true if succeded.
+     */
     private static boolean animateExit(Pane parent, Parent component){
             component.setOpacity(1);
             timeline = new Timeline();

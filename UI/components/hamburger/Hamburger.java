@@ -1,8 +1,8 @@
 package UI.components.hamburger;
 
-import UI.components.components.Component;
-import UI.components.components.IEventListener;
-import UI.components.components.IHamburger;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.IEventListener;
+import UI.components.icomponents.IHamburger;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -18,8 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the highscore view.
+ */
 public class Hamburger extends Component implements IHamburger {
 
+    /** List of observers */
     private List<IEventListener> onOpenNavSubscribers = new ArrayList<>();
 
     @FXML
@@ -31,6 +35,10 @@ public class Hamburger extends Component implements IHamburger {
     @FXML
     private Rectangle hamburgerRectangel3;
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public Hamburger(){super("hamburger_view.fxml");}
 
     /**
@@ -40,7 +48,6 @@ public class Hamburger extends Component implements IHamburger {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
     /**
      * {@inheritDoc}
      */
@@ -49,6 +56,10 @@ public class Hamburger extends Component implements IHamburger {
         onOpenNavSubscribers.add(listener);
     }
 
+    /**
+     * Method to notify all subscribers to the onOpennav()-method.
+     * @param event the type of event.
+     */
     @FXML
     void openNav(ActionEvent event) {
         onOpenNavSubscribers.forEach(listener -> listener.onAction(null));

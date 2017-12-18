@@ -3,7 +3,7 @@ package UI.components.dashboard;
 import UI.components.avatar.Avatar;
 import UI.components.bar.Bar;
 import UI.components.bar.BarStyle;
-import UI.components.components.*;
+import UI.components.icomponents.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -14,12 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the dashboard view.
+ */
 public class Dashboard extends Component implements IDashboard{
 
+    /** Reference to nested component of type {@link IAvatar}. */
     private IAvatar avatar;
+    /** Reference to nested component of type {@link IBar}. */
     private IBar fuelBar;
+    /** Reference to nested component of type {@link IBar}. */
     private IBar backpackBar;
+    /** List of observers. */
     private List<IEventListener<?>> onBackpackSubscribers = new ArrayList<>();
+    /** List of observers. */
     private List<IEventListener<?>> onHelpSubscribers = new ArrayList<>();
 
     @FXML
@@ -28,6 +36,10 @@ public class Dashboard extends Component implements IDashboard{
     @FXML
     private HBox bars;
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public Dashboard(){
         super("dashboard_view.fxml");
         avatar = new Avatar();
@@ -35,6 +47,9 @@ public class Dashboard extends Component implements IDashboard{
         backpackBar = new Bar();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ComponentLoader.loadComponent(grid, avatar.getView(), 0,0, false);
@@ -88,11 +103,19 @@ public class Dashboard extends Component implements IDashboard{
         backpackBar.setValue(value, textualValue);
     }
 
+    /**
+     * Method to notify every subscriber of the onHelp()-event.
+     * @param event the type of user event.
+     */
     @FXML
     void help(ActionEvent event) {
         onHelpSubscribers.forEach(listener -> listener.onAction(null));
     }
 
+    /**
+     * Method to notify every subscriber of the onBackpack()-event.
+     * @param event the type of user event.
+     */
     @FXML
     void openBackpack(ActionEvent event) { onBackpackSubscribers.forEach(listener -> listener.onAction(null));}
 

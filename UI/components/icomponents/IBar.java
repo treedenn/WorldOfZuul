@@ -1,11 +1,11 @@
-package UI.components.components;
+package UI.components.icomponents;
 
 import UI.components.bar.BarStyle;
 
+/**
+ * This interface defines the contract between components of type {@link IBar} and a parent controller.
+ */
 public interface IBar extends IComponent {
-
-
-    // Methods
 
     /**
      * Method to set progress bar value.

@@ -1,8 +1,8 @@
 package UI.components.spaceship;
 
-import UI.components.components.Component;
-import UI.components.components.IEventListener;
-import UI.components.components.ISpaceship;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.IEventListener;
+import UI.components.icomponents.ISpaceship;
 import com.sun.istack.internal.Nullable;
 import javafx.geometry.Point2D;
 
@@ -12,16 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the spaceship view.
+ */
 public class Spaceship extends Component implements ISpaceship {
 
+    /** List of observers */
     private List<IEventListener<AbstractMap.SimpleImmutableEntry<Double, Double>>> onMovementSubscribers = new ArrayList<>();
 
+    /** When this attribute is true the spaceship cannot move. */
     private boolean isMoveable;
+    /** Each boolean attribute is true if the player is performing the action. */
     private boolean accelerate, right, left, decelerate, reverse;
+    /** These attributes sets the speed of acceleration and deceleration. */
     private double accelerationTime, decelerationTime;
+    /** These attributes holds the spaceship's speed as well as restrictions to this. */
     private double speed, maxSpeed, accelerationRatio, decelerationRatio;
+    /** This Point2D holds the spaceship velocity in x and y direction. */
     private Point2D velocity;
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public Spaceship(){
         super("spaceship_view.fxml");
         maxSpeed = 10;
@@ -31,6 +44,9 @@ public class Spaceship extends Component implements ISpaceship {
         isMoveable = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -116,8 +132,8 @@ public class Spaceship extends Component implements ISpaceship {
     }
 
     /**
-     * Method to
-     * @param deltaTime
+     * Method to simulate real acceleration of the spaceship.
+     * @param deltaTime the time of the method invocation.
      */
     private void accelerate(double deltaTime){
         if(accelerationTime == 0){
@@ -140,6 +156,10 @@ public class Spaceship extends Component implements ISpaceship {
 
     }
 
+    /**
+     * Method to simulate real deceleration of the spaceship.
+     * @param deltaTime the time of the method invocation.
+     */
     private void decelerate(double deltaTime){
         if(decelerationTime == 0){
             decelerationTime = deltaTime;

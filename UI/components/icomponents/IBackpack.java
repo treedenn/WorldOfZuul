@@ -1,13 +1,12 @@
-package UI.components.components;
+package UI.components.icomponents;
 
 import BLL.ACQ.IItemStack;
 
 /**
- * Interface defining objects of type {@link IBackpack} interaction with the outside world.
+ * This interface defines the contract between components of type {@link IBackpack} and a parent controller.
  */
 public interface IBackpack extends IComponent{
 
-    // Events
     /**
      * Method to add an event listener.
      * Event to be fired when an object of type {@link IItemStack} is picked up.
@@ -29,8 +28,6 @@ public interface IBackpack extends IComponent{
      */
     void onClose(IEventListener<?> listener);
 
-
-    // Methods
 
     /**
      * Method to load backpack with player's inventory.

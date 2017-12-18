@@ -1,8 +1,9 @@
-package UI.components.components;
+package UI.components.icomponents;
 
+/**
+ * This interface defines the contract between components of type {@link IHamburger} and a parent controller.
+ */
 public interface IHamburger extends IComponent {
-
-    // Events
 
     /**
      * Method to add an event listener.

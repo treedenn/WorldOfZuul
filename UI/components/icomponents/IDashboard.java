@@ -1,11 +1,9 @@
-package UI.components.components;
+package UI.components.icomponents;
 
 /**
- * Interface defining objects of type {@link IBackpack} interaction with the outside world.
+ * This interface defines the contract between components of type {@link IDashboard} and a parent controller.
  */
 public interface IDashboard extends IComponent {
-
-    // Events
 
     /**
      * Method to add an event listener.

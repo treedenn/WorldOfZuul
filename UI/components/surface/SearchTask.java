@@ -1,7 +1,10 @@
-package UI.components.launcher;
+package UI.components.surface;
 
 import javafx.concurrent.Task;
 
+/**
+ * This class is used to animate the search button in the planet view.
+ */
 public class SearchTask extends Task {
 	private boolean isPermSearch;
 
@@ -9,6 +12,9 @@ public class SearchTask extends Task {
 		this.isPermSearch = isPermSearch;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected Object call() throws Exception {
 		final int max = 10;

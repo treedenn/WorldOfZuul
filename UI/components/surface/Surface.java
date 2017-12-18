@@ -2,10 +2,9 @@ package UI.components.surface;
 
 import BLL.ACQ.IItemStack;
 import BLL.entity.npc.NPC;
-import UI.components.launcher.SearchTask;
-import UI.components.components.Component;
-import UI.components.components.IEventListener;
-import UI.components.components.ISurface;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.IEventListener;
+import UI.components.icomponents.ISurface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -23,17 +22,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the spaceships view.
+ */
 public class Surface extends Component implements ISurface {
 
+    /** List of observers */
     List<IEventListener> onExitSubscribers = new ArrayList<>();
+    /** List of observers */
     List<IEventListener<IItemStack>> onPickupSubscribers = new ArrayList<>();
+    /** List of observers */
     List<IEventListener> onSearchSubscribers = new ArrayList<>();
+    /** List of observers */
     List<IEventListener<NPC>> onInteractSubscribers = new ArrayList<>();
+    /** List of observers */
     List<IEventListener> onTickListSubscribers = new ArrayList<>();
 
+    /** This list holds the reference to the items to be loaded into the component. */
     private ObservableList<IItemStack> items;
+    /** This list holds the reference to the NPCs to be loaded into the component. */
     private ObservableList<NPC> characters;
+    /** This attribute holds the reference to the currently selected item. */
     private IItemStack selectedItem;
+    /** This attribute is true if the planet has been searched. */
     private boolean isPermSearched;
     private Task task;
 
@@ -73,8 +84,15 @@ public class Surface extends Component implements ISurface {
     @FXML
     private ListView<NPC> characterList;
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public Surface(){super("surface_view.fxml");}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         scroller.vvalueProperty().addListener((observable, oldValue, newValue) -> {
@@ -82,6 +100,9 @@ public class Surface extends Component implements ISurface {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setup(String planetName, String planetDescription, String imagePath, boolean isSearched) {
         name.setText(planetName);
@@ -101,6 +122,9 @@ public class Surface extends Component implements ISurface {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setIsSearched(boolean isSearched) {
         isPermSearched = isSearched;
@@ -108,31 +132,49 @@ public class Surface extends Component implements ISurface {
         isSearchedLabel.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onExit(IEventListener listener) {
         onExitSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void OnTickList(IEventListener listener) {
         onTickListSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onPickup(IEventListener<IItemStack> listener) {
         onPickupSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onSearch(IEventListener listener) {
         onSearchSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onInteract(IEventListener<NPC> listener) {
         onInteractSubscribers.add(listener);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void tickList(IItemStack[] items, List<NPC> characters) {
         this.items = FXCollections.observableArrayList(items);
@@ -147,17 +189,30 @@ public class Surface extends Component implements ISurface {
         characterList.setCellFactory(param -> {return new CharacterFormatCell();});
     }
 
+    /**
+     * Method to notify all subscribers of the onExit()-event.
+     * @param event the type of event.
+     */
     @FXML
     void exit(ActionEvent event) {
         onExitSubscribers.forEach(listener -> listener.onAction(null));
     }
 
+
+    /**
+     * Method to notify all subscribers of the onPickup()-event.
+     * @param event the type of event.
+     */
     @FXML
     void pickup(ActionEvent event) {
         IItemStack selectedItem = itemList.getSelectionModel().getSelectedItem();
         if(selectedItem != null) onPickupSubscribers.forEach(listener -> listener.onAction(selectedItem));
     }
 
+    /**
+     * Method to notify all subscribers of the onSearch()-event.
+     * @param event the type of event.
+     */
     @FXML
     void search(ActionEvent event) {
         if (task == null || !task.isRunning()) {
@@ -183,6 +238,10 @@ public class Surface extends Component implements ISurface {
         }
     }
 
+    /**
+     * Method to notify all subscribers of the onInteract()-event.
+     * @param event the type of event.
+     */
     @FXML
     void interact(MouseEvent event) {
         NPC selectedCharacter = characterList.getSelectionModel().getSelectedItem();
@@ -191,7 +250,7 @@ public class Surface extends Component implements ISurface {
 
     /**
      * Method to toggle disability of pickup button.
-     * @param event
+     * @param event the type of event.
      */
     @FXML
     void selectItem(MouseEvent event) {

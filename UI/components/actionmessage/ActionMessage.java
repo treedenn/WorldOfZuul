@@ -1,27 +1,34 @@
 package UI.components.actionmessage;
 
-import UI.components.components.Component;
-import UI.components.components.IActionMessage;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.IActionMessage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI component controls the label in the top of the screen.
+ */
 public class ActionMessage extends Component implements IActionMessage {
 
-    @FXML
-    private Label gestureText;
 
-    @FXML
-    private Label keyHint;
+    @FXML private Label gestureText;
 
-    @FXML
-    private Label actionText;
+    @FXML private Label keyHint;
 
+    @FXML private Label actionText;
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public ActionMessage(){super("actionmessage_view.fxml");}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

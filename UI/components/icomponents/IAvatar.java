@@ -1,5 +1,8 @@
-package UI.components.components;
+package UI.components.icomponents;
 
+/**
+ * This interface defines the contract between components of type {@link IAvatar} and a parent controller.
+ */
 public interface IAvatar extends IComponent {
 
     /**

@@ -9,7 +9,7 @@ import BLL.entity.npc.actions.NPCQuizAction;
 import BLL.entity.npc.actions.NPCTerminateAction;
 import UI.components.actionmessage.ActionMessage;
 import UI.components.backpack.Backpack;
-import UI.components.components.*;
+import UI.components.icomponents.*;
 import UI.components.dashboard.Dashboard;
 import UI.components.dialog.Dialog;
 import UI.components.drawer.Drawer;
@@ -17,7 +17,7 @@ import UI.components.gameMap.GameMap;
 import UI.components.guide.Guide;
 import UI.components.hamburger.Hamburger;
 import UI.components.highscore.Highscore;
-import UI.components.launcher.StartController;
+import UI.components.launcher.LauncerController;
 import UI.components.notification.Notification;
 import UI.components.surface.Surface;
 import javafx.animation.AnimationTimer;
@@ -38,6 +38,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Super controller for the entire game view.
+ */
 public class GameController implements Initializable{
 
     /** Reference to the business logic. */
@@ -48,27 +51,42 @@ public class GameController implements Initializable{
     /** String attribute to keep track of name of planet the spaceship is hovering over. */
     private String planetHovering;
 
+    /** Reference to the current interacting NPC. */
     private NPC interactingNPC;
 
+    /** Attribute holding the current index of action during interaction with NPCs. */
     private int actionIndex;
 
+    /** Attribute holding the current object of type {@link NPCAction}. */
     private NPCAction currentAction;
 
-    /**  */
+    /** Boolean attribute holds information about visibility of the action message component.  */
     private boolean actionMessageIsVisible;
 
+    /** Object of type AnimationTimer used to tick components at a fixed tick rate. */
     private AnimationTimer animationTimer;
 
+    /** Reference to the nested {@link IGameMap} component. */
     private IGameMap map;
+    /** Reference to the nested {@link IBackpack} component. */
     private IBackpack backpack;
+    /** Reference to the nested {@link IHamburger} component. */
     private IHamburger hamburger;
+    /** Reference to the nested {@link IGuide} component. */
     private IGuide guide;
+    /** Reference to the nested {@link IDrawer} component. */
     private IDrawer drawer;
+    /** Reference to the nested {@link IDashboard} component. */
     private IDashboard dashboard;
+    /** Reference to the nested {@link ISurface} component. */
     private ISurface surface;
+    /** Reference to the nested {@link IActionMessage} component. */
     private IActionMessage actionMessage;
+    /** Reference to the nested {@link INotification} component. */
     private INotification notification;
+    /** Reference to the nested {@link IDialog} component. */
     private IDialog dialog;
+    /** Reference to the nested {@link IHighscore} component. */
     private IHighscore highscore;
 
     @FXML
@@ -83,10 +101,14 @@ public class GameController implements Initializable{
     @FXML
     private AnchorPane bottom;
 
+    /**
+     * Constructor.
+     * @param domain instance of the domain logic.
+     * @param stage reference to the application window.
+     */
     public GameController(Domain domain, Stage stage) {
         this.domain = domain;
         this.stage = stage;
-
         map = new GameMap();
         backpack = new Backpack();
         dashboard = new Dashboard();
@@ -99,9 +121,12 @@ public class GameController implements Initializable{
         dialog = new Dialog();
         highscore = new Highscore();
         planetHovering = "";
-
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources){
         // Consume KeyEvent for Space and Escape.
@@ -116,21 +141,26 @@ public class GameController implements Initializable{
             }
         });
 
+
+        // Loads the map, dashboard and hamburger component after initialization.
         ComponentLoader.loadComponent(main,map.getView(),0,0,0,0,false);
         ComponentLoader.loadComponent(bottom, dashboard.getView(),0,0,0,0, false);
         ComponentLoader.loadComponent(menu, hamburger.getView(), 0,0,0,0,false);
 
+        // Subscribing to events of the map component.
         map.onMovement(data -> {
             domain.getPlayer().setCoordX(data.getKey());
             domain.getPlayer().setCoordY(data.getValue());
         });
-
-        guide.onClose(data -> ComponentLoader.removeComponent(guide.getView()));
-
         map.renderPlanets(domain.getPlayer().getPlanets());
 
+        // Subscribing to events of the guide component.
+        guide.onClose(data -> ComponentLoader.removeComponent(guide.getView()));
+
+        // Subscribing to events of the hamburger component.
         hamburger.onOpenNav(data -> ComponentLoader.loadComponent(root, drawer.getView(), 0,-1,0,-1,true));
 
+        // Subscribing to events of the drawer component.
         drawer.onClose(data -> ComponentLoader.removeComponent(drawer.getView()));
         drawer.onMaximizeMinimize(data -> {
             stage.setFullScreen(!stage.isFullScreen());
@@ -146,25 +176,17 @@ public class GameController implements Initializable{
             }
         });
 
+        // Subscribing to events of the dashboard component.
+        dashboard.onHelp(data -> {
+            ComponentLoader.loadComponent(root, guide.getView(),0,0,0,0,true);
+        });
+
         dashboard.onBackpack(data -> {
             ComponentLoader.loadComponent(root, backpack.getView(), 0, 0, 0, 0, true);
             backpack.load(domain.getPlayer().getIInventory().getIContent());
         });
 
-
-
-
-        /** Method that handles continuation of game etc. */
-        tickBars();
-
-
-        dashboard.onHelp(data -> {
-            ComponentLoader.loadComponent(root, guide.getView(),0,0,0,0,true);
-        });
-
-
-
-        // BACKPACK----------------------------
+        // Subscribing to events of the backpack component.
         backpack.onUse(data -> {
             if (domain.useItem(data)) backpack.load(domain.getPlayer().getIInventory().getIContent());
             checkMessageContainer();
@@ -176,9 +198,8 @@ public class GameController implements Initializable{
             if(domain.dropItem(data)) backpack.load(domain.getPlayer().getIInventory().getIContent());
             checkMessageContainer();
         });
-        // **************************************************
 
-        // SURFACE ----------------------------
+        // Subscribing to events of the surface component.
 
         surface.onExit(data -> {
             ComponentLoader.removeComponent(surface.getView());
@@ -206,18 +227,14 @@ public class GameController implements Initializable{
             startInteract(data, 0);
         });
 
-        // **************************************************
-
-        // DIALOG -----------------------------
+        // Subscribing to events of the dialog component.
         dialog.onContinue(data -> nextAction());
 
         dialog.onAnswer(data -> setAnswer(data) );
 
         dialog.onQuizAnswer(data -> setQuizAnswer(data));
 
-        // **************************************************
-
-        // HIGHSCORE --------------------------
+        // Subscribing to events of the highscore component.
 
         highscore.onSaveHighscore(data -> {
             domain.addPlayerToHighscore(data);
@@ -228,7 +245,7 @@ public class GameController implements Initializable{
                 e.printStackTrace();
             }
         });
-
+        tickBars();
         highscore.onExit(data -> {
             domain.deleteLoadingFile();
             try {
@@ -237,12 +254,10 @@ public class GameController implements Initializable{
                 e.printStackTrace();
             }
         });
-
-        // **************************************************
-
-
+        // Checks the domain for new messages to the user.
         checkMessageContainer();
 
+        // Starts the fixed tick rate for rendering the game.
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -253,6 +268,10 @@ public class GameController implements Initializable{
 
     }
 
+    /**
+     * Method to be called at a fixed tick rate by the instantiated {@link AnimationTimer}.
+     * This method is important for fluid rendering of the game.
+     */
     private void tick(){
         if(domain.isGameFinished()){
             ComponentLoader.loadComponent(root, highscore.getView(), 0,0,0,0,true);
@@ -266,22 +285,16 @@ public class GameController implements Initializable{
         } else{
             dashboard.getAvatar().setAvatar("morty");
         }
-
-
-
         NPC initiatorNPC = domain.interaction();
         if(initiatorNPC != null) {
             ComponentLoader.loadComponent(root,dialog.getView(),0,0,bottom.getHeight(),0,true);
             startInteract(initiatorNPC, 0);
         }
-
         domain.updateBuffs();
         double deltaTime = System.nanoTime();
         map.tick(deltaTime);
         map.keepWithinBoundaries(domain.getPlayer().getCoordX(), domain.getPlayer().getCoordY());
         if(map.getSpaceship().isMoving()) domain.decreaseFuelOnMove(60);
-
-
         int count = 0;
         int countOnTrue = 0;
         /** Collision detection: Sets {@link planetHovering} to planet name if collision is detected. */
@@ -308,6 +321,10 @@ public class GameController implements Initializable{
         tickBars(); // Keep fuel and backpack value updated.
     }
 
+    /**
+     * Method to handle key press events.
+     * @param event the key press event.
+     */
     @FXML
     void keyIsPressed(KeyEvent event) {
         if(event.getCode() == KeyCode.W){
@@ -327,6 +344,9 @@ public class GameController implements Initializable{
         }
     }
 
+    /**
+     * Method invoked when the space key is pressed to customize the functionality of space.
+     */
     void spaceIsPressed(){
         if(planetHovering != "" && domain.getPlayer().getCurrentPlanet() == null && !domain.isGameFinished()){
             if(domain.planetEnter(planetHovering)){
@@ -344,10 +364,17 @@ public class GameController implements Initializable{
         }
     }
 
+    /**
+     * Method to be called when escape is pressed to avoid unwanted side effects.
+     */
     private void escapeIsPressed(){
        drawer.setWindowState(stage.isFullScreen() ? "WINDOWED" : "FULLSCREEN");
     }
 
+    /**
+     * Method to handle when keys are released.
+     * @param event the key press event.
+     */
     @FXML
     void keyIsReleased(KeyEvent event) {
         if(event.getCode() == KeyCode.W){
@@ -409,8 +436,11 @@ public class GameController implements Initializable{
         }
     }
 
-
-
+    /**
+     * Method used to handle the start of an interactino with a NPC.
+     * @param npc   the npc to interact with.
+     * @param index the index of the npc's current action (0 on start).
+     */
     private void startInteract(NPC npc, int index){
         if(npc != null) {
             disableMovement();
@@ -428,6 +458,9 @@ public class GameController implements Initializable{
         }
     }
 
+    /**
+     * Method to handle the continuation of an interaction between the player and a NPC.
+     */
     private void nextAction(){
         domain.endInteract(interactingNPC, actionIndex);
         if(currentAction instanceof NPCTerminateAction){
@@ -442,6 +475,10 @@ public class GameController implements Initializable{
         }
     }
 
+    /**
+     * Method to communicate with the NPC with boolean values.
+     * @param answerYes
+     */
     private void setAnswer(Boolean answerYes){
         if(answerYes){
             ((NPCDialogAction) currentAction).setAnswer(true);
@@ -459,6 +496,10 @@ public class GameController implements Initializable{
         }
     }
 
+    /**
+     * Method to set the chosen quiz answer on interaction with the UnoX NPC.
+     * @param i
+     */
     private void setQuizAnswer(int i){
         NPCQuizAction npcQuizAction = (NPCQuizAction) currentAction;
         npcQuizAction.setAnswer(i);
@@ -466,9 +507,13 @@ public class GameController implements Initializable{
         checkMessageContainer();
     }
 
+    /**
+     * Method to switch back to the game launcher on exit, game won or game lost.
+     * @throws IOException
+     */
     private void switchGameView() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/components/launcher/launcher_view.fxml"));
-        StartController controller = new StartController(domain,stage);
+        LauncerController controller = new LauncerController(domain,stage);
         loader.setController(controller);
         Pane newRoot = loader.load();
         Scene scene = new Scene(newRoot, newRoot.getPrefWidth(), newRoot.getPrefHeight());
@@ -477,8 +522,6 @@ public class GameController implements Initializable{
         stage.setResizable(false);
 
     }
-
-
 
 }
 

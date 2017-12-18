@@ -1,7 +1,7 @@
 package UI.components.bar;
 
-import UI.components.components.Component;
-import UI.components.components.IBar;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.IBar;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -9,6 +9,9 @@ import javafx.scene.control.ProgressBar;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the backpack view.
+ */
 public class Bar extends Component implements IBar {
 
     @FXML
@@ -21,8 +24,15 @@ public class Bar extends Component implements IBar {
     private ProgressBar meter;
 
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public Bar(){super("bar_view.fxml");}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

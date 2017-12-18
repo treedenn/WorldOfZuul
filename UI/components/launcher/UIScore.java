@@ -1,5 +1,8 @@
 package UI.components.launcher;
 
+/**
+ * This class is used as a datatype for the highscore list.
+ */
 public class UIScore extends BLL.scoring.Score {
 	private int place;
 

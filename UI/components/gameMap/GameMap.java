@@ -1,7 +1,7 @@
 package UI.components.gameMap;
 
 import BLL.ACQ.IPlanet;
-import UI.components.components.*;
+import UI.components.icomponents.*;
 import UI.components.minimap.MiniMap;
 import UI.components.globe.Globe;
 import UI.components.spaceship.Spaceship;
@@ -22,16 +22,27 @@ import javafx.scene.shape.Circle;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * This concrete GUI handles the GameMap view.
+ */
 public class GameMap extends Component implements IGameMap {
 
+    /** List of observers */
     private List<IEventListener<AbstractMap.SimpleImmutableEntry<Double, Double>>> onMovementSubscribers = new ArrayList<>();
+    /** List of added UI repreentations of planets. */
     private List<IGlobe> planetsOnGameMap = new ArrayList<>();
 
-    IMiniMap miniMap;
-    ISpaceship spaceship;
+    /** Reference to the nested minimap component. */
+    private IMiniMap miniMap;
+    /** Reference to the nested spaceship component. */
+    private ISpaceship spaceship;
+    /** The camera is used to render the game as a pannable 2D game. */
     private Camera camera;
+    /** Reference to the root of the component. */
     private Group root;
+    /** This attribute hols the reference to the most outer node. */
     private Pane map;
+    /** Integer value defining the number of stars to be rendered on the game map. */
     private int numberOfStars = 200;
 
     @FXML
@@ -43,6 +54,10 @@ public class GameMap extends Component implements IGameMap {
     @FXML
     private AnchorPane upperRightCorner;
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     public GameMap(){
         super("gamemap_view.fxml");
         camera = new ParallelCamera();
@@ -52,6 +67,9 @@ public class GameMap extends Component implements IGameMap {
         spaceship = new Spaceship();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ComponentLoader.loadComponent(upperRightCorner, miniMap.getView(), 0,0,0,0,false);

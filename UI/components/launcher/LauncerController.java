@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 /**
  * The start controller for the game launcher
  */
-public class StartController implements Initializable{
+public class LauncerController implements Initializable{
 
 	private Domain domain;
 	private Stage stage;
@@ -47,7 +47,7 @@ public class StartController implements Initializable{
 	 * Constructor.
 	 * @param domain reference to domain logic.
 	 */
-	public StartController(Domain domain, Stage stage) {
+	public LauncerController(Domain domain, Stage stage) {
 		this.domain = domain;
 		this.stage = stage;
 	}
@@ -132,7 +132,7 @@ public class StartController implements Initializable{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/components/game/game_view.fxml"));
 		GameController controller = new GameController(domain, stage);
 		//FXMLLoader loader = new FXMLLoader(getClass().getResource("view/start_view.fxml"));
-		//StartController controller = new StartController(domain);
+		//LauncerController controller = new LauncerController(domain);
 		//controller.setStage(primaryStage);
 		loader.setController(controller);
 		AnchorPane pane = loader.load();
@@ -148,6 +148,9 @@ public class StartController implements Initializable{
 	}
 
 
+	/**
+	 * Method to config the highscore list view with proper formatting and data.
+	 */
 	private void configListView() {
 		List<IScore> highscore = domain.getHighscore();
 		List<UIScore> scores = new ArrayList<>();

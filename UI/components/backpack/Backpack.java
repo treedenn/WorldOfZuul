@@ -1,9 +1,9 @@
 package UI.components.backpack;
 
 import BLL.ACQ.IItemStack;
-import UI.components.components.Component;
-import UI.components.components.IBackpack;
-import UI.components.components.IEventListener;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.IBackpack;
+import UI.components.icomponents.IEventListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,12 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the backpack view.
+ */
 public class Backpack extends Component implements IBackpack{
 
+    /** List of observers */
     private List<IEventListener<IItemStack>> onUseSubscribers = new ArrayList<>();
+    /** List of observers */
     private List<IEventListener<IItemStack>> dropSubscribers = new ArrayList<>();
+    /** List of observers */
     private List<IEventListener<?>> closeSubscribers = new ArrayList<>();
+    /** ObservableList holds objects of type {@link IItemStack} to be loaded into the backpack view. */
     private ObservableList<IItemStack> inventory;
+    /** This attribute holds a reference to the current selceted {@link IItemStack} */
     private IItemStack selectedItem;
 
     @FXML
@@ -39,10 +47,16 @@ public class Backpack extends Component implements IBackpack{
     @FXML
     private Button useButton;
 
-    public Backpack() {
-        super("backpack_view.fxml");
-    }
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
+    public Backpack() { super("backpack_view.fxml");}
 
+    /**
+     * Constructor.
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -99,17 +113,29 @@ public class Backpack extends Component implements IBackpack{
         backpackItemList.setItems(inventory);
     }
 
+    /**
+     * Method to notify every subscriber of the onClose()-event.
+     * @param event the type of user event.
+     */
     @FXML
     void closeBackpack(ActionEvent event) {
         closeSubscribers.forEach(listener -> listener.onAction(null));
     }
 
+    /**
+     * Method to notify every subscriber of the onDrop()-event.
+     * @param event the type of user event.
+     */
     @FXML
     void drop(ActionEvent event) {
         IItemStack selectedItem = backpackItemList.getSelectionModel().getSelectedItem();
         dropSubscribers.forEach(listener -> listener.onAction(selectedItem));
     }
 
+    /**
+     * Method to notify every subscriber of the onUse()-event.
+     * @param event the type of user event.
+     */
     @FXML
     void use(ActionEvent event) {
         IItemStack selectedItem = backpackItemList.getSelectionModel().getSelectedItem();

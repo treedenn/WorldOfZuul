@@ -1,10 +1,10 @@
 package UI.components.minimap;
 
 import BLL.ACQ.IPlanet;
-import UI.components.components.Component;
-import UI.components.components.ComponentLoader;
-import UI.components.components.IGameMap;
-import UI.components.components.IMiniMap;
+import UI.components.icomponents.Component;
+import UI.components.icomponents.ComponentLoader;
+import UI.components.icomponents.IGameMap;
+import UI.components.icomponents.IMiniMap;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -14,6 +14,9 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * This concrete GUI handles the Minimap view.
+ */
 public class MiniMap extends Component implements IMiniMap {
 
     /** Attribute holding the relative size of mini map. */
@@ -31,6 +34,9 @@ public class MiniMap extends Component implements IMiniMap {
      */
     public MiniMap(){ super("minimap_view.fxml"); }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         scaleRatio = minimap.getPrefWidth()/IGameMap.mapWidth;
