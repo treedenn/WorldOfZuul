@@ -10,9 +10,7 @@ import BLL.entity.Movable;
 import BLL.entity.MovableEntity;
 import BLL.entity.npc.NPC;
 import BLL.entity.npc.SpacePirate;
-import BLL.entity.npc.actions.NPCAction;
 import BLL.entity.npc.actions.NPCActionHandler;
-import BLL.entity.npc.actions.NPCJumpAction;
 import BLL.entity.player.Player;
 import BLL.entity.player.Recipe;
 import BLL.entity.player.buff.Buff;
@@ -545,7 +543,8 @@ public class Game implements Domain {
 	 */
 	@Override
 	public boolean hasBeatenHighscore() {
-		int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
+		scoreHandler.setEndTime(scoreHandler.calculateTimeElapsed());
+		int points = scoreHandler.calculatePoints(scoreHandler.getEndTime(), player.getTotalFuelConsumption());
 		List<Score> scores = model.getHighscore();
 
 		for(Score score : scores) {
@@ -562,7 +561,7 @@ public class Game implements Domain {
 	 */
 	@Override
 	public void addPlayerToHighscore(String playerName) {
-		int points = scoreHandler.calculatePoints(player.getTotalFuelConsumption());
+		int points = scoreHandler.calculatePoints(scoreHandler.getEndTime(), player.getTotalFuelConsumption());
 		List<Score> scores = model.getHighscore();
 
 		if(scores.add(new Score(playerName, points))) {
@@ -577,7 +576,7 @@ public class Game implements Domain {
 	 */
 	@Override
 	public int getPlayerScore() {
-		return scoreHandler.calculatePoints(player.getTotalFuelConsumption());
+		return scoreHandler.calculatePoints(scoreHandler.getEndTime(), player.getTotalFuelConsumption());
 	}
 
 	/**
